@@ -1,0 +1,90 @@
+.main {
+    background-color: #fffdfd;
+    width: 65%;
+    height: 75vh;
+    margin: 2rem auto;
+    padding: 1rem;
+    box-shadow: 1px 1px 20px 0 rgba(49, 38, 115, 0.294);
+    border-radius: 5px;
+    margin-bottom: 80px;
+}
+
+.contact_header {
+    font-family: 'Nunito', sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.illustration_left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 60%;
+    margin-left: -40px;
+    margin-top: -50px;
+}
+
+img {
+    width: 100%;
+    display: inline-block;
+}
+
+
+
+.contact_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -33rem 42rem;
+    height: 400px;
+    width: 46%;
+    /* background-color: pink; */
+  }
+  
+  form {
+    width: 50%;
+    max-width: 400px;
+  }
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+
+}
+
+input,
+textarea {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: 1px solid rgb(193, 193, 193);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    resize: none;
+}
+
+
+button {
+  background-color:#596bac;
+  border-radius: 15px;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  height: 3rem;
+  padding: 0 2rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+}
+
+button:hover {
+  box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+  transition-duration: .1s;
+}
+
