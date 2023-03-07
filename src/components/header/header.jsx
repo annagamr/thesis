@@ -4,28 +4,27 @@ import { BsCart4 } from "react-icons/bs";
 import { RxPerson } from "react-icons/rx";
 import { MdQuestionAnswer } from "react-icons/md";
 import { IconContext } from "react-icons";
-import Badge from '@mui/material/Badge';
+import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <header className="top_header">
       <ul className="header_items_left">
-        
         <li>
-          <Link to="/about">About</Link>
+          <Link to="/about">ABOUT</Link>
         </li>
         <li>
-          <Link to="/shop">Shop</Link>
+          <Link to="/shop">SHOP</Link>
         </li>
         <li>
-          <Link to="/blog">Blog</Link>
+          <Link to="/blog">BLOG</Link>
         </li>
       </ul>
       <div className="logo_aurora">Aurora.</div>
       <ul className="header_items_right">
         <li>
-          <Link to='/register' className="icon">
+          <Link to="/register" className="icon">
             <IconContext.Provider
               value={{ color: "white", size: "20px", verticalAlign: "middle" }}
             >
@@ -34,9 +33,8 @@ const Header = () => {
           </Link>
         </li>
         <li>
-          <Link to='/cart' className="icon">
-          <Badge badgeContent={1} color="success">
-
+          <Link to="/cart" className="icon">
+            <Badge badgeContent={1} color="success">
               <IconContext.Provider
                 value={{
                   color: "white",
@@ -46,11 +44,11 @@ const Header = () => {
               >
                 <BsCart4 />
               </IconContext.Provider>
-              </Badge>
+            </Badge>
           </Link>
         </li>
         <li>
-          <Link to='/contact' className="icon">
+          <Link to="/contact" className="icon">
             <IconContext.Provider
               value={{ color: "white", size: "20px", verticalAlign: "middle" }}
             >
