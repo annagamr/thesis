@@ -37,12 +37,14 @@ const ContactPage = () => {
 
   return (
     <div className="main">
-      <div className="contact_header">Contact Our Support Team</div>
-      <div className="illustration_left">
+      <div className="header">Contact Our Support Team</div>
+      <div className="container">
+
+      <div className="illustration">
         <img src={illustration} alt="Contact illustration" />
       </div>
 
-      <div className="contact_form">
+      <div className="form-container">
 
         <form onSubmit={sendMessage}>
         <label htmlFor="full_name">Name: *</label>
@@ -75,6 +77,7 @@ const ContactPage = () => {
           />
           <button type="submit">Submit</button>
         </form>
+      </div>
       </div>
     </div>
   );
