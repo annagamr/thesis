@@ -12,7 +12,7 @@ const Header = () => {
     <header className="top_header">
       <ul className="header_items_left">
         <li>
-          <Link to="/about">ABOUT</Link>
+          <Link to="/">ABOUT</Link>
         </li>
         <li>
           <Link to="/shop">SHOP</Link>

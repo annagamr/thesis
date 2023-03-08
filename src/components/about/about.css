@@ -29,6 +29,7 @@
 
 .left-arrow {
     left: 5px;
+    z-index: 2;
 }
 
 .right-arrow {
@@ -38,6 +39,7 @@
 .wrapper {
     height: 100%;
     display: flex;
+    transition: 1s ease;
 }
 
 .slide {
@@ -45,20 +47,19 @@
     align-items: center;
     width: 100vw;
     height: 100vh;
-/* background-color: green; */
 }
 
-.imgcontainer,
-.titlecontainer {
+.img-container,
+.title-container {
     flex: 1;
     height: 100%;
 }
 
-.imgcontainer img {
-    height: 75%;
+.img-container img {
+    height: 85%;
 }
 
-.titlecontainer {
+.title-container {
     padding: 50px;
 }
 
