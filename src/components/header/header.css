@@ -16,7 +16,7 @@
 .header_items_right li a,
 .header_items_left li a {
   font-size: 1.2rem;
-  color: rgb(0, 0, 0);
+  color: black;
   text-decoration: none;
   font-family: 'Nunito', sans-serif;
 }

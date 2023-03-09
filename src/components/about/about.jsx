@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Cover1 from "./2.jpg";
-import Cover2 from "./cover.jpg";
+import cover1 from "./cover1.jpg";
+import cover2 from "./cover2.jpg";
+import cover3 from "./cover3.jpg";
+import cover4 from "./cover4.jpg";
+import cover5 from "./cover5.jpg";
+import cover6 from "./cover6.jpg";
 
 import "./about.css";
 import {
@@ -10,17 +14,32 @@ import {
 
 const slides = [
   {
-    imgSrc: Cover1,
+    imgSrc: cover1,
     title: "Rekindle your love for your skin with Re-commence",
     desc: "Welcome to Aurora, the ultimate destination for rejuvenating skincare products. Our online store offers a range of specially curated skincare essentials that help you rediscover your natural radiance. With Aurora, you can confidently embrace the journey of re-commencing your skincare routine and start loving your skin again.",
   },
   {
-    imgSrc: Cover2,
+    imgSrc: cover2,
     title: "Discover our new line of natural skincare products",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
   {
-    imgSrc: Cover2,
+    imgSrc: cover3,
+    title: "Discover our new line of natural skincare products",
+    desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
+  },
+  {
+    imgSrc: cover4,
+    title: "Discover our new line of natural skincare products",
+    desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
+  },
+  {
+    imgSrc: cover5,
+    title: "Discover our new line of natural skincare products",
+    desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
+  },
+  {
+    imgSrc: cover6,
     title: "Discover our new line of natural skincare products",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
@@ -33,7 +52,7 @@ const About = () => {
   };
 
   // define autoplay duration in milliseconds
-  const autoplayDuration = 3500;
+  const autoplayDuration = 4000;
 
   // set an interval to update the index every few seconds
   useEffect(() => {
@@ -45,9 +64,9 @@ const About = () => {
 
   const handleClick = (direction) => {
     if (direction == "left") {
-      setIndex(index > 0 ? index - 1 : 2);
+      setIndex(index > 0 ? index - 1 : 5);
     } else {
-      setIndex(index < 2 ? index + 1 : 0);
+      setIndex(index < 5 ? index + 1 : 0);
     }
   };
   return (
@@ -66,7 +85,7 @@ const About = () => {
               <div className="title-container">
                 <h2 className="title">{title}</h2>
                 <p className="desc">{desc}</p>
-                <button className="btn-discover">DISCOVER</button>
+                {/* <button className="btn-discover">DISCOVER</button> */}
               </div>
             </div>
           ))}
