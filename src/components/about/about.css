@@ -1,45 +1,25 @@
 .slider-body {
-    position: absolute;
-    top: 0;
+    position: absolute !important;
+    top: -4rem;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: -1;
-    height: 80vh;
+    height: 78vh;
     width: 100%;
     display: flex;
     overflow: hidden;
-}
-
-.slider-arrows {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.left-arrow,
-.right-arrow {
-    position: absolute;
-    width: 4rem;
-    height: 4rem;
-    color: black;
-    cursor: pointer;
-    opacity: 0.5;
-}
-
-.left-arrow {
-    left: 5px;
-    z-index: 2;
-}
-
-.right-arrow {
-    right: 5px;
+    border-bottom-left-radius: 3%;
+    border-bottom-right-radius: 3%;
+    background-color: hsl(6, 100%, 98%);
+    border-bottom: 1px dotted rgb(182, 181, 181);
 }
 
 .wrapper {
     height: 100%;
     display: flex;
     transition: 1s ease;
+
 }
 
 .slide {
@@ -47,6 +27,7 @@
     align-items: center;
     width: 100vw;
     height: 100vh;
+
 }
 
 .img-container,
@@ -64,7 +45,7 @@
 }
 
 .title {
-    margin-top: 2rem;
+    margin-top: 5rem;
     font-size: 3rem;
     font-family: 'Nunito', sans-serif;
 }
@@ -73,6 +54,7 @@
     font-size: 1.5rem;
     margin-top: 3rem;
     letter-spacing: 2px;
+    padding-top: 20px;
 }
 
 .btn-discover {
@@ -86,4 +68,61 @@
     color: white;
     background-color: rgb(187, 145, 145);
     padding: 10px;
+}
+
+.about-body {
+    height: 120vh;
+    display: flex;
+    margin-bottom: 100px;
+}
+
+
+.aurora-header {
+    margin: 40rem;
+    width: 35%;
+    font-size: 1.5rem;
+    color: black;
+    text-align: center;
+    line-height: 2.2rem;
+    letter-spacing: 0.25rem;
+}
+
+.reasons-why {
+    position: absolute;
+    width: 100%;
+    margin-top: 52rem;
+    font-size: 1.5rem;
+    color: black;
+    text-align: center;
+    line-height: 2.2rem;
+    letter-spacing: 0.25rem;
+    background-color: rgb(225, 215, 235);
+    height: 30vh;
+}
+
+.reason-boxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 13rem;
+}
+
+.reason {
+    width: 140px;
+    height: 150px;
+    margin: 0 50px;
+    background: rgba(255, 255, 255, 0.27);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border: 1px solid rgba(255, 255, 255, 0.27);
+    background: rgba(255, 255, 255, 0.27);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border: 1px solid rgba(255, 255, 255, 0.27);
+    padding: 10px;
+
 }

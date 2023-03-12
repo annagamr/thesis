@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import cover1 from "./cover1.jpg";
 import cover2 from "./cover2.jpg";
 import cover3 from "./cover3.jpg";
@@ -11,6 +11,8 @@ import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
+import { FaEnvira } from "react-icons/fa";
+import { IconContext } from "react-icons";
 
 const slides = [
   {
@@ -52,7 +54,7 @@ const About = () => {
   };
 
   // define autoplay duration in milliseconds
-  const autoplayDuration = 4000;
+  const autoplayDuration = 5000;
 
   // set an interval to update the index every few seconds
   useEffect(() => {
@@ -62,20 +64,9 @@ const About = () => {
     return () => clearInterval(interval);
   }, [index]);
 
-  const handleClick = (direction) => {
-    if (direction == "left") {
-      setIndex(index > 0 ? index - 1 : 5);
-    } else {
-      setIndex(index < 5 ? index + 1 : 0);
-    }
-  };
   return (
-    <div className="slider-body">
-      <div className="slider-arrows">
-        <MdKeyboardDoubleArrowLeft
-          className="slider-arrow left-arrow"
-          onClick={() => handleClick("left")}
-        />
+    <div className="about-body">
+      <div className="slider-body">
         <div className="wrapper" style={wrapperStyle} index={index}>
           {slides.map(({ imgSrc, title, desc }) => (
             <div className="slide">
@@ -90,10 +81,24 @@ const About = () => {
             </div>
           ))}
         </div>
-        <MdKeyboardDoubleArrowRight
-          className="slider-arrow right-arrow"
-          onClick={() => handleClick("right")}
-        />
+      </div>
+      <div className="aurora-header">
+        Unleash your skin's natural radiance with Aurora Premium skincare
+        solutions that illuminate your beauty from within
+      </div>
+      <div className="reasons-why">
+        <div className="why-title">Why Choose Aurora?</div>
+        <div className="reason-boxes">
+          <div className="reason">
+            <IconContext.Provider
+              value={{ color: "black", size: "40px", verticalAlign: "middle" }}
+            >
+              <FaEnvira />
+            </IconContext.Provider>
+          </div>
+          <div className="reason"></div>
+          <div className="reason"></div>
+        </div>
       </div>
     </div>
   );

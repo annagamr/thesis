@@ -3,10 +3,14 @@ import './footer.css';
 
 const Footer = () => {
   return (
-    <footer className="footer_bottom">
+
+<footer className="footer_bottom">
         
-      <p>&copy; {new Date().getFullYear()} Aurora Inc.</p>
-    </footer>
+        <p>&copy; {new Date().getFullYear()} Aurora Inc.</p>
+      </footer>
+    
+ 
+
   );
 };
 
