@@ -7,12 +7,10 @@ import cover5 from "./cover5.jpg";
 import cover6 from "./cover6.jpg";
 
 import "./about.css";
-import {
-  MdKeyboardDoubleArrowLeft,
-  MdKeyboardDoubleArrowRight,
-} from "react-icons/md";
+import { GiWorld } from "react-icons/gi";
 import { FaEnvira } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import { BsCurrencyDollar } from "react-icons/bs";
 
 const slides = [
   {
@@ -91,13 +89,33 @@ const About = () => {
         <div className="reason-boxes">
           <div className="reason">
             <IconContext.Provider
-              value={{ color: "black", size: "40px", verticalAlign: "middle" }}
+              value={{ color: "green", size: "35px", verticalAlign: "middle" }}
             >
               <FaEnvira />
             </IconContext.Provider>
+          <h1>Sustainability</h1>
+          <p>Reducing waste in environment through Re-commence</p>
           </div>
-          <div className="reason"></div>
-          <div className="reason"></div>
+       
+          <div className="reason">
+            <IconContext.Provider
+              value={{ color: "brown", size: "35px", verticalAlign: "middle" }}
+            >
+              <GiWorld />
+            </IconContext.Provider>
+            <h1>Accessibility</h1>
+            <p>Skincare accessible to people in different parts of the world</p>
+          </div>
+          <div className="reason">
+            <IconContext.Provider
+              value={{ color: "blue", size: "35px", verticalAlign: "middle" }}
+            >
+              <BsCurrencyDollar />
+            </IconContext.Provider>
+
+            <h1>Affordability</h1>
+            <p>Competitive pricing through lower fees and discounts</p>
+          </div>
         </div>
       </div>
     </div>
