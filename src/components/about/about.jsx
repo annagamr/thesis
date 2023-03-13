@@ -89,31 +89,31 @@ const About = () => {
         <div className="reason-boxes">
           <div className="reason">
             <IconContext.Provider
-              value={{ color: "green", size: "35px", verticalAlign: "middle" }}
+              value={{ color: "green", size: "40px", verticalAlign: "middle" }}
             >
               <FaEnvira />
             </IconContext.Provider>
-          <h1>Sustainability</h1>
+          <h1>Sustainable</h1>
           <p>Reducing waste in environment through Re-commence</p>
           </div>
        
           <div className="reason">
             <IconContext.Provider
-              value={{ color: "brown", size: "35px", verticalAlign: "middle" }}
+              value={{ color: "blue", size: "40px", verticalAlign: "middle" }}
             >
               <GiWorld />
             </IconContext.Provider>
-            <h1>Accessibility</h1>
+            <h1>Accessible</h1>
             <p>Skincare accessible to people in different parts of the world</p>
           </div>
           <div className="reason">
             <IconContext.Provider
-              value={{ color: "blue", size: "35px", verticalAlign: "middle" }}
+              value={{ color: "red", size: "40px", verticalAlign: "middle" }}
             >
               <BsCurrencyDollar />
             </IconContext.Provider>
 
-            <h1>Affordability</h1>
+            <h1>Affordable</h1>
             <p>Competitive pricing through lower fees and discounts</p>
           </div>
         </div>

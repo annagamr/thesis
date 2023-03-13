@@ -96,7 +96,7 @@
     text-align: center;
     line-height: 2.2rem;
     letter-spacing: 0.25rem;
-    background-color: #f9f6f6;
+    background-color: #f7d7d7;
     height: 30vh;
     padding-top: 20px;
 }
@@ -106,35 +106,40 @@
     justify-content: center;
     align-items: center;
     height: 13rem;
+    background-color: #ffffff7d;
 }
 
-.reason {
-    width: 150px;
-    height: 160px;
+ .reason {
+    width: 190px;
+    height: 180px;
     margin: 0 40px;
-    background: rgba(255, 255, 255, 0.27);
+    /* background: rgba(255, 255, 255, 0.27);
     border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
     backdrop-filter: blur(5.5px);
     -webkit-backdrop-filter: blur(5.5px);
     border: 1px solid rgba(255, 255, 255, 0.27);
-    background: rgba(255, 255, 255, 0.449);
+    background: rgb(255 255 255 / 74%);
     border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5.5px);
+    box-shadow: 0 4px 30px rgb(253 253 253 / 47%);
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(5.5px);
-    border: 1px solid rgb(255, 251, 251);
+    border: 1px solid rgb(255 255 255); */
     padding: 10px 5px;
-}
+} 
 
 .reason h1 {
-    font-size: 1rem;
+    font-size: 1.7rem;
     letter-spacing: 0.1rem;
 }
 
 .reason p {
     letter-spacing: normal;
-    font-size: 1rem;
-    line-height: 1rem;
-    color: black;
+    font-size: 1.25rem;
+    line-height: 1.6rem;
+    color: rgb(111, 111, 111);
+}
+
+.why-title {
+    background-color: #ffffffb5;
 }
