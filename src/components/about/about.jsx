@@ -7,10 +7,11 @@ import cover5 from "./cover5.jpg";
 import cover6 from "./cover6.jpg";
 
 import "./about.css";
-import { GiWorld } from "react-icons/gi";
-import { FaEnvira } from "react-icons/fa";
+// import { GiWorld } from "react-icons/gi";
+import { RiSeedlingFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
-import { BsCurrencyDollar } from "react-icons/bs";
+import { CiBadgeDollar } from "react-icons/ci";
+import { BsGlobe } from "react-icons/bs";
 
 const slides = [
   {
@@ -85,40 +86,47 @@ const About = () => {
         solutions that illuminate your beauty from within
       </div>
       <div className="reasons-why">
-        <div className="why-title">Why Choose Aurora?</div>
         <div className="reason-boxes">
           <div className="reason">
             <IconContext.Provider
               value={{ color: "green", size: "40px", verticalAlign: "middle" }}
             >
-              <FaEnvira />
+              <RiSeedlingFill />
             </IconContext.Provider>
-          <h1>Sustainable</h1>
-          <p>Reducing waste in environment through Re-commence</p>
+            <h1>Sustainable</h1>
+            <p>Reducing waste in environment through Re-commence</p>
           </div>
-       
+
           <div className="reason">
             <IconContext.Provider
-              value={{ color: "blue", size: "40px", verticalAlign: "middle" }}
+              value={{ color: "red", size: "45px", verticalAlign: "middle" }}
             >
-              <GiWorld />
-            </IconContext.Provider>
-            <h1>Accessible</h1>
-            <p>Skincare accessible to people in different parts of the world</p>
-          </div>
-          <div className="reason">
-            <IconContext.Provider
-              value={{ color: "red", size: "40px", verticalAlign: "middle" }}
-            >
-              <BsCurrencyDollar />
+              <CiBadgeDollar />
             </IconContext.Provider>
 
             <h1>Affordable</h1>
             <p>Competitive pricing through lower fees and discounts</p>
           </div>
+
+          <div className="reason">
+            <IconContext.Provider
+              value={{ color: "blue", size: "40px", verticalAlign: "middle" }}
+            >
+              <BsGlobe />
+            </IconContext.Provider>
+            <h1>Accessible</h1>
+            <p>Skincare accessible to people in different parts of the world</p>
+          </div>
         </div>
       </div>
+      <div className="how-title">
+        How does it work?
+      </div>
+      <p className="text-3xl text-gray-700 font-bold mb-5">
+        Welcome!
+      </p>
     </div>
+    
   );
 };
 export default About;

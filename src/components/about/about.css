@@ -12,7 +12,7 @@
     border-bottom-left-radius: 3%;
     border-bottom-right-radius: 3%;
     background-color: hsl(6, 100%, 98%);
-    border-bottom: 1px dotted rgb(182, 181, 181);
+    border-bottom: 1px solid rgb(182, 181, 181);
 }
 
 .wrapper {
@@ -71,16 +71,18 @@
 }
 
 .about-body {
-    height: 120vh;
+    height: 200vh;
     display: flex;
     margin-bottom: 100px;
 }
 
 
 .aurora-header {
-    margin: 40rem;
-    width: 35%;
-    font-size: 1.5rem;
+    position: absolute;
+    left: 40rem;
+    top: 47rem;
+    width: 38%;
+    font-size: 1.6rem;
     color: black;
     text-align: center;
     line-height: 2.2rem;
@@ -90,56 +92,60 @@
 .reasons-why {
     position: absolute;
     width: 100%;
-    margin-top: 52rem;
+    margin-top: 55rem;
     font-size: 1.5rem;
     color: black;
     text-align: center;
     line-height: 2.2rem;
     letter-spacing: 0.25rem;
-    background-color: #f7d7d7;
+    background-color: #f8aaaa;
     height: 30vh;
-    padding-top: 20px;
+    padding-top: 12px;
 }
 
 .reason-boxes {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 13rem;
-    background-color: #ffffff7d;
+    height: 16rem;
+    background: rgba(255, 255, 255, 0.53);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.8px);
+    -webkit-backdrop-filter: blur(6.8px);
+    border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
  .reason {
-    width: 190px;
+    width: 265px;
     height: 180px;
     margin: 0 40px;
-    /* background: rgba(255, 255, 255, 0.27);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
-    backdrop-filter: blur(5.5px);
-    -webkit-backdrop-filter: blur(5.5px);
-    border: 1px solid rgba(255, 255, 255, 0.27);
-    background: rgb(255 255 255 / 74%);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgb(253 253 253 / 47%);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(5.5px);
-    border: 1px solid rgb(255 255 255); */
     padding: 10px 5px;
 } 
 
 .reason h1 {
+    font-weight: normal;
     font-size: 1.7rem;
     letter-spacing: 0.1rem;
+    margin-top: 7px;
+
 }
 
 .reason p {
     letter-spacing: normal;
     font-size: 1.25rem;
-    line-height: 1.6rem;
+    line-height: 2rem;
     color: rgb(111, 111, 111);
+    margin-top: 10px;
 }
 
-.why-title {
-    background-color: #ffffffb5;
+.how-title {
+    position: absolute;
+    font-size: 1.6rem;
+    color: black;
+    text-align: center;
+    width: 100%;
+    top: 85rem;
+    line-height: 2.2rem;
+    letter-spacing: 0.25rem;
 }
