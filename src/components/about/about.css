@@ -1,5 +1,10 @@
+:root {
+    --primary-color: rgb(187, 145, 145);
+    --secondary-color: hsl(6, 100%, 98%);
+}
+
 .slider-body {
-    position: absolute !important;
+    position: absolute;
     top: -4rem;
     left: 0;
     right: 0;
@@ -11,7 +16,7 @@
     overflow: hidden;
     border-bottom-left-radius: 3%;
     border-bottom-right-radius: 3%;
-    background-color: hsl(6, 100%, 98%);
+    background-color: var(--secondary-color);
     border-bottom: 1px solid rgb(182, 181, 181);
 }
 
@@ -66,12 +71,12 @@
     width: 10rem;
     font-family: 'Nunito', sans-serif;
     color: white;
-    background-color: rgb(187, 145, 145);
+    background-color: var(--primary-color);
     padding: 10px;
 }
 
 .about-body {
-    height: 200vh;
+    height: 250vh;
     display: flex;
     margin-bottom: 100px;
 }
@@ -98,7 +103,7 @@
     text-align: center;
     line-height: 2.2rem;
     letter-spacing: 0.25rem;
-    background-color: #f8aaaa;
+    background-color: var(--secondary-color);
     height: 30vh;
     padding-top: 12px;
 }
@@ -116,12 +121,12 @@
     border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
- .reason {
+.reason {
     width: 265px;
     height: 180px;
     margin: 0 40px;
     padding: 10px 5px;
-} 
+}
 
 .reason h1 {
     font-weight: normal;
@@ -141,11 +146,78 @@
 
 .how-title {
     position: absolute;
-    font-size: 1.6rem;
+    font-size: 2rem;
     color: black;
     text-align: center;
     width: 100%;
-    top: 85rem;
+    top: 91rem;
     line-height: 2.2rem;
     letter-spacing: 0.25rem;
 }
+
+.info-image {
+    position: absolute;
+    /* width: 1000px;
+height: 900px; */
+    top: 81rem;
+    text-align: center;
+    left: 43rem;
+}
+
+.info-image img {
+    width: 25%;
+    height: 20%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    margin-top: 92rem;
+  }
+  
+  .image {
+    width: 30%;
+    height: auto;
+    max-width: 100%;
+    margin-left: 50px;
+  }
+  
+  .content {
+    flex-grow: 1;
+    font-size: 1.5rem;
+    line-height: 3rem;
+    text-align: center;
+    padding: 100px;
+  }
+  
+.most-popular {
+    position: absolute;
+    margin-top: 135rem;
+    margin-left: 57rem;
+}
+
+.star-icon {
+    width: 20%;
+}
+
+.star-icon img {
+    width: 100%;
+}
+
+  @media screen and (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      margin-top: 120rem;
+    }
+  
+    .image {
+      width: 50%;
+      margin-bottom: 20px;
+    }
+  }
+  
+
+  

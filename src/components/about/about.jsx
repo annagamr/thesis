@@ -5,9 +5,11 @@ import cover3 from "./cover3.jpg";
 import cover4 from "./cover4.jpg";
 import cover5 from "./cover5.jpg";
 import cover6 from "./cover6.jpg";
+import products from "./products.png";
+import store from "./store.jpg";
+import star from "./box.png";
 
 import "./about.css";
-// import { GiWorld } from "react-icons/gi";
 import { RiSeedlingFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
 import { CiBadgeDollar } from "react-icons/ci";
@@ -52,10 +54,7 @@ const About = () => {
     transform: `translateX(${index * -100}vw)`,
   };
 
-  // define autoplay duration in milliseconds
   const autoplayDuration = 5000;
-
-  // set an interval to update the index every few seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((index + 1) % slides.length);
@@ -119,14 +118,35 @@ const About = () => {
           </div>
         </div>
       </div>
-      <div className="how-title">
-        How does it work?
+      <div className="info-image">
+        <img src={products} alt="" />
       </div>
-      <p className="text-3xl text-gray-700 font-bold mb-5">
-        Welcome!
-      </p>
+      <div className="how-title">Who Are We?</div>
+      <div class="container">
+        <img src={store} alt="your-image" class="image" />
+        <div class="content">
+          <p>
+            At [Store Name], we believe that healthy, glowing skin is the key to
+            confidence and beauty.<br/> Our mission is to provide you with
+            high-quality skincare products that nourish and protect your skin,
+            helping you to look and feel your best every day. We understand that
+            choosing the right skincare products can be overwhelming, which is
+            why we are committed to providing you with expert advice and
+            guidance. <br/> At [Store Name], we are passionate about natural,
+            eco-friendly, and cruelty-free skincare. That's why we carefully
+            curate our selection of products to ensure that they meet our high
+            standards of quality and sustainability.
+          </p>
+        </div>
+      </div>
+
+      <div className="most-popular">
+        <div className="star-icon">
+          <img src={star} alt="" />
+        </div>
+      </div>
+     
     </div>
-    
   );
 };
 export default About;
