@@ -14,6 +14,9 @@ import perfume from "./perfume.png";
 import shampoo from "./shampoo.png";
 import sun from "./sun-block.png";
 import order from "./order.png";
+import sell from "./start-selling.png";
+import skin from "./skin.jpg";
+
 
 
 
@@ -140,7 +143,7 @@ const About = () => {
         <img src={products} alt="" />
       </div>
       <div className="how-title">Who Are We?</div>
-      <div class="container">
+      <div class="intro-container">
         <img src={store} alt="your-image" class="image" />
         <div class="content">
           <p>
@@ -179,6 +182,10 @@ const About = () => {
             <img src={lotion} alt="" />
             <h1>Body Care</h1>
           </div>
+          <div className="category">
+           <img src={sun} alt="" />
+            <h1>Sun Care</h1>
+          </div>
           </div>
           <div className="row">
           <div className="category">
@@ -194,8 +201,34 @@ const About = () => {
            <img src={sun} alt="" />
             <h1>Sun Care</h1>
           </div>
+         
         </div>
+        
       </div>
+      <div className="guide">
+      <div className="sell-image">
+        <img src={sell} alt="" />
+      </div>
+      </div>
+      
+      <div class="how-to">
+  <div class="how-image">
+    <img src={skin} alt="Your Image"/>
+  </div>
+  <div class="list-container">
+    <h2>Here's a Guide to Create a Shop</h2>
+    <ul>
+      <li>List Item 1</li>
+      <p>fdafafadfa</p>
+      <li>List Item 2</li>
+      <p>fdafafadfa</p>
+      <li>List Item 3</li>
+      <p>fdafafadfa</p>
+      <li>List Item 3</li>
+      <p>fdafafadfa</p>
+    </ul>
+  </div>
+</div>
     </div>
   );
 };
