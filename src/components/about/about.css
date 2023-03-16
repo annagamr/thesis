@@ -76,7 +76,7 @@
 }
 
 .about-body {
-    height: 250vh;
+    height: 400vh;
     display: flex;
     margin-bottom: 100px;
 }
@@ -157,8 +157,6 @@
 
 .info-image {
     position: absolute;
-    /* width: 1000px;
-height: 900px; */
     top: 81rem;
     text-align: center;
     left: 43rem;
@@ -176,48 +174,99 @@ height: 900px; */
     justify-content: space-between;
     padding: 20px;
     margin-top: 92rem;
-  }
-  
-  .image {
+}
+
+.image {
     width: 30%;
     height: auto;
     max-width: 100%;
     margin-left: 50px;
-  }
-  
-  .content {
+}
+
+.content {
     flex-grow: 1;
     font-size: 1.5rem;
     line-height: 3rem;
     text-align: center;
     padding: 100px;
-  }
-  
+}
+
 .most-popular {
     position: absolute;
-    margin-top: 135rem;
-    margin-left: 57rem;
+    margin-top: 137rem;
+    margin-left: 51rem;
 }
 
 .star-icon {
-    width: 20%;
+    width:110%;
 }
 
 .star-icon img {
     width: 100%;
 }
 
-  @media screen and (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      margin-top: 120rem;
-    }
-  
-    .image {
-      width: 50%;
-      margin-bottom: 20px;
-    }
-  }
-  
+.category-boxes {
+    width: 100%;
+    position: absolute;
+    top: 150rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25rem;
+    background: rgb(191 195 223 / 53%);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.8px);
+    -webkit-backdrop-filter: blur(6.8px);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    flex-direction: column;
 
-  
+}
+
+
+.category {
+    background-color: white;
+    border-radius: 20px;
+    flex: 1;
+    padding: 10px;
+    margin: 20px;
+    width: 9rem;
+    height: 10rem;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+.row {
+    display: flex;
+    flex: 1;
+}
+
+.category h1 {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    font-weight: normal;
+    width: 100%;
+}
+.category img {
+    width: 5rem;
+}
+
+.category:hover{
+    border: 1px solid #00838d;
+    transform: scale(1.05);
+    transition: 0.5s all;
+
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        margin-top: 120rem;
+    }
+
+    .image {
+        width: 50%;
+        margin-bottom: 20px;
+    }
+}

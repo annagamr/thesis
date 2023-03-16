@@ -7,7 +7,15 @@ import cover5 from "./cover5.jpg";
 import cover6 from "./cover6.jpg";
 import products from "./products.png";
 import store from "./store.jpg";
-import star from "./box.png";
+import cream from "./cream.png";
+import makeup from "./primer.png";
+import lotion from "./lotion.png";
+import perfume from "./perfume.png";
+import shampoo from "./shampoo.png";
+import sun from "./sun-block.png";
+import order from "./order.png";
+
+
 
 import "./about.css";
 import { RiSeedlingFill } from "react-icons/ri";
@@ -45,6 +53,31 @@ const slides = [
     imgSrc: cover6,
     title: "Discover our new line of natural skincare products",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
+  },
+];
+
+const reasons = [
+  {
+    icon: <RiSeedlingFill />,
+    color: "green",
+    size: "40px",
+    title: "Sustainable",
+    description: "Reducing waste in environment through Re-commence",
+  },
+  {
+    icon: <CiBadgeDollar />,
+    color: "red",
+    size: "45px",
+    title: "Affordable",
+    description: "Competitive pricing through lower fees and discounts",
+  },
+  {
+    icon: <BsGlobe />,
+    color: "blue",
+    size: "40px",
+    title: "Accessible",
+    description:
+      "Skincare accessible to people in different parts of the world",
   },
 ];
 
@@ -86,36 +119,21 @@ const About = () => {
       </div>
       <div className="reasons-why">
         <div className="reason-boxes">
-          <div className="reason">
-            <IconContext.Provider
-              value={{ color: "green", size: "40px", verticalAlign: "middle" }}
-            >
-              <RiSeedlingFill />
-            </IconContext.Provider>
-            <h1>Sustainable</h1>
-            <p>Reducing waste in environment through Re-commence</p>
-          </div>
-
-          <div className="reason">
-            <IconContext.Provider
-              value={{ color: "red", size: "45px", verticalAlign: "middle" }}
-            >
-              <CiBadgeDollar />
-            </IconContext.Provider>
-
-            <h1>Affordable</h1>
-            <p>Competitive pricing through lower fees and discounts</p>
-          </div>
-
-          <div className="reason">
-            <IconContext.Provider
-              value={{ color: "blue", size: "40px", verticalAlign: "middle" }}
-            >
-              <BsGlobe />
-            </IconContext.Provider>
-            <h1>Accessible</h1>
-            <p>Skincare accessible to people in different parts of the world</p>
-          </div>
+          {reasons.map((reason, index) => (
+            <div className="reason" key={index}>
+              <IconContext.Provider
+                value={{
+                  color: reason.color,
+                  size: reason.size,
+                  verticalAlign: "middle",
+                }}
+              >
+                {reason.icon}
+              </IconContext.Provider>
+              <h1>{reason.title}</h1>
+              <p>{reason.description}</p>
+            </div>
+          ))}
         </div>
       </div>
       <div className="info-image">
@@ -127,25 +145,57 @@ const About = () => {
         <div class="content">
           <p>
             At [Store Name], we believe that healthy, glowing skin is the key to
-            confidence and beauty.<br/> Our mission is to provide you with
-            high-quality skincare products that nourish and protect your skin,
-            helping you to look and feel your best every day. We understand that
-            choosing the right skincare products can be overwhelming, which is
-            why we are committed to providing you with expert advice and
-            guidance. <br/> At [Store Name], we are passionate about natural,
-            eco-friendly, and cruelty-free skincare. That's why we carefully
-            curate our selection of products to ensure that they meet our high
-            standards of quality and sustainability.
+            confidence and beauty.
+            <br /> Our mission is to provide you with high-quality skincare
+            products that nourish and protect your skin, helping you to look and
+            feel your best every day. We understand that choosing the right
+            skincare products can be overwhelming, which is why we are committed
+            to providing you with expert advice and guidance. <br /> At [Store
+            Name], we are passionate about natural, eco-friendly, and
+            cruelty-free skincare. That's why we carefully curate our selection
+            of products to ensure that they meet our high standards of quality
+            and sustainability.
           </p>
         </div>
       </div>
 
       <div className="most-popular">
         <div className="star-icon">
-          <img src={star} alt="" />
+              <img src={order} alt="" />
+   </div>
+      </div>
+      <div className="category-boxes">
+        <div className="row">
+          <div className="category">
+         <img src={cream} alt="" />
+            <h1>Face Care</h1>
+          </div>
+          <div className="category">
+             <img src={makeup} alt="" />
+            <h1>Make Up</h1>
+          </div>
+        
+          <div className="category">
+            <img src={lotion} alt="" />
+            <h1>Body Care</h1>
+          </div>
+          </div>
+          <div className="row">
+          <div className="category">
+            <img src={perfume} alt="" />
+            <h1>Perfume</h1>
+          </div>
+       
+          <div className="category">
+            <img src={shampoo} alt="" />
+            <h1>Hair Care</h1>
+          </div>
+          <div className="category">
+           <img src={sun} alt="" />
+            <h1>Sun Care</h1>
+          </div>
         </div>
       </div>
-     
     </div>
   );
 };
