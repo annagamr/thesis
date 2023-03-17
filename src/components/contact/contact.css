@@ -5,24 +5,18 @@
   --font-family: 'Nunito', sans-serif;
 }
 .contact-page{
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100vh;
-  background-color: white;
+  height: 87.3vh;
+  background-color: #eaeef2;
 }
 .main {
-  background-color: var(--color-background);
-  width: 80rem;
-  margin: 7.7rem auto;
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  width: 70rem;
+  margin: 5rem 27rem;
   padding: 1rem;
   box-shadow: 1px 1px 20px 0 var(--color-shadow);
-  border-radius: 0.3rem;
-  margin-bottom: 5rem;
+  border-radius: 2rem;
+  /* margin-bottom: 5rem; */
 }
 
 .container {
@@ -37,22 +31,21 @@
   font-size: 2rem;
   text-align: center;
   padding-top: 1.25rem;
+  padding-left: 30rem;
   font-weight: bold;
-  color: rgb(250, 92, 92);
+  color: black;
 }
 
 .illustration {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  background-image: url(./contact-illustration.jpg);
+  background-size: cover;
+  height: 117%;
   width: 50%;
+  margin-left: -87px;
+  margin-bottom: 63px;
+  border-radius: 2rem;
 }
 
-.illustration img {
-  width: 100%;
-  display: inline-block;
-}
 
 .form-container {
   display: flex;
@@ -70,7 +63,7 @@ form {
 form label {
   color: black;
   display: block;
-  margin-bottom: 0.3rem;
+  margin-bottom: 1rem;
   font-weight: bold;
   font-family: var(--font-family);
 }
@@ -79,7 +72,7 @@ form input,
 form textarea {
   display: block;
   width: 100%;
-  padding: 1rem;
+  padding: 1.2rem;
   border: 1px solid rgb(159, 169, 206);
   border-radius: 0.6rem;
   margin-bottom: 1.25rem;

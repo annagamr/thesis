@@ -17,9 +17,6 @@ import order from "./order.png";
 import sell from "./start-selling.png";
 import skin from "./skin.jpg";
 
-
-
-
 import "./about.css";
 import { RiSeedlingFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
@@ -164,71 +161,82 @@ const About = () => {
 
       <div className="most-popular">
         <div className="star-icon">
-              <img src={order} alt="" />
-   </div>
+          <img src={order} alt="" />
+        </div>
       </div>
       <div className="category-boxes">
         <div className="row">
           <div className="category">
-         <img src={cream} alt="" />
+            <img src={cream} alt="" />
             <h1>Face Care</h1>
           </div>
           <div className="category">
-             <img src={makeup} alt="" />
+            <img src={makeup} alt="" />
             <h1>Make Up</h1>
           </div>
-        
+
           <div className="category">
             <img src={lotion} alt="" />
             <h1>Body Care</h1>
           </div>
           <div className="category">
-           <img src={sun} alt="" />
+            <img src={sun} alt="" />
             <h1>Sun Care</h1>
           </div>
-          </div>
-          <div className="row">
+        </div>
+        <div className="row">
           <div className="category">
             <img src={perfume} alt="" />
             <h1>Perfume</h1>
           </div>
-       
+
           <div className="category">
             <img src={shampoo} alt="" />
             <h1>Hair Care</h1>
           </div>
           <div className="category">
-           <img src={sun} alt="" />
+            <img src={sun} alt="" />
             <h1>Sun Care</h1>
           </div>
-         
         </div>
-        
       </div>
       <div className="guide">
-      <div className="sell-image">
-        <img src={sell} alt="" />
+        <div className="sell-image">
+          <img src={sell} alt="" />
+        </div>
       </div>
-      </div>
-      
+
       <div class="how-to">
-  <div class="how-image">
-    <img src={skin} alt="Your Image"/>
-  </div>
-  <div class="list-container">
-    <h2>Here's a Guide to Create a Shop</h2>
-    <ul>
-      <li>List Item 1</li>
-      <p>fdafafadfa</p>
-      <li>List Item 2</li>
-      <p>fdafafadfa</p>
-      <li>List Item 3</li>
-      <p>fdafafadfa</p>
-      <li>List Item 3</li>
-      <p>fdafafadfa</p>
-    </ul>
-  </div>
-</div>
+        <div class="how-image">
+          <img src={skin} alt="Your Image" />
+        </div>
+        <div class="list-container">
+          <h2>Here's a Guide to Create a Shop</h2>
+          <ol>
+            <li>Sign up</li>
+            <p>
+              Create an account with an e-commerce platform of your choice by
+              providing basic information such as name, email, and password.
+            </p>
+            <li>Customize your shop</li>
+            <p>
+              Choose a name and theme for your shop, and upload a logo and cover
+              photo. Set up payment and shipping options.
+            </p>
+            <li>Add Products</li>
+            <p>
+              Add product details such as name, description, price, and images.
+              Choose categories and tags to help customers find your products.
+            </p>
+            <li>Start Selling</li>
+            <p>
+              Publish your shop and share it on social media. Respond to
+              customer inquiries, fulfill orders, and track sales data to
+              improve your shop.
+            </p>
+          </ol>
+        </div>
+      </div>
     </div>
   );
 };

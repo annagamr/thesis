@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import illustration from "./contact-illustration.png";
+import illustration from "./contact-illustration.jpg";
 import "./contact.css";
 import { send } from "emailjs-com";
 
@@ -42,7 +42,7 @@ const ContactPage = () => {
       <div className="container">
 
       <div className="illustration">
-        <img src={illustration} alt="Contact illustration" />
+        {/* <img src={illustration} alt="Contact illustration" /> */}
       </div>
 
       <div className="form-container">

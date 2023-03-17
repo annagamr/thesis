@@ -5,14 +5,9 @@
     height: 70vh;
 }
 .register-page{
-    background-color: #fdfdff;
-    height: 93.7vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
+    background-image: url("./bc.jpg");
+    background-size: cover;
+    height: 87vh;
 }
 .create-shop,
 .become-user {
@@ -22,12 +17,14 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    border: 1px solid rgb(204, 208, 241);
+    border: 1px solid black;
     margin: 0 10px;
     border-radius: 20px;
-    box-shadow: rgba(255, 255, 255, 0.25) 0px 13px 27px -5px, rgba(255, 255, 255, 0.3) 0px 8px 16px -8px;
-    background-color: rgb(40 40 40);
-
+    background: rgba(255, 255, 255, 0.409);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .top-image img {
@@ -56,20 +53,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom:-25px;
-    padding-top: 120px;
+    margin-bottom:-20px;
+    padding-top: 80px;
     font-weight: bold;
-    color: rgb(244, 76, 76);
+    color: white;
     font-family: 'Dancing Script', cursive;
 }
 
 .btn1,
 .btn2 {
-    background-color: white;
+    background-color: #141c27a6;
     border: 1px solid rgb(171, 171, 171);
     border-radius: 1.5rem;
     box-sizing: border-box;
-    color: black;
+    color: white;
     cursor: pointer;
     display: inline-block;
     font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
@@ -80,7 +77,7 @@
     text-align: center;
     text-decoration: none #0d172a solid;
     transition: all .1s cubic-bezier(.4, 0, .2, 1);
-    box-shadow: 1px 1px 20px 1px rgb(221, 188, 229);
+    box-shadow: 1px 1px 20px 1px rgb(111, 111, 111);
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
