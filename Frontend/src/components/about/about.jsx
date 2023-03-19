@@ -140,9 +140,9 @@ const About = () => {
         <img src={products} alt="" />
       </div>
       <div className="how-title">Who Are We?</div>
-      <div class="intro-container">
-        <img src={store} alt="your-image" class="image" />
-        <div class="content">
+      <div className="intro-container">
+        <img src={store} alt="your-image" className="image" />
+        <div className="content">
           <p>
             At [Store Name], we believe that healthy, glowing skin is the key to
             confidence and beauty.
@@ -206,11 +206,11 @@ const About = () => {
         </div>
       </div>
 
-      <div class="how-to">
-        <div class="how-image">
+      <div className="how-to">
+        <div className="how-image">
           <img src={skin} alt="Your Image" />
         </div>
-        <div class="list-container">
+        <div className="list-container">
           <h2>Here's a Guide to Create a Shop</h2>
           <ol>
             <li>Sign up</li>
