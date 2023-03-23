@@ -1,84 +1,67 @@
+//Setting up Express server
 const express = require("express");
-const cors = require("cors");
-
 const app = express();
+const PORT = process.env.PORT || 3002; //Express server will run on port 3002
 
+//Setting up Cross Original Resource Sharing options for our server
+const cors = require("cors"); //importing middleware package for server
+//Server will allow requests from this specific origin
 var corsOptions = {
-    origin: "http://localhost:3001"
+  origin: "http://localhost:3001"
 };
-
+//Requests that come to our application first will go through our cors middleware function which will check the origin of request
 app.use(cors(corsOptions));
+//express.json is a middleware function it will parse incoming http request body in json format
 app.use(express.json());
+//handling requests that has url-encoded payloads, extended is set to true because we want to parse rich object and array data in url-encoded payload.
 app.use(express.urlencoded({ extended: true }));
 
-// simple route
+
+app.listen(PORT, () => {
+  console.log(`Express server on port: ${PORT}`);
+});
+
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to my application." });
-  });
+  res.json({ message: "Welcome to my application." });
+});
 
-  const PORT = process.env.PORT || 3002;
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
-  });
-
-  // routes
+// routes
 require('../Backend/Routes/auth.routes')(app);
 require('../Backend/Routes/user.routes')(app);
 
-  const db = require("./Models");
-  const Role = db.role;
-  const dbConfig = require("./Config/mongodb")
-  db.mongoose
-    .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+//initializing a MongoDB database and db object
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
+const db = {
+  mongoose: mongoose,
+  user: require('./Models/user.model'),
+  role: require('./Models/role.model'),
+  ROLES: ['user', 'admin', 'moderator']
+};
+//x-initializing a MongoDB database and db object-x\\
+
+const Role = db.role;
+async function connectAndInitialize() {
+  try {
+    await db.mongoose.connect(`mongodb://127.0.0.1:27017/aurora_database`, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
-    .then(() => {
-      console.log("Successfully connect to MongoDB.");
-      initial();
-    })
-    .catch(err => {
-      console.error("Connection error", err);
-      process.exit();
+      useUnifiedTopology: true,
     });
-  
-  function initial() {
-    Role.estimatedDocumentCount().then((count) => {
-      if (count === 0) {
-        new Role({
-          name: "user"
-        }).save().then(res => {
-          console.log("added 'user' to roles collection");
+    console.log("Connected to database!");
 
-        }).catch(err => {
-          if (err) {
-            console.log("error", err);
-          }
-          });
-  
-        new Role({
-          name: "moderator"
-        }).save().then(res => {
-          console.log("added 'moderator' to roles collection");
-
-        }).catch(err => {
-          if (err) {
-            console.log("error", err);
-          }
-          });
-  
-        new Role({
-          name: "admin"
-        }).save().then(res => {
-          console.log("added 'admin' to roles collection");
-
-        }).catch(err => {
-          if (err) {
-            console.log("error", err);
-          }
-          });
-      }
-    }).catch(err => {
-      console.log(err)
-    });
+    const count = await Role.estimatedDocumentCount();
+    if (count === 0) {
+      await Role.insertMany([
+        { name: "user" },
+        { name: "moderator" },
+        { name: "admin" },
+      ]);
+      console.log("Roles have been initialized.");
+    }
+  } catch (error) {
+    console.error("Connection error:", error.message);
+    process.exit(1);
   }
+}
+connectAndInitialize();
