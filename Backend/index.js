@@ -29,19 +29,8 @@ app.get("/", (req, res) => {
 require('../Backend/Routes/auth.routes')(app);
 require('../Backend/Routes/user.routes')(app);
 
-//initializing a MongoDB database and db object
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
 
-const db = {
-  mongoose: mongoose,
-  user: require('./Models/user.model'),
-  role: require('./Models/role.model'),
-  ROLES: ['user', 'admin', 'moderator']
-};
-//x-initializing a MongoDB database and db object-x\\
-
-const Role = db.role;
+const db = require("./Models")
 async function connectAndInitialize() {
   try {
     await db.mongoose.connect(`mongodb://127.0.0.1:27017/aurora_database`, {
@@ -50,9 +39,9 @@ async function connectAndInitialize() {
     });
     console.log("Connected to database!");
 
-    const count = await Role.estimatedDocumentCount();
+    const count = await db.role.estimatedDocumentCount();
     if (count === 0) {
-      await Role.insertMany([
+      await db.role.insertMany([
         { name: "user" },
         { name: "moderator" },
         { name: "admin" },
