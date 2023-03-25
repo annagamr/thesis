@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { isEmail } from "validator";
 import axios from "axios";
+import "./userRegister.css";
 
 function register(username, email, password) {
   return axios.post("http://localhost:3002/api/auth/signup", {
@@ -102,22 +103,18 @@ const UserRegister = () => {
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
+    <div className="registration-page">
+      <div className="registration-form">
+        <div className="title">
+          <h2>Welcome!</h2> <br /> <h3>Fill the Form to Register!</h3>
+        </div>
         <form onSubmit={handleRegister}>
           {!successful && (
             <div>
-              <div className="form-group">
+              <div className="item-username">
                 <label htmlFor="username">Username</label>
                 <input
                   type="text"
-                  className="form-control"
                   name="username"
                   value={username}
                   onChange={updateUsername}
@@ -125,11 +122,10 @@ const UserRegister = () => {
                 />
               </div>
 
-              <div className="form-group">
+              <div className="item-email">
                 <label htmlFor="email">Email</label>
                 <input
                   type="text"
-                  className="form-control"
                   name="email"
                   value={email}
                   onChange={updateEmail}
@@ -137,11 +133,10 @@ const UserRegister = () => {
                 />
               </div>
 
-              <div className="form-group">
+              <div className="item-password">
                 <label htmlFor="password">Password</label>
                 <input
                   type="password"
-                  className="form-control"
                   name="password"
                   value={password}
                   onChange={updatePassword}
@@ -149,23 +144,12 @@ const UserRegister = () => {
                 />
               </div>
 
-              <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
+              <div className="signup-button">
+                <button>Sign Up</button>
               </div>
             </div>
           )}
-          {message && (
-            <div className="form-group">
-              <div
-                className={
-                  successful ? "alert alert-success" : "alert alert-danger"
-                }
-                role="alert"
-              >
-                {message}
-              </div>
-            </div>
-          )}
+          {message && <div className="error">{message}</div>}
         </form>
       </div>
     </div>
