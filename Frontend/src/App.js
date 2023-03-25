@@ -8,6 +8,8 @@ import Blog from "./components/blog/blog";
 import Register from "./components/register/register";
 import Cart from "./components/cart/cart";
 import ContactPage from "./components/contact/contact";
+import UserRegister from "./components/sign up/userRegister";
+import Login from "./components/login/login";
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/usersignup" element={<UserRegister />} />
+          <Route path="/signin" element={<Login />} />
 
         </Routes>
         <Footer />

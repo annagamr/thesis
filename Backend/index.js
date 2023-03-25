@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3002; //Express server will run on port 3002
 const cors = require("cors"); //importing middleware package for server
 //Server will allow requests from this specific origin
 var corsOptions = {
-  origin: "http://localhost:3001"
+  origin: "http://localhost:3000"
 };
 //Requests that come to our application first will go through our cors middleware function which will check the origin of request
 app.use(cors(corsOptions));

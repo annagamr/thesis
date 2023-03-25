@@ -2,7 +2,8 @@ import React from "react";
 import "./header.css";
 import { BsCart4 } from "react-icons/bs";
 import { RxPerson } from "react-icons/rx";
-import { MdQuestionAnswer } from "react-icons/md";
+import { MdQuestionAnswer,MdLogin } from "react-icons/md";
+import {AiOutlineLogin} from "react-icons/ai";
 import { IconContext } from "react-icons";
 import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
@@ -53,6 +54,15 @@ const Header = () => {
               value={{ color: "white", size: "20px", verticalAlign: "middle" }}
             >
               <MdQuestionAnswer />
+            </IconContext.Provider>
+          </Link>
+        </li>
+        <li>
+          <Link to="/signin" className="icon">
+            <IconContext.Provider
+              value={{ color: "white", size: "20px", verticalAlign: "middle" }}
+            >
+              <AiOutlineLogin />
             </IconContext.Provider>
           </Link>
         </li>

@@ -16,7 +16,7 @@ const Register = () => {
           <img src={shop} alt="" />
         </div>
         <div className="btn">
-          <Link to="/shop-registration" className="btn1">
+          <Link to="/shopRegister" className="btn1">
             Create Shop
           </Link>
         </div>
@@ -26,7 +26,7 @@ const Register = () => {
           <img src={user} alt="" />
         </div>
         <div className="btn">
-          <Link to="/user-registration" className="btn2">
+          <Link to="/usersignup" className="btn2">
             Become User
           </Link>
         </div>
