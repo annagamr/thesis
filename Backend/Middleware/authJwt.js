@@ -34,7 +34,7 @@ isAdmin = async (req, res, next) => {
   }
 };
 
-isModerator = (req, res, next) => {
+isSeller = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
       return res.status(500).send({ message: err });
@@ -45,11 +45,11 @@ isModerator = (req, res, next) => {
         return res.status(500).send({ message: err });
       }
 
-      const isModerator = roles.some(role => role.name === 'moderator');
-      if (isModerator) {
+      const isSeller = roles.some(role => role.name === 'seller');
+      if (isSeller) {
         next();
       } else {
-        return res.status(403).send({ message: 'Require Moderator Role!' });
+        return res.status(403).send({ message: 'Require Seller Role!' });
       }
     });
   });
@@ -58,6 +58,6 @@ isModerator = (req, res, next) => {
 const authJwt = {
   verifyToken,
   isAdmin,
-  isModerator
+  isSeller
 };
 module.exports = authJwt;

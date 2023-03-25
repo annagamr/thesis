@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import AuthService from "../../services/auth.service";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-function withRouter(Component) {
+function routingProps(Component) {
   function ComponentWithRouterProp(props) {
     const location = useLocation();
     const navigate = useNavigate();
@@ -12,62 +12,38 @@ function withRouter(Component) {
   return ComponentWithRouterProp;
 }
 
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-};
-
 const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const formRef = useRef();
+  //Functions
+  function updateUsername(e) {
+    const newUsername = e.target.value;
+    setUsername(newUsername);
+  }
 
-  const onChangeUsername = (e) => {
-    setUsername(e.target.value);
-  };
+  function updatePassword(e) {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+  }
 
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleLogin = (e) => {
+  function handleLogin(e) {
     e.preventDefault();
-
     setMessage("");
-    setLoading(true);
-
-    if (formRef.current.checkValidity()) {
-      AuthService.login(username, password)
-        .then(() => {
-          props.router.navigate("/profile");
-          window.location.reload();
-        })
-        .catch((error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          setLoading(false);
-          setMessage(resMessage);
-        });
-    } else {
-      setLoading(false);
-      e.stopPropagation();
-      formRef.current.classList.add("was-validated");
-    }
-  };
-
+  
+    AuthService.login(username, password)
+      .then(() => {
+        // Navigate to the profile page and reload the page
+        props.router.navigate("/profile");
+        window.location.reload();
+      })
+      .catch((error) => {
+        // Set an error message if the login fails
+        setMessage(error.toString());
+      });
+  }
+  //x Functions x\\
   return (
     <div className="col-md-12">
       <div className="card card-container">
@@ -77,7 +53,7 @@ const Login = (props) => {
           className="profile-img-card"
         />
 
-        <form className="needs-validation" onSubmit={handleLogin} ref={formRef} noValidate>
+        <form className="needs-validation" onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
@@ -85,12 +61,9 @@ const Login = (props) => {
               className="form-control"
               name="username"
               value={username}
-              onChange={onChangeUsername}
+              onChange={updateUsername}
               required
             />
-            <div className="invalid-feedback">
-              Please enter your username.
-            </div>
           </div>
 
           <div className="form-group">
@@ -100,19 +73,13 @@ const Login = (props) => {
               className="form-control"
               name="password"
               value={password}
-              onChange={onChangePassword}
+              onChange={updatePassword}
               required
             />
-            <div className="invalid-feedback">
-              Please enter your password.
-            </div>
           </div>
 
           <div className="form-group">
-            <button className="btn btn-primary btn-block" disabled={loading}>
-              {loading && (
-                <span className="spinner-border spinner-border-sm"></span>
-              )}
+            <button className="btn btn-primary btn-block">
               <span>Login</span>
             </button>
           </div>
@@ -130,4 +97,4 @@ const Login = (props) => {
   );
 };
 
-export default withRouter(Login);
+export default routingProps(Login);

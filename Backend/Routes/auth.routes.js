@@ -12,7 +12,7 @@ module.exports = function(app) {
   });
 
   app.post(
-    "/api/auth/c",
+    "/api/auth/signup",
     [
       verifySignUp.checkDuplicateUsernameOrEmailAndRolesExisted
     ],

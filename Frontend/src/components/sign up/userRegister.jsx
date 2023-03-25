@@ -1,46 +1,37 @@
 import React, { useState, useRef } from "react";
 import { isEmail } from "validator";
-import { Input } from "@mui/material";
 import AuthService from "../../services/auth.service";
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-};
 
-const emails = (value) => {
+//if it's true we send error message
+const valid_em = (value) => {
   if (!isEmail(value)) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This is not a valid email.
-      </div>
-    );
+    return true;
+  } else {
+    return false;
   }
 };
 
-const vusername = (value) => {
-  if (value.length < 3 || value.length > 20) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
-      </div>
-    );
+//username can be only letters or letters and digits together
+const valid_name = (value) => {
+  const hasLetters = /[a-zA-Z]/.test(value);
+  const hasNonDigits = /\D/.test(value);
+  const hasBothLettersAndDigits = /[a-zA-Z]+\d+|\d+[a-zA-Z]+/.test(value);
+  if (value.length < 4 || value.length > 10 || !hasLetters || (!hasNonDigits && !hasBothLettersAndDigits)) {
+    return true;
+  } else {
+    return false;
   }
 };
 
-const vpassword = (value) => {
-  if (value.length < 6 || value.length > 40) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        The password must be between 6 and 40 characters.
-      </div>
-    );
+function valid_password(value) {
+  const hasLetters = /[a-zA-Z]/.test(value);
+  const hasNumbers = /[0-9]/.test(value);
+  if (value.length < 8 || value.length > 15 || !hasLetters || !hasNumbers) {
+    return true;
+  } else {
+    return false;
   }
-};
+}
 
 const UserRegister = () => {
   const [username, setUsername] = useState("");
@@ -49,46 +40,53 @@ const UserRegister = () => {
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
-  const onChangeUsername = (e) => {
-    setUsername(e.target.value);
-  };
+  function updateEmail(e) {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+  }
 
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
+  function updateUsername(e) {
+    const newUsername = e.target.value;
+    setUsername(newUsername);
+  }
 
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const checkBtn = useRef(null);
+  function updatePassword(e) {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+  }
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log("ani");
     setMessage("");
     setSuccessful(false);
-  
-    // Perform registration logic
-    if (checkBtn.current) {
-      AuthService.register(username, email, password).then(
-        (response) => {
-          setMessage(response.data.message);
-          setSuccessful(true);
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-  
-          setMessage(resMessage);
-          setSuccessful(false);
-        }
-      );
-      checkBtn.current.reset();
+
+    //guard clauses
+    if (valid_name(username)) {
+      setMessage("Invalid username");
+      setSuccessful(false);
+      return;
+    } else if (valid_em(email)) {
+      setMessage("Invalid email");
+      setSuccessful(false);
+      return;
+    } else if (valid_password(password)) {
+      setMessage("Invalid password");
+      setSuccessful(false);
+      return;
     }
+    //x guard clauses x\\
+
+    AuthService.register(username, email, password)
+      .then((response) => {
+        // When AuthService.register() successfully returns data from the server
+        setMessage(response.data.message);
+        setSuccessful(true);
+      })
+      .catch((error) => {
+        // When AuthService.register() returns an error
+        setMessage(error.toString());
+        setSuccessful(false);
+      });
   };
 
   return (
@@ -105,37 +103,37 @@ const UserRegister = () => {
             <div>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
-                <Input
+                <input
                   type="text"
                   className="form-control"
                   name="username"
                   value={username}
-                  onChange={onChangeUsername}
-                  validations={[required, vusername]}
+                  onChange={updateUsername}
+                  required
                 />
               </div>
 
               <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <Input
+                <input
                   type="text"
                   className="form-control"
                   name="email"
                   value={email}
-                  onChange={onChangeEmail}
-                  validations={[required, emails]}
+                  onChange={updateEmail}
+                  required
                 />
               </div>
 
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <Input
+                <input
                   type="password"
                   className="form-control"
                   name="password"
                   value={password}
-                  onChange={onChangePassword}
-                  validations={[required, vpassword]}
+                  onChange={updatePassword}
+                  required
                 />
               </div>
 
@@ -156,7 +154,6 @@ const UserRegister = () => {
               </div>
             </div>
           )}
-          <button style={{ display: "none" }} ref={checkBtn} />
         </form>
       </div>
     </div>

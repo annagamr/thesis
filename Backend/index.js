@@ -43,7 +43,7 @@ async function connectAndInitialize() {
     if (count === 0) {
       await db.role.insertMany([
         { name: "user" },
-        { name: "moderator" },
+        { name: "seller" },
         { name: "admin" },
       ]);
       console.log("Roles have been initialized.");
