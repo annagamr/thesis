@@ -27,6 +27,7 @@ exports.signup = async (req, res) => {
     const roles = req.body.roles ? req.body.roles : ['user'];
     await assignRolesToUser(user, roles);
     res.send({ message: "User registered successfully!" });
+    //console.log(req.body)
   } catch (err) {
     res.status(500).send({ message: err });
   }
