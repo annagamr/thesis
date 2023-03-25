@@ -1,0 +1,43 @@
+.sign-in {
+    display: flex;
+    height: 87.3vh;
+    background-color: rgb(246, 229, 229);
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+.login-container{
+    height: 70%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+}
+.title{
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: -50px;
+    font-size: 35px;
+}
+.item-password,.item-username {
+    padding-bottom: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+}
+.item-username{
+    padding-top: 40px;
+}
+
+input {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+}
+.error {
+    font-size: 18px;
+    color: red;
+    margin-top: 10px;
+    font-family: 'Times New Roman', Times, serif;
+}

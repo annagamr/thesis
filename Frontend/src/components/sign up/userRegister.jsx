@@ -1,7 +1,14 @@
 import React, { useState, useRef } from "react";
 import { isEmail } from "validator";
-import AuthService from "../../services/auth.service";
+import axios from "axios";
 
+function register(username, email, password) {
+  return axios.post("http://localhost:3002/api/auth/signup", {
+    username,
+    email,
+    password,
+  });
+}
 //if it's true we send error message
 const valid_em = (value) => {
   if (!isEmail(value)) {
@@ -16,7 +23,12 @@ const valid_name = (value) => {
   const hasLetters = /[a-zA-Z]/.test(value);
   const hasNonDigits = /\D/.test(value);
   const hasBothLettersAndDigits = /[a-zA-Z]+\d+|\d+[a-zA-Z]+/.test(value);
-  if (value.length < 4 || value.length > 10 || !hasLetters || (!hasNonDigits && !hasBothLettersAndDigits)) {
+  if (
+    value.length < 4 ||
+    value.length > 10 ||
+    !hasLetters ||
+    (!hasNonDigits && !hasBothLettersAndDigits)
+  ) {
     return true;
   } else {
     return false;
@@ -76,14 +88,14 @@ const UserRegister = () => {
     }
     //x guard clauses x\\
 
-    AuthService.register(username, email, password)
+    register(username, email, password)
       .then((response) => {
-        // When AuthService.register() successfully returns data from the server
+        // When register() successfully returns data from the server
         setMessage(response.data.message);
         setSuccessful(true);
       })
       .catch((error) => {
-        // When AuthService.register() returns an error
+        // When register() returns an error
         setMessage(error.toString());
         setSuccessful(false);
       });
