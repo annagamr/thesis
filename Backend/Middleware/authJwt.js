@@ -1,58 +1,62 @@
 const jwt = require("../node_modules/jsonwebtoken");
-const config = require("../Config/auth.config.js"); //my secret key
+const secret = "my-secret-key"
+
 const db = require("../Models");
 const User = db.user;
 const Role = db.role;
 
-verifyToken = async (req, res, next) => {
-  try {
-    const token = req.headers["x-access-token"];
-    if (!token) {
-      return res.status(403).send({ message: "No token provided!" });
-    }
+const verifyToken = async (req, res, next) => {
+  const token = req.headers["x-access-token"];
+  if (!token) {
+    return res.status(403).json({ error: "Token was not provided" });
+  }
 
-    const decoded = await jwt.verify(token, config.secret);
+  try {
+    const decoded = await jwt.verify(token, secret);
     req.userId = decoded.id;
     next();
   } catch (err) {
-    console.error("Error verifying token: ", err);
-    return res.status(401).send({ message: "Unauthorized!" });
+    console.error("Could not verify token:", err);
+    return res.status(401).json({ error: "Token is invalid!" });
   }
 };
 
-isAdmin = async (req, res, next) => {
+const isAdmin = async (req, res, next) => {
   try {
     const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
     const roles = await Role.find({ _id: { $in: user.roles } });
     if (!roles.some(role => role.name === "admin")) {
-      return res.status(403).send({ message: "Require Admin Role!" });
+      return res.status(403).send({ message: "Access denied for non-admin users!" });
     }
+
     next();
   } catch (err) {
-    console.error("Error checking admin role: ", err);
-    return res.status(500).send({ message: err });
+    console.error("isAdmin error:", err);
+    return res.status(500).send({ message: "Server side error" });
   }
 };
 
-isSeller = (req, res, next) => {
-  User.findById(req.userId).exec((err, user) => {
-    if (err) {
-      return res.status(500).send({ message: err });
+const isSeller = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
     }
 
-    Role.find({ _id: { $in: user.roles } }, (err, roles) => {
-      if (err) {
-        return res.status(500).send({ message: err });
-      }
+    const roles = await Role.find({ _id: { $in: user.roles } });
+    if (!roles.some(role => role.name === "seller")) {
+      return res.status(403).send({ message: "Access denied for non-seller users!" });
+    }
 
-      const isSeller = roles.some(role => role.name === 'seller');
-      if (isSeller) {
-        next();
-      } else {
-        return res.status(403).send({ message: 'Require Seller Role!' });
-      }
-    });
-  });
+    next();
+  } catch (err) {
+    console.error("isSeller error:", err);
+    return res.status(500).send({ message: "Server side error" });
+  }
 };
 
 const authJwt = {

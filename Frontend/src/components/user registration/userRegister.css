@@ -1,32 +1,40 @@
-.registration-page{
+.registration-page {
     display: flex;
     height: 87.3vh;
-    background-color: rgb(250, 217, 217);
+    background-image: url("./pawel-czerwinski-qzaIDFtzcZ0-unsplash.jpg");
+    background-size: cover;
     padding: 0;
     justify-content: center;
     align-items: center;
 }
 
-.registration-form{
-    height:90%;
-    width: 32%;
+.registration-form {
+    height: 90%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.7);
     padding: 20px;
     border-radius: 20px;
 }
 
-.title h2{
+.title h2 {
     font-family: 'Dancing Script', cursive;
     font-size: 50px;
     text-align: center;
+    letter-spacing: 5px;
+
 }
 
-.title h3{
+.title h3 {
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     text-align: center;
+    letter-spacing: 5px;
+}
+
+.footer_bottom {
+    background-color: rgb(237, 235, 235);
 }

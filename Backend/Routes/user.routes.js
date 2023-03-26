@@ -1,8 +1,25 @@
-const { authJwt } = require("../Middleware");
-const controller = require("../Controllers/user.controller");
+const { verifyToken } = require("../Middleware/authJwt");
+const { isAdmin } = require("../Middleware/authJwt");
+const { isSeller } = require("../Middleware/authJwt");
 
-module.exports = function(app) {
-  app.use(function(req, res, next) {
+function userBoard(req, res) {
+  res.status(201);
+}
+
+function adminBoard(req, res) {
+  res.status(201);
+}
+
+function sellerBoard(req, res) {
+  res.status(201);
+}
+
+function allAccess(req, res) {
+  res.status(201);
+}
+module.exports = function (app) {
+  // Set headers to allow specified HTTP request headers
+  app.use((req, res, next) => {
     res.header(
       "Access-Control-Allow-Headers",
       "x-access-token, Origin, Content-Type, Accept"
@@ -10,19 +27,17 @@ module.exports = function(app) {
     next();
   });
 
-  app.get("/api/test/all", controller.allAccess);
+  // Define routes for testing authentication and authorization
 
-  app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
+  // Route for public access
+  app.get("/api/test/all", allAccess);
 
-  app.get(
-    "/api/test/mod",
-    [authJwt.verifyToken, authJwt.isSeller],
-    controller.sellerBoard
-  );
+  // Route for authenticated users
+  app.get("/api/test/user", [verifyToken], userBoard);
 
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
+  // Route for authenticated sellers
+  app.get("/api/test/seller", [verifyToken, isSeller], sellerBoard);
+
+  // Route for authenticated admins
+  app.get("/api/test/admin", [verifyToken, isAdmin], adminBoard);
 };

@@ -3,7 +3,7 @@ import { isEmail } from "validator";
 import axios from "axios";
 import "./userRegister.css";
 
-function register(username, email, password,roles) {
+function register(username, email, password, roles) {
   return axios.post("http://localhost:3002/api/auth/signup", {
     username,
     email,
@@ -53,8 +53,7 @@ const UserRegister = ({ isShop }) => {
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
-  const [roles, setRole]=useState(isShop?["seller"]:["user"]);
- 
+  const [roles, setRole] = useState(isShop ? ["seller"] : ["user"]);
 
   function updateEmail(e) {
     const newEmail = e.target.value;
@@ -100,7 +99,11 @@ const UserRegister = ({ isShop }) => {
       })
       .catch((error) => {
         // When register() returns an error
-        setMessage(error.toString());
+        if (error.response) {
+          setMessage(error.response.data.message);
+        } else {
+          setMessage(error.toString());
+        }
         setSuccessful(false);
       });
   };
@@ -153,7 +156,6 @@ const UserRegister = ({ isShop }) => {
             </div>
           )}
           {message && <div className="error">{message}</div>}
-        
         </form>
       </div>
     </div>
