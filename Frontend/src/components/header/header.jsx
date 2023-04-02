@@ -3,7 +3,7 @@ import "./header.css";
 import { BsCart4 } from "react-icons/bs";
 import { RxPerson } from "react-icons/rx";
 import { MdQuestionAnswer, MdLogin } from "react-icons/md";
-import { AiOutlineLogin } from "react-icons/ai";
+import { AiOutlineLogin,AiOutlineLogout } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ import AuthService from "../../services/auth.service";
 const Header = () => {
   const [showSellerBoard, setShowSellerBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [showUserBoard, setShowUserBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const Header = () => {
 
     if (user) {
       setCurrentUser(user);
+      setShowUserBoard(user.roles.includes("ROLE_USER"));
       setShowSellerBoard(user.roles.includes("ROLE_SELLER"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
     }
@@ -27,6 +29,7 @@ const Header = () => {
 
   const logOut = () => {
     AuthService.logout();
+    setShowUserBoard(false);
     setShowSellerBoard(false);
     setShowAdminBoard(false);
     setCurrentUser(undefined);
@@ -59,7 +62,7 @@ const Header = () => {
           </li>
         )}
 
-        {currentUser && (
+        {showUserBoard && (
           <li>
             <Link to={"/userProf"} className="nav-link">
               User
@@ -69,7 +72,10 @@ const Header = () => {
       </ul>
       <div className="logo_aurora">Aurora.</div>
       <ul className="header_items_right">
-        <li>
+        {currentUser ? (
+        <div></div>
+        ) : (
+          <li>
           <Link to="/register" className="icon">
             <IconContext.Provider
               value={{ color: "white", size: "20px", verticalAlign: "middle" }}
@@ -78,6 +84,10 @@ const Header = () => {
             </IconContext.Provider>
           </Link>
         </li>
+        )}
+
+
+
         <li>
           <Link to="/cart" className="icon">
             <Badge badgeContent={1} color="success">
@@ -106,23 +116,24 @@ const Header = () => {
         {currentUser ? (
           <div>
             <li>
-              <Link to="/profile" className="icon">
-                <IconContext.Provider
-                  value={{
-                    color: "white",
-                    size: "20px",
-                    verticalAlign: "middle",
-                  }}
-                >
-                  <AiOutlineLogin />
-                </IconContext.Provider>
+              <Link to="/profile">
+               Prof
               </Link>
             </li>{" "}
             <li>
-              <a href="/signin" onClick={logOut}>
-                LogOut
+            <a href="/signin" onClick={logOut} className="icon">
+            <IconContext.Provider
+                value={{
+                  color: "white",
+                  size: "20px",
+                  verticalAlign: "middle",
+                }}
+              >
+                <AiOutlineLogout />
+              </IconContext.Provider>
               </a>
-            </li>
+           
+          </li>
           </div>
         ) : (
           <li>

@@ -1,0 +1,100 @@
+:root {
+  --color-background: #f8f1fab2;
+  --color-primary: #2b2c30;
+  --color-shadow: rgba(38, 28, 91, 0.294);
+  --font-family: 'Nunito', sans-serif;
+}
+.contact-page{
+  height: 87.3vh;
+  background-color: #eaeef2;
+}
+.main {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  width: 70rem;
+  margin: 5rem 27rem;
+  padding: 1rem;
+  box-shadow: 1px 1px 20px 0 var(--color-shadow);
+  border-radius: 2rem;
+  /* margin-bottom: 5rem; */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35rem;
+}
+
+.header {
+  font-family: var(--font-family);
+  font-size: 2rem;
+  text-align: center;
+  padding-top: 1.25rem;
+  padding-left: 30rem;
+  font-weight: bold;
+  color: black;
+}
+
+.illustration {
+  background-image: url(./contact-illustration.jpg);
+  background-size: cover;
+  height: 117%;
+  width: 50%;
+  margin-left: -87px;
+  margin-bottom: 63px;
+  border-radius: 2rem;
+}
+
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25rem;
+  width: 45%;
+}
+
+form {
+  width: 100%;
+  max-width: 25rem;
+}
+
+form label {
+  color: black;
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-family: var(--font-family);
+}
+
+form input,
+form textarea {
+  display: block;
+  width: 100%;
+  padding: 1.2rem;
+  border: 1px solid rgb(159, 169, 206);
+  border-radius: 0.6rem;
+  margin-bottom: 1.25rem;
+  resize: none;
+}
+
+form button {
+  background-color: var(--color-primary);
+  border-radius: 1rem;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  font-weight: bold;
+  height: 3rem;
+  padding: 0 2rem;
+  text-align: center;
+  text-shadow: rgba(255, 255, 255, 0.25) 0 3px 8px;
+}
+
+form button:hover {
+  box-shadow: rgba(181, 176, 248, 0.5) 0 1px 20px;
+  transition-duration: .1s;
+}
