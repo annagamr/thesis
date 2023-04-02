@@ -3,7 +3,7 @@ import "./header.css";
 import { BsCart4 } from "react-icons/bs";
 import { RxPerson } from "react-icons/rx";
 import { MdQuestionAnswer, MdLogin } from "react-icons/md";
-import { AiOutlineLogin,AiOutlineLogout } from "react-icons/ai";
+import { AiOutlineLogin,AiOutlineLogout,AiOutlinePlus } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
@@ -47,13 +47,7 @@ const Header = () => {
         <li>
           <Link to="/blog">BLOG</Link>
         </li>
-        {showSellerBoard && (
-          <li>
-            <Link to={"/sellerProf"} className="nav-link">
-              Seller Board
-            </Link>
-          </li>
-        )}
+        
         {showAdminBoard && (
           <li>
             <Link to={"/adminProf"} className="nav-link">
@@ -87,7 +81,21 @@ const Header = () => {
         )}
 
 
-
+        {showSellerBoard ? (
+           <li>
+           <Link to="/addProduct" className="icon">
+               <IconContext.Provider
+                 value={{
+                   color: "white",
+                   size: "20px",
+                   verticalAlign: "middle",
+                 }}
+               >
+                 <AiOutlinePlus />
+               </IconContext.Provider>
+           </Link>
+         </li>
+        ): (
         <li>
           <Link to="/cart" className="icon">
             <Badge badgeContent={1} color="success">
@@ -103,6 +111,7 @@ const Header = () => {
             </Badge>
           </Link>
         </li>
+        )}
         <li>
           <Link to="/contact" className="icon">
             <IconContext.Provider

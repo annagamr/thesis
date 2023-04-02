@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from "react";
 import UserService from "../../services/user.service";
 
-const BoardSeller = () => {
+const AddProduct = () => {
     const [content, setContent] = useState("");
   
     useEffect(() => {
@@ -30,4 +30,4 @@ const BoardSeller = () => {
     );
   };
   
-  export default BoardSeller;
+  export default AddProduct;

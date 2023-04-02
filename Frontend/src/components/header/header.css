@@ -6,6 +6,10 @@
   padding: 0 5rem;
 }
 
+.header_items_right {
+display: flex;
+}
+
 .header_items_right li,
 .header_items_left li {
   display: inline-flex;

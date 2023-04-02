@@ -13,6 +13,8 @@ import Cart from "./components/cart/cart";
 import ContactPage from "./components/contact/contact";
 import UserRegister from "./components/user registration/userRegister";
 import Login from "./components/login/login";
+import Profile from "./components/profiles/profile";
+
 
 import BoardUser from "./components/access/board-user.component";
 import BoardSeller from "./components/access/board-seller.component";
@@ -36,8 +38,10 @@ function App() {
           <Route path="/signin" element={<Login />} />
 
           <Route path="/userProf" element={<BoardUser />} />
-          <Route path="/sellerProf" element={<BoardSeller />} />
+          <Route path="/addProduct" element={<BoardSeller />} />
           <Route path="/adminProf" element={<BoardAdmin />} />
+
+          <Route path="/profile" element={<Profile/>} />
 
 
 
