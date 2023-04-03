@@ -1,4 +1,51 @@
-.profile-page{
-    background-color: green;
+.profile-page {
+    background-color: #e5e8ee;
     height: 87vh;
+
+}
+
+.profile-card {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    background-color: #fdfcff;
+    width: 40rem;
+    margin: 2rem 40rem;
+    padding: 1rem;
+    box-shadow: 1px 1px 20px 0 var(--color-shadow);
+    border-radius: 2rem;
+    padding: 25px;
+}
+
+.profile-picture {
+    background: black;
+    width: 15rem;
+    height: 15rem;
+    margin-top: 40px;
+}
+
+.info {
+    background: #fdfcff;
+    height: 2rem;
+    margin-top: 3rem;
+    height: 12rem;
+    width: 20rem;
+    font-size: 25px;
+    line-height: 4rem;
+    padding-left: 20px;
+}
+
+.edit{
+    font-size: 20px;
+    line-height: 4rem;
+    padding: 0 25px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 3rem;
+    border-radius: 2rem;
+
 }
