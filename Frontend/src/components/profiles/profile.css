@@ -10,13 +10,11 @@
     flex-direction: column;
     position: absolute;
     width: 40rem;
-    margin: 4rem 60rem;
-    padding: 1rem;
-    border-radius: 2rem;
-    padding: 25px;
+    margin: 4rem 65rem;
+    padding: 2rem;
     border: 1px solid white;
     background: rgba(255, 255, 255, 0.927);
-    border-radius: 16px;
+    border-radius: 50px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(12.7px);
     -webkit-backdrop-filter: blur(12.7px);
@@ -71,13 +69,84 @@
     margin-top: 3rem;
     border-radius: 2rem;
     font-family: 'Mukta', sans-serif;
+    margin-left: -12rem;
 
 }
 
-.edit:hover {
+.see-list {
+    font-size: 25px;
+    line-height: 4rem;
+    padding: 0 25px;
+    background-color: #e8464c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: -4rem;
+    margin-left: 15rem;
+    border-radius: 2rem;
+    font-family: 'Mukta', sans-serif;
+}
+
+.edit:hover,
+.see-list:hover {
     background-color: rgb(83, 83, 110);
 }
 
 .footer_bottom {
     display: none;
+}
+
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 700px;
+    width: 400px;
+    font-size: 18px;
+    position: absolute;
+    top: 153px;
+    left: 410px;
+
+}
+
+.faq {
+    height: 150px;
+    line-height: 30px;
+    width: 400px;
+    background-color: #f3f3f3;
+}
+
+.faq h3 {
+    background-color: rgb(51, 51, 112);
+    width: 100%;
+    height: 3rem;
+    color: white;
+    padding-top: 8px;
+    font-family: 'Mukta', sans-serif;
+    padding-left: 10px;
+    font-weight: normal;
+}
+
+.faq p {
+    padding: 10px;
+    font-size: 18px;
+    font-family: 'Mukta', sans-serif;
+    background: white;
+    box-shadow: 0 4px 30px rgb(150 161 216 / 66%);
+    backdrop-filter: blur(9.2px);
+}
+
+.faq-title {
+    background-color: #e8464c;
+    transform: rotate(-90deg);
+    width: 720px;
+    text-align: center;
+    font-size: 100px;
+    font-family: 'Cormorant', serif;
+    position: absolute;
+    top: 447px;
+    left: -129px;
+    color: rgb(255, 255, 255);
+    letter-spacing: 35px;
+    border-radius: 5px;
 }
