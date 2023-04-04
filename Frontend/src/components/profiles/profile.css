@@ -26,7 +26,13 @@
     margin-top: 8px;
 }
 
-.profile-picture img {
+.profile-picture-user {
+    width: 10rem;
+    height: 10rem;
+    margin-top: 25px;
+}
+
+.profile-picture img,.profile-picture-user img {
     width: 100%;
     height: 100%;
 }
