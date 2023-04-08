@@ -45,24 +45,27 @@ exports.createPost = async (req, res) => {
 
 exports.posts = async (req, res) => {
     try {
-        // Find the user in the database with the provided username and populate their roles
-        const post = await db.post.find({}).exec();
+        const posts = await db.post.find({}).exec();
 
-        // If no user is found with the given username, return a 404 error
-        if (!post) {
+        // If no posts are found, return a 404 error
+        if (!posts.length) {
             return res.status(404).send({ message: "No posts found" });
         }
 
-        // Send a response to the client with the user's ID, username, email, roles, and access token
-        res.status(200).send({
-            id: post._id,
-            title: post.title,
-            description: post.description,
-            tags: post.tags,
-            created: post.created,
-            author: post.author,
-
+        // Create a new array of post objects with the desired properties
+        const formattedPosts = posts.map((post) => {
+            return {
+                id: post._id,
+                title: post.title,
+                description: post.description,
+                tags: post.tags,
+                created: post.created,
+                author: post.author,
+            };
         });
+
+        // Send the formatted posts array in the response
+        res.status(200).send(formattedPosts);
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message
         res.status(500).send({ message: err });

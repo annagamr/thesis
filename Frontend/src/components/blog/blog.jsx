@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AuthService from "../../services/auth.service";
 import axios from "axios";
+import "./blog.css";
+import right from "./right.jpg";
+import postService from "../../services/post.service";
 
 function addPost(title, description, tags, author) {
   return axios.post("http://localhost:3002/api/create-post", {
@@ -12,6 +15,10 @@ function addPost(title, description, tags, author) {
 }
 
 const Blog = () => {
+  const [sellerProf, setShowSellerProfile] = useState(false);
+  const [adminProf, setShowAdminProfile] = useState(false);
+  const [posts, setPosts] = useState([]);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
@@ -23,7 +30,18 @@ const Blog = () => {
 
     if (user) {
       setAuthor(user.username);
+      setShowSellerProfile(user.roles.includes("ROLE_SELLER"));
+      setShowAdminProfile(user.roles.includes("ROLE_ADMIN"));
     }
+
+    postService
+      .getAllPosts()
+      .then((response) => {
+        setPosts(response.data.posts);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   function updateTitle(e) {
@@ -33,7 +51,10 @@ const Blog = () => {
 
   function updateDescription(e) {
     const newDescription = e.target.value;
-    setDescription(newDescription);
+    const wordCount = newDescription.split(/\s+/).length;
+    if (wordCount <= 200) {
+      setDescription(newDescription);
+    }
   }
 
   function updateTags(e) {
@@ -42,19 +63,19 @@ const Blog = () => {
     setTags(newTags);
   }
 
-  const handleRegister = (e) => {
+  const handlePost = (e) => {
     e.preventDefault();
     setMessage("");
     setSuccessful(false);
 
     addPost(title, description, tags, author)
       .then((response) => {
-        // When register() successfully returns data from the server
+        // When addPost() successfully returns data from the server
         setMessage(response.data.message);
         setSuccessful(true);
       })
       .catch((error) => {
-        // When register() returns an error
+        // When addPost() returns an error
         if (error.response) {
           setMessage(error.response.data.message);
         } else {
@@ -65,49 +86,77 @@ const Blog = () => {
   };
 
   return (
-    <div>
-      dadadfafafafafaf
-      <form onSubmit={handleRegister}>
-        {!successful && (
+    <div className="blogContainer">
+      <div className="blogPage">
+        {(adminProf || sellerProf) && (
           <div>
-            <div className="item-title">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                name="title"
-                value={title}
-                onChange={updateTitle}
-                required
-              />
-            </div>
+            <form onSubmit={handlePost}>
+              <h2>Create New Post!</h2>
+              {!successful && (
+                <div>
+                  <div className="item-title">
+                    <label htmlFor="title">Title</label>
+                    <input
+                      type="text"
+                      style={{ width: "30rem" }}
+                      maxLength={40}
+                      name="title"
+                      value={title}
+                      onChange={updateTitle}
+                      required
+                    />
+                  </div>
+                  <div className="item-description">
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                      rows="15"
+                      style={{ width: "50rem" }}
+                      name="description"
+                      maxLength={1200}
+                      value={description}
+                      onChange={updateDescription}
+                      required
+                    ></textarea>
+                  </div>
 
-            <div className="item-description">
-              <label htmlFor="description">Description</label>
-              <input
-                type="text"
-                name="description"
-                value={description}
-                onChange={updateDescription}
-                required
-              />
+                  <div className="item-tags">
+                    <label htmlFor="tags">Tags</label>
+                    <input
+                      type="text"
+                      name="tags"
+                      style={{ width: "30rem" }}
+                      value={tags}
+                      onChange={updateTags}
+                      maxLength={40}
+                      required
+                    />
+                  </div>
+                  <div className="add-post">
+                    <button>Add Post</button>
+                  </div>
+                </div>
+              )}
+              {successful && (
+                <div>
+                  <p>{message}</p>
+                </div>
+              )}
+            </form>
+            <div className="image-right">
+              <img src={right} alt="" />
             </div>
-
-            <div className="item-password">
-              <label htmlFor="tags">Tags</label>
-              <input
-                type="text"
-                name="tags"
-                value={tags}
-                onChange={updateTags}
-                required
-              />
-            </div>
-            <div className="signup-button">
-              <button>Add Post</button>
+            <div>
+              {posts.map((post) => (
+                <div key={post.id}>
+                  <h2>{post.title}</h2>
+                  <p>{post.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         )}
-      </form>
+      </div>
+      <div></div>
     </div>
   );
 };
