@@ -28,6 +28,7 @@ app.get("/", (req, res) => {
 // routes
 require('../Backend/Routes/auth.routes')(app);
 require('../Backend/Routes/user.routes')(app);
+require('../Backend/Routes/post.routes')(app);
 
 
 const db = require("./Models")
