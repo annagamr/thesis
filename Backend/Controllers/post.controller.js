@@ -8,6 +8,7 @@ async function create(postData) {
         title: postData.title,
         description: postData.description,
         tags: postData.tags,
+        created: new Date()
     });
 
     // Save the post to the database and return the result
