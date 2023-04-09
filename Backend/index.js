@@ -29,6 +29,7 @@ app.get("/", (req, res) => {
 require('../Backend/Routes/auth.routes')(app);
 require('../Backend/Routes/user.routes')(app);
 require('../Backend/Routes/post.routes')(app);
+require('../Backend/Routes/product.routes')(app);
 
 
 const db = require("./Models")
