@@ -16,9 +16,9 @@ import Login from "./components/login/login";
 import Profile from "./components/profiles/profile";
 
 
-import BoardUser from "./components/access/board-user.component";
+// import BoardUser from "./components/access/board-user.component";
 import BoardSeller from "./components/access/board-seller.component";
-import BoardAdmin from "./components/access/board-admin.component";
+// import BoardAdmin from "./components/access/board-admin.component";
 
 function App() {
   
@@ -37,9 +37,9 @@ function App() {
           <Route path="/shopRegister" element={<UserRegister isShop={true}/>} />
           <Route path="/signin" element={<Login />} />
 
-          <Route path="/userProf" element={<BoardUser />} />
+          {/* <Route path="/userProf" element={<BoardUser />} /> */}
           <Route path="/addProduct" element={<BoardSeller />} />
-          <Route path="/adminProf" element={<BoardAdmin />} />
+          {/* <Route path="/adminProf" element={<BoardAdmin />} /> */}
 
           <Route path="/profile" element={<Profile/>} />
 

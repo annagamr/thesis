@@ -155,20 +155,19 @@ const Blog = () => {
             <div className="image-right">
               <img src={right} alt="" />
             </div>
-            <div>
-              {posts.map((post) => (
-                <div key={post.id}>
-                  <h2>{post.title}</h2>
-                  <p>{post.description}</p>
-                  <p>{post.tags}</p>
-                  <p>{post.created}</p>
-                  <p>{post.author}</p>
-
-                </div>
-              ))}
-            </div>
           </div>
         )}
+        <div>
+          {posts.map((post) => (
+            <div key={post.id}>
+              <h2>{post.title}</h2>
+              <p>{post.description}</p>
+              <p>{post.tags}</p>
+              <p>{post.created}</p>
+              <p>{post.author}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
