@@ -1,37 +1,39 @@
-.blogContainer{
+.blogContainer {
     width: 100%;
-    max-width: 130rem; 
-    margin: 0 auto; /* Center the container horizontally */
+    max-width: 130rem;
+    margin: 0 auto;
+    /* Center the container horizontally */
 }
 
 .blogPage {
     width: 100%;
-    background-color:#f9efe5;
-    box-sizing: border-box; /* Include padding in the width calculation */
+    background-color: #f9efe5;
+    box-sizing: border-box;
+    /* Include padding in the width calculation */
 
 }
 
-.blogPage form{
+.blogPage form {
     width: 100%;
     padding: 25px 100px;
 }
 
-.blogPage form h2{
+.blogPage form h2 {
     width: 25rem;
     font-family: 'Dancing Script', cursive;
     font-size: 40px;
     text-align: right;
     letter-spacing: 5px;
-    margin-left:90px;
-    margin-bottom:15px
+    margin-left: 90px;
+    margin-bottom: 15px
 }
 
-.image-right{
-    width: 52rem;
+.image-right {
+    width: 54rem;
     height: 45.3rem;
     position: absolute;
     top: 3.6rem;
-    left: 68rem;
+    left: 66rem
 }
 
 .image-right img {

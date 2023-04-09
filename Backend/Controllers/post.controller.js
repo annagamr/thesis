@@ -1,4 +1,5 @@
-const { post } = require("../Models");
+const { post, user } = require("../Models");
+
 const db = require("../Models");
 
 
@@ -21,7 +22,6 @@ async function assignPostToUser(user, post) {
     const foundUser = await query.findOne();
     // console.log(foundUser);
     // Map the found user to their IDs and set them as the post's author
-    // post.author = foundUser.map(user => user._id);
     post.author = foundUser._id;
     // Save the updated post to the database and return the result
     return post.save();
@@ -33,16 +33,18 @@ exports.createPost = async (req, res) => {
         const post = await create(req.body);
         const user = req.body.author;
         await assignPostToUser(user, post);
-
         // Send a success message to the client
-        res.status(200).send({ message: "Post added successfully!" });
+        res.status(200).send({ message: "Post added successfully!", post: post });
 
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message
         res.status(500).send({ message: err });
     }
 };
-
+const formatDate = (date) => {
+    const options = { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
+    return new Date(date).toLocaleDateString('en-US', options);
+};
 exports.posts = async (req, res) => {
     try {
         const posts = await db.post.find({}).exec();
@@ -53,21 +55,30 @@ exports.posts = async (req, res) => {
         }
 
         // Create a new array of post objects with the desired properties
-        const formattedPosts = posts.map((post) => {
-            return {
-                id: post._id,
-                title: post.title,
-                description: post.description,
-                tags: post.tags,
-                created: post.created,
-                author: post.author,
-            };
-        });
+
+
+        const formattedPosts = await db.post.find({})
+            .populate('author', 'username')
+            .exec()
+            .then(posts => {
+                return posts.map(post => {
+                    // console.log(post);
+                    return {
+                        id: post._id,
+                        title: post.title,
+                        description: post.description,
+                        tags: post.tags,
+                        created: formatDate(post.created),
+                        author: post.author.username
+                    }
+                });
+            });
 
         // Send the formatted posts array in the response
         res.status(200).send(formattedPosts);
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message
+
         res.status(500).send({ message: err });
     }
 };

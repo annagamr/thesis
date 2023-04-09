@@ -5,15 +5,6 @@ import "./blog.css";
 import right from "./right.jpg";
 import postService from "../../services/post.service";
 
-function addPost(title, description, tags, author) {
-  return axios.post("http://localhost:3002/api/create-post", {
-    title,
-    description,
-    tags,
-    author,
-  });
-}
-
 const Blog = () => {
   const [sellerProf, setShowSellerProfile] = useState(false);
   const [adminProf, setShowAdminProfile] = useState(false);
@@ -21,10 +12,11 @@ const Blog = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [tags, setTags] = useState("");
+  const [tags, setTags] = useState([]);
   const [author, setAuthor] = useState(undefined);
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
+
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
@@ -37,12 +29,31 @@ const Blog = () => {
     postService
       .getAllPosts()
       .then((response) => {
-        setPosts(response.data.posts);
+        setPosts(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  function addPost(title, description, tags, author) {
+    return axios
+      .post("http://localhost:3002/api/create-post", {
+        title,
+        description,
+        tags,
+        author,
+      })
+      .then((response) => {
+        // update the state to include the new post
+        setPosts([...posts, response.data.post]);
+        return response;
+      })
+      .catch((error) => {
+        console.error("Error adding post: ", error);
+        throw error;
+      });
+  }
 
   function updateTitle(e) {
     const newTitle = e.target.value;
@@ -58,8 +69,7 @@ const Blog = () => {
   }
 
   function updateTags(e) {
-    const newTags = e.target.value;
-    newTags.split(", ");
+    const newTags = e.target.value.split(",");
     setTags(newTags);
   }
 
@@ -150,13 +160,16 @@ const Blog = () => {
                 <div key={post.id}>
                   <h2>{post.title}</h2>
                   <p>{post.description}</p>
+                  <p>{post.tags}</p>
+                  <p>{post.created}</p>
+                  <p>{post.author}</p>
+
                 </div>
               ))}
             </div>
           </div>
         )}
       </div>
-      <div></div>
     </div>
   );
 };
