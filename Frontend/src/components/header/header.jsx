@@ -3,7 +3,7 @@ import "./header.css";
 import { BsCart4 } from "react-icons/bs";
 import { RxPerson } from "react-icons/rx";
 import { MdQuestionAnswer, MdLogin } from "react-icons/md";
-import { AiOutlineLogin,AiOutlineLogout,AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineLogin, AiOutlineLogout, AiOutlinePlus } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
@@ -47,7 +47,7 @@ const Header = () => {
         <li>
           <Link to="/blog">BLOG</Link>
         </li>
-        
+
         {showAdminBoard && (
           <li>
             <Link to={"/adminProf"} className="nav-link">
@@ -55,50 +55,32 @@ const Header = () => {
             </Link>
           </li>
         )}
-
+        {/* 
         {showUserBoard && (
           <li>
-            <Link to={"/userProf"} className="nav-link">
-              User
+            <Link to={"/myOrders"} className="nav-link">
+              My Orders
             </Link>
           </li>
+        )} */}
+
+        {showUserBoard ? (
+          <li>
+            <Link to="/myOrders" className="nav-link">
+              My Orders
+            </Link>
+          </li>
+        ) : (
+          <div></div>
         )}
       </ul>
       <div className="logo_aurora">Aurora.</div>
       <ul className="header_items_right">
         {currentUser ? (
-        <div></div>
+          <div></div>
         ) : (
           <li>
-          <Link to="/register" className="icon">
-            <IconContext.Provider
-              value={{ color: "white", size: "20px", verticalAlign: "middle" }}
-            >
-              <RxPerson />
-            </IconContext.Provider>
-          </Link>
-        </li>
-        )}
-
-
-        {showSellerBoard ? (
-           <li>
-           <Link to="/addProduct" className="icon">
-               <IconContext.Provider
-                 value={{
-                   color: "white",
-                   size: "20px",
-                   verticalAlign: "middle",
-                 }}
-               >
-                 <AiOutlinePlus />
-               </IconContext.Provider>
-           </Link>
-         </li>
-        ): (
-        <li>
-          <Link to="/cart" className="icon">
-            <Badge badgeContent={1} color="success">
+            <Link to="/register" className="icon">
               <IconContext.Provider
                 value={{
                   color: "white",
@@ -106,11 +88,42 @@ const Header = () => {
                   verticalAlign: "middle",
                 }}
               >
-                <BsCart4 />
+                <RxPerson />
               </IconContext.Provider>
-            </Badge>
-          </Link>
-        </li>
+            </Link>
+          </li>
+        )}
+
+        {showSellerBoard ? (
+          <li>
+            <Link to="/addProduct" className="icon">
+              <IconContext.Provider
+                value={{
+                  color: "white",
+                  size: "20px",
+                  verticalAlign: "middle",
+                }}
+              >
+                <AiOutlinePlus />
+              </IconContext.Provider>
+            </Link>
+          </li>
+        ) : (
+          <li>
+            <Link to="/cart" className="icon">
+              <Badge badgeContent={1} color="success">
+                <IconContext.Provider
+                  value={{
+                    color: "white",
+                    size: "20px",
+                    verticalAlign: "middle",
+                  }}
+                >
+                  <BsCart4 />
+                </IconContext.Provider>
+              </Badge>
+            </Link>
+          </li>
         )}
         <li>
           <Link to="/contact" className="icon">
@@ -125,24 +138,21 @@ const Header = () => {
         {currentUser ? (
           <div>
             <li>
-              <Link to="/profile">
-               Prof
-              </Link>
+              <Link to="/profile">Prof</Link>
             </li>{" "}
             <li>
-            <a href="/signin" onClick={logOut} className="icon">
-            <IconContext.Provider
-                value={{
-                  color: "white",
-                  size: "20px",
-                  verticalAlign: "middle",
-                }}
-              >
-                <AiOutlineLogout />
-              </IconContext.Provider>
+              <a href="/signin" onClick={logOut} className="icon">
+                <IconContext.Provider
+                  value={{
+                    color: "white",
+                    size: "20px",
+                    verticalAlign: "middle",
+                  }}
+                >
+                  <AiOutlineLogout />
+                </IconContext.Provider>
               </a>
-           
-          </li>
+            </li>
           </div>
         ) : (
           <li>

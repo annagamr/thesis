@@ -1,22 +1,13 @@
 const { verifyToken } = require("../Middleware/authJwt");
 const { isAdmin } = require("../Middleware/authJwt");
 const { isSeller } = require("../Middleware/authJwt");
+const { isUser } = require("../Middleware/authJwt");
 
-function userBoard(req, res) {
+
+function success(req, res) {
   res.status(201);
 }
 
-function adminBoard(req, res) {
-  res.status(201);
-}
-
-function sellerBoard(req, res) {
-  res.status(201);
-}
-
-function allAccess(req, res) {
-  res.status(201);
-}
 module.exports = function (app) {
   // Set headers to allow specified HTTP request headers
   app.use((req, res, next) => {
@@ -30,14 +21,14 @@ module.exports = function (app) {
   // Define routes for testing authentication and authorization
 
   // Route for public access
-  app.get("/api/test/all", allAccess);
+  app.get("/api/test/all", success);
 
   // Route for authenticated users
-  app.get("/api/test/user", [verifyToken], userBoard);
+  app.get("/api/test/user", [verifyToken, isUser], success);
 
   // Route for authenticated sellers
-  app.get("/api/test/seller", [verifyToken, isSeller], sellerBoard);
+  app.get("/api/test/seller", [verifyToken, isSeller], success);
 
   // Route for authenticated admins
-  app.get("/api/test/admin", [verifyToken, isAdmin], adminBoard);
+  app.get("/api/test/admin", [verifyToken, isAdmin], success);
 };
