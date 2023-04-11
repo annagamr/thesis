@@ -41,6 +41,7 @@ module.exports = function (app) {
         "/api/products",
         productController.products
     );
+
     // Route for creating post
     app.post(
         "/api/create-post",

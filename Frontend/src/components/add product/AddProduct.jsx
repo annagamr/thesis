@@ -5,6 +5,7 @@ import axios from "axios";
 import "./AddProduct.css";
 
 const AddProduct = () => {
+
   const [access, setAccess] = useState("");
   // vars for product
   const [products, setProducts] = useState([]);
@@ -128,7 +129,7 @@ const AddProduct = () => {
       <header className="jumbotron">
         <h3>{access}</h3>
       </header>
-
+      
       {/* form */}
       <div className="add-product-page">
         <form onSubmit={handleProduct}>
