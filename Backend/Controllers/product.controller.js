@@ -35,10 +35,11 @@ exports.addProduct = async (req, res) => {
         const user = req.body.author;
         await assignProductToSeller(user, product);
         // Send a success message to the client
-        res.status(200).send({ message: "Product added successfully!", post: post });
+        res.status(200).send({ message: "Product added successfully!", product: product });
 
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message
+        console.log(err)
         res.status(500).send({ message: err });
     }
 };
@@ -50,7 +51,7 @@ exports.products = async (req, res) => {
     try {
         const products = await db.product.find({}).exec();
 
-        // If no posts are found, return a 404 error
+        // If no products are found, return a 404 error
         if (!product.length) {
             return res.status(404).send({ message: "No products found" });
         }
@@ -61,7 +62,7 @@ exports.products = async (req, res) => {
         const formattedProducts = await db.product.find({})
             .populate('author', 'username')
             .exec()
-            .then(posts => {
+            .then(products => {
                 return products.map(product => {
                     // console.log(product);
                     return {
@@ -69,14 +70,14 @@ exports.products = async (req, res) => {
                         title: product.title,
                         description: product.description,
                         tags: product.tags,
-                        added: formatDate(product.created),
+                        added: formatDate(product.added),
                         author: product.author.username,
                         price: product.price
                     }
                 });
             });
 
-        // Send the formatted posts array in the response
+        // Send the formatted products array in the response
         res.status(200).send(formattedProducts);
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message

@@ -1,5 +1,3 @@
-// const { checkDuplicateUsernameOrEmailAndRolesExisted  } = require("../Middleware/verifySignUp");
-
 const controller = require("../Controllers/product.controller");
 
 module.exports = (app) => {

@@ -3,7 +3,7 @@ import UserService from "../../services/user.service";
 import productService from "../../services/product.service";
 import axios from "axios";
 import AuthService from "../../services/auth.service";
-
+import "./style.css"
 
 const AddProduct = () => {
   const [access, setAccess] = useState("");
@@ -126,7 +126,7 @@ const AddProduct = () => {
       </header>
 
       {/* form */}
-      <div>
+      <div className="add-product-page">
             <form onSubmit={handleProduct}>
               <h2>Add New Product</h2>
               {!successful && (
@@ -192,6 +192,18 @@ const AddProduct = () => {
               )}
             </form>
          
+            <div>
+          {products.map((product) => (
+            <div key={product.id}>
+              <h2>{product.title}</h2>
+              <p>{product.description}</p>
+              <p>{product.tags}</p>
+              <p>{product.added}</p>
+              <p>{product.price}</p>
+              <p>{product.author}</p>
+            </div>
+          ))}
+        </div>
           </div>
     </div>
   );
