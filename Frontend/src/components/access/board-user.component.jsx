@@ -5,7 +5,7 @@ const MyOrders = () => {
     const [content, setContent] = useState("");
   
     useEffect(() => {
-      UserService.getUserBoard().then(
+      UserService.userAccess().then(
         (response) => {
           setContent(response.data);
         },

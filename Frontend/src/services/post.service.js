@@ -1,11 +1,8 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3002/api/';
-
 class postService {
     getAllPosts() {
-        return axios.get(API_URL + 'posts');
-
+        return axios.get('http://localhost:3002/api/posts');
   }}
   
   export default new postService();

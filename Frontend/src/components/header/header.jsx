@@ -8,8 +8,6 @@ import { IconContext } from "react-icons";
 import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
 
-import AuthService from "../../services/auth.service";
-
 const Header = () => {
   const [showSellerBoard, setShowSellerBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -17,7 +15,7 @@ const Header = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
+    const user = JSON.parse(localStorage.getItem('user'));
 
     if (user) {
       setCurrentUser(user);
@@ -28,7 +26,7 @@ const Header = () => {
   }, []);
 
   const logOut = () => {
-    AuthService.logout();
+    localStorage.removeItem("user");
     setShowUserBoard(false);
     setShowSellerBoard(false);
     setShowAdminBoard(false);
@@ -55,14 +53,6 @@ const Header = () => {
             </Link>
           </li>
         )}
-        {/* 
-        {showUserBoard && (
-          <li>
-            <Link to={"/myOrders"} className="nav-link">
-              My Orders
-            </Link>
-          </li>
-        )} */}
 
         {showUserBoard ? (
           <li>

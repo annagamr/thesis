@@ -1,6 +1,5 @@
 import './App.css';
-import React, { useState,useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 
 import Header from './components/header/header'
 import Footer from './components/footer/footer'
@@ -17,7 +16,7 @@ import Profile from "./components/profiles/profile";
 
 
 import BoardUser from "./components/access/board-user.component";
-import BoardSeller from "./components/access/board-seller.component";
+import SellerProduct from "./components/add product/AddProduct";
 // import BoardAdmin from "./components/access/board-admin.component";
 
 function App() {
@@ -40,7 +39,7 @@ function App() {
           {/* orders page for users only */}
           <Route path="/myOrders" element={<BoardUser />} /> 
           {/* add product page for sellers only */}
-          <Route path="/addProduct" element={<BoardSeller />} />
+          <Route path="/addProduct" element={<SellerProduct />} />
           {/* <Route path="/adminProf" element={<BoardAdmin />} /> */}
 
           <Route path="/profile" element={<Profile/>} />

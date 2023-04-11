@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AuthService from "../../services/auth.service";
 import axios from "axios";
 import "./blog.css";
 import right from "./right.jpg";
@@ -18,7 +17,7 @@ const Blog = () => {
   const [successful, setSuccessful] = useState(false);
 
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
+    const user = JSON.parse(localStorage.getItem('user'));
 
     if (user) {
       setAuthor(user.username);

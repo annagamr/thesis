@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AuthService from "../../services/auth.service";
 import "./profile.css";
 import pic from "./store.png";
 import pic1 from "./profile.png";
@@ -10,7 +9,7 @@ const Profile = () => {
   const [userProf, setShowUserProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
+    const user = JSON.parse(localStorage.getItem('user'));
 
     if (user) {
       setCurrentUser(user);
