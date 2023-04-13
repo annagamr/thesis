@@ -34,7 +34,7 @@ exports.createPost = async (req, res) => {
         const user = req.body.author;
         await assignPostToUser(user, post);
         // Send a success message to the client
-        res.status(200).send({ message: "Post added successfully!", post: post });
+        res.status(200).send({ message: "Post Created!", post: post });
 
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message

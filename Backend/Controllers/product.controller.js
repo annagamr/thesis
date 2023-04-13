@@ -8,7 +8,7 @@ async function create(productData) {
     const product = new db.product({
         title: productData.title,
         description: productData.description,
-        tags: productData.tags,
+        category: productData.category,
         added: new Date(),
         price: productData.price,
     });
@@ -35,7 +35,7 @@ exports.addProduct = async (req, res) => {
         const user = req.body.author;
         await assignProductToSeller(user, product);
         // Send a success message to the client
-        res.status(200).send({ message: "Product added successfully!", product: product });
+        res.status(200).send({ message: "Added Successfully", product: product });
 
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message
@@ -52,7 +52,7 @@ exports.products = async (req, res) => {
         const products = await db.product.find({}).exec();
 
         // If no products are found, return a 404 error
-        if (!product.length) {
+        if (!products.length) {
             return res.status(404).send({ message: "No products found" });
         }
 
@@ -69,7 +69,7 @@ exports.products = async (req, res) => {
                         id: product._id,
                         title: product.title,
                         description: product.description,
-                        tags: product.tags,
+                        category: product.category,
                         added: formatDate(product.added),
                         author: product.author.username,
                         price: product.price

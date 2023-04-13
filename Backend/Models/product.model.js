@@ -11,12 +11,10 @@ const productsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    tags: [
-        {
-            type: String,
-            required: true
-        }
-    ],
+    category: {
+        type: String,
+        required: true
+    },
     added: {
         type: Date
     },
@@ -25,7 +23,9 @@ const productsSchema = new mongoose.Schema({
         ref: "User"
     },
     price: {
-        type: Number
+        type: Number,
+        required: true
+
     }
 });
 

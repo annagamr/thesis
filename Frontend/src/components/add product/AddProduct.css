@@ -1,3 +1,92 @@
-.add-product-page{
-    margin-top: 20rem;
+.product-container {
+    width: 100%;
+    background-color: #ebeaf2;
+    height: 93.75vh;
+}
+
+.add-product-page {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+    padding-top: 94px;
+}
+
+.add-product-page form {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+}
+
+#header-add {
+    background-color: rgb(83, 69, 162);
+    font-size: 2rem;
+    color: white;
+    font-family: 'Cormorant', serif;
+    text-align: center;
+    letter-spacing: 5px;
+    padding: 2px;
+    margin-bottom: 2rem;
+}
+
+.item-category select {
+    display: block;
+    padding: 1.2rem;
+    border: 1px solid rgb(159, 169, 206);
+    border-radius: 0.6rem;
+    margin-bottom: 1.25rem;
+    resize: none;
+}
+
+.add-product-page textarea {
+    line-height: 20px;
+}
+
+.add-product-page button {
+    margin-top: 15px;
+}
+
+.added-details {
+    display: flex;
+    flex-direction: column;
+    width: 50rem;
+    color: black;
+    font-size: 25px;
+    line-height: 50px;
+    padding: 20px;
+    margin-top: 15px;
+    overflow-x: auto;
+    word-wrap: break-word;
+}
+
+.added-details h3 {
+    margin-bottom: 15px;
+    font-family: 'Cormorant', serif;
+}
+
+.product-details h2{
+    background-color: rgb(83, 69, 162);
+    font-size: 2rem;
+    color: white;
+    font-family: 'Cormorant', serif;
+    text-align: center;
+    letter-spacing: 5px;
+    padding: 2px;
+}
+
+.added-details p {
+    width: 100%;
+    background-color: rgb(83, 69, 162);
+    padding: 15px;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 9px;
+}
+
+.product-details {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
 }

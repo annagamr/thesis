@@ -5,13 +5,12 @@ import axios from "axios";
 import "./AddProduct.css";
 
 const AddProduct = () => {
-
   const [access, setAccess] = useState("");
   // vars for product
   const [products, setProducts] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [tags, setTags] = useState([]);
+  const [category, setCategory] = useState("");
   const [author, setAuthor] = useState(undefined);
   const [price, setPrice] = useState(0);
   const [message, setMessage] = useState("");
@@ -56,14 +55,14 @@ const AddProduct = () => {
     fetchProducts();
   }, []);
 
-  async function addProduct(title, description, tags, author, price) {
+  async function addProduct(title, description, category, author, price) {
     try {
       const response = await axios.post(
         "http://localhost:3002/api/add-product",
         {
           title,
           description,
-          tags,
+          category,
           author,
           price,
         }
@@ -89,9 +88,9 @@ const AddProduct = () => {
     }
   }
 
-  function updateTags(e) {
-    const newTags = e.target.value.split(",");
-    setTags(newTags);
+  function updateCategory(e) {
+    const newCategory = e.target.value;
+    setCategory(newCategory);
   }
 
   function updatePrice(e) {
@@ -108,7 +107,7 @@ const AddProduct = () => {
       const response = await addProduct(
         title,
         description,
-        tags,
+        category,
         author,
         price
       );
@@ -125,15 +124,15 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="container">
+    <div className="product-container">
       <header className="jumbotron">
         <h3>{access}</h3>
       </header>
-      
+
       {/* form */}
       <div className="add-product-page">
         <form onSubmit={handleProduct}>
-          <h2>Add New Product</h2>
+          {!successful && <h2 id="header-add">Add New Product</h2>}
           {!successful && (
             <div>
               <div className="item-title">
@@ -141,7 +140,7 @@ const AddProduct = () => {
                 <input
                   type="text"
                   style={{ width: "30rem" }}
-                  maxLength={40}
+                  maxLength={25}
                   name="title"
                   value={title}
                   onChange={updateTitle}
@@ -151,27 +150,33 @@ const AddProduct = () => {
               <div className="item-description">
                 <label htmlFor="description">Description</label>
                 <textarea
-                  rows="15"
-                  style={{ width: "50rem" }}
+                  rows="5"
+                  style={{ width: "30rem" }}
                   name="description"
-                  maxLength={1200}
+                  maxLength={150}
                   value={description}
                   onChange={updateDescription}
                   required
                 ></textarea>
               </div>
 
-              <div className="item-tags">
-                <label htmlFor="tags">Tags</label>
-                <input
-                  type="text"
-                  name="tags"
+              <div className="item-category">
+                <label htmlFor="category">Category</label>
+                <select
+                  name="category"
                   style={{ width: "30rem" }}
-                  value={tags}
-                  onChange={updateTags}
-                  maxLength={40}
+                  value={category}
+                  onChange={updateCategory}
                   required
-                />
+                >
+                  <option value="">Select a category</option>
+                  <option value="skin care">Skin Care</option>
+                  <option value="body care">Body Care</option>
+                  <option value="sun care">Sun Care</option>
+                  <option value="hair care">Hair Care</option>
+                  <option value="make up">Make Up</option>
+                  <option value="perfume">Perfume</option>
+                </select>
               </div>
               <div className="item-price">
                 <label htmlFor="price">Price</label>
@@ -191,13 +196,26 @@ const AddProduct = () => {
             </div>
           )}
           {successful && (
-            <div>
-              <p>{message}</p>
+            <div className="product-details">
+              <h2>{message}</h2>
+
+              <div className="added-details">
+                <h3>Product Details:</h3>
+                <p>Title: {title}</p>
+                <p>
+                  Description: <div>{description}</div>
+                </p>
+                <p>Category: {category}</p>
+                <p>Price: {price}</p>
+              </div>
+              <button onClick={() => window.location.reload()}>
+                Add More Products
+              </button>
             </div>
           )}
         </form>
 
-        <div>
+        {/* <div>
           {products.map((product) => (
             <div key={product.id}>
               <h2>{product.title}</h2>
@@ -208,7 +226,7 @@ const AddProduct = () => {
               <p>{product.author}</p>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
