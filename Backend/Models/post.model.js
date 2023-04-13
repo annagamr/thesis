@@ -11,12 +11,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    tags: [
-        {
-            type: String,
-            required: true
-        }
-    ],
+    topic: {
+        type: String,
+        required: true
+    },
     created: {
         type: Date
     },

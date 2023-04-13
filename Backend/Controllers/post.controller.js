@@ -8,7 +8,7 @@ async function create(postData) {
     const post = new db.post({
         title: postData.title,
         description: postData.description,
-        tags: postData.tags,
+        topic: postData.topic,
         created: new Date()
     });
 
@@ -67,7 +67,7 @@ exports.posts = async (req, res) => {
                         id: post._id,
                         title: post.title,
                         description: post.description,
-                        tags: post.tags,
+                        topic: post.topic,
                         created: formatDate(post.created),
                         author: post.author.username
                     }

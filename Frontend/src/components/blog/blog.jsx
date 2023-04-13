@@ -11,13 +11,13 @@ const Blog = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [tags, setTags] = useState([]);
+  const [topic, setTopic] = useState("");
   const [author, setAuthor] = useState(undefined);
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
 
     if (user) {
       setAuthor(user.username);
@@ -35,12 +35,12 @@ const Blog = () => {
       });
   }, []);
 
-  function addPost(title, description, tags, author) {
+  function addPost(title, description, topic, author) {
     return axios
       .post("http://localhost:3002/api/create-post", {
         title,
         description,
-        tags,
+        topic,
         author,
       })
       .then((response) => {
@@ -67,9 +67,9 @@ const Blog = () => {
     }
   }
 
-  function updateTags(e) {
-    const newTags = e.target.value.split(",");
-    setTags(newTags);
+  function updatetopic(e) {
+    const newTopic = e.target.value;
+    setTopic(newTopic);
   }
 
   const handlePost = (e) => {
@@ -77,7 +77,7 @@ const Blog = () => {
     setMessage("");
     setSuccessful(false);
 
-    addPost(title, description, tags, author)
+    addPost(title, description, topic, author)
       .then((response) => {
         // When addPost() successfully returns data from the server
         setMessage(response.data.message);
@@ -100,9 +100,10 @@ const Blog = () => {
         {(adminProf || sellerProf) && (
           <div>
             <form onSubmit={handlePost}>
-              <h2>Create New Post!</h2>
               {!successful && (
                 <div>
+                  <h2>Create New Post!</h2>
+
                   <div className="item-title">
                     <label htmlFor="title">Title</label>
                     <input
@@ -121,52 +122,65 @@ const Blog = () => {
                       rows="15"
                       style={{ width: "50rem" }}
                       name="description"
-                      maxLength={1200}
+                      minLength={800}
+                      maxLength={1000}
                       value={description}
                       onChange={updateDescription}
                       required
                     ></textarea>
                   </div>
 
-                  <div className="item-tags">
-                    <label htmlFor="tags">Tags</label>
-                    <input
-                      type="text"
-                      name="tags"
+                  <div className="item-category">
+                    <label htmlFor="topic">Topic</label>
+
+                    <select
+                      name="topic"
                       style={{ width: "30rem" }}
-                      value={tags}
-                      onChange={updateTags}
-                      maxLength={40}
+                      value={topic}
+                      onChange={updatetopic}
                       required
-                    />
+                    >
+                      <option value="">Select a topic</option>
+                      <option value="makeUp">Make up</option>
+                      <option value="skinCare">Skin Care</option>
+                      <option value="healthNbeauty">Health & Beauty</option>
+                      <option value="productRecommendation">
+                        Product Recommendation
+                      </option>
+                      <option value="hair">Hair & Hair Products</option>
+                      <option value="perfumes">Perfumes</option>
+                      <option value="tanning">Sun & Tanning</option>
+                    </select>
                   </div>
                   <div className="add-post">
                     <button>Add Post</button>
                   </div>
                 </div>
               )}
-              {successful && (
-                <div>
-                  <p>{message}</p>
-                </div>
-              )}
             </form>
-            <div className="image-right">
-              <img src={right} alt="" />
-            </div>
+            {successful && (
+              <div className="if-success">
+                <h2 style={{ color: "blue" }}>{message}</h2>{" "}
+                <div className="add-post">
+                  <button onClick={() => window.location.reload()}>
+                    Add More Blogs
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-        <div>
-          {posts.map((post) => (
-            <div key={post.id}>
-              <h2>{post.title}</h2>
-              <p>{post.description}</p>
-              <p>{post.tags}</p>
-              <p>{post.created}</p>
-              <p>{post.author}</p>
-            </div>
-          ))}
-        </div>
+        )}{" "}
+      </div>
+
+      <div className="blog-posts-container">
+        {posts.map((post) => (
+          <div key={post.id} className="blog-posts">
+            <h2 className="blog-title">{post.title}</h2>
+            <p className="blog-author">Author: {post.author}, Date: {post.created}</p>
+            <p className="blog-description">{post.description}</p>
+            <p className="blog-topics">{post.topic}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
