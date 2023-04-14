@@ -10,7 +10,7 @@ async function create(productData) {
         description: productData.description,
         category: productData.category,
         added: new Date(),
-        price: productData.price,
+        price: productData.price
     });
 
     // Save the product to the database and return the result
@@ -47,6 +47,8 @@ const formatDate = (date) => {
     const options = { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
     return new Date(date).toLocaleDateString('en-US', options);
 };
+
+
 exports.products = async (req, res) => {
     try {
         const products = await db.product.find({}).exec();
