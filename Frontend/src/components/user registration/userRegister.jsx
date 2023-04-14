@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { isEmail } from "validator";
 import axios from "axios";
 import "./userRegister.css";
@@ -53,7 +53,7 @@ const UserRegister = ({ isShop }) => {
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
-  const [roles, setRole] = useState(isShop ? ["seller"] : ["user"]);
+  const [roles] = useState(isShop ? ["seller"] : ["user"]);
 
   function updateEmail(e) {
     const newEmail = e.target.value;

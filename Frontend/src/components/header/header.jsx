@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./header.css";
 import { BsCart4 } from "react-icons/bs";
 import { RxPerson } from "react-icons/rx";
-import { MdQuestionAnswer, MdLogin } from "react-icons/md";
+import { MdQuestionAnswer } from "react-icons/md";
 import { AiOutlineLogin, AiOutlineLogout, AiOutlinePlus } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import Badge from "@mui/material/Badge";

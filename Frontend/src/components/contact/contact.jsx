@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import illustration from "./contact-illustration.jpg";
 import "./contact.css";
 import { send } from "emailjs-com";
 

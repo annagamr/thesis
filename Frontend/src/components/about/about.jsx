@@ -102,7 +102,7 @@ const About = () => {
           {slides.map(({ imgSrc, title, desc }) => (
             <div className="slide">
               <div className="img-container">
-                <img src={imgSrc} aria-hidden="true" />
+                <img src={imgSrc} aria-hidden="true" alt="First Cover"/>
               </div>
               <div className="title-container">
                 <h2 className="title">{title}</h2>
@@ -141,7 +141,7 @@ const About = () => {
       </div>
       <div className="how-title">Who Are We?</div>
       <div className="intro-container">
-        <img src={store} alt="your-image" className="image" />
+        <img src={store} alt="Store Description" className="image" />
         <div className="content">
           <p>
             At [Store Name], we believe that healthy, glowing skin is the key to
@@ -208,7 +208,7 @@ const About = () => {
 
       <div className="how-to">
         <div className="how-image">
-          <img src={skin} alt="Your Image" />
+          <img src={skin} alt="How to Sign Up" />
         </div>
         <div className="list-container">
           <h2>Here's a Guide to Create a Shop</h2>

@@ -2,7 +2,8 @@
     width: 100%;
     max-width: 130rem;
     margin: 0 auto;
-    background-color: hsl(240, 33%, 93%);
+    background: #7f7fd5;
+    background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
     /* Center the container horizontally */
 }
 
@@ -190,7 +191,6 @@
 }
 
 .blog-posts-container {
-    margin-top: 80px;
     /* margin-bottom: 30px; */
     display: flex;
     flex-wrap: wrap;
@@ -199,13 +199,14 @@
 }
 
 .blog-posts {
-    background: rgba(255, 255, 255, 0.62);
-    border-radius: 16px;
+    margin-top: 80px;
+    background: rgb(255 255 255 / 70%);
+    border-radius: 20px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(3.9px);
     -webkit-backdrop-filter: blur(3.9px);
-    width: calc(33.33% - 50px);
-    max-width: 700px;
+    width: calc(50% - 50px);
+    max-width: 750px;
     height: auto;
     margin-bottom: 20px;
 }
@@ -218,46 +219,65 @@
     text-transform: uppercase;
     overflow-x: auto;
     word-wrap: break-word;
-    background: hsl(350, 34%, 72%);
-    color: hsl(0, 0%, 100%);
+    background: hsl(0, 0%, 100%);
+    color: black;
     padding: 15px;
     text-align: center;
 }
 
 .blog-description {
     text-indent: 20px;
-    font-size: 19px;
-    line-height: 30px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 35px;
     overflow-x: auto;
     word-wrap: break-word;
-    padding:0 15px
+    padding:0 18px
 }
 
 .blog-topics {
     border: 1px solid rgb(208, 208, 208);
-    width: 5rem;
+    width: 6rem;
     text-align: center;
     padding:5px;
     background-color: white;
-    font-size: 14px;
+    font-size: 15px;
     margin-top: 20px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     margin-left: 15px;
 }
 
 
 .blog-author
 {
-    font-size: 14px;
+    font-size: 15px;
     color: #888;
     margin-left: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .footer_bottom {
     display: flex !important;
 }
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1700px;
+    padding-top: 50px;
+    margin: 0 auto;
+  }
+  
+  .topic-item {
+    width: calc(12% - 10px);
+    height: 3rem;
+    margin-bottom: 10px;
+    padding-top: 8px;
+    background-color: #fbfbfb;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+  }
 
 @media screen and (max-width: 768px) {
     .blog-posts {

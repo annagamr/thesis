@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./blog.css";
-import right from "./right.jpg";
 import postService from "../../services/post.service";
 
 const Blog = () => {
   const [sellerProf, setShowSellerProfile] = useState(false);
   const [adminProf, setShowAdminProfile] = useState(false);
   const [posts, setPosts] = useState([]);
+
+  const [skin, setSkin] = useState("0");
+  const [makeUp, setMakeUp] = useState("0");
+  const [health, setHealth] = useState("0");
+  const [recommendation, setRecommendation] = useState("0");
+  const [hair, setHair] = useState("0");
+  const [sun, setSun] = useState("0");
+  const [perfume, setPerfume] = useState("0");
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -34,6 +41,87 @@ const Blog = () => {
         console.log(error);
       });
   }, []);
+
+  useEffect(() => {
+    postService
+      .getSkincare()
+      .then((response) => {
+        setSkin(response.data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+
+  useEffect(() => {
+    postService
+      .getMakeUp()
+      .then((response) => {
+        setMakeUp(response.data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+
+  useEffect(() => {
+    postService
+      .getHealth()
+      .then((response) => {
+        setHealth(response.data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+
+  useEffect(() => {
+    postService
+      .getRec()
+      .then((response) => {
+        setRecommendation(response.data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    postService
+      .getHair()
+      .then((response) => {
+        setHair(response.data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    postService
+      .getSun()
+      .then((response) => {
+        setSun(response.data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    postService
+      .getPerfumes()
+      .then((response) => {
+        setPerfume(response.data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
 
   function addPost(title, description, topic, author) {
     return axios
@@ -171,14 +259,42 @@ const Blog = () => {
           </div>
         )}{" "}
       </div>
-
+      <div className="categories">
+        <div className="topic-item">
+          Skin Care
+          <br /> ({skin})
+        </div>
+        <div className="topic-item">
+          Make up
+          <br /> ({makeUp})
+        </div>
+        <div className="topic-item">
+          Health & Beauty <br /> ({health})
+        </div>
+        <div className="topic-item">
+          Product Recommendation <br /> ({recommendation})
+        </div>
+        <div className="topic-item">
+          Hair & Hair Products <br /> ({hair})
+        </div>
+        <div className="topic-item">
+          Sun & Tanning <br /> ({sun})
+        </div>
+        <div className="topic-item">
+          Perfumes <br /> ({perfume})
+        </div>
+      </div>
       <div className="blog-posts-container">
         {posts.map((post) => (
           <div key={post.id} className="blog-posts">
             <h2 className="blog-title">{post.title}</h2>
-            <p className="blog-author">Author: {post.author}, Date: {post.created}</p>
             <p className="blog-description">{post.description}</p>
             <p className="blog-topics">{post.topic}</p>
+            <p className="blog-author">
+              Author: {post.author} <br />
+              <br />
+              Date: {post.created}
+            </p>
           </div>
         ))}
       </div>

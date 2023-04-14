@@ -82,3 +82,66 @@ exports.posts = async (req, res) => {
         res.status(500).send({ message: err });
     }
 };
+
+exports.countSkinCarePosts = async (req, res) => {
+    try {
+        const count = await db.post.countDocuments({ topic: 'skinCare' });
+        res.status(200).send({ count });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
+
+exports.countMakeUpPosts = async (req, res) => {
+    try {
+        const count = await db.post.countDocuments({ topic: 'makeUp' });
+        res.status(200).send({ count });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
+
+exports.countHealthPosts = async (req, res) => {
+    try {
+        const count = await db.post.countDocuments({ topic: 'healthNbeauty' });
+        res.status(200).send({ count });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
+
+exports.countRecommendationPosts = async (req, res) => {
+    try {
+        const count = await db.post.countDocuments({ topic: 'productRecommendation' });
+        res.status(200).send({ count });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
+
+exports.countHairPosts = async (req, res) => {
+    try {
+        const count = await db.post.countDocuments({ topic: 'hair' });
+        res.status(200).send({ count });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
+
+exports.countSunPosts = async (req, res) => {
+    try {
+        const count = await db.post.countDocuments({ topic: 'tanning' });
+        res.status(200).send({ count });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
+
+exports.countPerfPosts = async (req, res) => {
+    try {
+        const count = await db.post.countDocuments({ topic: 'perfumes' });
+        res.status(200).send({ count });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};

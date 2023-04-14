@@ -52,6 +52,41 @@ module.exports = function (app) {
         "/api/posts",
         postController.posts
     );
+    // Route for getting skin care posts
+    app.get(
+        "/api/countSkinCarePosts",
+        postController.countSkinCarePosts
+    );
+    // Route for getting make up posts
+    app.get(
+        "/api/countMakeUpPosts",
+        postController.countMakeUpPosts
+    );
+    // Route for getting health care posts
+    app.get(
+        "/api/countHealthPosts",
+        postController.countHealthPosts
+    );
+    // Route for getting product rec posts
+    app.get(
+        "/api/countRecommendationPosts",
+        postController.countRecommendationPosts
+    );
+    // Route for getting hair posts
+    app.get(
+        "/api/countHairPosts",
+        postController.countHairPosts
+    );
+    // Route for getting sun care posts
+    app.get(
+        "/api/countSunPosts",
+        postController.countSunPosts
+    );
+    // Route for getting perfume posts
+    app.get(
+        "/api/countPerfPosts",
+        postController.countPerfPosts
+    );
     //Route for sign up
     app.post(
         "/api/auth/signup",
