@@ -5,8 +5,8 @@ class productService {
         return axios.get('http://localhost:3002/api/products');
 
   }
-  getSellerProducts() {
-   return axios.get("http://localhost:3002/api/sellerProducts");
+  getSellerProducts(userId) {
+   return axios.get(`http://localhost:3002/api/productsbyAuthor/${userId}`);
    
 }}
   

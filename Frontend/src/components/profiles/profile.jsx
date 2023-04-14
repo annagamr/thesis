@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./profile.css";
 import pic from "./store.png";
 import pic1 from "./profile.png";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [sellerProf, setShowSellerProfile] = useState(false);
@@ -46,7 +47,7 @@ const Profile = () => {
               </div>
             </div>
             <button className="edit">Edit Profile</button>
-            <button className="see-list">Listed Products</button>
+            <button className="see-list" > <Link to="/sellerProducts">Listed Products</Link></button>
           </div>
 
           <div className="faq-container">

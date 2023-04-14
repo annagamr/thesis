@@ -17,6 +17,7 @@ import Profile from "./components/profiles/profile";
 
 import BoardUser from "./components/access/board-user.component";
 import SellerProduct from "./components/add product/AddProduct";
+import SellerProducts from './components/seller products/sellerProducts';
 // import BoardAdmin from "./components/access/board-admin.component";
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           {/* <Route path="/adminProf" element={<BoardAdmin />} /> */}
 
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/sellerProducts" element={<SellerProducts/>} />
 
 
 

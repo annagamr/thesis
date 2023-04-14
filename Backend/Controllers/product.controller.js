@@ -88,3 +88,32 @@ exports.products = async (req, res) => {
     }
 };
 
+exports.productsbyAuthor = async (req, res) => {
+    try {
+        const products = await db.product.find({ author: req.params.author }).exec();
+
+        // If no products are found, return a 404 error
+        if (!products.length) {
+            return res.status(404).send({ message: "No products found" });
+        }
+
+        // Create a new array of product objects with the desired properties
+        const formattedProducts = products.map(product => {
+            return {
+                id: product._id,
+                title: product.title,
+                description: product.description,
+                category: product.category,
+                added: formatDate(product.added),
+                author: product.author.username,
+                price: product.price
+            };
+        });
+
+        // Send the formatted products array in the response
+        res.status(200).send(formattedProducts);
+    } catch (err) {
+        // If an error occurs, send a 500 error response to the client with the error message
+        res.status(500).send({ message: err });
+    }
+};

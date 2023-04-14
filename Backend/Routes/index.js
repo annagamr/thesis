@@ -42,10 +42,8 @@ module.exports = function (app) {
         productController.products
     );
     // Route for getting products by current author
-    // app.get(
-    //     "/api/productsbyAuthor:author",
-    //     productController.productsbyAuthor
-    // );
+    app.get('/api/productsbyAuthor/:author', productController.productsbyAuthor);
+
 
     // Route for creating post
     app.post(
