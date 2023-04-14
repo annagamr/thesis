@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import UserService from "../../services/user.service";
 import productService from "../../services/product.service";
-import axios from "axios";
+import "./sellerProducts.css";
 
 const SellerProducts = () => {
   const [products, setProducts] = useState([]);
-  const [author, setAuthor] = useState(undefined);
 
   useEffect(() => {
     const fetchProducts = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user.id)
       try {
         const response = await productService.getSellerProducts(user.id);
         setProducts(response.data);
@@ -22,21 +19,19 @@ const SellerProducts = () => {
   }, []);
   return (
     <div>
-    <div>My Products:</div>
-     <div>
-          {products.map((product) => (
-            <div key={product.id}>
-              <h2>{product.title}</h2>
-              <p>{product.description}</p>
-              <p>{product.tags}</p>
-              <p>{product.added}</p>
-              <p>{product.price}</p>
-              <p>{product.author}</p>
+      <h2 className="seller-h2">My Products:</h2>
+      <div className="my-products">
+        {products.map((product) => (
+          <div className="myCard" key={product.id}>
+            <div className="card-image">
+              <img src="" alt="holder" />
             </div>
-          ))}
-        </div> 
-        </div>
-
+            <p className="card-title">{product.title}</p>
+            <p className="card-price">Price: {product.price} HUF</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

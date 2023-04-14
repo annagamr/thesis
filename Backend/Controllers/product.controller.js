@@ -6,6 +6,7 @@ const db = require("../Models");
 async function create(productData) {
     // Create a new product with the given post data
     const product = new db.product({
+        image: productData.image,
         title: productData.title,
         description: productData.description,
         category: productData.category,
@@ -68,6 +69,7 @@ exports.products = async (req, res) => {
                 return products.map(product => {
                     // console.log(product);
                     return {
+                        image: product.image,
                         id: product._id,
                         title: product.title,
                         description: product.description,

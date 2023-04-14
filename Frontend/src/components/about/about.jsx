@@ -105,7 +105,7 @@ const About = () => {
                 <img src={imgSrc} aria-hidden="true" alt="First Cover"/>
               </div>
               <div className="title-container">
-                <h2 className="title">{title}</h2>
+                <h2 className="title-carousel">{title}</h2>
                 <p className="desc">{desc}</p>
                 {/* <button className="btn-discover">DISCOVER</button> */}
               </div>
