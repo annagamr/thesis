@@ -3,8 +3,6 @@ const secretPass = "my-password-key"
 const db = require("../Models");
 const nodemailer = require('nodemailer');
 
-
-
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 const User = require("../Models/user.model");
@@ -100,7 +98,7 @@ exports.forgotPassword = async (req, res) => {
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      secure:"true",
+      secure: "true",
       auth: {
         user: 'auroraForservices',
         pass: 's r g a z t g e e f g s x w e c'
@@ -119,7 +117,7 @@ exports.forgotPassword = async (req, res) => {
     await user.updateOne({ resetLink: tokenPass });
 
     // Send the email
-    transporter.sendMail(data, function(error, info){
+    transporter.sendMail(data, function (error, info) {
       if (error) {
         console.log(error);
         res.status(500).json({ error: "Failed to send email" });
@@ -127,9 +125,39 @@ exports.forgotPassword = async (req, res) => {
         console.log('Email sent: ' + info.response);
         res.json({ message: 'Password reset email sent' });
       }
-    }); } 
-    catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Server error" });
-    }
+    });
   }
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+}
+
+//gets triggered when the user click on reset link (step 2 - final step)
+exports.resetPassword = async (req, res) => {
+  const { resetLink, newPass } = req.body;
+  try {
+    if (resetLink) {
+      jwt.verify(resetLink, secretPass, async function (error, decodedData) {
+        if (error) {
+          return res.status(401).json({ error: "Invalid/Expired Token" });
+        }
+        const user = await User.findOne({ resetLink });
+        if (!user) {
+          return res.status(400).json({ error: "Can't match tokens" });
+        }
+        const hashedPassword = await bcrypt.hash(newPass, 8);
+       
+        user.password = hashedPassword;
+        user.resetLink = '';
+        await user.save();
+        return res.status(201).json({ message: "Password has been successfully updated!" });
+      });
+    } else {
+      return res.status(401).json({ error: "No Reset Link" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};

@@ -61,6 +61,11 @@ module.exports = function (app) {
         "/api/forgot-password",
         authController.forgotPassword
     );
+    // Route for reseting password step 2
+    app.post(
+        "/api/reset-password",
+        authController.resetPassword
+    );
     // Route for getting number of posts according to topic
 
     app.get("/api/countPostsByTopic/:topic", postController.countPostsByTopic);
