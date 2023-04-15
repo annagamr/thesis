@@ -78,6 +78,7 @@ const isSeller = async (req, res, next) => {
   }
 };
 
+
 const authJwt = {
   verifyToken,
   isAdmin,

@@ -20,7 +20,11 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role"
     }
-  ]
+  ],
+  resetLink: {
+    type: String,
+    default: ''
+  }
 });
 
 //Creating new User model using mongoose.model() method. Taking name of the model(user) and a schema describing structure of docs in collection

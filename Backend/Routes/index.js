@@ -5,6 +5,7 @@ const { isUser } = require("../Middleware/authJwt");
 const productController = require("../Controllers/product.controller");
 const postController = require("../Controllers/post.controller");
 const authController = require("../Controllers/auth.controller");
+
 const { checkDuplicateUsernameOrEmailAndRolesExisted } = require("../Middleware/verifySignUp");
 
 
@@ -54,6 +55,11 @@ module.exports = function (app) {
     app.get(
         "/api/posts",
         postController.posts
+    );
+    // Route for reseting password 
+    app.post(
+        "/api/forgot-password",
+        authController.forgotPassword
     );
     // Route for getting number of posts according to topic
 

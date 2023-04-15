@@ -1,8 +1,13 @@
 const secret = "my-secret-key"
+const secretPass = "my-password-key"
 const db = require("../Models");
+const nodemailer = require('nodemailer');
+
+
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const User = require("../Models/user.model");
 
 // Asynchronously creates a new user with the provided user data
 async function createUser(userData) {
@@ -83,3 +88,48 @@ exports.signin = async (req, res) => {
     res.status(500).send({ message: err });
   }
 };
+
+//gets triggered when user sends email address (so step 1)
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ error: "User does not exist" });
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      secure:"true",
+      auth: {
+        user: 'auroraForservices',
+        pass: 's r g a z t g e e f g s x w e c'
+      }
+    });
+
+    const tokenPass = jwt.sign({ _id: user._id }, secretPass, { expiresIn: '15m' });
+    const data = {
+      from: 'auroraForservices@gmail.com',
+      to: email,
+      subject: 'Password Reset Link',
+      html: `<h2> Please, follow the provided Link to reset your password! </h2>
+             <h1>http://localhost:3000/resetPassword/${tokenPass}</h1>`
+    }
+
+    await user.updateOne({ resetLink: tokenPass });
+
+    // Send the email
+    transporter.sendMail(data, function(error, info){
+      if (error) {
+        console.log(error);
+        res.status(500).json({ error: "Failed to send email" });
+      } else {
+        console.log('Email sent: ' + info.response);
+        res.json({ message: 'Password reset email sent' });
+      }
+    }); } 
+    catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Server error" });
+    }
+  }
