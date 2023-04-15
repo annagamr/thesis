@@ -13,6 +13,8 @@ import ContactPage from "./components/contact/contact";
 import UserRegister from "./components/user registration/userRegister";
 import Login from "./components/login/login";
 import Profile from "./components/profiles/profile";
+import Forgot from "./components/login/forgot";
+import Reset from "./components/login/reset";
 
 
 import BoardUser from "./components/access/board-user.component";
@@ -36,6 +38,9 @@ function App() {
           <Route path="/usersignup" element={<UserRegister isShop={false} />} />
           <Route path="/shopRegister" element={<UserRegister isShop={true}/>} />
           <Route path="/signin" element={<Login />} />
+          <Route path="/forgotPassword" element={<Forgot />} />
+          <Route path="/resetPassword/:token" element={<Reset />}/>
+
 
           {/* orders page for users only */}
           <Route path="/myOrders" element={<BoardUser />} /> 
@@ -45,7 +50,7 @@ function App() {
 
           <Route path="/profile" element={<Profile/>} />
           <Route path="/sellerProducts" element={<SellerProducts/>} />
-
+            
 
 
         </Routes>

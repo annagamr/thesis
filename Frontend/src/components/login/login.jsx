@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./login.css";
+import { Link } from "react-router-dom";
 
 async function signin(username, password) {
   try {
@@ -89,7 +90,7 @@ const Login = (props) => {
               required
             />
           </div>
-
+          <Link to={"/forgotPassword"}>Forgot Password?</Link>
           <div className="item-button">
             <button className="login-button">
               <span>Login</span>

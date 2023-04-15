@@ -117,45 +117,47 @@ exports.forgotPassword = async (req, res) => {
     await user.updateOne({ resetLink: tokenPass });
 
     // Send the email
-    transporter.sendMail(data, function (error, info) {
-      if (error) {
-        console.log(error);
-        res.status(500).json({ error: "Failed to send email" });
-      } else {
-        console.log('Email sent: ' + info.response);
-        res.json({ message: 'Password reset email sent' });
-      }
-    });
+    await transporter.sendMail(data);
+    console.log('Email sent');
+    res.json({ message: 'Password reset email sent' });
   }
   catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
   }
-}
+};
 
 //gets triggered when the user click on reset link (step 2 - final step)
 exports.resetPassword = async (req, res) => {
-  const { resetLink, newPass } = req.body;
+  const { username, newPass } = req.body;
   try {
-    if (resetLink) {
-      jwt.verify(resetLink, secretPass, async function (error, decodedData) {
-        if (error) {
-          return res.status(401).json({ error: "Invalid/Expired Token" });
-        }
-        const user = await User.findOne({ resetLink });
-        if (!user) {
-          return res.status(400).json({ error: "Can't match tokens" });
-        }
-        const hashedPassword = await bcrypt.hash(newPass, 8);
-       
-        user.password = hashedPassword;
-        user.resetLink = '';
-        await user.save();
-        return res.status(201).json({ message: "Password has been successfully updated!" });
-      });
-    } else {
-      return res.status(401).json({ error: "No Reset Link" });
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ error: "User does not exist" });
     }
+
+    // console.log(req.body.token)
+
+    if (user.resetLink !== req.body.token) {
+      return res.status(401).json({ error: "Invalid reset link" });
+    }
+
+    const decodedData = await new Promise((resolve, reject) => {
+      jwt.verify(req.body.token, secretPass, (error, decoded) => {
+        if (error) {
+          reject({ error: "Invalid/Expired Token" });
+        } else {
+          resolve(decoded);
+        }
+      });
+    });
+
+    const hashedPassword = await bcrypt.hash(newPass, 8);
+    user.password = hashedPassword;
+    user.resetLink = '';
+    await user.save();
+
+    return res.status(201).json({ message: "Password has been successfully updated!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
