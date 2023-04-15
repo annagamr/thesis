@@ -12,6 +12,10 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState(undefined);
+  const [prodImageFile, setProdImageFile] = useState("");
+  const [prodImageName, setProdImageName] = useState("");
+
+
   const [price, setPrice] = useState(0);
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
@@ -55,16 +59,25 @@ const AddProduct = () => {
     fetchProducts();
   }, []);
 
-  async function addProduct(title, description, category, author, price) {
+
+
+  async function addProduct(prodImageFile, prodImageName, title, description, category, author, price) {
     try {
       const response = await axios.post(
         "http://localhost:3002/api/add-product",
         {
+          prodImageFile,
+          prodImageName,
           title,
           description,
           category,
           author,
           price,
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         }
       );
       setProducts([...products, response.data.post]);
@@ -78,6 +91,14 @@ const AddProduct = () => {
   function updateTitle(e) {
     const newTitle = e.target.value;
     setTitle(newTitle);
+  }
+
+
+
+  function updateImage(e) {
+    const file = e.target.files[0];
+    setProdImageFile(file);
+    setProdImageName(document.getElementById('prodImage').value);
   }
 
   function updateDescription(e) {
@@ -105,6 +126,8 @@ const AddProduct = () => {
 
     try {
       const response = await addProduct(
+        prodImageFile,
+        prodImageName,
         title,
         description,
         category,
@@ -131,10 +154,20 @@ const AddProduct = () => {
 
       {/* form */}
       <div className="add-product-page">
-        <form onSubmit={handleProduct}>
+        <form onSubmit={handleProduct} encType="multipart/form-data">
           {!successful && <h2 id="header-add">Add New Product</h2>}
           {!successful && (
             <div>
+              <div className="item-image">
+                <label htmlFor="prodImage">Image</label>
+                <input id="prodImage"
+                  type="file"
+                  name="prodImage"
+                  accept=".jpg,.png"
+                  onChange={updateImage}
+                  required
+                />
+              </div>
               <div className="item-title">
                 <label htmlFor="title">Title</label>
                 <input
@@ -201,6 +234,9 @@ const AddProduct = () => {
 
               <div className="added-details">
                 <h3>Product Details:</h3>
+                <p>Image:</p>
+                <img id="image-id" src={URL.createObjectURL(prodImageFile)}/>
+
                 <p>Title: {title}</p>
                 <p>
                   Description: <div>{description}</div>

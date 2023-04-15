@@ -8,7 +8,18 @@ const authController = require("../Controllers/auth.controller");
 
 const { checkDuplicateUsernameOrEmailAndRolesExisted } = require("../Middleware/verifySignUp");
 
-
+const multer = require('multer')
+const upload = multer({
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    },
+    dest: '../Uploads'
+});
 function success(req, res) {
     res.status(201);
 }
@@ -34,8 +45,10 @@ module.exports = function (app) {
 
     // Route for creating products
     app.post(
-        "/api/add-product",
-        productController.addProduct
+        "/api/add-product", 
+        upload.single('prodImageFile'),
+        productController.addProduct,
+
     );
     // Route for getting products
     app.get(

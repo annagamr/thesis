@@ -32,7 +32,11 @@ async function assignProductToSeller(user, product) {
 exports.addProduct = async (req, res) => {
     try {
         // Create a new product using the request body data
-        const product = await create(req.body);
+        // console.log(req.file)
+        // console.log(req.file.path)
+        // console.log(req.file+" just req")
+        req.body.image = req.file.path
+        const product = await create({ ...req.body, image: req.file.path });
         const user = req.body.author;
         await assignProductToSeller(user, product);
         // Send a success message to the client
