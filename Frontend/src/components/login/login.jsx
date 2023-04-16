@@ -90,7 +90,7 @@ const Login = (props) => {
               required
             />
           </div>
-          <Link to={"/forgotPassword"}>Forgot Password?</Link>
+          <Link id="forgot-quest" to={"/forgotPassword"}>Forgot Password?</Link>
           <div className="item-button">
             <button className="login-button">
               <span>Login</span>

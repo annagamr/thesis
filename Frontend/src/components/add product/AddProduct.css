@@ -95,10 +95,6 @@
     margin-bottom: 0.5rem;
   }
 
-.footer_bottom,
-.footer_bottom p {
-    display: none !important;
-}
 .error {
     color: red;
     font-size: 0.9rem;
