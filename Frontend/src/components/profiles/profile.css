@@ -64,7 +64,8 @@
     font-family: 'Mukta', sans-serif;
 }
 
-.edit {
+
+.see-list {
     font-size: 25px;
     line-height: 4rem;
     padding: 0 25px;
@@ -75,25 +76,11 @@
     margin-top: 3rem;
     border-radius: 2rem;
     font-family: 'Mukta', sans-serif;
-    margin-left: -12rem;
-
+    margin-left: 1rem;
+    
 }
 
-.see-list {
-    font-size: 25px;
-    line-height: 4rem;
-    padding: 0 25px;
-    background-color: #e8464c;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: -4rem;
-    margin-left: 15rem;
-    border-radius: 2rem;
-    font-family: 'Mukta', sans-serif;
-}
 
-.edit:hover,
 .see-list:hover {
     background-color: rgb(83, 83, 110);
 }

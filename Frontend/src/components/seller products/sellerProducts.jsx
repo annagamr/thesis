@@ -21,7 +21,7 @@ const SellerProducts = () => {
 
 
   return (
-    <div>
+    <div className="products-page">
       <h2 className="seller-h2">My Products:</h2>
       <div className="my-products">
         {products.map((product) => (
@@ -31,6 +31,8 @@ const SellerProducts = () => {
             <img src={"http://localhost:3002/" + product.image} alt="" />
             </div>
             <p className="card-title">{product.title}</p>
+            <p className="card-uploaded">{product.added}</p>
+
             <p className="card-price">Price: {product.price} HUF</p>
           </div>
         ))}

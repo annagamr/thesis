@@ -46,8 +46,7 @@ const Profile = () => {
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
               </div>
             </div>
-            <button className="edit">Edit Profile</button>
-            <button className="see-list" > <Link to="/sellerProducts">Listed Products</Link></button>
+            <button className="see-list" > <Link style={{textDecoration: 'none',color:'white' }} to="/sellerProducts">Listed Products</Link></button>
           </div>
 
           <div className="faq-container">
