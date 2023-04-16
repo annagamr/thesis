@@ -15,7 +15,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 //handling requests that has url-encoded payloads, extended is set to true because we want to parse rich object and array data in url-encoded payload.
 app.use(express.urlencoded({ extended: true }));
-
+//for serving static files (images, etc..)
+app.use('/public', express.static('public'));
 
 app.listen(PORT, () => {
   console.log(`Express server on port: ${PORT}`);

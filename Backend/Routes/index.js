@@ -12,10 +12,10 @@ const multer = require('multer')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '../Frontend/src/uploads')
+        cb(null, './public')
       },
     filename: function (req, file, cb) {
-      cb(null, Date.now() + '.png') //Appending .png
+      cb(null, Date.now() + '.png')
     }
   })
 const upload = multer({
