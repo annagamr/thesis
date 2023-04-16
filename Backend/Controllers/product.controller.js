@@ -1,6 +1,7 @@
 const { product, user } = require("../Models");
 
 const db = require("../Models");
+const path = require('path'); // import path module
 
 
 async function create(productData) {
@@ -36,7 +37,7 @@ exports.addProduct = async (req, res) => {
         // console.log(req.file.path)
         // console.log(req.file+" just req")
         req.body.image = req.file.path
-        const product = await create({ ...req.body, image: req.file.path });
+        const product = await create(req.body);
         const user = req.body.author;
         await assignProductToSeller(user, product);
         // Send a success message to the client
@@ -71,10 +72,10 @@ exports.products = async (req, res) => {
             .exec()
             .then(products => {
                 return products.map(product => {
-                    // console.log(product);
+    
                     return {
-                        image: product.image,
                         id: product._id,
+                        image: product.image,
                         title: product.title,
                         description: product.description,
                         category: product.category,
@@ -94,6 +95,35 @@ exports.products = async (req, res) => {
     }
 };
 
+exports.productImage = async (req, res) => {
+    try {
+        const products = await db.product.find({ _id: req.params.id }).exec();
+        console.log(req.params.id)
+        // If no products are found, return a 404 error
+        if (!products.length) {
+            return res.status(404).send({ message: "No products found" });
+        }
+
+        // Create a new array of post objects with the desired properties
+        const productImageURL = await db.product.find({ _id: req.params.id })
+            .exec()
+            .then(products => {
+                return products.map(product => {
+                    console.log(product)
+
+                    return product.image; // This is a URL to the image location on server
+                });
+            });
+        // console.log(productImageURL)
+
+        res.sendFile(path.join(__dirname, '../', productImageURL[0]));
+    } catch (err) {
+        // If an error occurs, send a 500 error response to the client with the error message
+        console.log("error" + err)
+        res.status(500).send({ message: err });
+    }
+};
+
 exports.productsbyAuthor = async (req, res) => {
     try {
         const products = await db.product.find({ author: req.params.author }).exec();
@@ -105,8 +135,10 @@ exports.productsbyAuthor = async (req, res) => {
 
         // Create a new array of product objects with the desired properties
         const formattedProducts = products.map(product => {
+            const sanitizedPath = product.image.replace(/\\/g, "/");
             return {
                 id: product._id,
+                image: sanitizedPath,
                 title: product.title,
                 description: product.description,
                 category: product.category,

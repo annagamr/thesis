@@ -9,6 +9,15 @@ const authController = require("../Controllers/auth.controller");
 const { checkDuplicateUsernameOrEmailAndRolesExisted } = require("../Middleware/verifySignUp");
 
 const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../Frontend/src/uploads')
+      },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '.png') //Appending .png
+    }
+  })
 const upload = multer({
     fileFilter: (req, file, cb) => {
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
@@ -18,7 +27,7 @@ const upload = multer({
             return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
         }
     },
-    dest: '../Uploads'
+    storage: storage
 });
 function success(req, res) {
     res.status(201);
@@ -54,6 +63,12 @@ module.exports = function (app) {
     app.get(
         "/api/products",
         productController.products
+    );
+
+    // Route for getting product image
+    app.get(
+        "/api/product-image/:id",
+        productController.productImage
     );
     // Route for getting products by current author
     app.get('/api/productsbyAuthor/:author', productController.productsbyAuthor);
