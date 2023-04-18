@@ -15,6 +15,48 @@ const BoardAdmin = () => {
   const [blogss, setBlogs] = useState([]);
 
   useEffect(() => {
+    const deleteBlogHandler = async (event) => {
+      event.stopPropagation();
+      const blogId = event.target.getAttribute("data-blog-id");
+  
+      // Confirm if the admin wants to delete the blog
+      try {
+        // const token = localStorage.getItem('jwtToken');
+  
+        const response = await fetch(`http://localhost:3002/api/post-delete/${blogId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            // Add your authentication headers, e.g., a token or a cookie
+          },
+        });
+  
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message);
+          // Update the blog list on the frontend
+        } else {
+          alert(`Error: ${result.message}`);
+        }
+      } catch (error) {
+        console.error("Error deleting blog:", error);
+      }
+    };
+  
+    const deleteButtons = document.querySelectorAll(".delete-blog-btn");
+    deleteButtons.forEach((button) =>
+      button.addEventListener("click", deleteBlogHandler)
+    );
+  
+    return () => {
+      deleteButtons.forEach((button) =>
+        button.removeEventListener("click", deleteBlogHandler)
+      );
+    };
+  }, [blogss]);
+  
+
+  useEffect(() => {
     UserService.adminAccess().then(
       (response) => {
         setContent(response.data);
@@ -66,7 +108,6 @@ const BoardAdmin = () => {
         const response = await axios.get("http://localhost:3002/api/products");
         setproductCount(response.data.count);
         setProductss(response.data.products);
-        console.log(response.data.products);
       } catch (error) {
         console.error(
           "An error occurred while fetching the products count:",
@@ -78,7 +119,6 @@ const BoardAdmin = () => {
     const fetchPostsCount = async () => {
       try {
         const response = await axios.get("http://localhost:3002/api/posts");
-        console.log(response.data)
         setblogCount(response.data.count);
         setBlogs(response.data.allPosts);
       } catch (error) {
@@ -114,7 +154,7 @@ const BoardAdmin = () => {
             <ol className="users-list">
               {users.map((user) => (
                 <li key={user._id}>
-                  {user.username} <span>&times;</span>
+                  {user.username} <button>&times;</button>
                 </li>
               ))}
             </ol>
@@ -123,7 +163,7 @@ const BoardAdmin = () => {
             <ol className="shops-list">
               {shops.map((shop) => (
                 <li key={shop._id}>
-                  {shop.username} <span>&times;</span>
+                  {shop.username} <button>&times;</button>
                 </li>
               ))}
             </ol>
@@ -135,31 +175,36 @@ const BoardAdmin = () => {
           <h2>PRODUCTS</h2>
           <h3>Number of Products: {productCount}</h3>
           <div className="products-listed">
-          <ol className="products-list">
+            <ol className="products-list">
               {productss.map((product) => (
                 <li key={product._id}>
-                  <span>&times;</span><br/>
-                  {product.title}  <br/>
+                  <button>&times;</button>
+                  {product.title} <br />
                   by {product.author}
                 </li>
               ))}
             </ol>
-            </div>
+          </div>
         </div>
         <div className="blogs">
-        <h2>BLOGS</h2>
+          <h2>BLOGS</h2>
           <h3>Number of Blogs: {blogCount}</h3>
           <div className="blogs-listed">
-          <ol className="blogs-list">
+            <ol className="blogs-list">
               {blogss.map((blogs) => (
-                <li key={blogs._id}>
-                 
-                  {blogs.title} <span>&times;</span> <br/>
-                  by {blogs.author}
-                </li>
+                <React.Fragment key={blogs._id}>
+                  <li>
+                    {blogs.title}
+                    <button className="delete-blog-btn" data-blog-id={blogs.id}>
+                      &times;
+                    </button>
+                    <br />
+                    by {blogs.author}
+                  </li>
+                </React.Fragment>
               ))}
             </ol>
-            </div>
+          </div>
         </div>
       </div>
     </div>

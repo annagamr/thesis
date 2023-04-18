@@ -54,12 +54,12 @@ module.exports = function (app) {
 
 
     // Route for getting count of users
-    app.get("/api/user-count", 
-    authController.countUsers);
+    app.get("/api/user-count",
+        authController.countUsers);
 
     // Route for getting count of shops
     app.get("/api/shops-count",
-    authController.countShops);
+        authController.countShops);
 
     // Route for creating products
     app.post(
@@ -92,6 +92,11 @@ module.exports = function (app) {
     app.get(
         "/api/posts",
         postController.posts
+    );
+    // Route for deleting post
+    app.delete(
+        "/api/post-delete/:id",
+        postController.deletePost
     );
     // Route for reseting password 
     app.post(

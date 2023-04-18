@@ -99,19 +99,9 @@
   width: 15rem;
 }
 
-.lists span {
-  float: right;
-  margin-top: -3px;
-  margin-left: 10px;
-  color: rgb(247, 101, 101);
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.lists span:hover,.products-list span:hover {
-  font-size: 21px;
-
+.lists button:hover,.products-list button:hover, .blogs-list button:hover {
+  font-size: 25px;
+  transition: ease-in 0.5s;
 }
 
 .users-list,
@@ -174,13 +164,15 @@
   justify-content: center;
 }
 
-.products-list span, .blogs-list span {
+.products-list button, .blogs-list button, .lists button {
   float: right;
   margin-top: -3px;
-  margin-left: 10px;
+  margin-left: 12px;
   color: rgb(247, 101, 101);
   cursor: pointer;
-  font-size: 20px;
+  font-size: 30px;
+  border: none;
+  background-color: transparent;
   font-weight: 600;
 }
 
