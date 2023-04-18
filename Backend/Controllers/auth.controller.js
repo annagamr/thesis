@@ -6,6 +6,9 @@ const nodemailer = require('nodemailer');
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 const User = require("../Models/user.model");
+const Post = require("../Models/post.model");
+const Product = require("../Models/product.model");
+
 
 // Asynchronously creates a new user with the provided user data
 async function createUser(userData) {
@@ -190,4 +193,28 @@ exports.countShops = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while fetching the seller count.' });
   }
 
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    // Delete the user's posts
+    await Post.deleteMany({ author: userId });
+
+    // Delete the user's products
+    await Product.deleteMany({ author: userId });
+
+    // Delete the user
+    await User.findByIdAndDelete(userId);
+    res.status(200).json({ message: 'User and their posts and products deleted successfully.' });
+    
+  } catch (err) {
+    res.status(500).json({ message: 'Error deleting user: ' + err.message });
+  }
 };

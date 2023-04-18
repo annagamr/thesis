@@ -103,6 +103,11 @@ module.exports = function (app) {
         "/api/product-delete/:id",
         productController.deleteProduct
     );
+    // Route for deleting users and shops
+    app.delete(
+        "/api/users-delete/:id",
+        authController.deleteUser
+    );
     // Route for reseting password 
     app.post(
         "/api/forgot-password",

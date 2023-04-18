@@ -60,7 +60,7 @@ exports.products = async (req, res) => {
         const products = await db.product.find({}).exec();
         // If no products are found, return a 404 error
         if (!products.length) {
-            return res.status(404).send({ message: "No products found" });
+            return res.status(200).send({ products: [], count: 0 });
         }
 
         // Create a new array of post objects with the desired properties
