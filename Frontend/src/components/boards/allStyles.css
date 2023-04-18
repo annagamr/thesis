@@ -5,7 +5,7 @@
 
 .users {
   flex-basis: 35%;
-  background-color: #353536;
+  background-color: #b85043;
   padding: 10px;
   color: white;
   height: auto;
@@ -14,16 +14,16 @@
 .users h2 {
   font-size: 30px;
   text-align: center;
-  text-shadow: 4px 3px 0px #000000, 9px 8px 0px rgba(0, 0, 0, 0.15);
   letter-spacing: 5px;
+  color: white;
 }
 
 .users h3 {
   font-size: 20px;
   text-align: center;
   letter-spacing: 2px;
-  margin-top: 8px;
-  color: #98fb98;
+  margin-top: 15px;
+  color: black;
 }
 
 .right-container {
@@ -34,13 +34,12 @@
 
 .products {
   flex-basis: 50%;
-  background-color: #454546;
+  background-color: #e6e8d2;
   padding: 10px;
 }
 
 .products h2 {
-  color: white;
-  text-shadow: 4px 3px 0px #000000, 9px 8px 0px rgba(0, 0, 0, 0.15);
+  color: #b85043;
   font-size: 30px;
   letter-spacing: 5px;
 }
@@ -49,22 +48,33 @@
   font-size: 20px;
   letter-spacing: 2px;
   margin-top: 8px;
-  color: #98fb98;
+  color: #b85043;
 }
 
 .blogs {
   flex-grow: 1;
-  background-color: rgb(130, 129, 129);
+  background-color: #a7beae;
   padding: 10px;
 
+}
+.blogs h2 {
+  color: black;
+  font-size: 30px;
+  letter-spacing: 5px;
+}
+
+.blogs h3 {
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin-top: 8px;
+  color: white;
 }
 
 .lists {
   display: flex;
   justify-content: space-around;
-  margin-top: 15px;
+  margin-top: 20px;
   height: auto;
-
 }
 
 .lists h3 {
@@ -75,7 +85,7 @@
 }
 
 .lists li {
-  background: rgba(255, 255, 255, 0.33);
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(11.1px);
@@ -99,75 +109,112 @@
   font-weight: 600;
 }
 
-.lists span:hover {
+.lists span:hover,.products-list span:hover {
   font-size: 21px;
 
 }
 
 .users-list,
 .shops-list {
-  max-height: 725px;
+  max-height: 760px;
   overflow-y: auto;
   padding-right: 15px;
   overflow-x: hidden;
 }
 
 .users-list::-webkit-scrollbar,
-.shops-list::-webkit-scrollbar {
+.shops-list::-webkit-scrollbar,
+.products-listed::-webkit-scrollbar,
+.blogs-listed::-webkit-scrollbar {
   width: 15px;
 }
 
 .users-list::-webkit-scrollbar-track,
-.shops-list::-webkit-scrollbar-track {
-  background: #b7a3a3;
+.shops-list::-webkit-scrollbar-track,
+.blogs-listed::-webkit-scrollbar-track {
+  background: #e6e8d2;
+}
+
+.products-listed::-webkit-scrollbar-track
+{
+  background: #bfbfbe;
+
 }
 
 .users-list::-webkit-scrollbar-thumb,
-.shops-list::-webkit-scrollbar-thumb {
+.shops-list::-webkit-scrollbar-thumb,
+.products-listed::-webkit-scrollbar-thumb,
+.blogs-listed::-webkit-scrollbar-thumb {
   background-color: #3f3e3e;
   border-radius: 20px;
   border: 1px solid #ffffff;
 }
 
 .users-list::-webkit-scrollbar-thumb:hover,
-.shops-list::-webkit-scrollbar:hover {
+.shops-list::-webkit-scrollbar:hover,
+.products-listed::-webkit-scrollbar:hover,
+.blogs-listed::-webkit-scrollbar:hover {
   background: #201f1f;
 }
 
-.products-listed {
+.products-listed, .blogs-listed {
   width: 100%;
   max-width: 1200px;
   overflow-x: auto;
 }
 
-.products-list {
+.products-list, .blogs-list {
   display: flex;
   flex-wrap: wrap;
-  max-height: 345px;
+  max-height: 355px;
   list-style-type: none;
   margin-top: 20px;
   padding: 0;
+  align-items: center;
+  justify-content: center;
 }
-.products-list span {
+
+.products-list span, .blogs-list span {
   float: right;
   margin-top: -3px;
   margin-left: 10px;
-  color: red;
+  color: rgb(247, 101, 101);
   cursor: pointer;
   font-size: 20px;
   font-weight: 600;
 }
 
 .products-list li {
-  min-width: 100px;
-  height: 100px;
-  margin: 0 15px 15px 0;
-  background: rgba(255, 255, 255, 0.33);
-  padding: 10px;
+  width: 200px;
+  height: 90px;
+  margin: 0 50px 30px 0;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(11.1px);
+  -webkit-backdrop-filter: blur(11.1px);
+  padding: 5px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
-  color: white;
+  color: black;
+  border-radius: 5px;
 }
+
+.blogs-list li {
+  width: auto;
+  min-width: 150px;
+  height: 120px;
+  margin: 0 50px 30px 0;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(11.1px);
+  -webkit-backdrop-filter: blur(11.1px);
+  padding: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  color: black;
+  border-radius: 5px;
+}
+
 /* Media query for responsiveness */
 @media screen and (max-width: 768px) {
   .main-container {

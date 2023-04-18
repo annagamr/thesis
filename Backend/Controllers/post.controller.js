@@ -74,8 +74,9 @@ exports.posts = async (req, res) => {
                 });
             });
 
+            const count = formattedPosts.length
         // Send the formatted posts array in the response
-        res.status(200).send(formattedPosts);
+        res.status(200).json({ allPosts: formattedPosts, count: count });
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message
 

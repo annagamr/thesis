@@ -11,6 +11,8 @@ const BoardAdmin = () => {
   const [shops, setShops] = useState([]);
   const [productCount, setproductCount] = useState(null);
   const [productss, setProductss] = useState([]);
+  const [blogCount, setblogCount] = useState(null);
+  const [blogss, setBlogs] = useState([]);
 
   useEffect(() => {
     UserService.adminAccess().then(
@@ -72,6 +74,22 @@ const BoardAdmin = () => {
         );
       }
     };
+
+    const fetchPostsCount = async () => {
+      try {
+        const response = await axios.get("http://localhost:3002/api/posts");
+        console.log(response.data)
+        setblogCount(response.data.count);
+        setBlogs(response.data.allPosts);
+      } catch (error) {
+        console.error(
+          "An error occurred while fetching the posts count:",
+          error
+        );
+      }
+    };
+
+    fetchPostsCount();
     fetchProductCount();
     fetchShopCount();
     fetchUserCount();
@@ -93,7 +111,6 @@ const BoardAdmin = () => {
         </h3>
         <div className="lists">
           <div>
-            <h3>Users:</h3>
             <ol className="users-list">
               {users.map((user) => (
                 <li key={user._id}>
@@ -103,7 +120,6 @@ const BoardAdmin = () => {
             </ol>
           </div>
           <div>
-            <h3>Shops:</h3>
             <ol className="shops-list">
               {shops.map((shop) => (
                 <li key={shop._id}>
@@ -122,15 +138,28 @@ const BoardAdmin = () => {
           <ol className="products-list">
               {productss.map((product) => (
                 <li key={product._id}>
-                  {product.title} <span>&times;</span> <br/>
-                  {product.author}
+                  <span>&times;</span><br/>
+                  {product.title}  <br/>
+                  by {product.author}
                 </li>
               ))}
             </ol>
             </div>
         </div>
         <div className="blogs">
-          <h2>BLOGS</h2>
+        <h2>BLOGS</h2>
+          <h3>Number of Blogs: {blogCount}</h3>
+          <div className="blogs-listed">
+          <ol className="blogs-list">
+              {blogss.map((blogs) => (
+                <li key={blogs._id}>
+                 
+                  {blogs.title} <span>&times;</span> <br/>
+                  by {blogs.author}
+                </li>
+              ))}
+            </ol>
+            </div>
         </div>
       </div>
     </div>

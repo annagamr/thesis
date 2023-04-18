@@ -35,7 +35,7 @@ const Blog = () => {
     postService
       .getAllPosts()
       .then((response) => {
-        setPosts(response.data);
+        setPosts(response.data.allPosts);
       })
       .catch((error) => {
         console.log(error);
