@@ -48,8 +48,8 @@ const Header = () => {
 
         {showAdminBoard && (
           <li>
-            <Link to={"/adminProf"} className="nav-link">
-              Admin Board
+            <Link to={"/adminBoard"} className="nav-link">
+              ADMIN BOARD
             </Link>
           </li>
         )}

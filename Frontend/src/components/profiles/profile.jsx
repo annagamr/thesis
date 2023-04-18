@@ -108,8 +108,7 @@ const Profile = () => {
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
               </div>
             </div>
-            <button className="edit">Edit Profile</button>
-            <button className="see-list">Previous Orders</button>
+            <button className="see-list" > <Link style={{textDecoration: 'none',color:'white' }} to="/myOrders">Previous Orders</Link></button>
           </div>
 
           <div className="faq-container">
@@ -143,6 +142,70 @@ const Profile = () => {
             </div>
           </div>
           <div className="faq-title">FAQ</div>
+        </div>
+      )}
+{adminProf && (
+        <div>
+          <div className="profile-illustration"></div>
+          <div className="profile-card">
+            <h1 className="profile-title">ADMIN DETAILS</h1>
+            <div className="profile-picture-user">
+              <img src={pic1} alt="" />
+            </div>
+            <div className="info">
+              <div className="name">
+                <b>Username:</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                {currentUser.username}
+              </div>
+              <div className="email">
+                <b>Email:</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                {currentUser.email}
+              </div>
+              <div className="role">
+                <b>Role:</b>{" "}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {currentUser.roles[0]}
+              </div>
+            </div>
+            <button className="see-list" > <Link style={{textDecoration: 'none',color:'white' }} to="/adminBoard">My Board</Link></button>
+
+          </div>
+
+          <div className="faq-container">
+            <div className="faq">
+              <h3>How to Add New Blog Post?</h3>
+              <p>
+                Lorem ipsum dolor sit, amet consectetueaque libero eveniet
+                asperiores impedit vitae consequuntur ducimus sunt ab illo?
+              </p>
+            </div>
+            <div className="faq">
+              <h3>Where can I see Registered Users?</h3>
+              <p>
+                Lorem ipsum dolor sit, amet consectetueaque libero eveniet
+                asperiores impedit vitae consequuntur ducimus sunt ab illo?
+              </p>
+            </div>
+            <div className="faq">
+              <h3>How to Remove Users?</h3>
+              <p>
+                Lorem ipsum dolor sit, amet consectetueaque libero eveniet
+                asperiores impedit vitae consequuntur ducimus sunt ab illo?
+              </p>
+            </div>
+            <div className="faq">
+              <h3>I have other questions</h3>
+              <p>
+                Lorem ipsum dolor sit, amet consectetueaque libero eveniet
+                asperiores impedit vitae consequuntur ducimus sunt ab illo?
+              </p>
+            </div>
+          </div>
+          <div className="faq-title">FAQ</div>
+          
         </div>
       )}
     </div>
