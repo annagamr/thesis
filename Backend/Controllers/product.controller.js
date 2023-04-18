@@ -58,7 +58,6 @@ const formatDate = (date) => {
 exports.products = async (req, res) => {
     try {
         const products = await db.product.find({}).exec();
-
         // If no products are found, return a 404 error
         if (!products.length) {
             return res.status(404).send({ message: "No products found" });
@@ -86,8 +85,11 @@ exports.products = async (req, res) => {
                 });
             });
 
+            const count = formattedProducts.length;
+
+
         // Send the formatted products array in the response
-        res.status(200).send(formattedProducts);
+        res.status(200).json({ products: formattedProducts, count: count });
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message
 

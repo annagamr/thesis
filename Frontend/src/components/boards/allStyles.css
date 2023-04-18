@@ -1,56 +1,191 @@
 .mainContainer {
-    min-height: calc(100vh-60px);
-    display: flex;
-  }
-  
-  .users {
-    flex-basis: 35%;
-    background-color: #f0e68c;
-    padding: 20px;
-  }
-  
-  .right-container {
-    flex-grow: 1;
-    display: flex;
+  min-height: calc(100vh-60px);
+  display: flex;
+}
+
+.users {
+  flex-basis: 35%;
+  background-color: #353536;
+  padding: 10px;
+  color: white;
+  height: auto;
+}
+
+.users h2 {
+  font-size: 30px;
+  text-align: center;
+  text-shadow: 4px 3px 0px #000000, 9px 8px 0px rgba(0, 0, 0, 0.15);
+  letter-spacing: 5px;
+}
+
+.users h3 {
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-top: 8px;
+  color: #98fb98;
+}
+
+.right-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.products {
+  flex-basis: 50%;
+  background-color: #454546;
+  padding: 10px;
+}
+
+.products h2 {
+  color: white;
+  text-shadow: 4px 3px 0px #000000, 9px 8px 0px rgba(0, 0, 0, 0.15);
+  font-size: 30px;
+  letter-spacing: 5px;
+}
+
+.products h3 {
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin-top: 8px;
+  color: #98fb98;
+}
+
+.blogs {
+  flex-grow: 1;
+  background-color: rgb(130, 129, 129);
+  padding: 10px;
+
+}
+
+.lists {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  height: auto;
+
+}
+
+.lists h3 {
+  color: white;
+  font-size: 25px;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.lists li {
+  background: rgba(255, 255, 255, 0.33);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(11.1px);
+  -webkit-backdrop-filter: blur(11.1px);
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  width: 15rem;
+}
+
+.lists span {
+  float: right;
+  margin-top: -3px;
+  margin-left: 10px;
+  color: rgb(247, 101, 101);
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.lists span:hover {
+  font-size: 21px;
+
+}
+
+.users-list,
+.shops-list {
+  max-height: 725px;
+  overflow-y: auto;
+  padding-right: 15px;
+  overflow-x: hidden;
+}
+
+.users-list::-webkit-scrollbar,
+.shops-list::-webkit-scrollbar {
+  width: 15px;
+}
+
+.users-list::-webkit-scrollbar-track,
+.shops-list::-webkit-scrollbar-track {
+  background: #b7a3a3;
+}
+
+.users-list::-webkit-scrollbar-thumb,
+.shops-list::-webkit-scrollbar-thumb {
+  background-color: #3f3e3e;
+  border-radius: 20px;
+  border: 1px solid #ffffff;
+}
+
+.users-list::-webkit-scrollbar-thumb:hover,
+.shops-list::-webkit-scrollbar:hover {
+  background: #201f1f;
+}
+
+.products-listed {
+  width: 100%;
+  max-width: 1200px;
+  overflow-x: auto;
+}
+
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 345px;
+  list-style-type: none;
+  margin-top: 20px;
+  padding: 0;
+}
+.products-list span {
+  float: right;
+  margin-top: -3px;
+  margin-left: 10px;
+  color: red;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.products-list li {
+  min-width: 100px;
+  height: 100px;
+  margin: 0 15px 15px 0;
+  background: rgba(255, 255, 255, 0.33);
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  color: white;
+}
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+  .main-container {
     flex-direction: column;
   }
-  
-  .products {
-    flex-basis: 50%;
-    background-color: #add8e6;
-    padding: 20px;
-  }
-  
-  .blogs {
-    flex-grow: 1;
-    background-color: #98fb98;
-    padding: 20px;
-  }
-  
-  .lists {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+
+  .users {
+    flex-basis: auto;
+    height: auto;
   }
 
-  /* Media query for responsiveness */
-  @media screen and (max-width: 768px) {
-    .main-container {
-      flex-direction: column;
-    }
-  
-    .users {
-      flex-basis: auto;
-      height: auto;
-    }
-  
-    .right-container {
-      flex-direction: column;
-    }
-  
-    .products,
-    .blogs {
-      flex-basis: auto;
-      height: auto;
-    }
+  .right-container {
+    flex-direction: column;
   }
+
+  .products,
+  .blogs {
+    flex-basis: auto;
+    height: auto;
+  }
+}

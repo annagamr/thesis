@@ -108,7 +108,7 @@ const AddProduct = () => {
           },
         }
       );
-      setProducts([...products, response.data.post]);
+      setProducts(response.data.post);
       return response;
     } catch (error) {
       console.error("Error adding product: ", error);
@@ -145,6 +145,18 @@ const AddProduct = () => {
     setPrice(newPrice);
   }
 
+  const resetForm = () => {
+    setProdImageFile("");
+    setProdImageName("");
+    setTitle("");
+    setDescription("");
+    setCategory("");
+    setPrice(0);
+    setMessage("");
+    setSuccessful(false);
+    setError({});
+  };
+  
   const handleProduct = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -271,6 +283,7 @@ const AddProduct = () => {
               </div>
             )}
             {successful && (
+              <div>
               <div className="product-details">
                 <h2>{message}</h2>
                 <div className="added-details">
@@ -279,12 +292,14 @@ const AddProduct = () => {
                   <img id="image-id" src={URL.createObjectURL(prodImageFile)} />
 
                   <p>Title: {title}</p>
-                  <p>
-                    Description: <div>{description}</div>
-                  </p>
+                  <p>Description: {description}</p>
                   <p>Category: {category}</p>
                   <p>Price: {price}</p>
                 </div>
+              
+              </div>
+              <button onClick={resetForm}>Add More Products</button>
+             
               </div>
             )}
           </form>
