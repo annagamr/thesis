@@ -163,3 +163,31 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+//Count of registered users in database
+exports.countUsers = async (req, res) => {
+  try {
+    const users = await User.find().populate('roles');
+    const usersWithRole = users.filter(user => user.roles.some(role => role.name === 'user'));
+    const userCount = usersWithRole.length;
+    res.status(200).json({ count: userCount, users: usersWithRole });
+
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching the user count.' });
+  }
+
+};
+
+//Count of registered shops in database
+exports.countShops = async (req, res) => {
+
+  try {
+    const users = await User.find().populate('roles');
+    const shopsWithRole = users.filter(user => user.roles.some(role => role.name === 'seller'));
+    const shopCount = shopsWithRole.length;
+    res.status(200).json({ count: shopCount, shops: shopsWithRole });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching the seller count.' });
+  }
+
+};

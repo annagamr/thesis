@@ -13,11 +13,11 @@ const multer = require('multer')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public')
-      },
+    },
     filename: function (req, file, cb) {
-      cb(null, Date.now() + '.png')
+        cb(null, Date.now() + '.png')
     }
-  })
+})
 const upload = multer({
     fileFilter: (req, file, cb) => {
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
@@ -52,9 +52,18 @@ module.exports = function (app) {
     // Route for authenticated admins
     app.get("/api/admin", [verifyToken, isAdmin], success);
 
+
+    // Route for getting count of users
+    app.get("/api/user-count", 
+    authController.countUsers);
+
+    // Route for getting count of shops
+    app.get("/api/shops-count",
+    authController.countShops);
+
     // Route for creating products
     app.post(
-        "/api/add-product", 
+        "/api/add-product",
         upload.single('prodImageFile'),
         productController.addProduct,
 
