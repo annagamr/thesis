@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import UserService from "../../services/user.service";
 import "./allStyles.css";
 import axios from "axios";
@@ -13,48 +13,8 @@ const BoardAdmin = () => {
   const [productss, setProductss] = useState([]);
   const [blogCount, setblogCount] = useState(null);
   const [blogss, setBlogs] = useState([]);
-
-  useEffect(() => {
-    const deleteBlogHandler = async (event) => {
-      event.stopPropagation();
-      const blogId = event.target.getAttribute("data-blog-id");
-  
-      // Confirm if the admin wants to delete the blog
-      try {
-        // const token = localStorage.getItem('jwtToken');
-  
-        const response = await fetch(`http://localhost:3002/api/post-delete/${blogId}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            // Add your authentication headers, e.g., a token or a cookie
-          },
-        });
-  
-        const result = await response.json();
-        if (response.ok) {
-          alert(result.message);
-          // Update the blog list on the frontend
-        } else {
-          alert(`Error: ${result.message}`);
-        }
-      } catch (error) {
-        console.error("Error deleting blog:", error);
-      }
-    };
-  
-    const deleteButtons = document.querySelectorAll(".delete-blog-btn");
-    deleteButtons.forEach((button) =>
-      button.addEventListener("click", deleteBlogHandler)
-    );
-  
-    return () => {
-      deleteButtons.forEach((button) =>
-        button.removeEventListener("click", deleteBlogHandler)
-      );
-    };
-  }, [blogss]);
-  
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     UserService.adminAccess().then(
@@ -135,6 +95,42 @@ const BoardAdmin = () => {
     fetchUserCount();
   }, []);
 
+ // Unified deletion handler
+const deleteHandler = useCallback(
+  async (event, itemType, apiEndpoint, items, setItems) => {
+    event.stopPropagation();
+    const itemId = event.target.getAttribute("data-item-id");
+
+    try {
+      const response = await fetch(`http://localhost:3002/api/${apiEndpoint}/${itemId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert(result.message);
+        const updatedItems = items.filter((item) => item.id !== itemId);
+        console.log(`Updated ${itemType}s:`, updatedItems);
+        setItems(updatedItems);
+      } else {
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error(`Error deleting ${itemType}:`, error);
+    }
+  },
+  []
+);
+
+// Unified useEffect
+useEffect(() => {
+  setFilteredBlogs(blogss);
+  setFilteredProducts(productss);
+}, [blogss, productss]);
+
   return (
     <div className="mainContainer">
       <div className="container">
@@ -176,9 +172,17 @@ const BoardAdmin = () => {
           <h3>Number of Products: {productCount}</h3>
           <div className="products-listed">
             <ol className="products-list">
-              {productss.map((product) => (
+              {filteredProducts.map((product) => (
                 <li key={product._id}>
-                  <button>&times;</button>
+                  <button
+                      onClick={(event) =>
+                        deleteHandler(event, "product", "product-delete", filteredProducts, setFilteredProducts)
+                      }
+                    className="delete-product-btn"
+                    data-item-id={product.id}
+                  >
+                    &times;
+                  </button>
                   {product.title} <br />
                   by {product.author}
                 </li>
@@ -191,11 +195,17 @@ const BoardAdmin = () => {
           <h3>Number of Blogs: {blogCount}</h3>
           <div className="blogs-listed">
             <ol className="blogs-list">
-              {blogss.map((blogs) => (
+              {filteredBlogs.map((blogs) => (
                 <React.Fragment key={blogs._id}>
                   <li>
                     {blogs.title}
-                    <button className="delete-blog-btn" data-blog-id={blogs.id}>
+                    <button
+                        onClick={(event) =>
+                          deleteHandler(event, "blog", "post-delete", filteredBlogs, setFilteredBlogs)
+                        }
+                      className="delete-blog-btn"
+                      data-item-id={blogs.id}
+                    >
                       &times;
                     </button>
                     <br />

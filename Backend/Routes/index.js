@@ -98,6 +98,11 @@ module.exports = function (app) {
         "/api/post-delete/:id",
         postController.deletePost
     );
+    // Route for deleting products
+    app.delete(
+        "/api/product-delete/:id",
+        productController.deleteProduct
+    );
     // Route for reseting password 
     app.post(
         "/api/forgot-password",
