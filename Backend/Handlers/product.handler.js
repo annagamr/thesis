@@ -172,3 +172,12 @@ exports.deleteProduct = async (req, res) => {
         res.status(500).json({ message: 'Error deleting product', error });
       }
 };
+
+exports.getProductById = async (req, res) => {
+    try {
+      const product = await product.findById(req.params.id);
+      res.status(200).json(product);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
