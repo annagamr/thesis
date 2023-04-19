@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./contact.css";
 import { send } from "emailjs-com";
-import * as images from "../../assets/assets"
-
+import * as images from "../../assets/assets";
 
 const ContactPage = () => {
   const initialToSendState = {
@@ -12,6 +11,7 @@ const ContactPage = () => {
   };
 
   const [toSend, setToSend] = useState(initialToSendState);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   function sendMessage(event) {
     event.preventDefault();
@@ -20,7 +20,15 @@ const ContactPage = () => {
     const templateId = "template_9cdjfd3";
     const userId = "DThCKNwGgXXDM_TXg";
 
-    send(serviceId, templateId, toSend, userId);
+    send(serviceId, templateId, toSend, userId)
+      .then(() => {
+        setIsSubmitted(true);
+        setToSend(initialToSendState);
+      })
+      .catch((error) => {
+        console.error("Failed to send message", error);
+        setIsSubmitted(false);
+      });
   }
 
   function update(event) {
@@ -38,50 +46,54 @@ const ContactPage = () => {
 
   return (
     <div className="contact-page">
-    <div className="main">
-      <div className="header">CONTACT US</div>
-      <div className="container">
+      <div className="main">
+        <div className="header">CONTACT US</div>
+        <div className="container">
+          <div className="illustration">
+            <img src={images.contact} alt="Contact illustration" />
+          </div>
 
-      <div className="illustration">
-        <img src={images.contact} alt="Contact illustration" />
+          <div className="form-container">
+          {!isSubmitted && (  <form onSubmit={sendMessage}>
+              <label htmlFor="full_name">Name: *</label>
+              <input
+                type="text"
+                name="full_name"
+                placeholder="John Doe"
+                value={toSend.full_name}
+                onChange={update}
+                required
+              />
+              <label htmlFor="message">Message: *</label>
+              <textarea
+                rows="7"
+                cols="50"
+                name="message"
+                placeholder="Describe your issue/Question"
+                value={toSend.message}
+                onChange={update}
+                required
+              />
+              <label htmlFor="email">Email: *</label>
+              <input
+                type="text"
+                name="email"
+                placeholder="john.doe@gmail.com"
+                value={toSend.email}
+                onChange={update}
+                required
+              />{" "}
+              <button type="submit">Submit</button>
+            </form>)}
+            {isSubmitted && (
+              <div className="success-message">
+                Submitted successfully! We will get back to you soon.
+              </div>
+            )} 
+          </div>
+         
+        </div>
       </div>
-
-      <div className="form-container">
-
-        <form onSubmit={sendMessage}>
-        <label htmlFor="full_name">Name: *</label>
-
-          <input
-            type="text"
-            name="full_name"
-            placeholder="John Doe"
-            value={toSend.full_name}
-            onChange={update}
-            required
-          />
-          <label htmlFor="message">Message: *</label>
-          <textarea rows="7" cols="50"
-            name="message"
-            placeholder="Describe your issue/Question"
-            value={toSend.message}
-            onChange={update}
-            required
-          />
-          <label htmlFor="email">Email: *</label>
-
-          <input
-            type="text"
-            name="email"
-            placeholder="john.doe@gmail.com"
-            value={toSend.email}
-            onChange={update}
-            required
-          />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-      </div>
-    </div>
     </div>
   );
 };
