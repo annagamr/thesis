@@ -1,12 +1,12 @@
-const { verifyToken } = require("../Middleware/authJwt");
-const { isAdmin } = require("../Middleware/authJwt");
-const { isSeller } = require("../Middleware/authJwt");
-const { isUser } = require("../Middleware/authJwt");
-const productController = require("../Controllers/product.controller");
-const postController = require("../Controllers/post.controller");
-const authController = require("../Controllers/auth.controller");
+const { verifyToken } = require("../Middleware/authMiddleware");
+const { isAdmin } = require("../Middleware/authMiddleware");
+const { isSeller } = require("../Middleware/authMiddleware");
+const { isUser } = require("../Middleware/authMiddleware");
+const productController = require("../Handlers/product.handler");
+const postController = require("../Handlers/post.handler");
+const authController = require("../Handlers/auth.handler");
 
-const { checkDuplicateUsernameOrEmailAndRolesExisted } = require("../Middleware/verifySignUp");
+const { checkDuplicateUsernameOrEmailAndRolesExisted } = require("../Middleware/validationMiddleware");
 
 const multer = require('multer')
 

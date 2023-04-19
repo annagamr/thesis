@@ -1,4 +1,4 @@
-const jwt = require("../node_modules/jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const secret = "my-secret-key"
 
 const db = require("../Models");
