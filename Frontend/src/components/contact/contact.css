@@ -37,13 +37,16 @@
 }
 
 .illustration {
-  background-image: url(./contact-illustration.jpg);
-  background-size: cover;
   height: 117%;
   width: 50%;
   margin-left: -87px;
   margin-bottom: 63px;
   border-radius: 2rem;
+}
+
+.illustration img {
+  height: 100%;
+  width: 100%;
 }
 
 

@@ -1,7 +1,7 @@
 .registration-page {
     display: flex;
     height: 87.3vh;
-    background-image: url("./pawel-czerwinski-qzaIDFtzcZ0-unsplash.jpg");
+    background-image: url("../../assets/formBackground.jpg");
     background-size: cover;
     padding: 0;
     justify-content: center;

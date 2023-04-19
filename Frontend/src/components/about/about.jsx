@@ -1,23 +1,8 @@
 import React, { useState, useEffect } from "react";
-import cover1 from "./cover1.jpg";
-import cover2 from "./cover2.jpg";
-import cover3 from "./cover3.jpg";
-import cover4 from "./cover4.jpg";
-import cover5 from "./cover5.jpg";
-import cover6 from "./cover6.jpg";
-import products from "./products.png";
-import store from "./store.jpg";
-import cream from "./cream.png";
-import makeup from "./primer.png";
-import lotion from "./lotion.png";
-import perfume from "./perfume.png";
-import shampoo from "./shampoo.png";
-import sun from "./sun-block.png";
-import order from "./order.png";
-import sell from "./start-selling.png";
-import skin from "./skin.jpg";
-
 import "./about.css";
+import * as images from "../../assets/assets"
+
+// icons
 import { RiSeedlingFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
 import { CiBadgeDollar } from "react-icons/ci";
@@ -25,32 +10,32 @@ import { BsGlobe } from "react-icons/bs";
 
 const slides = [
   {
-    imgSrc: cover1,
+    imgSrc: images.cover1,
     title: "Rekindle your love for your skin with Re-commence",
     desc: "Welcome to Aurora, the ultimate destination for rejuvenating skincare products. Our online store offers a range of specially curated skincare essentials that help you rediscover your natural radiance. With Aurora, you can confidently embrace the journey of re-commencing your skincare routine and start loving your skin again.",
   },
   {
-    imgSrc: cover2,
+    imgSrc: images.cover2,
     title: "Discover our new line of natural skincare products",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
   {
-    imgSrc: cover3,
+    imgSrc: images.cover3,
     title: "Discover our new line of natural skincare products",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
   {
-    imgSrc: cover4,
+    imgSrc: images.cover4,
     title: "Discover our new line of natural skincare products",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
   {
-    imgSrc: cover5,
+    imgSrc: images.cover5,
     title: "Discover our new line of natural skincare products",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
   {
-    imgSrc: cover6,
+    imgSrc: images.cover6,
     title: "Discover our new line of natural skincare products",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
@@ -100,7 +85,7 @@ const About = () => {
       <div className="slider-body">
         <div className="wrapper" style={wrapperStyle} index={index}>
           {slides.map(({ imgSrc, title, desc }) => (
-            <div className="slide">
+            <div className="slide" key={`${title}-${imgSrc}`}>
               <div className="img-container">
                 <img src={imgSrc} aria-hidden="true" alt="First Cover"/>
               </div>
@@ -137,21 +122,20 @@ const About = () => {
         </div>
       </div>
       <div className="info-image">
-        <img src={products} alt="" />
+        <img src={images.products} alt="" />
       </div>
       <div className="how-title">Who Are We?</div>
       <div className="intro-container">
-        <img src={store} alt="Store Description" className="image" />
+        <img src={images.store} alt="Store Description" className="image" />
         <div className="content">
           <p>
-            At [Store Name], we believe that healthy, glowing skin is the key to
+            At Aurora, we believe that healthy, glowing skin is the key to
             confidence and beauty.
             <br /> Our mission is to provide you with high-quality skincare
             products that nourish and protect your skin, helping you to look and
             feel your best every day. We understand that choosing the right
             skincare products can be overwhelming, which is why we are committed
-            to providing you with expert advice and guidance. <br /> At [Store
-            Name], we are passionate about natural, eco-friendly, and
+            to providing you with expert advice and guidance. <br /> At Aurora, we are passionate about natural, eco-friendly, and
             cruelty-free skincare. That's why we carefully curate our selection
             of products to ensure that they meet our high standards of quality
             and sustainability.
@@ -161,54 +145,54 @@ const About = () => {
 
       <div className="most-popular">
         <div className="star-icon">
-          <img src={order} alt="" />
+          <img src={images.order} alt="" />
         </div>
       </div>
       <div className="category-boxes">
         <div className="row">
           <div className="category">
-            <img src={cream} alt="" />
+            <img src={images.cream} alt="" />
             <h1>Face Care</h1>
           </div>
           <div className="category">
-            <img src={makeup} alt="" />
+            <img src={images.makeup} alt="" />
             <h1>Make Up</h1>
           </div>
 
           <div className="category">
-            <img src={lotion} alt="" />
+            <img src={images.lotion} alt="" />
             <h1>Body Care</h1>
           </div>
           <div className="category">
-            <img src={sun} alt="" />
+            <img src={images.sun} alt="" />
             <h1>Sun Care</h1>
           </div>
         </div>
         <div className="row">
           <div className="category">
-            <img src={perfume} alt="" />
+            <img src={images.perfume} alt="" />
             <h1>Perfume</h1>
           </div>
 
           <div className="category">
-            <img src={shampoo} alt="" />
+            <img src={images.shampoo} alt="" />
             <h1>Hair Care</h1>
           </div>
           <div className="category">
-            <img src={sun} alt="" />
+            <img src={images.sun} alt="" />
             <h1>Sun Care</h1>
           </div>
         </div>
       </div>
       <div className="guide">
         <div className="sell-image">
-          <img src={sell} alt="" />
+          <img src={images.sell} alt="" />
         </div>
       </div>
 
       <div className="how-to">
         <div className="how-image">
-          <img src={skin} alt="How to Sign Up" />
+          <img src={images.skin} alt="How to Sign Up" />
         </div>
         <div className="list-container">
           <h2>Here's a Guide to Create a Shop</h2>

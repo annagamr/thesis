@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./profile.css";
-import pic from "./store.png";
-import pic1 from "./profile.png";
+import * as images from "../../assets/assets"
+
 import { Link } from "react-router-dom";
 
 const Profile = () => {
@@ -27,7 +27,7 @@ const Profile = () => {
           <div className="profile-card">
             <h1 className="profile-title">SHOP DETAILS</h1>
             <div className="profile-picture">
-              <img src={pic} alt="" />
+              <img src={images.profStore} alt="" />
             </div>
             <div className="info">
               <div className="name">
@@ -89,7 +89,7 @@ const Profile = () => {
           <div className="profile-card">
             <h1 className="profile-title">USER DETAILS</h1>
             <div className="profile-picture-user">
-              <img src={pic1} alt="" />
+              <img src={images.profile} alt="" />
             </div>
             <div className="info">
               <div className="name">
@@ -150,7 +150,7 @@ const Profile = () => {
           <div className="profile-card">
             <h1 className="profile-title">ADMIN DETAILS</h1>
             <div className="profile-picture-user">
-              <img src={pic1} alt="" />
+              <img src={images.profile} alt="" />
             </div>
             <div className="info">
               <div className="name">

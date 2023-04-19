@@ -20,9 +20,7 @@ const Shop = () => {
   return (
     <div className="shop-page-container">
       {products.map((product) => (
-        <Link to={`/product/${product.id}`}>
-                  <p>{product.id}</p>
-
+        <Link key={product.id} to={`/product/${product.id}`}>
           <div className="myCard" key={product.id}>
             <div className="card-image">
               <img src={"http://localhost:3002/" + product.image} alt="" />

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./contact.css";
 import { send } from "emailjs-com";
+import * as images from "../../assets/assets"
+
 
 const ContactPage = () => {
   const initialToSendState = {
@@ -41,7 +43,7 @@ const ContactPage = () => {
       <div className="container">
 
       <div className="illustration">
-        {/* <img src={illustration} alt="Contact illustration" /> */}
+        <img src={images.contact} alt="Contact illustration" />
       </div>
 
       <div className="form-container">

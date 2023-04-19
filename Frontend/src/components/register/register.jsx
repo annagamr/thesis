@@ -1,8 +1,7 @@
 import React from "react";
 import "./register.css";
 import { Link } from "react-router-dom";
-import shop from "./shop1.png";
-import user from "./user.png";
+import * as images from "../../assets/assets"
 
 const Register = () => {
   return (
@@ -13,7 +12,7 @@ const Register = () => {
     <div className="choices-container">
       <div className="create-shop">
         <div className="top-image">
-          <img src={shop} alt="" />
+          <img src={images.registerShop} alt="" />
         </div>
         <div className="btn">
           <Link to="/shopRegister" className="btn1">
@@ -23,7 +22,7 @@ const Register = () => {
       </div>
       <div className="become-user">
         <div className="top-image">
-          <img src={user} alt="" />
+          <img src={images.registerUser} alt="" />
         </div>
         <div className="btn">
           <Link to="/usersignup" className="btn2">
