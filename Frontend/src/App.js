@@ -7,6 +7,7 @@ import Header from './components/header/header'
 import Footer from './components/footer/footer'
 import About from "./components/about/about";
 import Shop from "./components/shop/shop";
+import ProductDetails from './components/shop/productDetails';
 import Blog from "./components/blog/blog";
 import Register from "./components/register/register";
 import Cart from "./components/cart/cart";
@@ -20,6 +21,7 @@ import BoardUser from "./components/boards/myOrders";
 import SellerProduct from "./components/boards/AddProduct";
 import SellerProducts from './components/boards/sellerProducts';
 import BoardAdmin from "./components/boards/adminBoard";
+
 
 function App() {
 
@@ -41,6 +43,8 @@ function App() {
           <Route path="/resetPassword/:token" element={<Reset />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/sellerProducts" element={<SellerProducts />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+
 
           {/* orders page for users only */}
           <Route path="/myOrders" element={<BoardUser />} />
@@ -48,6 +52,7 @@ function App() {
           <Route path="/adminBoard" element={<BoardAdmin />} />
           {/* add product page for sellers only */}
           <Route path="/addProduct" element={<SellerProduct />} />
+          
 
         </Routes>
         <Footer />

@@ -71,7 +71,7 @@ exports.products = async (req, res) => {
             .exec()
             .then(products => {
                 return products.map(product => {
-    
+
                     return {
                         id: product._id,
                         image: product.image,
@@ -85,7 +85,7 @@ exports.products = async (req, res) => {
                 });
             });
 
-            const count = formattedProducts.length;
+        const count = formattedProducts.length;
 
 
         // Send the formatted products array in the response
@@ -164,20 +164,29 @@ exports.deleteProduct = async (req, res) => {
         const deletedProduct = await product.findByIdAndDelete(productId);
 
         if (!deletedProduct) {
-          return res.status(500).json({ message: 'Product not found' });
+            return res.status(500).json({ message: 'Product not found' });
         }
-    
+
         res.status(200).json({ message: 'Product deleted successfully' });
-      } catch (error) {
+    } catch (error) {
         res.status(500).json({ message: 'Error deleting product', error });
-      }
+    }
 };
 
 exports.getProductById = async (req, res) => {
+
     try {
-      const product = await product.findById(req.params.id);
-      res.status(200).json(product);
+        const productId = req.params.id;
+
+        const productt = await product.findById(productId);
+
+        if (!productt) {
+            return res.status(404).json({ message: "Product not found." });
+        }
+
+        res.status(200).send(productt);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+        console.error("Error fetching product:", error);
+        res.status(500).json({ message: "Server error" });
     }
-  };
+};

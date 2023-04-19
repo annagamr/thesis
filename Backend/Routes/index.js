@@ -73,6 +73,11 @@ module.exports = function (app) {
         "/api/products",
         productController.products
     );
+        // Route for getting specific product info
+        app.get(
+            "/api/products/:id",
+            productController.getProductById 
+        );
 
     // Route for getting product image
     app.get(
