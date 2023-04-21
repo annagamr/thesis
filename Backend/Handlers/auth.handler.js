@@ -132,19 +132,9 @@ exports.forgotPassword = async (req, res) => {
 
 //gets triggered when the user click on reset link (step 2 - final step)
 exports.resetPassword = async (req, res) => {
-  const { username, newPass } = req.body;
+  const { newPass } = req.body;
   try {
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(400).json({ error: "User does not exist" });
-    }
-
-    // console.log(req.body.token)
-
-    if (user.resetLink !== req.body.token) {
-      return res.status(401).json({ error: "Invalid reset link" });
-    }
-
+    // Verify and decode the token
     const decodedData = await new Promise((resolve, reject) => {
       jwt.verify(req.body.token, secretPass, (error, decoded) => {
         if (error) {
@@ -154,6 +144,22 @@ exports.resetPassword = async (req, res) => {
         }
       });
     });
+
+    // Find the user using the user ID from the decoded token
+    const user = await User.findById(decodedData._id);
+    if (!user) {
+      return res.status(400).json({ error: "User does not exist" });
+    }
+
+    if (user.resetLink !== req.body.token) {
+      return res.status(401).json({ error: "Invalid reset link" });
+    }
+
+    // Compare the new password with the old one
+    const isMatch = await bcrypt.compare(newPass, user.password);
+    if (isMatch) {
+      return res.status(400).json({ error: "New password cannot be the same as the old password" });
+    }
 
     const hashedPassword = await bcrypt.hash(newPass, 8);
     user.password = hashedPassword;
@@ -166,6 +172,7 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
 
 //Count of registered users in database
 exports.countUsers = async (req, res) => {
@@ -213,7 +220,7 @@ exports.deleteUser = async (req, res) => {
     // Delete the user
     await User.findByIdAndDelete(userId);
     res.status(200).json({ message: 'User and their posts and products deleted successfully.' });
-    
+
   } catch (err) {
     res.status(500).json({ message: 'Error deleting user: ' + err.message });
   }
