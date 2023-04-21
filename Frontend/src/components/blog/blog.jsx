@@ -229,15 +229,15 @@ const Blog = () => {
                       required
                     >
                       <option value="">Select a topic</option>
-                      <option value="makeUp">Make up</option>
-                      <option value="skinCare">Skin Care</option>
-                      <option value="healthNbeauty">Health & Beauty</option>
-                      <option value="productRecommendation">
+                      <option value="Make-up">Make up</option>
+                      <option value="Skincare">Skin Care</option>
+                      <option value="Health">Health & Beauty</option>
+                      <option value="Recommendation">
                         Product Recommendation
                       </option>
-                      <option value="hair">Hair & Hair Products</option>
-                      <option value="perfumes">Perfumes</option>
-                      <option value="tanning">Sun & Tanning</option>
+                      <option value="Hair">Hair & Hair Products</option>
+                      <option value="Perfumes">Perfumes</option>
+                      <option value="Sun">Sun & Tanning</option>
                     </select>
                   </div>
                   <div className="add-post">

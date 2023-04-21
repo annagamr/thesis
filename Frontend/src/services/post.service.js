@@ -5,25 +5,25 @@ class postService {
         return axios.get('http://localhost:3002/api/posts');
     }
     getSkincare() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/skinCare');
+        return axios.get('http://localhost:3002/api/countPostsByTopic/Skincare');
     }
     getMakeUp() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/makeUp');
+        return axios.get('http://localhost:3002/api/countPostsByTopic/Make-up');
     }
     getHealth() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/healthNbeauty');
+        return axios.get('http://localhost:3002/api/countPostsByTopic/Health');
     }
     getRec() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/productRecommendation');
+        return axios.get('http://localhost:3002/api/countPostsByTopic/Recommendation');
     }
     getHair() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/hair');
+        return axios.get('http://localhost:3002/api/countPostsByTopic/Hair');
     }
     getSun() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/tanning');
+        return axios.get('http://localhost:3002/api/countPostsByTopic/Sun');
     }
     getPerfumes() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/perfumes');
+        return axios.get('http://localhost:3002/api/countPostsByTopic/Perfumes');
     }
 }
 
