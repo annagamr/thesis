@@ -8,25 +8,25 @@
     border-radius: 10px;
 }
 
-.LayoutGrid {
+.ProductGrid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 15px;
 }
 
-.LayoutGrid.has-column-gap {
+.ProductGrid.has-column-gap {
     column-gap: 15px;
 }
 
-.LayoutGrid.gap-y-6 {
+.ProductGrid.gap-y-6 {
     row-gap: 25px;
 }
 
-.LayoutGrid.sm\:gap-y-12 {
+.ProductGrid.sm\:gap-y-12 {
     row-gap: 12px;
 }
 
-.LayoutGridItem {
+.ProductGridItem {
     grid-column: span 6;
 }
 
@@ -157,7 +157,7 @@
 
 /* Add media queries and responsive styles */
 @media screen and (min-width: 600px) {
-    .LayoutGridItem.xs\:col-span-4 {
+    .ProductGridItem.xs\:col-span-4 {
         grid-column: span 4;
     }
     .shop-page-container .LayoutCard .add-tocart {
@@ -168,20 +168,20 @@
 }
 
 @media screen and (min-width: 768px) {
-    .LayoutGridItem.sm\:col-span-3 {
+    .ProductGridItem.sm\:col-span-3 {
         grid-column: span 3;
     }
 
 }
 
 @media screen and (max-width: 991px) {
-    .LayoutGridItem.smMax\:order-first {
+    .ProductGridItem.smMax\:order-first {
         order: -1;
     }
 }
 
 @media screen and (min-width: 992px) {
-    .LayoutGridItem.lg\:col-span-2 {
+    .ProductGridItem.lg\:col-span-2 {
         grid-column: span 2;
     }
 
@@ -193,9 +193,8 @@
 
 }
 
-
 @media screen and (min-width: 640px) {
-    .LayoutGrid.sm\:gap-y-12 {
+    .ProductGrid.sm\:gap-y-12 {
         row-gap: 12px;
     }
 }

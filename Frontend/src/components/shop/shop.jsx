@@ -6,7 +6,7 @@ import "./shop.css";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [addedProducts, setAddedProducts] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState("Shop");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleAddClick = (productId) => {
     setAddedProducts({
@@ -16,36 +16,41 @@ const Shop = () => {
   };
 
   const handleChange = (event) => {
-    setSelectedCategory(event.target.value || "Shop");
+    setSelectedCategory(event.target.value);
+  };
+
+  const fetchProducts = async (category) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3002/api/products${
+          category ? `?category=${encodeURIComponent(category)}` : ""
+        }`
+      );
+      setProducts(response.data.products);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get("http://localhost:3002/api/products");
-        setProducts(response.data.products);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchProducts();
-  }, []);
+    fetchProducts(selectedCategory);
+  }, [selectedCategory]);
 
   return (
     <div className="shop-page-container">
       <div className="category-select">
-        <h2>{selectedCategory}</h2>
+        <h2>{selectedCategory || "Shop"}</h2>
         <select name="category" onChange={handleChange}>
           <option value="">Shop</option>
-          <option value="Skin Care">Skin Care</option>
-          <option value="Body Care">Body Care</option>
-          <option value="Sun Care">Sun Care</option>
-          <option value="Hair Care">Hair Care</option>
-          <option value="Make Up">Make Up</option>
-          <option value="Perfume">Perfume</option>
+          <option value="skin care">Skin Care</option>
+          <option value="body care">Body Care</option>
+          <option value="sun care">Sun Care</option>
+          <option value="hair care">Hair Care</option>
+          <option value="make up">Make Up</option>
+          <option value="perfume">Perfume</option>
         </select>
       </div>
-      <div className="LayoutGrid grid-cols-12 has-column-gap gap-y-6 sm:gap-y-12">
+      <div className="ProductGrid grid-cols-12 has-column-gap gap-y-6 sm:gap-y-12">
         {products.map((product) => (
           <Link
             style={{ textDecoration: "none", color: "black" }}
@@ -84,4 +89,5 @@ const Shop = () => {
     </div>
   );
 };
+
 export default Shop;
