@@ -3,12 +3,13 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./login.css";
 import { Link } from "react-router-dom";
+import userService from "../../services/user.service";
 
 async function signin(username, password) {
   try {
     const response = await axios.post("http://localhost:3002/api/auth/signin", {
       username,
-      password
+      password,
     });
     if (response.data && response.data.accessToken) {
       localStorage.setItem("user", JSON.stringify(response.data));
@@ -49,9 +50,28 @@ const Login = (props) => {
   function handleLogin(e) {
     e.preventDefault();
     setMessage("");
-
+  
     signin(username, password)
-      .then(() => {
+      .then(async () => {
+        // Merge guestCart with the user's cart
+        const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+        if (guestCart.length > 0) {
+          const headers = userService.getAccessTokenHeaderFromLocalStorage();
+          for (const item of guestCart) {
+            try {
+              await axios.post(
+                `http://localhost:3002/api/cart/add/${item.product}`,
+                {},
+                { headers: headers }
+              );
+            } catch (error) {
+              console.log("Error adding product to cart:", error);
+            }
+          }
+          // Clear guestCart from localStorage
+          localStorage.removeItem("guestCart");
+        }
+  
         // Navigate to the profile page and reload the page
         props.router.navigate("/profile");
         window.location.reload();
@@ -61,6 +81,8 @@ const Login = (props) => {
         setMessage(error.toString());
       });
   }
+  
+
   //x Functions x\\
   return (
     <div className="sign-in">
@@ -90,19 +112,16 @@ const Login = (props) => {
               required
             />
           </div>
-          <Link id="forgot-quest" to={"/forgotPassword"}>Forgot Password?</Link>
+          <Link id="forgot-quest" to={"/forgotPassword"}>
+            Forgot Password?
+          </Link>
           <div className="item-button">
             <button className="login-button">
               <span>Login</span>
             </button>
           </div>
 
-          {message && (
-            <div className="error">        
-                {message}
-      
-            </div>
-          )}
+          {message && <div className="error">{message}</div>}
         </form>
       </div>
     </div>

@@ -2,13 +2,46 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./shop.css";
+import userService from "../../services/user.service";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [addedProducts, setAddedProducts] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleAddClick = (productId) => {
+  useEffect(() => {
+    const checkLoggedIn = () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      setIsLoggedIn(!!user);
+    };
+
+    checkLoggedIn();
+  }, []);
+
+  const handleAddClick = async (productId) => {
+    // If user is logged in
+    if (userService.headers["x-access-token"]) {
+      try {
+        const response = await axios.post(
+          `http://localhost:3002/api/cart/add/${productId}`,
+          {},
+          { headers: userService.headers }
+        );
+        console.log("Added product to cart:", response.data);
+      } catch (error) {
+        console.log("Error adding product to cart:", error);
+      }
+    } else {
+      // If user is not logged in, store the items in guestCart in localStorage
+      let guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+      const index = guestCart.findIndex((item) => item.product === productId);
+      if (index === -1) {
+        guestCart.push({ product: productId });
+      }
+      localStorage.setItem("guestCart", JSON.stringify(guestCart));
+    }
+
     setAddedProducts({
       ...addedProducts,
       [productId]: !addedProducts[productId],
@@ -26,6 +59,7 @@ const Shop = () => {
           category ? `?category=${encodeURIComponent(category)}` : ""
         }`
       );
+      console.log(response.data.products);
       setProducts(response.data.products);
     } catch (error) {
       console.log(error);
@@ -65,6 +99,7 @@ const Shop = () => {
                     alt="Product Image"
                   />
                 </div>
+
                 <button
                   className="add-tocart"
                   onClick={(e) => {

@@ -5,6 +5,8 @@ const { isUser } = require("../Middleware/authMiddleware");
 const productController = require("../Handlers/product.handler");
 const postController = require("../Handlers/post.handler");
 const authController = require("../Handlers/auth.handler");
+const cartController = require("../Handlers/cart.handler");
+
 
 const { checkDuplicateUsernameOrEmailAndRolesExisted } = require("../Middleware/validationMiddleware");
 
@@ -73,11 +75,11 @@ module.exports = function (app) {
         "/api/products",
         productController.products
     );
-        // Route for getting specific product info
-        app.get(
-            "/api/products/:id",
-            productController.getProductById 
-        );
+    // Route for getting specific product info
+    app.get(
+        "/api/products/:id",
+        productController.getProductById
+    );
 
     // Route for getting product image
     app.get(
@@ -126,6 +128,10 @@ module.exports = function (app) {
     // Route for getting number of posts according to topic
 
     app.get("/api/countPostsByTopic/:topic", postController.countPostsByTopic);
+
+    // Route adding product to cart
+    app.post("/api/cart/add/:id", verifyToken, cartController.addToCart);
+    
     //Route for sign up
     app.post(
         "/api/auth/signup",
