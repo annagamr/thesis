@@ -54,7 +54,7 @@ const Header = () => {
           </li>
         )}
 
-        {showUserBoard ? (
+        {/* {showUserBoard ? (
           <li>
             <Link to="/myOrders" className="nav-link">
               My Orders
@@ -62,7 +62,7 @@ const Header = () => {
           </li>
         ) : (
           <div></div>
-        )}
+        )} */}
       </ul>
       <div className="logo_aurora">Aurora.</div>
       <ul className="header_items_right">

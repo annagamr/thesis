@@ -177,17 +177,26 @@ exports.deleteProduct = async (req, res) => {
 };
 
 exports.getProductById = async (req, res) => {
-
     try {
         const productId = req.params.id;
-
-        const productt = await product.findById(productId);
+        const productt = await db.product.findById(productId).populate("author", "username");
 
         if (!productt) {
             return res.status(404).json({ message: "Product not found." });
         }
 
-        res.status(200).send(productt);
+        const formattedProduct = {
+            id: productt._id,
+            image: productt.image,
+            title: productt.title,
+            description: productt.description,
+            category: productt.category,
+            added: formatDate(productt.added),
+            author: productt.author.username,
+            price: productt.price,
+        };
+
+        res.status(200).json({ product: formattedProduct });
     } catch (error) {
         console.error("Error fetching product:", error);
         res.status(500).json({ message: "Server error" });
