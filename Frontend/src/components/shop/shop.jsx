@@ -21,12 +21,13 @@ const Shop = () => {
 
   const handleAddClick = async (productId) => {
     // If user is logged in
-    if (userService.headers["x-access-token"]) {
+    const accessToken = JSON.parse(localStorage.getItem("user"))?.accessToken;
+    if (accessToken) {
       try {
         const response = await axios.post(
           `http://localhost:3002/api/cart/add/${productId}`,
           {},
-          { headers: userService.headers }
+          { headers: { "x-access-token": accessToken } }
         );
         console.log("Added product to cart:", response.data);
       } catch (error) {
@@ -47,7 +48,6 @@ const Shop = () => {
       [productId]: !addedProducts[productId],
     });
   };
-
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);
   };
@@ -59,7 +59,9 @@ const Shop = () => {
           category ? `?category=${encodeURIComponent(category)}` : ""
         }`
       );
-      console.log(response.data.products);
+      if (category) {
+        console.log(response.data.products);
+      }
       setProducts(response.data.products);
     } catch (error) {
       console.log(error);

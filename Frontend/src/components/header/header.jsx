@@ -1,27 +1,39 @@
 import React, { useState, useEffect } from "react";
-import "./header.css";
 import { BsCart4 } from "react-icons/bs";
 import { RxPerson } from "react-icons/rx";
 import { MdQuestionAnswer } from "react-icons/md";
 import { AiOutlineLogin, AiOutlineLogout, AiOutlinePlus } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import Badge from "@mui/material/Badge";
-import { Link } from "react-router-dom";
+import "./header.css";
+import cartService from "../../services/cart.service";
 
 const Header = () => {
   const [showSellerBoard, setShowSellerBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [showUserBoard, setShowUserBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
 
     if (user) {
       setCurrentUser(user);
       setShowUserBoard(user.roles.includes("ROLE_USER"));
       setShowSellerBoard(user.roles.includes("ROLE_SELLER"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+
+      const fetchCartProducts = async () => {
+        try {
+          const response = await cartService.getCart(user.id);
+          setTotalItems(response.numberOfItems);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchCartProducts();
     }
   }, []);
 
@@ -40,29 +52,12 @@ const Header = () => {
           <Link to="/">ABOUT</Link>
         </li>
         <li>
-        {!showSellerBoard && <Link to="/shop">SHOP</Link>}
+          {!showSellerBoard && !showAdminBoard && <Link to="/shop">SHOP</Link>}
         </li>
         <li>
           <Link to="/blog">BLOG</Link>
         </li>
 
-        {showAdminBoard && (
-          <li>
-            <Link to={"/adminBoard"} className="nav-link">
-              Admin Board
-            </Link>
-          </li>
-        )}
-
-        {/* {showUserBoard ? (
-          <li>
-            <Link to="/myOrders" className="nav-link">
-              My Orders
-            </Link>
-          </li>
-        ) : (
-          <div></div>
-        )} */}
       </ul>
       <div className="logo_aurora">Aurora.</div>
       <ul className="header_items_right">
@@ -98,10 +93,10 @@ const Header = () => {
               </IconContext.Provider>
             </Link>
           </li>
-        ) : (
+        ) : !showAdminBoard ? (
           <li>
             <Link to="/cart" className="icon">
-              <Badge badgeContent={1} color="success">
+              <Badge badgeContent={totalItems} color="success">
                 <IconContext.Provider
                   value={{
                     color: "white",
@@ -114,7 +109,7 @@ const Header = () => {
               </Badge>
             </Link>
           </li>
-        )}
+        ) : null}
         <li>
           <Link to="/contact" className="icon">
             <IconContext.Provider
