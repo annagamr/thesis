@@ -143,4 +143,7 @@ module.exports = function (app) {
     );
     //Route for sign in
     app.post("/api/auth/signin", authController.signin);
+
+    //Route for checking out (Stripe)
+    app.post("/api/create-checkout-session", cartController.checkOut);
 };

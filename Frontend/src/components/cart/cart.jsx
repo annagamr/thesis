@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./cart.css";
 import cartService from "../../services/cart.service";
+import { loadStripe } from "@stripe/stripe-js";
 import productService from "../../services/product.service";
 
 const Cart = () => {
@@ -8,6 +9,9 @@ const Cart = () => {
   const [deliveryFee, setDeliveryFee] = useState(450);
   const [cartItems, setCartItems] = useState([]);
   const [guestCartItems, setGuestCartItems] = useState([]);
+
+
+const stripePromise = loadStripe("pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7qnCLLlhtn9iQ9Tn0va2gE0Y5K1YtA6OV5C6TipZhlzN11eVGChz00gbfcz1bj");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -58,15 +62,45 @@ const Cart = () => {
     }, 0);
   };
 
-  const handleProceedToPayment = () => {
+  const handleProceedToPayment = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
       alert("Sign up or Sign in");
     } else {
-      // Proceed with the payment process for logged-in users
+      try {
+        const response = await fetch(
+          "http://localhost:3002/api/create-checkout-session",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              price: (getOrderSummaryPrice() + deliveryFee)*100,
+            }),
+          }
+        );
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+  
+        // Use Stripe.js to redirect the user to the Checkout page
+        const stripe = await stripePromise;
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: data.sessionId,
+        });
+  
+        if (error) {
+          console.error("Error:", error);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     }
   };
-
   const itemsToDisplay = JSON.parse(localStorage.getItem("user"))
     ? cartItems
     : guestCartItems;

@@ -100,4 +100,28 @@ exports.removeFromCart = async (req, res) => {
   }
 };
 
+const stripe = require('stripe')('sk_test_51N09ASL7vL0HlrdBEcqFg7psp4WZ14zWE1wAhApkSAkcb4TP8oNzfrccCrDbFgNdKMtDz386F1meK1tdbNrItVt900xEginu6W');
+exports.checkOut = async (req, res) => {
+  console.log(req.body.price)
+  const price = await stripe.prices.create({
+    unit_amount: req.body.price,
+    currency: 'huf',
+    product_data: {
+      name: "Total:"
+    },
+  });
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price: price.id,
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: `http://localhost:3000/success.html`,
+    cancel_url: `http://localhost:3000/cart`,
+  });
 
+  // Return the session ID instead of redirecting
+  res.json({ sessionId: session.id });
+};
