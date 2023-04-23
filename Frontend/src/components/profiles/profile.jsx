@@ -167,7 +167,7 @@ const Profile = () => {
               <div className="role">
                 <b>Role:</b>{" "}
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {currentUser.roles[0]}
+                ADMIN
               </div>
             </div>
             <button className="see-list" > <Link style={{textDecoration: 'none',color:'white' }} to="/adminBoard">My Board</Link></button>

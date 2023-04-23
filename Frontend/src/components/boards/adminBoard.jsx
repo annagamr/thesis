@@ -276,7 +276,7 @@ const BoardAdmin = () => {
             <ol className="blogs-list">
               {filteredBlogs.map((blogs) => (
                 <React.Fragment key={blogs._id}>
-                  <li>
+                  <li key={blogs._id}>
                     {blogs.title}
                     <button
                       onClick={(event) =>

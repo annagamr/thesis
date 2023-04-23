@@ -1,0 +1,153 @@
+.cart-container {
+    width: 1600px;
+    margin: auto;
+    padding: 8.5rem 5rem;
+    max-height: auto;
+    height: 87.3vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #d6dbe5;
+    border-radius: 5px;
+}
+
+.details_card {
+    width: 700px;
+    height: 500px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.delivery_method {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-top: 30px;
+  }
+  
+  .delivery_method label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .delivery_method input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  .delivery_method h1 {
+    font-size: 20px;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  #details-h1{
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: dancing script;
+    font-size: 50px;
+    letter-spacing: 3px;
+    color: #4ca59b;
+  }
+
+.summary_card {
+    background-color: #fff;
+    width: 350px;
+    height: auto;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.cart_item {
+    display: flex;
+    position: relative;
+    margin: 10px 0;
+}
+
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+.product_img img {
+    height: 80px;
+    margin-right: 20px;
+    width: 70px;
+    border-radius: 5px;
+}
+
+.product_info h1 {
+    font-size: 20px;
+    color: #1e212d;
+    margin: 5px 0;
+}
+
+.order_price,
+.order_service,
+.order_total {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.order_price p,
+.order_service p {
+    color: #a1a1a1;
+}
+
+input {
+    outline: 0;
+    background: #f2f2f2af;
+    border-radius: 5px;
+    width: 100%;
+    border: none;
+    margin: 10px 15px;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    font-size: 15px;
+    color: rgb(95, 95, 95);
+}
+
+.first_lastName,
+.pickup_card,
+.address {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.pickup_details {
+    width: 100%;
+    height: auto;
+    border: 2px solid #53b5aa;
+    padding: 15px;
+    margin-top: 40px;
+    border-radius: 10px;
+    line-height: 25px;
+}
+
+.proceed button {
+    padding: 10px 20px;
+    width: 200px;
+    border: 2px solid #f5f5f5;
+    background-color: #53b5aa;
+    color: #000;
+    margin-left: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 17px;
+    color: white;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.name_address{
+    margin-top: 40px;
+}
