@@ -29,7 +29,22 @@ const productsSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true
-
+    },
+    street: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    zipCode: {
+        type: String,
+        required: true
+    },
+    contactNumber: {
+        type: String,
+        required: true
     }
 });
 

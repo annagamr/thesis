@@ -1,10 +1,16 @@
 const { product, user } = require("../Models");
+const { Types } = require('mongoose');
 
 const db = require("../Models");
 const path = require('path'); // import path module
 
 
 async function create(productData) {
+    // Find user in the database that match the given username
+    const author = await db.user.findOne({ username: productData.author });
+    if (!author) {
+        throw new Error(`User with username "${productData.author}" not found`);
+    }
     // Create a new product with the given post data
     const product = new db.product({
         image: productData.image,
@@ -12,18 +18,24 @@ async function create(productData) {
         description: productData.description,
         category: productData.category,
         added: new Date(),
-        price: productData.price
+        author: author._id, // Set the author property to the _id of the found user
+        price: productData.price,
+        street: productData.street,
+        city: productData.city,
+        zipCode: productData.zipCode,
+        contactNumber: productData.contactNumber
     });
 
     // Save the product to the database and return the result
     return product.save();
 }
 
-async function assignProductToSeller(user, product) {
+async function assignProductToSeller(username, product) {
     // Find user in the database that match the given username
-    const query = db.user.where({ username: user });
-    const foundUser = await query.findOne();
-    console.log(foundUser);
+    const foundUser = await db.user.findOne({ username });
+    if (!foundUser) {
+        throw new Error(`User with username "${username}" not found`);
+    }
     // Map the found user to their IDs and set them as the product's author
     product.author = foundUser._id;
     // Save the updated product to the database and return the result
@@ -87,6 +99,10 @@ exports.products = async (req, res) => {
               added: formatDate(product.added),
               author: product.author.username,
               price: product.price,
+              street: product.street,
+              city: product.city,
+              zipCode: product.zipCode,
+              contactNumber: product.contactNumber
             };
           });
         });
@@ -146,7 +162,11 @@ exports.productsbyAuthor = async (req, res) => {
                 category: product.category,
                 added: formatDate(product.added),
                 author: product.author.username,
-                price: product.price
+                price: product.price,
+                street: product.street,
+                city: product.city,
+                zipCode: product.zipCode,
+                contactNumber: product.contactNumber
             };
         });
 
@@ -191,6 +211,10 @@ exports.getProductById = async (req, res) => {
             added: formatDate(productt.added),
             author: productt.author.username,
             price: productt.price,
+            street: productt.street,
+            city: productt.city,
+            zipCode: productt.zipCode,
+            contactNumber: productt.contactNumber
         };
 
         res.status(200).json({ product: formattedProduct });

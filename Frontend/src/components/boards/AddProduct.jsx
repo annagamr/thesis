@@ -13,6 +13,11 @@ const AddProduct = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [zipCode, setZip] = useState("");
+  const [contactNumber, setContact] = useState("");
+
   const [author, setAuthor] = useState(undefined);
   const [prodImageFile, setProdImageFile] = useState("");
   const [prodImageName, setProdImageName] = useState("");
@@ -88,7 +93,11 @@ const AddProduct = () => {
     description,
     category,
     author,
-    price
+    price,
+    street,
+    city,
+    zipCode,
+    contactNumber
   ) {
     try {
       const response = await axios.post(
@@ -101,6 +110,10 @@ const AddProduct = () => {
           category,
           author,
           price,
+          street,
+          city,
+          zipCode,
+          contactNumber
         },
         {
           headers: {
@@ -145,18 +158,43 @@ const AddProduct = () => {
     setPrice(newPrice);
   }
 
+  function updateStreet(e) {
+    const newStreet = e.target.value;
+    setStreet(newStreet);
+  }
+
+  function updateCity(e) {
+    const newCity = e.target.value;
+    setCity(newCity);
+  }
+
+  function updateZip(e) {
+    const newZip = e.target.value;
+    setZip(newZip);
+  }
+
+  function updateContact(e) {
+    const newPhone = e.target.value;
+    setContact(newPhone);
+  }
+
+
   const resetForm = () => {
     setProdImageFile("");
     setProdImageName("");
     setTitle("");
     setDescription("");
     setCategory("");
+    setStreet("");
+    setCity("");
+    setZip("");
+    setContact("");
     setPrice(0);
     setMessage("");
     setSuccessful(false);
     setError({});
   };
-  
+
   const handleProduct = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -174,7 +212,11 @@ const AddProduct = () => {
           description,
           category,
           author,
-          price
+          price,
+          street,
+          city,
+          zipCode,
+          contactNumber
         );
         setMessage(response.data.message);
         setSuccessful(true);
@@ -276,6 +318,57 @@ const AddProduct = () => {
                   />
                 </div>
                 {error.price && <p className="error">{error.price}</p>}
+                <div className="item-street">
+                  <label htmlFor="street">Address (Street name, House No./Apt No.):</label>
+                  <input
+                    type="text"
+                    style={{ width: "30rem" }}
+                    maxLength={40}
+                    name="street"
+                    value={street}
+                    onChange={updateStreet}
+                    required
+                  />
+                </div>
+
+                <div className="item-city">
+                  <label htmlFor="city">City: </label>
+                  <input
+                    type="text"
+                    style={{ width: "30rem" }}
+                    maxLength={40}
+                    name="city"
+                    value={city}
+                    onChange={updateCity}
+                    required
+                  />
+                </div>
+
+                <div className="item-zip">
+                  <label htmlFor="zipCode">Zip Code: </label>
+                  <input
+                    type="text"
+                    style={{ width: "30rem" }}
+                    maxLength={40}
+                    name="zipCode"
+                    value={zipCode}
+                    onChange={updateZip}
+                    required
+                  />
+                </div>
+
+                <div className="item-contact">
+                  <label htmlFor="contactNumber">Phone Number: </label>
+                  <input
+                    type="text"
+                    style={{ width: "30rem" }}
+                    maxLength={40}
+                    name="contactNumber"
+                    value={contactNumber}
+                    onChange={updateContact}
+                    required
+                  />
+                </div>
 
                 <div className="add-post">
                   <button>Add Product</button>
@@ -284,22 +377,23 @@ const AddProduct = () => {
             )}
             {successful && (
               <div>
-              <div className="product-details">
-                <h2>{message}</h2>
-                <div className="added-details">
-                  <h3>Product Details:</h3>
-                  <p>Image:</p>
-                  <img id="image-id" src={URL.createObjectURL(prodImageFile)} />
+                <div className="product-details">
+                  <h2>{message}</h2>
+                  <div className="added-details">
+                    <h3>Product Details:</h3>
+                    <p>Image:</p>
+                    <img
+                      id="image-id"
+                      src={URL.createObjectURL(prodImageFile)}
+                    />
 
-                  <p>Title: {title}</p>
-                  <p>Description: {description}</p>
-                  <p>Category: {category}</p>
-                  <p>Price: {price}</p>
+                    <p>Title: {title}</p>
+                    <p>Description: {description}</p>
+                    <p>Category: {category}</p>
+                    <p>Price: {price}</p>
+                  </div>
                 </div>
-              
-              </div>
-              <button onClick={resetForm}>Add More Products</button>
-             
+                <button onClick={resetForm}>Add More Products</button>
               </div>
             )}
           </form>

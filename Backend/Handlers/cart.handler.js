@@ -136,7 +136,7 @@ exports.checkOut = async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: `http://localhost:3000/success.html`,
+    success_url: `http://localhost:3000/myOrders`,
     cancel_url: `http://localhost:3000/cart`,
   });
 
