@@ -26,33 +26,33 @@
     align-items: center;
     flex-wrap: nowrap;
     margin-top: 30px;
-  }
-  
-  .delivery_method label {
+}
+
+.delivery_method label {
     display: inline-flex;
     align-items: center;
     cursor: pointer;
     white-space: nowrap;
-  }
-  
-  .delivery_method input[type="radio"] {
+}
+
+.delivery_method input[type="radio"] {
     margin-right: 5px;
-  }
-  
-  .delivery_method h1 {
+}
+
+.delivery_method h1 {
     font-size: 20px;
     margin: 0;
     white-space: nowrap;
-  }
+}
 
-  #details-h1{
+#details-h1 {
     text-align: center;
     margin-bottom: 20px;
     font-family: dancing script;
     font-size: 50px;
     letter-spacing: 3px;
     color: #4ca59b;
-  }
+}
 
 .summary_card {
     background-color: #fff;
@@ -102,7 +102,7 @@
     color: #a1a1a1;
 }
 
-input {
+.delivery_method input {
     outline: 0;
     background: #f2f2f2af;
     border-radius: 5px;
@@ -148,6 +148,6 @@ input {
     margin-top: 50px;
 }
 
-.name_address{
+.name_address {
     margin-top: 40px;
 }
