@@ -10,8 +10,9 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [guestCartItems, setGuestCartItems] = useState([]);
 
-
-const stripePromise = loadStripe("pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7qnCLLlhtn9iQ9Tn0va2gE0Y5K1YtA6OV5C6TipZhlzN11eVGChz00gbfcz1bj");
+  const stripePromise = loadStripe(
+    "pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7qnCLLlhtn9iQ9Tn0va2gE0Y5K1YtA6OV5C6TipZhlzN11eVGChz00gbfcz1bj"
+  );
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -55,11 +56,25 @@ const stripePromise = loadStripe("pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7
       setDeliveryFee(0);
     }
   };
-  const getOrderSummaryPrice = () => {
-    return cartItems.reduce((total, item) => {
+
+  const getGuestOrderSummaryPrice = () => {
+    return guestCartItems.reduce((total, item) => {
       const price = isNaN(parseFloat(item.price)) ? 0 : parseFloat(item.price);
       return total + price;
     }, 0);
+  };
+
+  const getOrderSummaryPrice = () => {
+    if (JSON.parse(localStorage.getItem("user"))) {
+      return cartItems.reduce((total, item) => {
+        const price = isNaN(parseFloat(item.price))
+          ? 0
+          : parseFloat(item.price);
+        return total + price;
+      }, 0);
+    } else {
+      return getGuestOrderSummaryPrice();
+    }
   };
 
   const handleProceedToPayment = async () => {
@@ -76,23 +91,23 @@ const stripePromise = loadStripe("pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              price: (getOrderSummaryPrice() + deliveryFee)*100,
+              price: (getOrderSummaryPrice() + deliveryFee) * 100,
             }),
           }
         );
-  
+
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-  
+
         const data = await response.json();
-  
+
         // Use Stripe.js to redirect the user to the Checkout page
         const stripe = await stripePromise;
         const { error } = await stripe.redirectToCheckout({
           sessionId: data.sessionId,
         });
-  
+
         if (error) {
           console.error("Error:", error);
         }
@@ -101,6 +116,29 @@ const stripePromise = loadStripe("pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7
       }
     }
   };
+
+  // Removing items from cart
+  const handleRemoveFromCart = async (itemId) => {
+    try {
+      if (JSON.parse(localStorage.getItem("user"))) {
+        await cartService.removeFromCart(itemId);
+        // Update cart items after removal
+        const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
+        setCartItems(updatedCartItems);
+      } else {
+        const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+        const updatedGuestCart = guestCart.filter(
+          (item) => item.product !== itemId
+        );
+        localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
+        setGuestCartItems(guestCartItems.filter((item) => item.id !== itemId));
+      }
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+    }
+  };
+
+  //Items to Display
   const itemsToDisplay = JSON.parse(localStorage.getItem("user"))
     ? cartItems
     : guestCartItems;
@@ -176,9 +214,12 @@ const stripePromise = loadStripe("pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7
               </div>
               <div className="product_info">
                 <h1>{item.title}</h1>
-                <div className="close-btn">
-                  <i className="fa fa-close">x</i>
-                </div>
+                <button
+                  className="close-btn"
+                  onClick={() => handleRemoveFromCart(item.id)} // Add this line
+                >
+                  &times;
+                </button>
                 <div className="product_rate_info">
                   <p>HUF {item.price}</p>
                 </div>

@@ -132,6 +132,9 @@ module.exports = function (app) {
     // Route adding product to cart
     app.post("/api/cart/add/:id", verifyToken, cartController.addToCart);
 
+    // Route removing product from cart
+    app.post("/api/cart/remove/:id", verifyToken, cartController.removeFromCart);
+
     // Route for getting number of products in cart
     app.post("/api/cart/products/:author", verifyToken, cartController.getCart);
 

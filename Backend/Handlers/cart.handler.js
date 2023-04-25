@@ -50,7 +50,7 @@ exports.addToCart = async (req, res) => {
   try {
     if (!req.userId) {
       return res.status(401).json({ message: "Please Log in or Sign up to add products to the cart." });
-    } 
+    }
     // Check if the product exists
     const productt = await product.findById(req.params.id);
     if (!productt) {
@@ -85,20 +85,39 @@ exports.addToCart = async (req, res) => {
 
 exports.removeFromCart = async (req, res) => {
   try {
-    const cart = await cart.findOne({ user: req.userId });
+    // Get the user ID from the request
+    const userId = req.userId;
 
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
+    // Get the item ID from the request params
+    const itemId = req.params.id;
 
-    cart.items = cart.items.filter(
-      (item) => item.product.toString() !== req.params.productId
-    );
+    // Find the user's cart
+    const userCart = await cart.findOne({ user: userId });
 
-    await cart.save();
-    res.status(200).json(cart);
+    if (!userCart) {
+      return res.status(404).send({ message: "Cart not found" });
+    }
+
+    // Check if the item exists in the user's cart
+    const itemIndex = userCart.items.findIndex((item) => item._id.toString() === itemId);
+
+    if (itemIndex === -1) {
+      return res.status(404).send({ message: "Item not found in cart" });
+    }
+
+    // Remove the item from the cart
+    userCart.items.splice(itemIndex, 1);
+
+    // Save the updated cart
+    await userCart.save();
+
+    res.status(200).send({ message: "Item removed from cart", cartItems: userCart.items });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+    res.status(500).send({ message: "Server error" });
   }
 };
+
 
 const stripe = require('stripe')('sk_test_51N09ASL7vL0HlrdBEcqFg7psp4WZ14zWE1wAhApkSAkcb4TP8oNzfrccCrDbFgNdKMtDz386F1meK1tdbNrItVt900xEginu6W');
 exports.checkOut = async (req, res) => {

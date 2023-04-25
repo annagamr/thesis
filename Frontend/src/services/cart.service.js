@@ -34,6 +34,12 @@ class CartService {
     const response = await axios.post(url, {}, { headers: this.headers });
     return response.data;
   }
+
+  async removeFromCart(itemId) {
+    const url = `${this.baseURL}/remove/${itemId}`;
+    const response = await axios.post(url, {}, { headers: this.headers });
+    return response.data;
+  }
 }
 
 export default new CartService();
