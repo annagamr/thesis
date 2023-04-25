@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import UserService from "../../services/user.service";
 import productService from "../../services/product.service";
 import axios from "axios";
@@ -7,53 +7,79 @@ import "./AddProduct.css";
 const AddProduct = () => {
   const [access, setAccess] = useState("");
   const [error, setError] = useState({});
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-    category: "",
-    author: undefined,
-    prodImageFile: "",
-    prodImageName: "",
-    price: 0,
-  });
+
+  // vars for product
   const [products, setProducts] = useState([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [author, setAuthor] = useState(undefined);
+  const [prodImageFile, setProdImageFile] = useState("");
+  const [prodImageName, setProdImageName] = useState("");
+
+  const [price, setPrice] = useState(0);
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
+  //x vars for product x\\
 
-  const fetchSellerAccess = useCallback(async () => {
-    try {
-      const response = await UserService.sellerAccess();
-      setAccess(response.data);
-    } catch (error) {
-      const errorMessage =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      setAccess(errorMessage);
-    }
+  //Only for users
+  useEffect(() => {
+    const fetchSellerAccess = async () => {
+      try {
+        const response = await UserService.sellerAccess();
+        setAccess(response.data);
+      } catch (error) {
+        const errorMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        setAccess(errorMessage);
+      }
+    };
+    fetchSellerAccess();
   }, []);
+  //x Only for users x\\
+  const validateForm = () => {
+    const errors = {};
 
-  const fetchProducts = useCallback(async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    if (user) {
-      setForm((prevForm) => ({ ...prevForm, author: user.username }));
+    if (!title || title.trim().length === 0) {
+      errors.title = "Title is required";
     }
 
-    try {
-      const response = await productService.getAllProducts();
-      setProducts(response.data);
-    } catch (error) {
-      console.log(error);
+    if (!description || description.trim().length === 0) {
+      errors.description = "Description is required";
     }
-  }, []);
+
+    if (!category) {
+      errors.category = "Category is required";
+    }
+
+    if (!price || price <= 0) {
+      errors.price = "Price must be a positive number";
+    }
+
+    return errors;
+  };
 
   useEffect(() => {
-    fetchSellerAccess();
+    const fetchProducts = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      if (user) {
+        setAuthor(user.username);
+      }
+
+      try {
+        const response = await productService.getAllProducts();
+        setProducts(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchProducts();
-  }, [fetchSellerAccess, fetchProducts]);
+  }, []);
 
   async function addProduct(
     prodImageFile,
@@ -82,7 +108,7 @@ const AddProduct = () => {
           },
         }
       );
-      setProducts((prevProducts) => [...prevProducts, response.data.post]);
+      setProducts(response.data.post);
       return response;
     } catch (error) {
       console.error("Error adding product: ", error);
@@ -90,43 +116,47 @@ const AddProduct = () => {
     }
   }
 
-  function validateForm() {
-    const errors = {};
+  function updateTitle(e) {
+    const newTitle = e.target.value;
+    setTitle(newTitle);
+  }
 
-    if (!form.title || form.title.trim().length === 0) {
-      errors.title = "Title is required";
+  function updateImage(e) {
+    const file = e.target.files[0];
+    setProdImageFile(file);
+    setProdImageName(document.getElementById("prodImage").value);
+  }
+
+  function updateDescription(e) {
+    const newDescription = e.target.value;
+    const wordCount = newDescription.split(/\s+/).length;
+    if (wordCount <= 200) {
+      setDescription(newDescription);
     }
+  }
 
-    if (!form.description || form.description.trim().length === 0) {
-      errors.description = "Description is required";
-    }
+  function updateCategory(e) {
+    const newCategory = e.target.value;
+    setCategory(newCategory);
+  }
 
-    if (!form.category) {
-      errors.category = "Category is required";
-    }
-
-    if (!form.price || form.price <= 0) {
-      errors.price = "Price must be a positive number";
-    }
-
-    return errors;
+  function updatePrice(e) {
+    const newPrice = e.target.value;
+    setPrice(newPrice);
   }
 
   const resetForm = () => {
-    setForm({
-      title: "",
-      description: "",
-      category: "",
-      author: undefined,
-      prodImageFile: "",
-      prodImageName: "",
-      price: 0,
-    });
+    setProdImageFile("");
+    setProdImageName("");
+    setTitle("");
+    setDescription("");
+    setCategory("");
+    setPrice(0);
     setMessage("");
     setSuccessful(false);
     setError({});
   };
-
+  
   const handleProduct = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -138,13 +168,13 @@ const AddProduct = () => {
     if (Object.keys(errors).length === 0) {
       try {
         const response = await addProduct(
-          form.prodImageFile,
-          form.prodImageName,
-          form.title,
-          form.description,
-          form.category,
-          form.author,
-          form.price
+          prodImageFile,
+          prodImageName,
+          title,
+          description,
+          category,
+          author,
+          price
         );
         setMessage(response.data.message);
         setSuccessful(true);
@@ -159,30 +189,13 @@ const AddProduct = () => {
     }
   };
 
-  function updateForm(event) {
-    const { name, value, files } = event.target;
-    setForm((prevForm) => {
-      if (name === "prodImage") {
-        return {
-          ...prevForm,
-          prodImageFile: files[0],
-          prodImageName: document.getElementById("prodImage").value,
-        };
-      }
-
-      return {
-        ...prevForm,
-        [name]: value,
-      };
-    });
-  }
-
   return (
     <div className="main-container">
       <div className="product-container">
         <header className="jumbotron">
           <h3>{access}</h3>
         </header>
+
         {/* form */}
         <div className="add-product-page">
           <form onSubmit={handleProduct} encType="multipart/form-data">
@@ -196,7 +209,7 @@ const AddProduct = () => {
                     type="file"
                     name="prodImage"
                     accept=".jpg,.png"
-                    onChange={updateForm}
+                    onChange={updateImage}
                     required
                   />
                 </div>
@@ -207,8 +220,8 @@ const AddProduct = () => {
                     style={{ width: "30rem" }}
                     maxLength={25}
                     name="title"
-                    value={form.title}
-                    onChange={updateForm}
+                    value={title}
+                    onChange={updateTitle}
                     required
                   />
                 </div>
@@ -221,8 +234,8 @@ const AddProduct = () => {
                     style={{ width: "30rem" }}
                     name="description"
                     maxLength={150}
-                    value={form.description}
-                    onChange={updateForm}
+                    value={description}
+                    onChange={updateDescription}
                     required
                   ></textarea>
                 </div>
@@ -235,8 +248,8 @@ const AddProduct = () => {
                   <select
                     name="category"
                     style={{ width: "30rem" }}
-                    value={form.category}
-                    onChange={updateForm}
+                    value={category}
+                    onChange={updateCategory}
                     required
                   >
                     <option value="">Select a category</option>
@@ -257,8 +270,8 @@ const AddProduct = () => {
                     style={{ width: "30rem" }}
                     maxLength={40}
                     name="price"
-                    value={form.price}
-                    onChange={updateForm}
+                    value={price}
+                    onChange={updatePrice}
                     required
                   />
                 </div>
@@ -271,22 +284,22 @@ const AddProduct = () => {
             )}
             {successful && (
               <div>
-                <div className="product-details">
-                  <h2>{message}</h2>
-                  <div className="added-details">
-                    <h3>Product Details:</h3>
-                    <p>Image:</p>
-                    <img
-                      id="image-id"
-                      src={URL.createObjectURL(form.prodImageFile)}
-                    />{" "}
-                    <p>Title: {form.title}</p>
-                    <p>Description: {form.description}</p>
-                    <p>Category: {form.category}</p>
-                    <p>Price: {form.price}</p>
-                  </div>
+              <div className="product-details">
+                <h2>{message}</h2>
+                <div className="added-details">
+                  <h3>Product Details:</h3>
+                  <p>Image:</p>
+                  <img id="image-id" src={URL.createObjectURL(prodImageFile)} />
+
+                  <p>Title: {title}</p>
+                  <p>Description: {description}</p>
+                  <p>Category: {category}</p>
+                  <p>Price: {price}</p>
                 </div>
-                <button onClick={resetForm}>Add More Products</button>
+              
+              </div>
+              <button onClick={resetForm}>Add More Products</button>
+             
               </div>
             )}
           </form>

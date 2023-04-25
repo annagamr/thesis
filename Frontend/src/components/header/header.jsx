@@ -25,7 +25,7 @@ const Header = () => {
       setShowSellerBoard(user.roles.includes("ROLE_SELLER"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
 
-      if (!showSellerBoard && !!showAdminBoard) {
+      if (user.roles[0] === "ROLE_USER") {
         const fetchCartProducts = async () => {
           try {
             const response = await cartService.getCart(user.id);
@@ -37,7 +37,7 @@ const Header = () => {
         fetchCartProducts();
       }
     }
-  }, []);
+  }, [totalItems]);
 
   const logOut = () => {
     localStorage.removeItem("user");
