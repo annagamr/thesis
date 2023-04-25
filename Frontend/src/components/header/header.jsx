@@ -25,15 +25,17 @@ const Header = () => {
       setShowSellerBoard(user.roles.includes("ROLE_SELLER"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
 
-      const fetchCartProducts = async () => {
-        try {
-          const response = await cartService.getCart(user.id);
-          setTotalItems(response.numberOfItems);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      fetchCartProducts();
+      if (!showSellerBoard && !!showAdminBoard) {
+        const fetchCartProducts = async () => {
+          try {
+            const response = await cartService.getCart(user.id);
+            setTotalItems(response.numberOfItems);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchCartProducts();
+      }
     }
   }, []);
 
@@ -57,7 +59,6 @@ const Header = () => {
         <li>
           <Link to="/blog">BLOG</Link>
         </li>
-
       </ul>
       <div className="logo_aurora">Aurora.</div>
       <ul className="header_items_right">

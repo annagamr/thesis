@@ -23,7 +23,7 @@ async function assignProductToSeller(user, product) {
     // Find user in the database that match the given username
     const query = db.user.where({ username: user });
     const foundUser = await query.findOne();
-    // console.log(foundUser);
+    console.log(foundUser);
     // Map the found user to their IDs and set them as the product's author
     product.author = foundUser._id;
     // Save the updated product to the database and return the result
@@ -39,6 +39,7 @@ exports.addProduct = async (req, res) => {
         req.body.image = req.file.path
         const product = await create(req.body);
         const user = req.body.author;
+        console.log(user)
         await assignProductToSeller(user, product);
         // Send a success message to the client
         res.status(200).send({ message: "Added Successfully", product: product });
@@ -96,6 +97,7 @@ exports.products = async (req, res) => {
       res.status(200).json({ products: formattedProducts, count: count });
     } catch (err) {
       // If an error occurs, send a 500 error response to the client with the error message
+      console.log(err)
       res.status(500).send({ message: err });
     }
   };
@@ -132,11 +134,6 @@ exports.productImage = async (req, res) => {
 exports.productsbyAuthor = async (req, res) => {
     try {
         const products = await db.product.find({ author: req.params.author }).exec();
-
-        // If no products are found, return a 404 error
-        if (!products.length) {
-            return res.status(404).send({ message: "No products found" });
-        }
 
         // Create a new array of product objects with the desired properties
         const formattedProducts = products.map(product => {
