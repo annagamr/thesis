@@ -9,6 +9,8 @@ const Cart = () => {
   const [deliveryFee, setDeliveryFee] = useState(450);
   const [cartItems, setCartItems] = useState([]);
   const [guestCartItems, setGuestCartItems] = useState([]);
+  const [pickupLocations, setPickupLocations] = useState([]);
+  const [pickupOption, setPickupOption] = useState("single");
 
   const stripePromise = loadStripe(
     "pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7qnCLLlhtn9iQ9Tn0va2gE0Y5K1YtA6OV5C6TipZhlzN11eVGChz00gbfcz1bj"
@@ -44,7 +46,13 @@ const Cart = () => {
           });
       }
     };
-    fetchProducts();
+
+    fetchProducts().then(() => {
+      // Set initial pickup locations
+      setPickupLocations(
+        itemsToDisplay.map((item) => ({ id: item.id, address: "" }))
+      );
+    });
   }, []);
 
   const handleDeliveryMethodChange = (event) => {
@@ -55,6 +63,21 @@ const Cart = () => {
     } else if (selectedMethod === "pickup") {
       setDeliveryFee(0);
     }
+  };
+
+  const handlePickupOptionChange = (event) => {
+    setPickupOption(event.target.value);
+  };
+
+  const handlePickupAddressChange = (itemId, address) => {
+    setPickupLocations(
+      pickupLocations.map((item) => {
+        if (item.id === itemId) {
+          return { ...item, address };
+        }
+        return item;
+      })
+    );
   };
 
   const getGuestOrderSummaryPrice = () => {
@@ -95,7 +118,6 @@ const Cart = () => {
             }),
           }
         );
-
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -138,7 +160,7 @@ const Cart = () => {
     }
   };
 
-  //Items to Display
+  // Items to Display
   const itemsToDisplay = JSON.parse(localStorage.getItem("user"))
     ? cartItems
     : guestCartItems;
@@ -148,7 +170,6 @@ const Cart = () => {
       <div className="payment_details">
         <div className="details_card">
           <h1 id="details-h1">I would like to</h1>
-
           <div className="delivery_method">
             <label>
               <input
@@ -187,15 +208,49 @@ const Cart = () => {
 
           {deliveryMethod === "pickup" && (
             <div className="pickup_card">
-              <div className="pickup_details">
-                <h4>You can pick the order up at the address:</h4>
-                <p>Bharat House Bombay Samachar Road</p>
-                <p>Zip Code:</p>
-                <p>City:</p>
+              <h1>Pickup Options</h1>
+              <div className="pickup_method">
+                <label>
+                  <input
+                    type="radio"
+                    value="single"
+                    checked={pickupOption === "single"}
+                    onChange={handlePickupOptionChange}
+                  />
+                  <h2>Pick up all items from one location</h2>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value="multiple"
+                    checked={pickupOption === "multiple"}
+                    onChange={handlePickupOptionChange}
+                  />
+                  <h2>Pick up each item from their locations</h2>
+                </label>
               </div>
+              {pickupOption === "single" && (
+                <div className="single_pickup_address">
+                  <h2>You can pick up your items here:</h2>
+                  <p>My address</p>{" "}
+                </div>
+              )}
+
+              {pickupOption === "multiple" && (
+                <div className="multiple_pickup_addresses">
+                  <h3>Location of Each Item in Your Cart:</h3>
+                  {itemsToDisplay.map((item) => (
+                    <div key={item.id} className="item_pickup_address">
+                      <ol key={item.id}>
+                      <li>{item.street}</li>
+
+                      </ol>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
-
           <div className="proceed">
             <button onClick={handleProceedToPayment}>Proceed to payment</button>
           </div>

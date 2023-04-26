@@ -34,6 +34,11 @@ exports.getCart = async (req, res) => {
         category: item.product.category,
         author: item.product.author.username,
         price: item.product.price,
+
+        street: item.product.street,
+        city: item.product.city,
+        zipCode: item.product.zipCode,
+        contactNumber: item.product.contactNumber,
       };
     });
 
