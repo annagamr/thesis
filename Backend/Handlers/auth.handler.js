@@ -85,6 +85,7 @@ exports.signin = async (req, res) => {
       accessToken: token
     });
   } catch (err) {
+    console.log(error)
     // If an error occurs, send a 500 error response to the client with the error message
     res.status(500).send({ message: err });
   }
@@ -183,6 +184,7 @@ exports.countUsers = async (req, res) => {
     res.status(200).json({ count: userCount, users: usersWithRole });
 
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'An error occurred while fetching the user count.' });
   }
 
@@ -197,6 +199,7 @@ exports.countShops = async (req, res) => {
     const shopCount = shopsWithRole.length;
     res.status(200).json({ count: shopCount, shops: shopsWithRole });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'An error occurred while fetching the seller count.' });
   }
 
@@ -222,6 +225,8 @@ exports.deleteUser = async (req, res) => {
     res.status(200).json({ message: 'User and their posts and products deleted successfully.' });
 
   } catch (err) {
+    console.log(err)
+
     res.status(500).json({ message: 'Error deleting user: ' + err.message });
   }
 };

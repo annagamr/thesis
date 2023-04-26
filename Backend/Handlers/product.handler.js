@@ -70,53 +70,53 @@ const formatDate = (date) => {
 
 exports.products = async (req, res) => {
     try {
-      // Get the category from the query parameters
-      const category = req.query.category;
-  
-      // Create a filter object based on the category, if provided
-      const filter = category ? { category: category } : {};
-  
-      // Fetch the products based on the filter
-      const products = await db.product.find(filter).exec();
-  
-      // If no products are found, return a 200 response with empty products array and count 0
-      if (!products.length) {
-        return res.status(200).send({ products: [], count: 0 });
-      }
-  
-      const formattedProducts = await db.product
-        .find(filter)
-        .populate("author", "username")
-        .exec()
-        .then((products) => {
-          return products.map((product) => {
-            return {
-              id: product._id,
-              image: product.image,
-              title: product.title,
-              description: product.description,
-              category: product.category,
-              added: formatDate(product.added),
-              author: product.author.username,
-              price: product.price,
-              street: product.street,
-              city: product.city,
-              zipCode: product.zipCode,
-              contactNumber: product.contactNumber
-            };
-          });
-        });
-  
-      const count = formattedProducts.length;
-  
-      // Send the formatted products array in the response
-      res.status(200).json({ products: formattedProducts, count: count });
+        // Get the category from the query parameters
+        const category = req.query.category;
+
+        // Create a filter object based on the category, if provided
+        const filter = category ? { category: category } : {};
+
+        // Fetch the products based on the filter
+        const products = await db.product.find(filter).exec();
+
+        // If no products are found, return a 200 response with empty products array and count 0
+        if (!products.length) {
+            return res.status(200).send({ products: [], count: 0 });
+        }
+
+        const formattedProducts = await db.product
+            .find(filter)
+            .populate("author", "username")
+            .exec()
+            .then((products) => {
+                return products.map((product) => {
+                    return {
+                        id: product._id,
+                        image: product.image,
+                        title: product.title,
+                        description: product.description,
+                        category: product.category,
+                        added: formatDate(product.added),
+                        author: product.author.username,
+                        price: product.price,
+                        street: product.street,
+                        city: product.city,
+                        zipCode: product.zipCode,
+                        contactNumber: product.contactNumber
+                    };
+                });
+            });
+
+        const count = formattedProducts.length;
+
+        // Send the formatted products array in the response
+        res.status(200).json({ products: formattedProducts, count: count });
     } catch (err) {
-      // If an error occurs, send a 500 error response to the client with the error message
-      console.log(err)
-      res.status(500).send({ message: err });
+        // If an error occurs, send a 500 error response to the client with the error message
+        console.log(err)
+        res.status(500).send({ message: err });
     }
-  };
+};
 
 exports.productImage = async (req, res) => {
     try {
@@ -173,6 +173,8 @@ exports.productsbyAuthor = async (req, res) => {
         // Send the formatted products array in the response
         res.status(200).send(formattedProducts);
     } catch (err) {
+        console.log(err)
+
         // If an error occurs, send a 500 error response to the client with the error message
         res.status(500).send({ message: err });
     }
@@ -189,6 +191,7 @@ exports.deleteProduct = async (req, res) => {
 
         res.status(200).json({ message: 'Product deleted successfully' });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Error deleting product', error });
     }
 };

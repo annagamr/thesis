@@ -163,6 +163,7 @@ exports.clearCart = async (req, res) => {
 
     res.status(200).json({ message: "Cart cleared successfully" });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: error.message });
   }
 };
