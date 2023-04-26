@@ -13,16 +13,16 @@ exports.getCart = async (req, res) => {
         },
       });
 
-    if (!myCart) {
-      return res.status(404).json({ message: "Cart not found" });
-    }
+    // if (!myCart) {
+    //   return res.status(404).json({ message: "Cart not found" });
+    // }
 
     // Calculate the total number of items in the cart
     const numberOfItems = myCart ? myCart.items.length : 0;
 
-
     // Create a new array of formatted cart items with the desired properties
-    const formattedCartItems = myCart.items.map((item) => {
+    // Only map over the items if there are any in the cart
+    const formattedCartItems = numberOfItems > 0 ? myCart.items.map((item) => {
       const sanitizedPath = item.product.image.replace(/\\/g, "/");
 
       return {
@@ -40,7 +40,7 @@ exports.getCart = async (req, res) => {
         zipCode: item.product.zipCode,
         contactNumber: item.product.contactNumber,
       };
-    });
+    }) : [];
 
     res.status(200).send({ numberOfItems, cartItems: formattedCartItems });
   } catch (error) {
@@ -141,10 +141,28 @@ exports.checkOut = async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: `http://localhost:3000/myOrders`,
+    success_url: 'http://localhost:3000/myOrders?paymentSuccessful=true', // Add the query parameter here
     cancel_url: `http://localhost:3000/cart`,
   });
 
   // Return the session ID instead of redirecting
   res.json({ sessionId: session.id });
+};
+
+exports.clearCart = async (req, res) => {
+  try {
+    console.log(req.body.userId);
+    const userId = req.body.userId;
+
+    // Find the cart and update its items to an empty array
+    await cart.findOneAndUpdate(
+      { user: userId },
+      { $set: { items: [] } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Cart cleared successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };

@@ -138,6 +138,9 @@ module.exports = function (app) {
     // Route for getting number of products in cart
     app.post("/api/cart/products/:author", verifyToken, cartController.getCart);
 
+    // Route for getting number of products in cart
+    app.post("/api/cart/clear-cart", cartController.clearCart);
+
     //Route for sign up
     app.post(
         "/api/auth/signup",

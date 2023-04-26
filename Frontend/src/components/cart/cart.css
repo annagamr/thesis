@@ -102,6 +102,61 @@
     color: #a1a1a1;
 }
 
+.pickup_card {
+    background-color: rgb(228, 235, 228);
+    margin-top: 40px !important;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.multiple_pickup_addresses {
+    background-color: rgb(255, 255, 255);
+    width: 480px;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 15px;
+    max-height: auto;
+    overflow-y: scroll;
+    height: 150px;
+}
+
+.single_pickup_address{
+    background-color: rgb(255, 255, 255);
+    width: 480px;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 15px;
+    height: 150px;
+
+}
+
+.multiple_pickup_addresses li, .single_pickup_address p {
+    margin-left: 10px;
+}
+
+.multiple_pickup_addresses h3, .single_pickup_address h2{
+    margin-bottom: 20px;
+    color: #4ca59b;
+
+}
+
+.pickup_card h2 {
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.pickup_card label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-bottom: 15px;
+
+}
+
 .name_address input {
     outline: 0;
     background: #f2f2f2af;

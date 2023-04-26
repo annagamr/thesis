@@ -121,18 +121,15 @@ const Cart = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
+  
         const data = await response.json();
-
+  
         // Use Stripe.js to redirect the user to the Checkout page
         const stripe = await stripePromise;
         const { error } = await stripe.redirectToCheckout({
           sessionId: data.sessionId,
         });
-
-        if (error) {
-          console.error("Error:", error);
-        }
+  
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -161,9 +158,9 @@ const Cart = () => {
   };
 
   // Items to Display
-  const itemsToDisplay = JSON.parse(localStorage.getItem("user"))
-    ? cartItems
-    : guestCartItems;
+  const itemsToDisplay = (JSON.parse(localStorage.getItem("user"))
+  ? cartItems
+  : guestCartItems).filter((item) => item !== null);
 
   return (
     <div className="cart-container">
@@ -208,7 +205,7 @@ const Cart = () => {
 
           {deliveryMethod === "pickup" && (
             <div className="pickup_card">
-              <h1>Pickup Options</h1>
+              {/* <h1>Pickup Options</h1> */}
               <div className="pickup_method">
                 <label>
                   <input
@@ -217,7 +214,7 @@ const Cart = () => {
                     checked={pickupOption === "single"}
                     onChange={handlePickupOptionChange}
                   />
-                  <h2>Pick up all items from one location</h2>
+                  <h2>From one location</h2>
                 </label>
                 <label>
                   <input
@@ -226,13 +223,14 @@ const Cart = () => {
                     checked={pickupOption === "multiple"}
                     onChange={handlePickupOptionChange}
                   />
-                  <h2>Pick up each item from their locations</h2>
+                  <h2>From items' original locations
+                  </h2>
                 </label>
               </div>
               {pickupOption === "single" && (
                 <div className="single_pickup_address">
                   <h2>You can pick up your items here:</h2>
-                  <p>My address</p>{" "}
+                  <p>114 Aurora Street, Budapest, 1089</p>{" "}
                 </div>
               )}
 
@@ -242,7 +240,7 @@ const Cart = () => {
                   {itemsToDisplay.map((item) => (
                     <div key={item.id} className="item_pickup_address">
                       <ol key={item.id}>
-                      <li>{item.street}</li>
+                      <li>{item.street}, {item.city}, {item.zipCode}</li>
 
                       </ol>
                     </div>
@@ -271,7 +269,7 @@ const Cart = () => {
                 <h1>{item.title}</h1>
                 <button
                   className="close-btn"
-                  onClick={() => handleRemoveFromCart(item.id)} // Add this line
+                  onClick={() => handleRemoveFromCart(item.id)} 
                 >
                   &times;
                 </button>
