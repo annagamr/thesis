@@ -121,15 +121,15 @@ const Cart = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-  
+
         const data = await response.json();
-  
+        localStorage.setItem("cartItems", JSON.stringify(itemsToDisplay));
+
         // Use Stripe.js to redirect the user to the Checkout page
         const stripe = await stripePromise;
         const { error } = await stripe.redirectToCheckout({
           sessionId: data.sessionId,
         });
-  
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -158,9 +158,9 @@ const Cart = () => {
   };
 
   // Items to Display
-  const itemsToDisplay = (JSON.parse(localStorage.getItem("user"))
-  ? cartItems
-  : guestCartItems).filter((item) => item !== null);
+  const itemsToDisplay = (
+    JSON.parse(localStorage.getItem("user")) ? cartItems : guestCartItems
+  ).filter((item) => item !== null);
 
   return (
     <div className="cart-container">
@@ -223,8 +223,7 @@ const Cart = () => {
                     checked={pickupOption === "multiple"}
                     onChange={handlePickupOptionChange}
                   />
-                  <h2>From items' original locations
-                  </h2>
+                  <h2>From items' original locations</h2>
                 </label>
               </div>
               {pickupOption === "single" && (
@@ -240,8 +239,9 @@ const Cart = () => {
                   {itemsToDisplay.map((item) => (
                     <div key={item.id} className="item_pickup_address">
                       <ol key={item.id}>
-                      <li>{item.street}, {item.city}, {item.zipCode}</li>
-
+                        <li>
+                          {item.street}, {item.city}, {item.zipCode}
+                        </li>
                       </ol>
                     </div>
                   ))}
@@ -269,7 +269,7 @@ const Cart = () => {
                 <h1>{item.title}</h1>
                 <button
                   className="close-btn"
-                  onClick={() => handleRemoveFromCart(item.id)} 
+                  onClick={() => handleRemoveFromCart(item.id)}
                 >
                   &times;
                 </button>

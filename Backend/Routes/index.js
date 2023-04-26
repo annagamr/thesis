@@ -6,6 +6,8 @@ const productController = require("../Handlers/product.handler");
 const postController = require("../Handlers/post.handler");
 const authController = require("../Handlers/auth.handler");
 const cartController = require("../Handlers/cart.handler");
+const orderController = require("../Handlers/order.handler");
+
 
 
 const { checkDuplicateUsernameOrEmailAndRolesExisted } = require("../Middleware/validationMiddleware");
@@ -140,6 +142,9 @@ module.exports = function (app) {
 
     // Route for getting number of products in cart
     app.post("/api/cart/clear-cart", cartController.clearCart);
+
+    // Route for getting number of products in cart
+    app.post("/api/order/create-order", orderController.createOrder);
 
     //Route for sign up
     app.post(

@@ -5,7 +5,8 @@ import { useLocation } from "react-router-dom";
 const MyOrders = () => {
   const [content, setContent] = useState("");
   const location = useLocation();
-  const [orders, setOrders] = useState([]);
+  const [orderCreated, setOrderCreated] = useState(false);
+  const [paymentSuccessful, setPaymentSuccessful] = useState(false);
 
   useEffect(() => {
     UserService.userAccess().then(
@@ -24,41 +25,53 @@ const MyOrders = () => {
     );
   }, []);
 
-  const fetchOrders = async () => {
-    // Fetch the user's orders from your API
-    // ...
-  };
+  const createOrder = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const cartItems = JSON.parse(localStorage.getItem("cartItems"));
 
-  const clearCart = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-
-    if (user) {
+    if (user && cartItems) {
       try {
-        const response = await fetch('http://localhost:3002/api/cart/clear-cart', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ userId: user.id }),
-        });
+        const response = await fetch(
+          "http://localhost:3002/api/order/create-order",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              status: "successful",
+              userId: user.id,
+              items: cartItems.map((item) => item.id),
+            }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
+
+        const orderData = await response.json();
+        console.log("Order created:", orderData);
+        localStorage.removeItem("cartItems"); // Clear the cart items from localStorage
+        setOrderCreated(true); // Set orderCreated to true
       } catch (error) {
-        console.error('Error clearing cart:', error);
+        console.error("Error creating order:", error);
       }
     }
   };
 
+  // Check for payment success when the component is initially rendered
   useEffect(() => {
-    fetchOrders();
-
     const searchParams = new URLSearchParams(location.search);
-    if (searchParams.get('paymentSuccessful') === 'true') {
-      clearCart();
-    }
+    setPaymentSuccessful(searchParams.get("paymentSuccessful") === "true");
   }, [location.search]);
+
+  // Create the order only when the payment is successful and the order has not been created yet
+  useEffect(() => {
+    if (paymentSuccessful && !orderCreated) {
+      createOrder();
+    }
+  }, [paymentSuccessful, orderCreated]);
 
   return (
     <div className="container">

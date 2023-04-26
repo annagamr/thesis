@@ -9,6 +9,8 @@ const db = {
   post: require('./post.model'),
   product: require('./product.model'),
   cart: require('./cart.model'),
+  cart: require('./cart.model'),
+  order: require('./order.model'),
   ROLES: ['user', 'admin', 'seller']
 };
 //x-initializing a MongoDB database and db object-x\\
