@@ -43,7 +43,7 @@ const ProductDetails = (props) => {
             Add to cart
           </a>
         </div>
-        <MapComponent street={street} city={city} zipCode={zipCode} />
+        <MapComponent street={product.street} city={product.city} zipCode={product.zipCode} />
 
       </div>
     </div>
