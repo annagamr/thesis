@@ -7,6 +7,11 @@ const MyOrders = () => {
   const location = useLocation();
   const [orderCreated, setOrderCreated] = useState(false);
   const [paymentSuccessful, setPaymentSuccessful] = useState(false);
+  const [orders, setOrders] = useState([]);
+
+  // Get the user object from localStorage
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user ? user.id : null;
 
   useEffect(() => {
     UserService.userAccess().then(
@@ -26,7 +31,6 @@ const MyOrders = () => {
   }, []);
 
   const createOrder = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
     const cartItems = JSON.parse(localStorage.getItem("cartItems"));
 
     if (user && cartItems) {
@@ -40,7 +44,7 @@ const MyOrders = () => {
             },
             body: JSON.stringify({
               status: "successful",
-              userId: user.id,
+              userId: userId,
               items: cartItems.map((item) => item.id),
             }),
           }
@@ -73,6 +77,25 @@ const MyOrders = () => {
     }
   }, [paymentSuccessful, orderCreated]);
 
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch(`http://localhost:3002/api/order/get-orders/${userId}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const data = await response.json();
+        setOrders(data.orders);
+      } catch (error) {
+        console.error("Error fetching user orders:", error);
+      }
+    };
+
+    if (userId) {
+      fetchOrders();
+    }
+  }, [userId]);
+
   return (
     <div className="container">
       <header className="jumbotron">
@@ -80,12 +103,21 @@ const MyOrders = () => {
       </header>
       <div>
         <h1>My Orders</h1>
-        {/* <ul>
-          {orders.map((order) => (
-            <li key={order.id}>
-            </li>
-          ))}
-        </ul> */}
+        {orders.map((order) => (
+          <div key={order.id}>
+            <h3>Order ID: {order.id}</h3>
+            <p>Status: {order.status}</p>
+            <p>Created: {order.created}</p>
+            <h4>Items:</h4>
+            <ul>
+              {order.items.map((item) => (
+                <li key={item.id}>
+                  {item.title} ({item.author})
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );

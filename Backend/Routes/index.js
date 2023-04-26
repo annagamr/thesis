@@ -145,6 +145,9 @@ module.exports = function (app) {
 
     // Route for getting number of products in cart
     app.post("/api/order/create-order", orderController.createOrder);
+    
+    // Route for getting number of products in cart
+    app.get("/api/order/get-orders/:userId", orderController.getOrders);
 
     //Route for sign up
     app.post(
