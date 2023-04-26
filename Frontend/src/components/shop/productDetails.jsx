@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import MapComponent from './mapComponent';
 import "./shop.css";
 
 const ProductDetails = (props) => {
@@ -21,7 +22,9 @@ const ProductDetails = (props) => {
     };
     fetchProduct();
   }, [id]);
-
+  const street = '61 Rakoczi ut';
+  const city = 'Budapest';
+  const zipCode = '1081';
   return (
     <div className="product-details-container">
       <div className="product-image-details">
@@ -40,6 +43,8 @@ const ProductDetails = (props) => {
             Add to cart
           </a>
         </div>
+        <MapComponent street={street} city={city} zipCode={zipCode} />
+
       </div>
     </div>
   );
