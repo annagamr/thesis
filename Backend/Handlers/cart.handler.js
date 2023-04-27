@@ -13,9 +13,6 @@ exports.getCart = async (req, res) => {
         },
       });
 
-    // if (!myCart) {
-    //   return res.status(404).json({ message: "Cart not found" });
-    // }
 
     // Calculate the total number of items in the cart
     const numberOfItems = myCart ? myCart.items.length : 0;
@@ -141,7 +138,7 @@ exports.checkOut = async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: 'http://localhost:3000/myOrders?paymentSuccessful=true', // Add the query parameter here
+    success_url: 'http://localhost:3000/success?successfulPayment=true', // Add the query parameter here
     cancel_url: `http://localhost:3000/cart`,
   });
 
@@ -151,13 +148,17 @@ exports.checkOut = async (req, res) => {
 
 exports.clearCart = async (req, res) => {
   try {
-    console.log(req.body.userId);
     const userId = req.body.userId;
 
-    // Find the cart and update its items to an empty array
+    // Find the cart and update its items to an empty array and set __v to 0
     await cart.findOneAndUpdate(
       { user: userId },
-      { $set: { items: [] } },
+      {
+        $set: {
+          items: [],
+          __v: 0, // Set __v to 0
+        },
+      },
       { new: true }
     );
 

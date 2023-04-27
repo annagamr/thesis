@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./shop.css";
-import userService from "../../services/user.service";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -98,7 +97,7 @@ const Shop = () => {
                 <div className="product-image">
                   <img
                     src={"http://localhost:3002/" + product.image}
-                    alt="Product Image"
+                    alt="Product"
                   />
                 </div>
 

@@ -11,6 +11,7 @@ const Cart = () => {
   const [guestCartItems, setGuestCartItems] = useState([]);
   const [pickupLocations, setPickupLocations] = useState([]);
   const [pickupOption, setPickupOption] = useState("single");
+  const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
 
   const stripePromise = loadStripe(
     "pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7qnCLLlhtn9iQ9Tn0va2gE0Y5K1YtA6OV5C6TipZhlzN11eVGChz00gbfcz1bj"
@@ -99,8 +100,14 @@ const Cart = () => {
       return getGuestOrderSummaryPrice();
     }
   };
+  // Items to Display
+  const itemsToDisplay = (
+    JSON.parse(localStorage.getItem("user")) ? cartItems : guestCartItems
+  ).filter((item) => item !== null);
 
   const handleProceedToPayment = async () => {
+    setIsPaymentProcessing(true);
+
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
       alert("Sign up or Sign in");
@@ -121,9 +128,17 @@ const Cart = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
         const data = await response.json();
-        localStorage.setItem("cartItems", JSON.stringify(itemsToDisplay));
+
+        // Create cartItems array
+        const items = itemsToDisplay.map((item) => ({
+          id: item.id,
+          title: item.title,
+          author: item.author,
+          price: item.price,
+        }));
+        const cartItems = { userId: user.id, items };
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
         // Use Stripe.js to redirect the user to the Checkout page
         const stripe = await stripePromise;
@@ -134,6 +149,7 @@ const Cart = () => {
         console.error("Error fetching data:", error);
       }
     }
+    setIsPaymentProcessing(false);
   };
 
   // Removing items from cart
@@ -156,11 +172,6 @@ const Cart = () => {
       console.error("Error removing item from cart:", error);
     }
   };
-
-  // Items to Display
-  const itemsToDisplay = (
-    JSON.parse(localStorage.getItem("user")) ? cartItems : guestCartItems
-  ).filter((item) => item !== null);
 
   return (
     <div className="cart-container">
@@ -250,7 +261,12 @@ const Cart = () => {
             </div>
           )}
           <div className="proceed">
-            <button onClick={handleProceedToPayment}>Proceed to payment</button>
+            <button
+              onClick={handleProceedToPayment}
+              disabled={isPaymentProcessing}
+            >
+              Proceed to payment
+            </button>{" "}
           </div>
         </div>
       </div>

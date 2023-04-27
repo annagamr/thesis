@@ -17,14 +17,14 @@ import Login from "./components/login/login";
 import Profile from "./components/profiles/profile";
 import Forgot from "./components/login/forgot";
 import Reset from "./components/login/reset";
-import BoardUser from "./components/boards/myOrders";
+import MyOrders  from "./components/boards/myOrders";
 import SellerProduct from "./components/boards/AddProduct";
 import SellerProducts from './components/boards/sellerProducts';
 import BoardAdmin from "./components/boards/adminBoard";
+import Success from "./components/cart/success"
 
 
 function App() {
-
   return (
     <div className="App" >
       <Router>
@@ -44,10 +44,12 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/sellerProducts" element={<SellerProducts />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/success" element={<Success />} />
+
 
 
           {/* orders page for users only */}
-          <Route path="/myOrders" element={<BoardUser />} />
+          {/* <Route path="/myOrders" element={<MyOrders />} /> */}
           {/* board page for admins only */}
           <Route path="/adminBoard" element={<BoardAdmin />} />
           {/* add product page for sellers only */}
