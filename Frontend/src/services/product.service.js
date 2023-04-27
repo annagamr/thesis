@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class productService {
+class ProductService {
   getAllProducts() {
     return axios.get('http://localhost:3002/api/products');
 
@@ -23,4 +23,5 @@ class productService {
   }
 }
 
-export default new productService();
+const productService = new ProductService();
+export default productService;

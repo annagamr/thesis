@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class postService {
+class PostService {
     getAllPosts() {
         return axios.get('http://localhost:3002/api/posts');
     }
@@ -27,4 +27,5 @@ class postService {
     }
 }
 
-export default new postService();
+const postService = new PostService();
+export default postService;
