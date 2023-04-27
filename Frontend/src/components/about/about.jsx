@@ -99,7 +99,7 @@ const About = () => {
         </div>
       </div>
       <div className="aurora-header">
-        Unleash your skin's natural radiance with Aurora Premium skincare
+        Unleash your skin's natural radiance <br/>with Aurora Premium skincare<br/>
         solutions that illuminate your beauty from within
       </div>
       <div className="reasons-why">

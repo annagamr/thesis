@@ -248,14 +248,14 @@ const Cart = () => {
 
               {pickupOption === "multiple" && (
                 <div className="multiple_pickup_addresses">
-                  <h3>Location of Each Item in Your Cart:</h3>
+                  <h2>Location of Each Item in Your Cart:</h2>
                   {itemsToDisplay.map((item) => (
                     <div key={item.id} className="item_pickup_address">
-                      <ol key={item.id}>
+                      <ul key={item.id}>
                         <li>
                           {item.street}, {item.city}, {item.zipCode}
                         </li>
-                      </ol>
+                      </ul>
                     </div>
                   ))}
                 </div>
@@ -271,12 +271,13 @@ const Cart = () => {
       <div className="order_summary">
         <h1>Order Summary</h1>
         <div className="summary_card">
+        <div className="summary_items">
           {itemsToDisplay.map((item, index) => (
             <div key={index} className="cart_item">
               <div className="product_img">
                 <img
                   src={"http://localhost:3002/" + item.image}
-                  alt="Product Image"
+                  alt="Product"
                 />{" "}
               </div>
               <div className="product_info">
@@ -293,6 +294,7 @@ const Cart = () => {
               </div>
             </div>
           ))}
+          </div>
           <hr />
           <div className="order_price">
             <p>Order summary</p>

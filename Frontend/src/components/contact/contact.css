@@ -4,10 +4,12 @@
   --color-shadow: rgba(38, 28, 91, 0.294);
   --font-family: 'Nunito', sans-serif;
 }
-.contact-page{
+
+.contact-page {
   height: 87.3vh;
   background-color: #eaeef2;
 }
+
 .main {
   position: absolute;
   background-color: rgb(255, 255, 255);
@@ -37,10 +39,10 @@
 }
 
 .illustration {
-  height: 117%;
+  height: 118%;
   width: 50%;
-  margin-left: -87px;
-  margin-bottom: 63px;
+  margin-left: -110px;
+  margin-bottom: 68px;
   border-radius: 2rem;
 }
 

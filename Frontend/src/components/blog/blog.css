@@ -236,7 +236,7 @@
 
 .blog-topics {
     border: 1px solid rgb(208, 208, 208);
-    width: 6rem;
+    width: 8rem;
     text-align: center;
     padding:5px;
     background-color: white;
@@ -272,7 +272,6 @@
     width: calc(12% - 10px);
     height: 3rem;
     margin-bottom: 10px;
-    padding-top: 8px;
     background-color: #fbfbfb;
     text-align: center;
     cursor: pointer;

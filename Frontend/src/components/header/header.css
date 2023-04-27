@@ -7,7 +7,7 @@
 }
 
 .header_items_right {
-display: flex;
+  display: flex;
 }
 
 .header_items_right li,
@@ -29,13 +29,20 @@ display: flex;
   color: black;
   cursor: pointer;
   font-size: 2rem;
-  font-family: 'Berkshire Swash', cursive;
+  font-family: Gelica, Georgia, system-ui, cursive;
+  font-style: italic;
+  letter-spacing: 3px;
 }
 
-.header_items_right li a:hover,
-.header_items_left li a:hover {
+.header_items_right li a:hover {
   transition: ease-in-out 0.5s;
-  background-color: azure;
+  background-color: rgb(228, 77, 77);
+}
+
+.header_items_left li a:hover {
+  font-size: 1.3rem;
+  transition: font-size ease-in-out 0.5s;
+  color: rgb(228, 77, 77);
 }
 
 .icon {
@@ -44,4 +51,88 @@ display: flex;
   padding: 0.5rem;
   display: flex;
   align-items: center;
+}
+
+/* Responsiveness */
+@media (max-width: 575px) {
+  .top_header {
+    padding: 0 1rem;
+    width: 395%;
+    background-color: rgb(240, 226, 226);
+  }
+
+  .header_items_right li,
+  .header_items_left li {
+    padding: 0.5rem;
+  }
+
+  .header_items_right li a,
+  .header_items_left li a {
+    font-size: 1rem;
+  }
+
+  .logo_aurora {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .top_header {
+    padding: 0 2rem;
+  }
+
+  .header_items_right li,
+  .header_items_left li {
+    padding: 0.6rem;
+  }
+
+  .header_items_right li a,
+  .header_items_left li a {
+    font-size: 1.1rem;
+  }
+
+  .logo_aurora {
+    font-size: 2.2rem;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .top_header {
+    padding: 0 3rem;
+  }
+
+  .header_items_right li,
+  .header_items_left li {
+    padding: 0.65rem;
+  }
+
+  .header_items_right li a,
+  .header_items_left li a {
+    font-size: 1.15rem;
+  }
+
+  .logo_aurora {
+    font-size: 2.35rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .top_header {
+    padding: 0 5rem;
+
+  }
+
+  .header_items_right li,
+  .header_items_left li {
+    padding: 0.7rem;
+  }
+
+  .header_items_right li a,
+  .header_items_left li a {
+    font-size: 1.2rem;
+  }
+
+  .logo_aurora {
+    font-size: 2.5rem;
+  }
 }
