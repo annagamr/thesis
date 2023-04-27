@@ -23,7 +23,7 @@ exports.getCart = async (req, res) => {
       const sanitizedPath = item.product.image.replace(/\\/g, "/");
 
       return {
-        id: item._id,
+        id: item.product.id,
         title: item.product.title,
         image: sanitizedPath,
 

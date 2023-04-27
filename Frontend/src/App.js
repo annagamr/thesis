@@ -49,7 +49,7 @@ function App() {
 
 
           {/* orders page for users only */}
-          {/* <Route path="/myOrders" element={<MyOrders />} /> */}
+          <Route path="/myOrders" element={<MyOrders />} />
           {/* board page for admins only */}
           <Route path="/adminBoard" element={<BoardAdmin />} />
           {/* add product page for sellers only */}

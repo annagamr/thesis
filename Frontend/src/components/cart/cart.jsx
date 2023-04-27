@@ -105,7 +105,9 @@ const Cart = () => {
     JSON.parse(localStorage.getItem("user")) ? cartItems : guestCartItems
   ).filter((item) => item !== null);
 
+
   const handleProceedToPayment = async () => {
+
     setIsPaymentProcessing(true);
 
     const user = JSON.parse(localStorage.getItem("user"));
@@ -261,13 +263,9 @@ const Cart = () => {
             </div>
           )}
           <div className="proceed">
-            <button
-              onClick={handleProceedToPayment}
-              disabled={isPaymentProcessing}
-            >
-              Proceed to payment
-            </button>{" "}
-          </div>
+          <button onClick={handleProceedToPayment} disabled={isPaymentProcessing}>
+  Proceed to payment
+</button>          </div>
         </div>
       </div>
       <div className="order_summary">
