@@ -39,9 +39,7 @@ const ProductDetails = (props) => {
         <span>Product by: {product.author}</span>
         <div className="product-price">
           <span>{product.price} HUF</span>
-          <a href="#" className="cart-btn">
-            Add to cart
-          </a>
+        
         </div>
         <MapComponent street={product.street} city={product.city} zipCode={product.zipCode} />
 

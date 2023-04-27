@@ -53,7 +53,7 @@ const MapComponent = ({ street, city, zipCode }) => {
     }
   }, [street, city, zipCode, customIcon]);
 
-  return <div ref={mapRef} style={{ height: "400px", width: "100%" }} />;
+  return <div ref={mapRef} style={{ height: "450px", width: "100%" }} />;
 };
 
 export default MapComponent;

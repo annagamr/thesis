@@ -305,7 +305,7 @@
 .list-container h2 {
     margin-top: 0;
     font-size: 2rem;
-
+    margin-bottom: -25px;
 }
 
 .list-container ol {
@@ -314,13 +314,12 @@
 
 .list-container li {
     font-size: 1.7rem;
-    margin-bottom: 15px;
     font-weight: bold;
 }
 
 .list-container p {
     font-size: 1.2rem;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 
