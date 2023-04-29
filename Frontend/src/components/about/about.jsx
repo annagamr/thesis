@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./about.css";
-import * as images from "../../assets/assets"
+import * as images from "../../assets/assets";
 
 // icons
 import { RiSeedlingFill } from "react-icons/ri";
@@ -8,7 +8,7 @@ import { IconContext } from "react-icons";
 import { CiBadgeDollar } from "react-icons/ci";
 import { BsGlobe } from "react-icons/bs";
 
-const slides = [
+export const slides = [
   {
     imgSrc: images.cover1,
     title: "Rekindle your love for your skin with Re-commence",
@@ -16,32 +16,32 @@ const slides = [
   },
   {
     imgSrc: images.cover2,
-    title: "Discover our new line of natural skincare products",
+    title: "Introducing New Approach",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
   {
     imgSrc: images.cover3,
-    title: "Discover our new line of natural skincare products",
+    title: "Another title",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
   {
     imgSrc: images.cover4,
-    title: "Discover our new line of natural skincare products",
+    title: "I don't even know at this point",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
   {
     imgSrc: images.cover5,
-    title: "Discover our new line of natural skincare products",
+    title: "Hono hank",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
   {
     imgSrc: images.cover6,
-    title: "Discover our new line of natural skincare products",
+    title: "Criss cross",
     desc: "Introducing our latest line of skincare products, made with all-natural ingredients and no harsh chemicals. From cleansers to moisturizers, our products are designed to nourish your skin and enhance your natural beauty. Try them today and see the difference for yourself!",
   },
 ];
 
-const reasons = [
+export const reasons = [
   {
     icon: <RiSeedlingFill />,
     color: "green",
@@ -83,29 +83,35 @@ const About = () => {
   return (
     <div className="about-body">
       <div className="slider-body">
-        <div className="wrapper" style={wrapperStyle} index={index}>
-          {slides.map(({ imgSrc, title, desc }) => (
+        <div className="wrapper" style={wrapperStyle} index={index} data-testid="slide-container" autoplay-duration="5000">
+          {slides.map(({ imgSrc, title, desc }, idx) => (
             <div className="slide" key={`${title}-${imgSrc}`}>
               <div className="img-container">
-                <img src={imgSrc} aria-hidden="true" alt="First Cover"/>
+                <img
+                  src={imgSrc}
+                  aria-hidden="true"
+                  alt="First Cover"
+                  data-testid={`slide-img-${idx}`}
+                />
               </div>
               <div className="title-container">
                 <h2 className="title-carousel">{title}</h2>
                 <p className="desc">{desc}</p>
-                {/* <button className="btn-discover">DISCOVER</button> */}
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div className="aurora-header">
-        Unleash your skin's natural radiance <br/>with Aurora Premium skincare<br/>
+      <div className="aurora-header" data-testid="aurora-header">
+        Unleash your skin's natural radiance <br />
+        with Aurora Premium skincare
+        <br />
         solutions that illuminate your beauty from within
       </div>
       <div className="reasons-why">
         <div className="reason-boxes">
           {reasons.map((reason, index) => (
-            <div className="reason" key={index}>
+            <div className="reason" key={index} data-testid="reason-item">
               <IconContext.Provider
                 value={{
                   color: reason.color,
@@ -126,7 +132,7 @@ const About = () => {
       </div>
       <div className="how-title">Who Are We?</div>
       <div className="intro-container">
-        <img src={images.store} alt="Store Description" className="image" />
+        <img src={images.store} alt="Store Description" className="image" data-testid="store-image"/>
         <div className="content">
           <p>
             At Aurora, we believe that healthy, glowing skin is the key to
@@ -135,10 +141,11 @@ const About = () => {
             products that nourish and protect your skin, helping you to look and
             feel your best every day. We understand that choosing the right
             skincare products can be overwhelming, which is why we are committed
-            to providing you with expert advice and guidance. <br /> At Aurora, we are passionate about natural, eco-friendly, and
-            cruelty-free skincare. That's why we carefully curate our selection
-            of products to ensure that they meet our high standards of quality
-            and sustainability.
+            to providing you with expert advice and guidance. <br /> At Aurora,
+            we are passionate about natural, eco-friendly, and cruelty-free
+            skincare. That's why we carefully curate our selection of products
+            to ensure that they meet our high standards of quality and
+            sustainability.
           </p>
         </div>
       </div>
@@ -150,35 +157,35 @@ const About = () => {
       </div>
       <div className="category-boxes">
         <div className="row">
-          <div className="category">
+          <div className="category" data-testid="category-item">
             <img src={images.cream} alt="" />
             <h1>Face Care</h1>
           </div>
-          <div className="category">
+          <div className="category" data-testid="category-item">
             <img src={images.makeup} alt="" />
             <h1>Make Up</h1>
           </div>
 
-          <div className="category">
+          <div className="category" data-testid="category-item">
             <img src={images.lotion} alt="" />
             <h1>Body Care</h1>
           </div>
-          <div className="category">
+          <div className="category" data-testid="category-item">
             <img src={images.sun} alt="" />
             <h1>Sun Care</h1>
           </div>
         </div>
         <div className="row">
-          <div className="category">
+          <div className="category" data-testid="category-item">
             <img src={images.perfume} alt="" />
             <h1>Perfume</h1>
           </div>
 
-          <div className="category">
+          <div className="category" data-testid="category-item">
             <img src={images.shampoo} alt="" />
             <h1>Hair Care</h1>
           </div>
-          <div className="category">
+          <div className="category" data-testid="category-item">
             <img src={images.sun} alt="" />
             <h1>Sun Care</h1>
           </div>

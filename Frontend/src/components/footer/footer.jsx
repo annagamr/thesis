@@ -4,7 +4,7 @@ import './footer.css';
 const Footer = () => {
   return (
 
-<footer className="footer_bottom">
+<footer className="footer_bottom" data-testid="footer">
         
         <p>&copy; {new Date().getFullYear()} Aurora Inc.</p>
       </footer>

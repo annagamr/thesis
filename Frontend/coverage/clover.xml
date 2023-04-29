@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1682802523439" clover="3.2.0">
-  <project timestamp="1682802523439" name="All files">
-    <metrics statements="758" coveredstatements="0" conditionals="253" coveredconditionals="0" methods="211" coveredmethods="0" elements="1222" coveredelements="0" complexity="0" loc="758" ncloc="758" packages="15" files="29" classes="29"/>
+<coverage generated="1682808174104" clover="3.2.0">
+  <project timestamp="1682808174104" name="All files">
+    <metrics statements="758" coveredstatements="13" conditionals="253" coveredconditionals="0" methods="211" coveredmethods="6" elements="1222" coveredelements="19" complexity="0" loc="758" ncloc="758" packages="15" files="29" classes="29"/>
     <package name="src">
       <metrics statements="12" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="App.js" path="C:\Users\Anna\OneDrive\Desktop\E-COMMERCE\aurora\Frontend\src\App.js">
@@ -36,22 +36,22 @@
       </file>
     </package>
     <package name="src.components.about">
-      <metrics statements="13" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="0"/>
+      <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
       <file name="about.jsx" path="C:\Users\Anna\OneDrive\Desktop\E-COMMERCE\aurora\Frontend\src\components\about\about.jsx">
-        <metrics statements="13" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="0"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
+        <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="14" type="stmt"/>
+        <line num="71" count="14" type="stmt"/>
+        <line num="75" count="14" type="stmt"/>
+        <line num="76" count="14" type="stmt"/>
+        <line num="77" count="14" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="80" count="14" type="stmt"/>
+        <line num="83" count="14" type="stmt"/>
+        <line num="88" count="84" type="stmt"/>
+        <line num="114" count="42" type="stmt"/>
       </file>
     </package>
     <package name="src.components.blog">

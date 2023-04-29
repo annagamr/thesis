@@ -48,7 +48,7 @@ const Header = () => {
   };
 
   return (
-    <header className="top_header">
+    <header className="top_header" data-testid="header">
       <ul className="header_items_left">
         <li>
           <Link to="/">ABOUT</Link>
