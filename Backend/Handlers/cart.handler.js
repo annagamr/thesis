@@ -99,9 +99,10 @@ exports.removeFromCart = async (req, res) => {
     if (!userCart) {
       return res.status(404).send({ message: "Cart not found" });
     }
-
+   console.log(userCart.items)
+   console.log(userCart.items[0].product)
     // Check if the item exists in the user's cart
-    const itemIndex = userCart.items.findIndex((item) => item._id.toString() === itemId);
+    const itemIndex = userCart.items.findIndex((item) => item.product.toString() === itemId);
 
     if (itemIndex === -1) {
       return res.status(404).send({ message: "Item not found in cart" });

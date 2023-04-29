@@ -4,6 +4,7 @@ import axios from "axios";
 import "./login.css";
 import { Link } from "react-router-dom";
 import userService from "../../services/user.service";
+import cartService from "../../services/cart.service";
 
 async function signin(username, password) {
   try {
@@ -50,28 +51,42 @@ const Login = (props) => {
   function handleLogin(e) {
     e.preventDefault();
     setMessage("");
-  
+
     signin(username, password)
       .then(async () => {
+        // Get user's cart after logging in
+        const user = JSON.parse(localStorage.getItem("user"));
+        const response = await cartService.getCart(user.id);
+
         // Merge guestCart with the user's cart
         const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
         if (guestCart.length > 0) {
           const headers = userService.getAccessTokenHeaderFromLocalStorage();
+          console.log(headers);
+
+          // Check if cartItems exists in the response
+          const userCartItems = response.cartItems
+            ? response.cartItems.map((item) => item.id)
+            : [];
+
           for (const item of guestCart) {
-            try {
-              await axios.post(
-                `http://localhost:3002/api/cart/add/${item.product}`,
-                {},
-                { headers: headers }
-              );
-            } catch (error) {
-              console.log("Error adding product to cart:", error);
+            // Check if the item is not already in the user's cart
+            if (!userCartItems.includes(item.product)) {
+              try {
+                await axios.post(
+                  `http://localhost:3002/api/cart/add/${item.product}`,
+                  {},
+                  { headers: headers }
+                );
+              } catch (error) {
+                console.log("Error adding product to cart:", error);
+              }
             }
           }
           // Clear guestCart from localStorage
           localStorage.removeItem("guestCart");
         }
-  
+
         // Navigate to the profile page and reload the page
         props.router.navigate("/profile");
         window.location.reload();
@@ -81,7 +96,6 @@ const Login = (props) => {
         setMessage(error.toString());
       });
   }
-  
 
   //x Functions x\\
   return (

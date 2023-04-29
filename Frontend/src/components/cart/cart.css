@@ -138,11 +138,11 @@
 .summary_items {
     height: auto;
     overflow-y: scroll;
-    height: 450px;
+    height: 200px;
 }
 
-.multiple_pickup_addresses li,s
-.single_pickup_address p {
+.multiple_pickup_addresses li,
+s .single_pickup_address p {
     margin-left: 10px;
 }
 
@@ -215,4 +215,50 @@
 
 .name_address {
     margin-top: 40px;
+}
+
+/* //success */
+.success_page{
+    text-align: center;
+    padding: 40px 0;
+    background: #EBF0F5;
+
+}
+.success_page h1 {
+    color: #88B04B;
+    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.success_page p {
+    color: #404F5E;
+    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-size: 20px;
+    margin: 0;
+}
+
+.success_page i {
+    color: #9ABC66;
+    font-size: 100px;
+    line-height: 200px;
+    margin-left: -15px;
+}
+
+.success_card {
+    background: white;
+    padding: 60px;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px #C8D0D8;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.check_div {
+    border-radius: 200px;
+    height: 200px;
+    width: 200px;
+    background: #F8FAF5;
+    margin: 0 auto;
 }

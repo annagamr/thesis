@@ -20,24 +20,28 @@ function getAccessTokenHeaderFromLocalStorage() {
 class CartService {
   constructor() {
     this.baseURL = 'http://localhost:3002/api/cart';
-    this.headers = getAccessTokenHeaderFromLocalStorage();
   }
 
   async getCart(author) {
     const url = `${this.baseURL}/products/${author}`;
-    const response = await axios.post(url, {}, { headers: this.headers });
+    const headers = getAccessTokenHeaderFromLocalStorage();
+    const response = await axios.post(url, {}, { headers: headers });
+    console.log("Get cart response:", response); // Add this line to log
+
     return response.data;
   }
 
   async addToCart(productId) {
     const url = `${this.baseURL}/add/${productId}`;
-    const response = await axios.post(url, {}, { headers: this.headers });
+    const headers = getAccessTokenHeaderFromLocalStorage();
+    const response = await axios.post(url, {}, { headers: headers });
     return response.data;
   }
 
   async removeFromCart(itemId) {
     const url = `${this.baseURL}/remove/${itemId}`;
-    const response = await axios.post(url, {}, { headers: this.headers });
+    const headers = getAccessTokenHeaderFromLocalStorage();
+    const response = await axios.post(url, {}, { headers: headers });
     return response.data;
   }
 }

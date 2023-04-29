@@ -137,16 +137,16 @@ module.exports = function (app) {
     // Route removing product from cart
     app.post("/api/cart/remove/:id", verifyToken, cartController.removeFromCart);
 
-    // Route for getting number of products in cart
+    // Route for getting items in user's cart
     app.post("/api/cart/products/:author", verifyToken, cartController.getCart);
 
     // Route for getting number of products in cart
     app.post("/api/cart/clear-cart", cartController.clearCart);
 
-    // Route for getting number of products in cart
+    // Route for creating orders
     app.post("/api/order/create-order", orderController.createOrder);
     
-    // Route for getting number of products in cart
+    // Route for getting order of specific user
     app.get("/api/order/get-orders/:userId", orderController.getOrders);
 
     //Route for sign up

@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useRef } from "react";
-
+import "./cart.css"
 const Success = () => {
     const createOrderCalled = useRef(false);
 
@@ -68,9 +68,14 @@ const Success = () => {
   }, [createOrder]);
 
   return (
-    <div>
-      <h1>successful payment</h1>
-    </div>
+    <div className="success_page" >
+ <div className="success_card">
+      <div className="check_div">
+        <i className="checkmark">✓</i>
+      </div>
+        <h1>Successful Payment!</h1> 
+        <p>We received your order!</p>
+      </div>    </div>
   );
 };
 
