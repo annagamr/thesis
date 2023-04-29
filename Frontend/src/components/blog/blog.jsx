@@ -193,8 +193,9 @@ const Blog = () => {
                   <h2>Create New Post!</h2>
 
                   <div className="item-title">
-                    <label htmlFor="title">Title</label>
+                    <label htmlFor="title" >Title</label>
                     <input
+                    data-testid="Title"
                       type="text"
                       style={{ width: "30rem" }}
                       maxLength={40}
@@ -205,8 +206,9 @@ const Blog = () => {
                     />
                   </div>
                   <div className="item-description">
-                    <label htmlFor="description">Description</label>
+                    <label htmlFor="description" >Description</label>
                     <textarea
+                    data-testid="Description"
                       rows="15"
                       style={{ width: "50rem" }}
                       name="description"
@@ -219,9 +221,10 @@ const Blog = () => {
                   </div>
 
                   <div className="item-category">
-                    <label htmlFor="topic">Topic</label>
+                    <label htmlFor="topic" data-testid="Topic">Topic</label>
 
                     <select
+                    data-testid="Topic"
                       name="topic"
                       style={{ width: "30rem" }}
                       value={topic}
@@ -284,7 +287,7 @@ const Blog = () => {
           Perfumes <br /> ({perfume})
         </div>
       </div>
-      <div className="blog-posts-container">
+      <div className="blog-posts-container" data-testid="blog-posts-container" >
         {posts.map((post) => (
           <div key={post.id} className="blog-posts">
             <h2 className="blog-title">{post.title}</h2>
