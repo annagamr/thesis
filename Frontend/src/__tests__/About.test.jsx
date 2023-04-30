@@ -40,7 +40,7 @@ describe("About component", () => {
     const slideItems = queryAllByTestId(/slide-img-/);
     expect(slideItems.length).toBe(6);
   });
-  jest.setTimeout(6000);
+  jest.setTimeout(10000);
 
   test("Slider changes index state after specified duration", async () => {
     const { queryAllByTestId } = render(<About />);

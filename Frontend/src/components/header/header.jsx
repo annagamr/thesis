@@ -96,8 +96,8 @@ const Header = () => {
           </li>
         ) : !showAdminBoard ? (
           <li>
-            <Link to="/cart" className="icon">
-              <Badge badgeContent={totalItems} color="success">
+            <Link to="/cart" className="icon" data-testid="cart-icon">
+              <Badge data-testid="cart-badge" badgeContent={totalItems} color="success">
                 <IconContext.Provider
                   value={{
                     color: "white",
@@ -127,7 +127,7 @@ const Header = () => {
               <Link to="/profile">Prof</Link>
             </li>{" "}
             <li>
-              <a href="/signin" onClick={logOut} className="icon">
+              <a href="/signin" onClick={logOut} className="icon" data-testid="logout-icon">
                 <IconContext.Provider
                   value={{
                     color: "white",
