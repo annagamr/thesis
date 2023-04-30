@@ -3,10 +3,15 @@ import axios from "axios";
 import "./blog.css";
 import postService from "../../services/post.service";
 
+export const reloadPage = () => {
+  window.location.reload();
+};
+
 const Blog = ({ user }) => {
   const [sellerProf, setShowSellerProfile] = useState(false);
   const [adminProf, setShowAdminProfile] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [error, setError] = useState(null);
 
   const [skin, setSkin] = useState("0");
   const [makeUp, setMakeUp] = useState("0");
@@ -38,6 +43,7 @@ const Blog = ({ user }) => {
         setPosts(response.data.allPosts);
       })
       .catch((error) => {
+        setError("An error occurred while fetching posts.");
         console.log(error);
       });
   }, []);
@@ -49,7 +55,7 @@ const Blog = ({ user }) => {
         setSkin(response.data.count);
       })
       .catch((error) => {
-        console.log(error);
+        setError("An error occurred while fetching skincare posts number.");
       });
   }, []);
 
@@ -60,7 +66,7 @@ const Blog = ({ user }) => {
         setMakeUp(response.data.count);
       })
       .catch((error) => {
-        console.log(error);
+        setError("An error occurred while fetching make up posts number.");
       });
   }, []);
 
@@ -71,7 +77,7 @@ const Blog = ({ user }) => {
         setHealth(response.data.count);
       })
       .catch((error) => {
-        console.log(error);
+        setError("An error occurred while fetching health posts number.");
       });
   }, []);
 
@@ -82,7 +88,9 @@ const Blog = ({ user }) => {
         setRecommendation(response.data.count);
       })
       .catch((error) => {
-        console.log(error);
+        setError(
+          "An error occurred while fetching recommendation posts number."
+        );
       });
   }, []);
 
@@ -93,7 +101,7 @@ const Blog = ({ user }) => {
         setHair(response.data.count);
       })
       .catch((error) => {
-        console.log(error);
+        setError("An error occurred while fetching hair posts number.");
       });
   }, []);
 
@@ -104,7 +112,7 @@ const Blog = ({ user }) => {
         setSun(response.data.count);
       })
       .catch((error) => {
-        console.log(error);
+        setError("An error occurred while fetching sun posts number.");
       });
   }, []);
 
@@ -115,7 +123,7 @@ const Blog = ({ user }) => {
         setPerfume(response.data.count);
       })
       .catch((error) => {
-        console.log(error);
+        setError("An error occurred while fetching perfume posts number.");
       });
   }, []);
 
@@ -178,6 +186,7 @@ const Blog = ({ user }) => {
       });
   };
 
+  
   return (
     <div className="blogContainer">
       <div className="blogPage">
@@ -249,7 +258,7 @@ const Blog = ({ user }) => {
               <div className="if-success">
                 <h2 style={{ color: "blue" }}>{message}</h2>{" "}
                 <div className="add-post">
-                  <button onClick={() => window.location.reload()}>
+                  <button onClick={reloadPage}>
                     Add More Blogs
                   </button>
                 </div>
@@ -285,11 +294,11 @@ const Blog = ({ user }) => {
       </div>
       <div className="blog-posts-container" data-testid="blog-posts-container">
         {posts.map((post) => (
-          <div key={post.title} className="blog-posts">
-            <h2  className="blog-title">{post.title}</h2>
-            <p  className="blog-description">{post.description}</p>
-            <p  className="blog-topics">{post.topic}</p>
-            <p  className="blog-author">
+          <div key={post.title} className="blog-posts" data-testid="blog-post">
+            <h2 className="blog-title">{post.title}</h2>
+            <p className="blog-description">{post.description}</p>
+            <p className="blog-topics">{post.topic}</p>
+            <p className="blog-author">
               Author: {post.author} <br />
               <br />
               Date: {post.created}
@@ -297,6 +306,7 @@ const Blog = ({ user }) => {
           </div>
         ))}
       </div>
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };

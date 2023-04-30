@@ -56,30 +56,32 @@ describe("Blog component", () => {
     });
   });
 
-  test('renders blog posts', async () => {
+  test("renders blog posts", async () => {
     const mockPosts = [
       {
-        id: '1',
-        title: 'Test Post 1',
-        description: 'Test description 1',
-        topic: 'Test topic 1',
-        author: 'Test author 1',
-        created: '2023-04-30',
+        id: "1",
+        title: "Test Post 1",
+        description: "Test description 1",
+        topic: "Test topic 1",
+        author: "Test author 1",
+        created: "2023-04-30",
       },
     ];
 
-    postService.getAllPosts.mockResolvedValue({ data: { allPosts: mockPosts } });
+    postService.getAllPosts.mockResolvedValue({
+      data: { allPosts: mockPosts },
+    });
 
     await act(async () => {
       render(<Blog />);
     });
 
-    const postTitle = await screen.findByText('Test Post 1');
+    const postTitle = await screen.findByText("Test Post 1");
     expect(postTitle).toBeInTheDocument();
   });
   test("renders create post form for admin or seller", async () => {
     await act(async () => {
-      render(<Blog user={{ roles: ['ROLE_SELLER'] }} />);
+      render(<Blog user={{ roles: ["ROLE_SELLER"] }} />);
     });
     const createPostTitle = await screen.findByTestId("createButton");
     expect(createPostTitle).toBeInTheDocument();
@@ -122,5 +124,171 @@ describe("Blog component", () => {
 
     // Reset the mock after the test is done
     axios.post.mockReset();
+  });
+  test("does not render the create post form for users without 'ROLE_SELLER' or 'ROLE_ADMIN'", async () => {
+    await act(async () => {
+      render(<Blog user={{ roles: ["ROLE_USER"] }} />);
+    });
+
+    const createPostForm = screen.queryByTestId("createButton");
+    expect(createPostForm).toBeNull();
+  });
+
+  test("renders the correct number of posts", async () => {
+    const mockPosts = [
+      {
+        id: "1",
+        title: "Test Post 1",
+        description: "Test description 1",
+        topic: "Test topic 1",
+        author: "Test author 1",
+        created: "2023-04-30",
+      },
+      {
+        id: "2",
+        title: "Test Post 2",
+        description: "Test description 2",
+        topic: "Test topic 2",
+        author: "Test author 2",
+        created: "2023-04-29",
+      },
+      {
+        id: "3",
+        title: "Test Post 3",
+        description: "Test description 3",
+        topic: "Test topic 3",
+        author: "Test author 3",
+        created: "2023-04-28",
+      },
+    ];
+
+    postService.getAllPosts.mockResolvedValue({
+      data: { allPosts: mockPosts },
+    });
+
+    await act(async () => {
+      render(<Blog />);
+    });
+
+    const blogPosts = await screen.findAllByTestId("blog-post");
+    expect(blogPosts.length).toEqual(mockPosts.length);
+  });
+
+  test("fetches the skincare count and updates the skin state", async () => {
+    const mockSkinCount = 5;
+    postService.getSkincare.mockResolvedValue({
+      data: { count: mockSkinCount },
+    });
+
+    render(<Blog user={null} />);
+
+    await waitFor(() => {
+      expect(postService.getSkincare).toHaveBeenCalled();
+    });
+
+    const skinCountElement = screen.getByText(`Skin Care (${mockSkinCount})`, {
+      exact: false,
+    });
+    expect(skinCountElement).toBeInTheDocument();
+  });
+
+  test("fetches the makeup count and updates the makeup state", async () => {
+    const mockMakeUpCount = 5;
+    postService.getMakeUp.mockResolvedValue({
+      data: { count: mockMakeUpCount },
+    });
+
+    render(<Blog user={null} />);
+
+    await waitFor(() => {
+      expect(postService.getMakeUp).toHaveBeenCalled();
+    });
+
+    const skinCountElement = screen.getByText(`Make Up (${mockMakeUpCount})`, {
+      exact: false,
+    });
+    expect(skinCountElement).toBeInTheDocument();
+  });
+
+  test("handles errors when fetching skincare count", async () => {
+    const errorMessage =
+      "An error occurred while fetching skincare posts number.";
+    postService.getSkincare.mockRejectedValue(
+      new Error("Error fetching skincare count")
+    );
+
+    render(<Blog user={null} />);
+
+    await waitFor(() => {
+      expect(postService.getSkincare).toHaveBeenCalled();
+    });
+
+    const errorElement = screen.getByText(errorMessage);
+    expect(errorElement).toBeInTheDocument();
+  });
+
+  test("handles errors when fetching makeup count", async () => {
+    const errorMessage =
+      "An error occurred while fetching make up posts number.";
+    postService.getMakeUp.mockRejectedValue(
+      new Error("Error fetching makeup count")
+    );
+
+    render(<Blog user={null} />);
+
+    await waitFor(() => {
+      expect(postService.getMakeUp).toHaveBeenCalled();
+    });
+
+    const errorElement = screen.getByText(errorMessage);
+    expect(errorElement).toBeInTheDocument();
+  });
+
+  test("handles errors when fetching health count", async () => {
+    const errorMessage =
+      "An error occurred while fetching health posts number.";
+    postService.getHealth.mockRejectedValue(
+      new Error("Error fetching health count")
+    );
+
+    render(<Blog user={null} />);
+
+    await waitFor(() => {
+      expect(postService.getHealth).toHaveBeenCalled();
+    });
+
+    const errorElement = screen.getByText(errorMessage);
+    expect(errorElement).toBeInTheDocument();
+  });
+
+  test("handles errors when fetching recommendation count", async () => {
+    const errorMessage =
+      "An error occurred while fetching recommendation posts number.";
+    postService.getRec.mockRejectedValue(
+      new Error("Error fetching recommendation count")
+    );
+
+    render(<Blog user={null} />);
+
+    await waitFor(() => {
+      expect(postService.getRec).toHaveBeenCalled();
+    });
+
+    const errorElement = screen.getByText(errorMessage);
+    expect(errorElement).toBeInTheDocument();
+  });
+
+  test("handles errors when fetching sun count", async () => {
+    const errorMessage = "An error occurred while fetching sun posts number.";
+    postService.getSun.mockRejectedValue(new Error("Error fetching sun count"));
+
+    render(<Blog user={null} />);
+
+    await waitFor(() => {
+      expect(postService.getSun).toHaveBeenCalled();
+    });
+
+    const errorElement = screen.getByText(errorMessage);
+    expect(errorElement).toBeInTheDocument();
   });
 });
