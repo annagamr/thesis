@@ -3,7 +3,7 @@ import axios from "axios";
 import "./blog.css";
 import postService from "../../services/post.service";
 
-const Blog = () => {
+const Blog = ({ user }) => {
   const [sellerProf, setShowSellerProfile] = useState(false);
   const [adminProf, setShowAdminProfile] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -24,12 +24,12 @@ const Blog = () => {
   const [successful, setSuccessful] = useState(false);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const storedUser = user || JSON.parse(localStorage.getItem("user"));
 
-    if (user) {
-      setAuthor(user.username);
-      setShowSellerProfile(user.roles.includes("ROLE_SELLER"));
-      setShowAdminProfile(user.roles.includes("ROLE_ADMIN"));
+    if (storedUser) {
+      setAuthor(storedUser.username);
+      setShowSellerProfile(storedUser.roles.includes("ROLE_SELLER"));
+      setShowAdminProfile(storedUser.roles.includes("ROLE_ADMIN"));
     }
 
     postService
@@ -53,7 +53,6 @@ const Blog = () => {
       });
   }, []);
 
-
   useEffect(() => {
     postService
       .getMakeUp()
@@ -65,7 +64,6 @@ const Blog = () => {
       });
   }, []);
 
-
   useEffect(() => {
     postService
       .getHealth()
@@ -76,7 +74,6 @@ const Blog = () => {
         console.log(error);
       });
   }, []);
-
 
   useEffect(() => {
     postService
@@ -121,7 +118,6 @@ const Blog = () => {
         console.log(error);
       });
   }, []);
-
 
   function addPost(title, description, topic, author) {
     return axios
@@ -190,12 +186,12 @@ const Blog = () => {
             <form onSubmit={handlePost}>
               {!successful && (
                 <div>
-                  <h2>Create New Post!</h2>
+                  <h2 data-testid="createButton">Create New Post!</h2>
 
                   <div className="item-title">
-                    <label htmlFor="title" >Title</label>
+                    <label htmlFor="title">Title</label>
                     <input
-                    data-testid="Title"
+                      data-testid="Title"
                       type="text"
                       style={{ width: "30rem" }}
                       maxLength={40}
@@ -206,9 +202,9 @@ const Blog = () => {
                     />
                   </div>
                   <div className="item-description">
-                    <label htmlFor="description" >Description</label>
+                    <label htmlFor="description">Description</label>
                     <textarea
-                    data-testid="Description"
+                      data-testid="Description"
                       rows="15"
                       style={{ width: "50rem" }}
                       name="description"
@@ -221,10 +217,10 @@ const Blog = () => {
                   </div>
 
                   <div className="item-category">
-                    <label htmlFor="topic" data-testid="Topic">Topic</label>
+                    <label htmlFor="topic">Topic</label>
 
                     <select
-                    data-testid="Topic"
+                      data-testid="Topic"
                       name="topic"
                       style={{ width: "30rem" }}
                       value={topic}
@@ -287,13 +283,13 @@ const Blog = () => {
           Perfumes <br /> ({perfume})
         </div>
       </div>
-      <div className="blog-posts-container" data-testid="blog-posts-container" >
+      <div className="blog-posts-container" data-testid="blog-posts-container">
         {posts.map((post) => (
-          <div key={post.id} className="blog-posts">
-            <h2 className="blog-title">{post.title}</h2>
-            <p className="blog-description">{post.description}</p>
-            <p className="blog-topics">{post.topic}</p>
-            <p className="blog-author">
+          <div key={post.title} className="blog-posts">
+            <h2  className="blog-title">{post.title}</h2>
+            <p  className="blog-description">{post.description}</p>
+            <p  className="blog-topics">{post.topic}</p>
+            <p  className="blog-author">
               Author: {post.author} <br />
               <br />
               Date: {post.created}
