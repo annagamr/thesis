@@ -86,7 +86,7 @@ const ContactPage = () => {
               <button type="submit">Submit</button>
             </form>)}
             {isSubmitted && (
-              <div className="success-message">
+              <div className="success-message" data-testid="success">
                 Submitted successfully! We will get back to you soon.
               </div>
             )} 
