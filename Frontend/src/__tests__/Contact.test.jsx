@@ -60,4 +60,6 @@ describe("ContactPage component - Black-box tests", () => {
     expect(successMessage).toBeInTheDocument();
     expect(send).toHaveBeenCalled();
   });
+
+  
 });
