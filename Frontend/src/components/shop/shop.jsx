@@ -8,6 +8,8 @@ const Shop = () => {
   const [addedProducts, setAddedProducts] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const checkLoggedIn = () => {
@@ -58,12 +60,11 @@ const Shop = () => {
           category ? `?category=${encodeURIComponent(category)}` : ""
         }`
       );
-      if (category) {
-        console.log(response.data.products);
-      }
       setProducts(response.data.products);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,10 +73,10 @@ const Shop = () => {
   }, [selectedCategory]);
 
   return (
-    <div className="shop-page-container">
+    <div className="shop-page-container" data-testid="shop-page">
       <div className="category-select">
         <h2>{selectedCategory || "Shop"}</h2>
-        <select name="category" onChange={handleChange}>
+        <select name="category" onChange={handleChange} data-testid="category">
           <option value="">Shop</option>
           <option value="skin care">Skin Care</option>
           <option value="body care">Body Care</option>
@@ -85,8 +86,8 @@ const Shop = () => {
           <option value="perfume">Perfume</option>
         </select>
       </div>
-      <div className="ProductGrid grid-cols-12 has-column-gap gap-y-6 sm:gap-y-12">
-        {products.map((product) => (
+      <div className="ProductGrid grid-cols-12 has-column-gap gap-y-6 sm:gap-y-12" data-testid="product-grid">
+      {products && products.map((product) => (
           <Link
             style={{ textDecoration: "none", color: "black" }}
             key={product.id}
