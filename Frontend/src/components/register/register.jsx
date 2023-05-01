@@ -12,7 +12,7 @@ const Register = () => {
     <div className="choices-container">
       <div className="create-shop">
         <div className="top-image">
-          <img src={images.registerShop} alt="" />
+          <img src={images.registerShop} alt="Create Shop" />
         </div>
         <div className="btn">
           <Link to="/shopRegister" className="btn1">
@@ -22,7 +22,7 @@ const Register = () => {
       </div>
       <div className="become-user">
         <div className="top-image">
-          <img src={images.registerUser} alt="" />
+          <img src={images.registerUser} alt="Become User" />
         </div>
         <div className="btn">
           <Link to="/usersignup" className="btn2">
