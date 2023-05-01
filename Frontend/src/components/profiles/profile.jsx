@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./profile.css";
-import * as images from "../../assets/assets"
-
+import * as images from "../../assets/assets";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
@@ -10,7 +9,7 @@ const Profile = () => {
   const [userProf, setShowUserProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
 
     if (user) {
       setCurrentUser(user);
@@ -20,7 +19,10 @@ const Profile = () => {
     }
   }, []);
   return (
-    <div className="profile-page">
+    <div
+      className="profile-page"
+      data-testid="profile-page"
+    >
       {sellerProf && (
         <div>
           <div className="profile-illustration"></div>
@@ -46,7 +48,15 @@ const Profile = () => {
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
               </div>
             </div>
-            <button className="see-list" > <Link style={{textDecoration: 'none',color:'white' }} to="/sellerProducts">Listed Products</Link></button>
+            <button className="see-list">
+              {" "}
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to="/sellerProducts"
+              >
+                Listed Products
+              </Link>
+            </button>
           </div>
 
           <div className="faq-container">
@@ -83,7 +93,7 @@ const Profile = () => {
         </div>
       )}
 
-{userProf && (
+      {userProf && (
         <div>
           <div className="profile-illustration"></div>
           <div className="profile-card">
@@ -108,7 +118,15 @@ const Profile = () => {
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
               </div>
             </div>
-            <button className="see-list" > <Link style={{textDecoration: 'none',color:'white' }} to="/myOrders">Previous Orders</Link></button>
+            <button className="see-list">
+              {" "}
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to="/myOrders"
+              >
+                Previous Orders
+              </Link>
+            </button>
           </div>
 
           <div className="faq-container">
@@ -144,7 +162,7 @@ const Profile = () => {
           <div className="faq-title">FAQ</div>
         </div>
       )}
-{adminProf && (
+      {adminProf && (
         <div>
           <div className="profile-illustration"></div>
           <div className="profile-card">
@@ -166,12 +184,18 @@ const Profile = () => {
               </div>
               <div className="role">
                 <b>Role:</b>{" "}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                ADMIN
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ADMIN
               </div>
             </div>
-            <button className="see-list" > <Link style={{textDecoration: 'none',color:'white' }} to="/adminBoard">My Board</Link></button>
-
+            <button className="see-list">
+              {" "}
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to="/adminBoard"
+              >
+                My Board
+              </Link>
+            </button>
           </div>
 
           <div className="faq-container">
@@ -205,7 +229,6 @@ const Profile = () => {
             </div>
           </div>
           <div className="faq-title">FAQ</div>
-          
         </div>
       )}
     </div>
