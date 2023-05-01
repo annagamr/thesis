@@ -20,12 +20,13 @@ const Forgot = () => {
   };
 
   return (
-    <div className="sign-in">
+    <div className="sign-in" data-testid="forgot-page">
       <div className="login-container">
         {" "}
         <form onSubmit={handleSubmit}>
           <label htmlFor="email">Enter Email: </label>
           <input
+            id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
