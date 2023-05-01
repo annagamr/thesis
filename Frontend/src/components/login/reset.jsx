@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import React from "react";
 import axios from "axios";
 import "./login.css";
 
@@ -38,19 +39,21 @@ const Reset = () => {
   };
 
   return (
-    <div className="sign-in">
+    <div className="sign-in" data-testid="reset-page">
       <div className="login-container">
         {!successful && (
           <>
             <form onSubmit={handleSubmit}>
               <label htmlFor="newPassword">New Password: </label>
               <input
+                id="newPassword"
                 type="password"
                 value={newPass}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
               <label htmlFor="repeatPassword">Repeat Password: </label>
               <input
+                id="repeatPassword"
                 type="password"
                 value={repeatPass}
                 onChange={(e) => setRepeatPassword(e.target.value)}
