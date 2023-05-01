@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import MapComponent from './mapComponent';
+import MapComponent from "./mapComponent";
 import "./shop.css";
 
 const ProductDetails = (props) => {
@@ -14,7 +14,7 @@ const ProductDetails = (props) => {
         const response = await axios.get(
           `http://localhost:3002/api/products/${id}`
         );
-        console.log(response.data.product);
+        // console.log(response.data.product);
         setProduct(response.data.product);
       } catch (error) {
         console.log(error);
@@ -22,9 +22,7 @@ const ProductDetails = (props) => {
     };
     fetchProduct();
   }, [id]);
-  const street = '61 Rakoczi ut';
-  const city = 'Budapest';
-  const zipCode = '1081';
+
   return (
     <div className="product-details-container">
       <div className="product-image-details">
@@ -39,10 +37,13 @@ const ProductDetails = (props) => {
         <span>Product by: {product.author}</span>
         <div className="product-price">
           <span>{product.price} HUF</span>
-        
         </div>
-        <MapComponent street={product.street} city={product.city} zipCode={product.zipCode} />
-
+        <MapComponent
+          data-testid="map-component"
+          street={product.street}
+          city={product.city}
+          zipCode={product.zipCode}
+        />
       </div>
     </div>
   );

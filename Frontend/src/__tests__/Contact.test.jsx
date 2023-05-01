@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, waitFor, screen } from "@testing-library/react";
+import { render, fireEvent} from "@testing-library/react";
 import ContactPage from "../components/contact/contact";
 import { send } from "emailjs-com";
 
@@ -7,7 +7,7 @@ jest.mock("emailjs-com", () => ({
   send: jest.fn(() => Promise.resolve()),
 }));
 
-describe("ContactPage component - Black-box tests", () => {
+describe("ContactPage component", () => {
   test("1. Component renders without crashing", () => {
     const { container } = render(<ContactPage />);
     expect(container.firstChild).toBeInTheDocument();

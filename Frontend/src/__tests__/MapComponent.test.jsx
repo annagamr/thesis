@@ -1,8 +1,9 @@
 import React from "react";
-import { render, waitFor } from "@testing-library/react";
+import { render, screen, act, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import MapComponent from "../components/shop/mapComponent";
 import L from "leaflet";
+
 
 // Mock the Leaflet library
 jest.mock("leaflet", () => ({
@@ -71,22 +72,4 @@ describe("MapComponent", () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
   });
 
-//   test("4. Renders a map instance with the correct settings", () => {
-//     const mockMapInstance = { setView: jest.fn() };
-//     const mockTileLayer = { addTo: jest.fn() };
-//     const mockMarker = { addTo: jest.fn() };
-  
-//     jest.spyOn(L, "map").mockReturnValue(mockMapInstance);
-//     jest.spyOn(L, "tileLayer").mockReturnValue(mockTileLayer);
-//     jest.spyOn(L, "marker").mockReturnValue(mockMarker);
-  
-//     render(<MapComponent street="123 Main St" city="Anytown" zipCode="12345" />);
-  
-//     expect(L.map).toHaveBeenCalledWith(null);
-//     expect(mockMapInstance.setView).toHaveBeenCalledWith([expect.any(Number), expect.any(Number)], 16);
-//     expect(L.tileLayer).toHaveBeenCalledWith(expect.any(String), expect.any(Object));
-//     expect(mockTileLayer.addTo).toHaveBeenCalledWith(mockMapInstance);
-//     expect(L.marker).toHaveBeenCalledWith([expect.any(Number), expect.any(Number)], { icon: expect.any(Object) });
-//     expect(mockMarker.addTo).toHaveBeenCalledWith(mockMapInstance);
-//   });
 });
