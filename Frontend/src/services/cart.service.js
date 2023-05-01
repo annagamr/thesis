@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-function getAccessTokenHeaderFromLocalStorage() {
+ function getAccessTokenHeaderFromLocalStorage() {
   // Retrieve the user object from the local storage
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -26,7 +25,7 @@ class CartService {
     const url = `${this.baseURL}/products/${author}`;
     const headers = getAccessTokenHeaderFromLocalStorage();
     const response = await axios.post(url, {}, { headers: headers });
-    console.log("Get cart response:", response); // Add this line to log
+    // console.log("Get cart response:", response);
 
     return response.data;
   }
