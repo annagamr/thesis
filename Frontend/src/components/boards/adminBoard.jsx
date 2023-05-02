@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import UserService from "../../services/user.service";
+import MessageModal from "./MessageModal";
 import "./allStyles.css";
 import axios from "axios";
 
@@ -19,6 +20,20 @@ const BoardAdmin = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [filteredShops, setFilteredShops] = useState([]);
   const [userRole, setUserRole] = useState(null);
+
+  // Modal controllers
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalType, setModalType] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const closeModal = (refresh = false) => {
+    setShowModal(false);
+    if (refresh) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    }
+  };
 
   useEffect(() => {
     UserService.adminAccess().then(
@@ -136,26 +151,31 @@ const BoardAdmin = () => {
 
         const result = await response.json();
         if (response.ok) {
-          alert(result.message);
+          setModalMessage(result.message);
+          setModalType("success");
+          setShowModal(true);
           const updatedItems = items.filter((item) => item.id !== itemId);
-          console.log(`Updated ${itemType}s:`, updatedItems);
           setItems(updatedItems);
 
-          // Update products and blogs after user deletion
           if (itemType === "user" && updateRelatedItems) {
             updateRelatedItems(itemId);
           }
-          // Refresh the page after 3 seconds if user is deleted successfully
+
           if (itemType === "user") {
             setTimeout(() => {
-              window.location.reload();
+              closeModal(true);
             }, 1000);
           }
         } else {
-          alert(`Error: ${result.message}`);
+          setModalMessage(`Error: ${result.message}`);
+          setModalType("error");
+          setShowModal(true);
         }
       } catch (error) {
         console.error(`Error deleting ${itemType}:`, error);
+        setModalMessage(`Error deleting ${itemType}: ${error}`);
+        setModalType("error");
+        setShowModal(true);
       }
     },
     []
@@ -180,6 +200,12 @@ const BoardAdmin = () => {
       )}
       {userRole != "non-admin" && (
         <div className="mainContainer">
+          <MessageModal
+            show={showModal}
+            message={modalMessage}
+            type={modalType}
+            onClose={closeModal}
+          />
           <div className="users">
             <h2>USERS and SHOPS</h2>
             <h3>

@@ -58,6 +58,7 @@
   padding: 10px;
 
 }
+
 .blogs h2 {
   color: black;
   font-size: 30px;
@@ -100,7 +101,9 @@
   width: 15rem;
 }
 
-.lists button:hover,.products-list button:hover, .blogs-list button:hover {
+.lists button:hover,
+.products-list button:hover,
+.blogs-list button:hover {
   font-size: 25px;
   transition: ease-in 0.5s;
 }
@@ -126,8 +129,7 @@
   background: #e6e8d2;
 }
 
-.products-listed::-webkit-scrollbar-track
-{
+.products-listed::-webkit-scrollbar-track {
   background: #bfbfbe;
 
 }
@@ -148,13 +150,15 @@
   background: #201f1f;
 }
 
-.products-listed, .blogs-listed {
+.products-listed,
+.blogs-listed {
   width: 100%;
   max-width: 1200px;
   overflow-x: auto;
 }
 
-.products-list, .blogs-list {
+.products-list,
+.blogs-list {
   display: flex;
   flex-wrap: wrap;
   max-height: 355px;
@@ -165,7 +169,9 @@
   justify-content: center;
 }
 
-.products-list button, .blogs-list button, .lists button {
+.products-list button,
+.blogs-list button,
+.lists button {
   float: right;
   margin-top: -3px;
   margin-left: 12px;
@@ -208,13 +214,56 @@
   border-radius: 5px;
 }
 
+
+/* MODAL */
+
+.message-modal {
+  display: flex;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* Media query for responsiveness */
+
 @media screen and (max-width: 768px) {
   .main-container {
     flex-direction: column;
-  } 
+  }
 
-   .users {
+  .users {
     flex-basis: auto;
     height: auto;
   }
