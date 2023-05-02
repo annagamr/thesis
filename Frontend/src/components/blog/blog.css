@@ -4,6 +4,7 @@
     margin: 0 auto;
     background: #7f7fd5;
     background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
+    height: 85.5vh;
     /* Center the container horizontally */
 }
 
@@ -93,7 +94,11 @@
     cursor: pointer;
 }
 
-
+#no-blogs {
+    margin-top: 15%;
+    text-align: center;
+    letter-spacing: 2px;
+}
 @media screen and (max-width: 768px) {
     .blogPage form {
         padding: 15px;

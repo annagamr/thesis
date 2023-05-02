@@ -111,9 +111,11 @@ const UserRegister = ({ isShop }) => {
   return (
     <div className="registration-page" data-testid="registration-page">
       <div className="registration-form">
-        <div className="title">
-          <h2>Welcome!</h2> <br /> <h3>Fill the Form to Register!</h3>
-        </div>
+        {!successful && (
+          <div className="title">
+            <h2>Welcome!</h2> <br /> <h3>Fill the Form to Register!</h3>
+          </div>
+        )}
         <form onSubmit={handleRegister}>
           {!successful && (
             <div>
@@ -158,7 +160,7 @@ const UserRegister = ({ isShop }) => {
               </div>
             </div>
           )}
-          {message && <div className="error">{message}</div>}
+          {message && <div className="register-error">{message}</div>}
         </form>
       </div>
     </div>

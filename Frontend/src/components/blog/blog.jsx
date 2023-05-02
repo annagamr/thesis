@@ -292,7 +292,7 @@ const Blog = ({ user }) => {
 
       <div className="blog-posts-container" data-testid="blog-posts-container">
         {posts.length === 0 ? (
-          <h2>No Blogs to Show</h2>
+          <h2 id="no-blogs">No Blogs to Show</h2>
         ) : (
           posts.map((post) => (
             <div

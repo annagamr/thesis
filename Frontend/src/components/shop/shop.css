@@ -9,6 +9,7 @@
     min-height: calc(100vh-60px);
     display: flex;
     flex-direction: column;
+    height: 85.5vh;
 }
 
 .ProductGrid {
@@ -157,6 +158,14 @@
     background-color: rgb(234, 234, 229);
 }
 
+#no-blogs {
+    top: 10rem;
+    position:absolute;
+    letter-spacing: 2px;
+    text-align: center;
+    width: 90vw;
+    line-height: 40px;
+}
 
 /* Product details */
 .product-details-container {

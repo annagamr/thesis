@@ -38,3 +38,11 @@
 .footer_bottom {
     background-color: rgb(237, 235, 235);
 }
+
+.register-error {
+    font-family: 'Times New Roman', Times, serif;
+    color: red;
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 5px;
+}

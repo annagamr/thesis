@@ -10,7 +10,6 @@ const Shop = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const checkLoggedIn = () => {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -86,42 +85,52 @@ const Shop = () => {
           <option value="perfume">Perfume</option>
         </select>
       </div>
-      <div className="ProductGrid grid-cols-12 has-column-gap gap-y-6 sm:gap-y-12" data-testid="product-grid">
-      {products && products.map((product) => (
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
-            key={product.id}
-            to={`/product/${product.id}`}
-          >
-            <div className="LayoutCard" key={product.id}>
-              <div className="product-image-button-container">
-                <div className="product-image">
-                  <img
-                    src={"http://localhost:3002/" + product.image}
-                    alt="Product"
-                  />
-                </div>
+      <div
+        className="ProductGrid grid-cols-12 has-column-gap gap-y-6 sm:gap-y-12"
+        data-testid="product-grid"
+      >
+        {products.length > 0 ? (
+          products.map((product) => (
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              key={product.id}
+              to={`/product/${product.id}`}
+            >
+              <div className="LayoutCard" key={product.id}>
+                <div className="product-image-button-container">
+                  <div className="product-image">
+                    <img
+                      src={"http://localhost:3002/" + product.image}
+                      alt="Product"
+                    />
+                  </div>
 
-                <button
-                  className="add-tocart"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleAddClick(product.id);
-                  }}
-                >
-                  {addedProducts[product.id] ? "Added" : "Add"}{" "}
-                  <span className="add-tocart-symbol">
-                    {addedProducts[product.id] ? "✓" : "+"}
-                  </span>
-                </button>
+                  <button
+                    className="add-tocart"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleAddClick(product.id);
+                    }}
+                  >
+                    {addedProducts[product.id] ? "Added" : "Add"}{" "}
+                    <span className="add-tocart-symbol">
+                      {addedProducts[product.id] ? "✓" : "+"}
+                    </span>
+                  </button>
+                </div>
+                <div className="details">
+                  <p className="product-title">{product.title}</p>
+                  <p className="product-price">{product.price} HUF</p>
+                </div>
               </div>
-              <div className="details">
-                <p className="product-title">{product.title}</p>
-                <p className="product-price">{product.price} HUF</p>
-              </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))
+        ) : (
+          <h2 id="no-blogs">
+            No Products to Display! <br />
+            Check Back Soon!
+          </h2>
+        )}
       </div>
     </div>
   );
