@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import userService from "../../services/user.service";
 import cartService from "../../services/cart.service";
 
-async function signin(username, password) {
+export async function signin(username, password) {
   try {
     const response = await axios.post("http://localhost:3002/api/auth/signin", {
       username,
@@ -18,7 +18,7 @@ async function signin(username, password) {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to login.");
+    setMessage("Error: Failed to login.");
   }
 }
 
@@ -108,6 +108,7 @@ const Login = (props) => {
           <div className="item-username">
             <label htmlFor="username">Username</label>
             <input
+              id="username"
               type="text"
               name="username"
               value={username}
@@ -119,6 +120,7 @@ const Login = (props) => {
           <div className="item-password">
             <label htmlFor="password">Password</label>
             <input
+              id="password"
               type="password"
               name="password"
               value={password}
@@ -135,7 +137,11 @@ const Login = (props) => {
             </button>
           </div>
 
-          {message && <div className="error">{message}</div>}
+          {message && (
+            <div className="error" data-testid="error-message">
+              {message}
+            </div>
+          )}
         </form>
       </div>
     </div>
