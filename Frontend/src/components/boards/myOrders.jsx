@@ -48,8 +48,8 @@ const MyOrders = () => {
   }, [currentUser]);
 
   return (
-    <div className="mainContainer">
-      <div className="container">
+    <div className="mainContainerOrders">
+      <div className="containerJ">
         <header className="jumbotron">
           <h3 aria-level="3">{content}</h3>
         </header>

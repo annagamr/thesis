@@ -24,6 +24,8 @@ const AddProduct = () => {
   const [price, setPrice] = useState(0);
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+
   //x vars for product x\\
 
   const validBudapestZipCodes = [
@@ -58,6 +60,7 @@ const AddProduct = () => {
           error.toString();
         setAccess(errorMessage);
       }
+      setUserRole("non-seller");
     };
     fetchSellerAccess();
   }, []);
@@ -257,172 +260,181 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="main-container">
-      <div className="product-container">
-        <header className="jumbotron">
-          <h3>{access}</h3>
-        </header>
-
-        {/* form */}
-        <div className="add-product-page">
-          <form onSubmit={handleProduct} encType="multipart/form-data">
-            {!successful && <h2 id="header-add">Add New Product</h2>}
-            {!successful && (
-              <div>
-                <div className="item-image">
-                  <label htmlFor="prodImage">Image</label>
-                  <input
-                    id="prodImage"
-                    type="file"
-                    name="prodImage"
-                    accept=".jpg,.png"
-                    onChange={updateImage}
-                    required
-                  />
-                </div>
-                <div className="item-title">
-                  <label htmlFor="title">Title</label>
-                  <input
-                    type="text"
-                    style={{ width: "30rem" }}
-                    maxLength={25}
-                    name="title"
-                    value={title}
-                    onChange={updateTitle}
-                    required
-                  />
-                </div>
-                {error.title && <p className="error">{error.title}</p>}
-
-                <div className="item-description">
-                  <label htmlFor="description">Description</label>
-                  <textarea
-                    rows="5"
-                    style={{ width: "30rem" }}
-                    name="description"
-                    maxLength={150}
-                    value={description}
-                    onChange={updateDescription}
-                    required
-                  ></textarea>
-                </div>
-                {error.description && (
-                  <p className="error">{error.description}</p>
-                )}
-
-                <div className="item-category">
-                  <label htmlFor="category">Category</label>
-                  <select
-                    name="category"
-                    style={{ width: "30rem" }}
-                    value={category}
-                    onChange={updateCategory}
-                    required
-                  >
-                    <option value="">Select a category</option>
-                    <option value="skin care">Skin Care</option>
-                    <option value="body care">Body Care</option>
-                    <option value="sun care">Sun Care</option>
-                    <option value="hair care">Hair Care</option>
-                    <option value="make up">Make Up</option>
-                    <option value="perfume">Perfume</option>
-                  </select>
-                </div>
-                {error.category && <p className="error">{error.category}</p>}
-
-                <div className="item-price">
-                  <label htmlFor="price">Price</label>
-                  <input
-                    type="number"
-                    style={{ width: "30rem" }}
-                    maxLength={40}
-                    name="price"
-                    value={price}
-                    onChange={updatePrice}
-                    required
-                  />
-                </div>
-                {error.price && <p className="error">{error.price}</p>}
-                <div className="item-street">
-                  <label htmlFor="street">
-                    Address (Street name, House No./Apt No.):
-                  </label>
-                  <input
-                    type="text"
-                    style={{ width: "30rem" }}
-                    maxLength={40}
-                    name="street"
-                    value={street}
-                    onChange={updateStreet}
-                    required
-                  />
-                </div>
-                {error.street && <p className="error">{error.street}</p>}
-
-                <div className="item-city">
-                  <label htmlFor="city">City: </label>
-                  <select name="city" id="">
-                    <option value="">Budapest</option>
-                  </select>
-                </div>
-
-                <div className="item-zip">
-                  <label htmlFor="zipCode">Zip Code: </label>
-                  <input
-                    type="text"
-                    style={{ width: "30rem" }}
-                    maxLength={40}
-                    name="zipCode"
-                    value={zipCode}
-                    onChange={updateZip}
-                    required
-                  />
-                </div>
-                {error.zipCode && <p className="error">{error.zipCode}</p>}
-
-                <div className="item-contact">
-                  <label htmlFor="contactNumber">Phone Number: </label>
-                  <input
-                    type="text"
-                    style={{ width: "30rem" }}
-                    maxLength={40}
-                    name="contactNumber"
-                    value={contactNumber}
-                    onChange={updateContact}
-                    required
-                  />
-                </div>
-                {error.contact && <p className="error">{error.contact}</p>}
-
-                <div className="add-post">
-                  <button>Add Product</button>
-                </div>
-              </div>
-            )}
-            {successful && (
-              <div>
-                <div className="product-details">
-                  <h2>{message}</h2>
-                  <div className="added-details">
-                    <h3>Product Details:</h3>
-                    <p>Image:</p>
-                    <img
-                      id="image-id"
-                      src={URL.createObjectURL(prodImageFile)}
-                    />
-
-                    <p>Title: {title}</p>
-                    <p>Description: {description}</p>
-                    <p>Category: {category}</p>
-                    <p>Price: {price}</p>
-                  </div>
-                </div>
-                <button onClick={resetForm}>Add More Products</button>
-              </div>
-            )}
-          </form>
+    <div>
+      {userRole === "non-seller" && (
+        <div className="container">
+          <header className="jumbotron">
+            <h3>{access}</h3>
+          </header>
         </div>
-      </div>
+      )}
+      {userRole != "non-seller" && (
+        <div className="main-container">
+          <div className="product-container">
+            {/* form */}
+            <div className="add-product-page">
+              <form onSubmit={handleProduct} encType="multipart/form-data">
+                {!successful && <h2 id="header-add">Add New Product</h2>}
+                {!successful && (
+                  <div>
+                    <div className="item-image">
+                      <label htmlFor="prodImage">Image</label>
+                      <input
+                        id="prodImage"
+                        type="file"
+                        name="prodImage"
+                        accept=".jpg,.png"
+                        onChange={updateImage}
+                        required
+                      />
+                    </div>
+                    <div className="item-title">
+                      <label htmlFor="title">Title</label>
+                      <input
+                        type="text"
+                        style={{ width: "30rem" }}
+                        maxLength={25}
+                        name="title"
+                        value={title}
+                        onChange={updateTitle}
+                        required
+                      />
+                    </div>
+                    {error.title && <p className="error">{error.title}</p>}
+
+                    <div className="item-description">
+                      <label htmlFor="description">Description</label>
+                      <textarea
+                        rows="5"
+                        style={{ width: "30rem" }}
+                        name="description"
+                        maxLength={150}
+                        value={description}
+                        onChange={updateDescription}
+                        required
+                      ></textarea>
+                    </div>
+                    {error.description && (
+                      <p className="error">{error.description}</p>
+                    )}
+
+                    <div className="item-category">
+                      <label htmlFor="category">Category</label>
+                      <select
+                        name="category"
+                        style={{ width: "30rem" }}
+                        value={category}
+                        onChange={updateCategory}
+                        required
+                      >
+                        <option value="">Select a category</option>
+                        <option value="skin care">Skin Care</option>
+                        <option value="body care">Body Care</option>
+                        <option value="sun care">Sun Care</option>
+                        <option value="hair care">Hair Care</option>
+                        <option value="make up">Make Up</option>
+                        <option value="perfume">Perfume</option>
+                      </select>
+                    </div>
+                    {error.category && (
+                      <p className="error">{error.category}</p>
+                    )}
+
+                    <div className="item-price">
+                      <label htmlFor="price">Price</label>
+                      <input
+                        type="number"
+                        style={{ width: "30rem" }}
+                        maxLength={40}
+                        name="price"
+                        value={price}
+                        onChange={updatePrice}
+                        required
+                      />
+                    </div>
+                    {error.price && <p className="error">{error.price}</p>}
+                    <div className="item-street">
+                      <label htmlFor="street">
+                        Address (Street name, House No./Apt No.):
+                      </label>
+                      <input
+                        type="text"
+                        style={{ width: "30rem" }}
+                        maxLength={40}
+                        name="street"
+                        value={street}
+                        onChange={updateStreet}
+                        required
+                      />
+                    </div>
+                    {error.street && <p className="error">{error.street}</p>}
+
+                    <div className="item-city">
+                      <label htmlFor="city">City: </label>
+                      <select name="city" id="">
+                        <option value="">Budapest</option>
+                      </select>
+                    </div>
+
+                    <div className="item-zip">
+                      <label htmlFor="zipCode">Zip Code: </label>
+                      <input
+                        type="text"
+                        style={{ width: "30rem" }}
+                        maxLength={40}
+                        name="zipCode"
+                        value={zipCode}
+                        onChange={updateZip}
+                        required
+                      />
+                    </div>
+                    {error.zipCode && <p className="error">{error.zipCode}</p>}
+
+                    <div className="item-contact">
+                      <label htmlFor="contactNumber">Phone Number: </label>
+                      <input
+                        type="text"
+                        style={{ width: "30rem" }}
+                        maxLength={40}
+                        name="contactNumber"
+                        value={contactNumber}
+                        onChange={updateContact}
+                        required
+                      />
+                    </div>
+                    {error.contact && <p className="error">{error.contact}</p>}
+
+                    <div className="add-post">
+                      <button>Add Product</button>
+                    </div>
+                  </div>
+                )}
+                {successful && (
+                  <div>
+                    <div className="product-details">
+                      <h2>{message}</h2>
+                      <div className="added-details">
+                        <h3>Product Details:</h3>
+                        <p>Image:</p>
+                        <img
+                          id="image-id"
+                          src={URL.createObjectURL(prodImageFile)}
+                        />
+
+                        <p>Title: {title}</p>
+                        <p>Description: {description}</p>
+                        <p>Category: {category}</p>
+                        <p>Price: {price}</p>
+                      </div>
+                    </div>
+                    <button onClick={resetForm}>Add More Products</button>
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -186,7 +186,6 @@ const Blog = ({ user }) => {
       });
   };
 
-  
   return (
     <div className="blogContainer">
       <div className="blogPage">
@@ -258,9 +257,7 @@ const Blog = ({ user }) => {
               <div className="if-success">
                 <h2 style={{ color: "blue" }}>{message}</h2>{" "}
                 <div className="add-post">
-                  <button onClick={reloadPage}>
-                    Add More Blogs
-                  </button>
+                  <button onClick={reloadPage}>Add More Blogs</button>
                 </div>
               </div>
             )}
@@ -292,19 +289,28 @@ const Blog = ({ user }) => {
           Perfumes <br /> ({perfume})
         </div>
       </div>
+
       <div className="blog-posts-container" data-testid="blog-posts-container">
-        {posts.map((post) => (
-          <div key={post.title} className="blog-posts" data-testid="blog-post">
-            <h2 className="blog-title">{post.title}</h2>
-            <p className="blog-description">{post.description}</p>
-            <p className="blog-topics">{post.topic}</p>
-            <p className="blog-author">
-              Author: {post.author} <br />
-              <br />
-              Date: {post.created}
-            </p>
-          </div>
-        ))}
+        {posts.length === 0 ? (
+          <h2>No Blogs to Show</h2>
+        ) : (
+          posts.map((post) => (
+            <div
+              key={post.title}
+              className="blog-posts"
+              data-testid="blog-post"
+            >
+              <h2 className="blog-title">{post.title}</h2>
+              <p className="blog-description">{post.description}</p>
+              <p className="blog-topics">{post.topic}</p>
+              <p className="blog-author">
+                Author: {post.author} <br />
+                <br />
+                Date: {post.created}
+              </p>
+            </div>
+          ))
+        )}
       </div>
       {error && <p className="error-message">{error}</p>}
     </div>

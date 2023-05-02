@@ -1,6 +1,7 @@
 .mainContainer {
   min-height: calc(100vh-60px);
   display: flex;
+  height: 85.5vh;
 }
 
 .users {
@@ -211,9 +212,9 @@
 @media screen and (max-width: 768px) {
   .main-container {
     flex-direction: column;
-  }
+  } 
 
-  .users {
+   .users {
     flex-basis: auto;
     height: auto;
   }

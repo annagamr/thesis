@@ -15,10 +15,13 @@ export async function signin(username, password) {
     if (response.data && response.data.accessToken) {
       localStorage.setItem("user", JSON.stringify(response.data));
     }
-    return response.data;
+    return { success: true, data: response.data };
   } catch (error) {
     console.error(error);
-    setMessage("Error: Failed to login.");
+    return {
+      success: false,
+      error: "Unsuccessful Login Attempt! Double check your credentials!",
+    };
   }
 }
 
@@ -53,43 +56,47 @@ const Login = (props) => {
     setMessage("");
 
     signin(username, password)
-      .then(async () => {
-        // Get user's cart after logging in
-        const user = JSON.parse(localStorage.getItem("user"));
-        const response = await cartService.getCart(user.id);
+      .then(async (result) => {
+        if (result.success) {
+          // Get user's cart after logging in
+          const user = JSON.parse(localStorage.getItem("user"));
+          const response = await cartService.getCart(user.id);
 
-        // Merge guestCart with the user's cart
-        const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-        if (guestCart.length > 0) {
-          const headers = userService.getAccessTokenHeaderFromLocalStorage();
-          console.log(headers);
+          // Merge guestCart with the user's cart
+          const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+          if (guestCart.length > 0) {
+            const headers = userService.getAccessTokenHeaderFromLocalStorage();
+            console.log(headers);
 
-          // Check if cartItems exists in the response
-          const userCartItems = response.cartItems
-            ? response.cartItems.map((item) => item.id)
-            : [];
+            // Check if cartItems exists in the response
+            const userCartItems = response.cartItems
+              ? response.cartItems.map((item) => item.id)
+              : [];
 
-          for (const item of guestCart) {
-            // Check if the item is not already in the user's cart
-            if (!userCartItems.includes(item.product)) {
-              try {
-                await axios.post(
-                  `http://localhost:3002/api/cart/add/${item.product}`,
-                  {},
-                  { headers: headers }
-                );
-              } catch (error) {
-                console.log("Error adding product to cart:", error);
+            for (const item of guestCart) {
+              // Check if the item is not already in the user's cart
+              if (!userCartItems.includes(item.product)) {
+                try {
+                  await axios.post(
+                    `http://localhost:3002/api/cart/add/${item.product}`,
+                    {},
+                    { headers: headers }
+                  );
+                } catch (error) {
+                  console.log("Error adding product to cart:", error);
+                }
               }
             }
+            // Clear guestCart from localStorage
+            localStorage.removeItem("guestCart");
           }
-          // Clear guestCart from localStorage
-          localStorage.removeItem("guestCart");
-        }
 
-        // Navigate to the profile page and reload the page
-        props.router.navigate("/profile");
-        window.location.reload();
+          // Navigate to the profile page and reload the page
+          props.router.navigate("/profile");
+          window.location.reload();
+        } else {
+          setMessage(result.error);
+        }
       })
       .catch((error) => {
         // Set an error message if the login fails

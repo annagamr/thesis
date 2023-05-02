@@ -18,11 +18,13 @@ const BoardAdmin = () => {
 
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [filteredShops, setFilteredShops] = useState([]);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     UserService.adminAccess().then(
       (response) => {
         setContent(response.data);
+        setUserRole("admin");
       },
       (error) => {
         setContent(
@@ -32,6 +34,7 @@ const BoardAdmin = () => {
             error.message ||
             error.toString()
         );
+        setUserRole("non-admin");
       }
     );
   }, []);
@@ -142,21 +145,21 @@ const BoardAdmin = () => {
           if (itemType === "user" && updateRelatedItems) {
             updateRelatedItems(itemId);
           }
-        // Refresh the page after 3 seconds if user is deleted successfully
-        if (itemType === "user") {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          // Refresh the page after 3 seconds if user is deleted successfully
+          if (itemType === "user") {
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
+        } else {
+          alert(`Error: ${result.message}`);
         }
-      } else {
-        alert(`Error: ${result.message}`);
+      } catch (error) {
+        console.error(`Error deleting ${itemType}:`, error);
       }
-    } catch (error) {
-      console.error(`Error deleting ${itemType}:`, error);
-    }
-  },
-  []
-);
+    },
+    []
+  );
 
   // Unified useEffect
   useEffect(() => {
@@ -164,144 +167,150 @@ const BoardAdmin = () => {
     setFilteredProducts(productss);
     setFilteredUsers(users);
     setFilteredShops(shops);
-  }, [blogss, productss,users,shops]);
+  }, [blogss, productss, users, shops]);
 
   return (
-    <div className="mainContainer">
-      <div className="container">
-        <header className="jumbotron">
-          <h3>{content}</h3>
-        </header>
-      </div>
-      <div className="users">
-        <h2>USERS and SHOPS</h2>
-        <h3>
-          Number of Users: {userCount}
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          Number of Shops: {filteredShops.length}
-        </h3>
-        <div className="lists">
-          <div>
-            <ol className="users-list">
-              {filteredUsers.map((user) => (
-                <React.Fragment key={user._id}>
-                  <li key={user._id}>
-                    {user.username}{" "}
-                    <button
-                      className="delete-user-btn"
-                      data-item-id={user._id}
-                      onClick={(event) =>
-                        deleteHandler(
-                          event,
-                          "user",
-                          "users-delete",
-                          filteredUsers,
-                          setFilteredUsers,
-                          updateRelatedItems
-                        )
-                      }
-                    >
-                      &times;
-                    </button>
-                  </li>
-                </React.Fragment>
-              ))}
-            </ol>
+    <div>
+      {userRole === "non-admin" && (
+        <div className="container">
+          <header className="jumbotron">
+            <h3>{content}</h3>
+          </header>
+        </div>
+      )}
+      {userRole != "non-admin" && (
+        <div className="mainContainer">
+          <div className="users">
+            <h2>USERS and SHOPS</h2>
+            <h3>
+              Number of Users: {userCount}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Number of Shops: {filteredShops.length}
+            </h3>
+            <div className="lists">
+              <div>
+                <ol className="users-list">
+                  {filteredUsers.map((user) => (
+                    <React.Fragment key={user.username}>
+                      <li>
+                        {user.username}{" "}
+                        <button
+                          className="delete-user-btn"
+                          data-item-id={user._id}
+                          onClick={(event) =>
+                            deleteHandler(
+                              event,
+                              "user",
+                              "users-delete",
+                              filteredUsers,
+                              setFilteredUsers,
+                              updateRelatedItems
+                            )
+                          }
+                        >
+                          &times;
+                        </button>
+                      </li>
+                    </React.Fragment>
+                  ))}
+                </ol>
+              </div>
+              <div>
+                <ol className="shops-list">
+                  {filteredShops.map((shop) => (
+                    <React.Fragment key={shop.username}>
+                      <li>
+                        {shop.username}{" "}
+                        <button
+                          className="delete-user-btn"
+                          data-item-id={shop._id}
+                          onClick={(event) =>
+                            deleteHandler(
+                              event,
+                              "shop",
+                              "users-delete",
+                              filteredShops,
+                              setFilteredShops,
+                              updateRelatedItems
+                            )
+                          }
+                        >
+                          &times;
+                        </button>
+                      </li>
+                    </React.Fragment>
+                  ))}
+                </ol>
+              </div>
+            </div>
           </div>
-          <div>
-            <ol className="shops-list">
-              {filteredShops.map((shop) => (
-                <React.Fragment key={shop._id}>
-                  <li key={shop._id}>
-                    {shop.username}{" "}
-                    <button
-                      className="delete-user-btn"
-                      data-item-id={shop._id}
-                      onClick={(event) =>
-                        deleteHandler(
-                          event,
-                          "shop",
-                          "users-delete",
-                          filteredShops,
-                          setFilteredShops,
-                          updateRelatedItems
-                        )
-                      }
-                    >
-                      &times;
-                    </button>
-                  </li>
-                </React.Fragment>
-              ))}
-            </ol>
+          <div className="right-container">
+            <div className="products">
+              <h2>PRODUCTS</h2>
+              <h3>Number of Products: {productCount}</h3>
+              <div className="products-listed">
+                <ol className="products-list">
+                  {filteredProducts.map((product) => (
+                    <React.Fragment key={product.id}>
+                      <li>
+                        <button
+                          onClick={(event) =>
+                            deleteHandler(
+                              event,
+                              "product",
+                              "product-delete",
+                              filteredProducts,
+                              setFilteredProducts
+                            )
+                          }
+                          className="delete-product-btn"
+                          data-item-id={product.id}
+                        >
+                          &times;
+                        </button>
+                        {product.title} <br />
+                        by {product.author}
+                      </li>
+                    </React.Fragment>
+                  ))}
+                </ol>
+              </div>
+            </div>
+            <div className="blogs">
+              <h2>BLOGS</h2>
+              <h3>Number of Blogs: {blogCount}</h3>
+              <div className="blogs-listed">
+                <ol className="blogs-list">
+                  {filteredBlogs.map((blogs) => (
+                    <React.Fragment key={blogs.id}>
+                      <li>
+                        {blogs.title}
+                        <button
+                          onClick={(event) =>
+                            deleteHandler(
+                              event,
+                              "blog",
+                              "post-delete",
+                              filteredBlogs,
+                              setFilteredBlogs
+                            )
+                          }
+                          className="delete-blog-btn"
+                          data-item-id={blogs.id}
+                        >
+                          &times;
+                        </button>
+                        <br />
+                        by {blogs.author}
+                      </li>
+                    </React.Fragment>
+                  ))}
+                </ol>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="right-container">
-        <div className="products">
-          <h2>PRODUCTS</h2>
-          <h3>Number of Products: {productCount}</h3>
-          <div className="products-listed">
-            <ol className="products-list">
-              {filteredProducts.map((product) => (
-                <React.Fragment key={product._id}>
-                  <li key={product._id}>
-                    <button
-                      onClick={(event) =>
-                        deleteHandler(
-                          event,
-                          "product",
-                          "product-delete",
-                          filteredProducts,
-                          setFilteredProducts
-                        )
-                      }
-                      className="delete-product-btn"
-                      data-item-id={product.id}
-                    >
-                      &times;
-                    </button>
-                    {product.title} <br />
-                    by {product.author}
-                  </li>
-                </React.Fragment>
-              ))}
-            </ol>
-          </div>
-        </div>
-        <div className="blogs">
-          <h2>BLOGS</h2>
-          <h3>Number of Blogs: {blogCount}</h3>
-          <div className="blogs-listed">
-            <ol className="blogs-list">
-              {filteredBlogs.map((blogs) => (
-                <React.Fragment key={blogs._id}>
-                  <li key={blogs._id}>
-                    {blogs.title}
-                    <button
-                      onClick={(event) =>
-                        deleteHandler(
-                          event,
-                          "blog",
-                          "post-delete",
-                          filteredBlogs,
-                          setFilteredBlogs
-                        )
-                      }
-                      className="delete-blog-btn"
-                      data-item-id={blogs.id}
-                    >
-                      &times;
-                    </button>
-                    <br />
-                    by {blogs.author}
-                  </li>
-                </React.Fragment>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
