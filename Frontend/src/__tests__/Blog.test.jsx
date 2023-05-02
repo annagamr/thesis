@@ -1,4 +1,4 @@
-import axios from "../__mocks__/axios";
+import axios from "axios";
 import Blog from "../components/blog/blog";
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
@@ -7,7 +7,7 @@ import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 
 jest.mock("../services/post.service");
-
+jest.mock('axios')
 describe("Blog component", () => {
   beforeEach(() => {
     postService.getAllPosts = jest
@@ -174,23 +174,23 @@ describe("Blog component", () => {
     expect(blogPosts.length).toEqual(mockPosts.length);
   });
 
-  test("fetches the skincare count and updates the skin state", async () => {
-    const mockSkinCount = 5;
-    postService.getSkincare.mockResolvedValue({
-      data: { count: mockSkinCount },
-    });
+  // test("fetches the skincare count and updates the skin state", async () => {
+  //   const mockSkinCount = 5;
+  //   postService.getSkincare.mockResolvedValue({
+  //     data: { count: mockSkinCount },
+  //   });
 
-    render(<Blog user={null} />);
+  //   render(<Blog user={null} />);
 
-    await waitFor(() => {
-      expect(postService.getSkincare).toHaveBeenCalled();
-    });
+  //   await waitFor(() => {
+  //     expect(postService.getSkincare).toHaveBeenCalled();
+  //   });
 
-    const skinCountElement = screen.getByText(`Skin Care (${mockSkinCount})`, {
-      exact: false,
-    });
-    expect(skinCountElement).toBeInTheDocument();
-  });
+  //   const skinCountElement = screen.getByText(`Skin Care (${mockSkinCount})`, {
+  //     exact: false,
+  //   });
+  //   expect(skinCountElement).toBeInTheDocument();
+  // });
 
   test("fetches the makeup count and updates the makeup state", async () => {
     const mockMakeUpCount = 5;

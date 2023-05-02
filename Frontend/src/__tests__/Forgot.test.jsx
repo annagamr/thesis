@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import axios from "../__mocks__/axios";
+import axios from "axios";
 import Forgot from "../components/login/forgot";
 import { act } from "react-dom/test-utils";
 

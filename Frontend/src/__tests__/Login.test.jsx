@@ -7,7 +7,7 @@ import {
 } from "@testing-library/react";
 import Login, { signin } from "../components/login/login";
 import { BrowserRouter as Router } from "react-router-dom";
-import axios from "../__mocks__/axios";
+import axios from "axios";
 import { act } from "react-dom/test-utils";
 import * as cartService from "../services/cart.service";
 import userService from "../services/user.service";

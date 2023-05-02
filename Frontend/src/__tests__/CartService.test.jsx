@@ -1,4 +1,4 @@
-import axios from '../__mocks__/axios';
+import axios from 'axios';
 import CartService from '../services/cart.service';
 
 jest.mock('axios');

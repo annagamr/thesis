@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import UserRegister from "../components/user registration/userRegister";
 import "@testing-library/jest-dom/extend-expect";
-import axios from "../__mocks__/axios";
+import axios from "axios";
 import { valid_name, valid_em, valid_password } from "../components/user registration/userRegister";
 
 jest.mock("axios");

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import axios from "../__mocks__/axios";
+import axios from "axios";
 import Reset from "../components/login/reset";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, BrowserRouter} from "react-router-dom";

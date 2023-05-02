@@ -17,7 +17,7 @@ import Login from "./components/login/login";
 import Profile from "./components/profiles/profile";
 import Forgot from "./components/login/forgot";
 import Reset from "./components/login/reset";
-import MyOrders  from "./components/boards/myOrders";
+import MyOrders from "./components/boards/myOrders";
 import SellerProduct from "./components/boards/AddProduct";
 import SellerProducts from './components/boards/sellerProducts';
 import BoardAdmin from "./components/boards/adminBoard";
@@ -28,9 +28,9 @@ function App() {
   return (
     <div className="App" >
       <Router>
-        <Header />
+        <Header data-testid="header" />
         <Routes>
-          <Route path="/" element={<About />} />
+          <Route path="/" element={<About data-testid="about" />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/register" element={<Register />} />
@@ -54,10 +54,10 @@ function App() {
           <Route path="/adminBoard" element={<BoardAdmin />} />
           {/* add product page for sellers only */}
           <Route path="/addProduct" element={<SellerProduct />} />
-          
+
 
         </Routes>
-        <Footer />
+        <Footer data-testid="footer" />
 
       </Router>
     </div>

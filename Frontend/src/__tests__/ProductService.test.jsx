@@ -1,4 +1,4 @@
-import axios from "../__mocks__/axios";
+import axios from "axios";
 import ProductService from "../services/product.service";
 
 jest.mock("axios");

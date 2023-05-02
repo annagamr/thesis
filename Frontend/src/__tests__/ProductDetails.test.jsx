@@ -1,4 +1,4 @@
-import axios from "../__mocks__/axios";
+import axios from "axios";
 import ProductDetails from "../components/shop/productDetails";
 import React from "react";
 import { render, screen } from "@testing-library/react";
