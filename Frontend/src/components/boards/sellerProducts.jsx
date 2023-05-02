@@ -18,24 +18,25 @@ const SellerProducts = () => {
     fetchProducts();
   }, []);
 
-
-
   return (
     <div className="products-page">
       <h2 className="seller-h2">My Products:</h2>
       <div className="my-products">
-        {products.map((product) => (
+        {products.length > 0 ? (
+          products.map((product) => (
+            <div className="myCard" key={product.id}>
+              <div className="card-image">
+                <img src={"http://localhost:3002/" + product.image} alt="" />
+              </div>
+              <p className="card-title">{product.title}</p>
+              <p className="card-uploaded">{product.added}</p>
 
-          <div className="myCard" key={product.id}>
-            <div className="card-image">
-            <img src={"http://localhost:3002/" + product.image} alt="" />
+              <p className="card-price">Price: {product.price} HUF</p>
             </div>
-            <p className="card-title">{product.title}</p>
-            <p className="card-uploaded">{product.added}</p>
-
-            <p className="card-price">Price: {product.price} HUF</p>
-          </div>
-        ))}
+          ))
+        ) : (
+          <h2 id="no-product">No products to display!</h2>
+        )}
       </div>
     </div>
   );

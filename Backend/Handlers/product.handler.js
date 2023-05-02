@@ -1,5 +1,6 @@
 const { product, user } = require("../Models");
 const { Types } = require('mongoose');
+const fs = require("fs");
 
 const db = require("../Models");
 const path = require('path'); // import path module
@@ -44,17 +45,13 @@ async function assignProductToSeller(username, product) {
 
 exports.addProduct = async (req, res) => {
     try {
-        // Create a new product using the request body data
-        // console.log(req.file)
-        // console.log(req.file.path)
-        // console.log(req.file+" just req")
         req.body.image = req.file.path
         const product = await create(req.body);
         const user = req.body.author;
         console.log(user)
         await assignProductToSeller(user, product);
         // Send a success message to the client
-        res.status(200).send({ message: "Added Successfully", product: product });
+        res.status(200).send({ message: "Product has Been Added Successfully!", product: product });
 
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message
@@ -183,16 +180,27 @@ exports.productsbyAuthor = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
     try {
         const productId = req.params.id;
-        const deletedProduct = await product.findByIdAndDelete(productId);
+        const productToDelete = await product.findById(productId);
 
-        if (!deletedProduct) {
-            return res.status(500).json({ message: 'Product not found' });
+        if (!productToDelete) {
+            return res.status(500).json({ message: "Product not found" });
         }
 
-        res.status(200).json({ message: 'Product deleted successfully' });
+        // Delete the image file associated with the product
+        fs.unlink(productToDelete.image, (err) => {
+            if (err) {
+                console.error("Error deleting image file:", err);
+            } else {
+                console.log("Image file deleted:", productToDelete.image);
+            }
+        });
+
+        const deletedProduct = await product.findByIdAndDelete(productId);
+
+        res.status(200).json({ message: "Product deleted successfully" });
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: 'Error deleting product', error });
+        console.log(error);
+        res.status(500).json({ message: "Error deleting product", error });
     }
 };
 

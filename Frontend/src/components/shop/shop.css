@@ -9,7 +9,6 @@
     min-height: calc(100vh-60px);
     display: flex;
     flex-direction: column;
-    height: 85.5vh;
 }
 
 .ProductGrid {

@@ -4,14 +4,11 @@
     margin: 0 auto;
     background: #7f7fd5;
     background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
-    height: 85.5vh;
-    /* Center the container horizontally */
 }
 
 .blogPage {
     background-color: #f2eef6;
     box-sizing: border-box;
-    /* Include padding in the width calculation */
 }
 
 .blogPage form {
@@ -73,6 +70,10 @@
     cursor: pointer;
 }
 
+.if-success{
+    padding-bottom: 20px;
+}
+
 .if-success h2 {
     font-family: 'Dancing Script', cursive;
     font-size: 40px;
@@ -95,7 +96,7 @@
 }
 
 #no-blogs {
-    margin-top: 15%;
+    margin-top: 12%;
     text-align: center;
     letter-spacing: 2px;
 }

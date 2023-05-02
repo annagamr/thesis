@@ -414,20 +414,22 @@ const AddProduct = () => {
                     <div className="product-details">
                       <h2>{message}</h2>
                       <div className="added-details">
-                        <h3>Product Details:</h3>
-                        <p>Image:</p>
+                        <h3 style={{ marginTop: "50px", marginBottom:"-40px" }}>Product Details:</h3>
+                        <p style={{ marginTop: "70px"}}>Image:</p>
                         <img
                           id="image-id"
                           src={URL.createObjectURL(prodImageFile)}
                         />
 
-                        <p>Title: {title}</p>
-                        <p>Description: {description}</p>
-                        <p>Category: {category}</p>
-                        <p>Price: {price}</p>
+                        <p style={{ marginTop: "20px", marginBottom:"-40px" }}><b>Title:</b> {title}</p>
+                        <p style={{ marginTop: "70px" }}>Description: {description}</p>
+                        <p style={{ marginTop: "70px", marginBottom:"-40px" }}><b>Category:</b> {category}</p>
+                        <p style={{ marginTop: "70px", marginBottom:"-40px" }}><b>Price:</b> {price} HUF</p>
                       </div>
                     </div>
-                    <button onClick={resetForm}>Add More Products</button>
+                    <button id="add-more-prod" onClick={resetForm}>
+                      Add More Products
+                    </button>
                   </div>
                 )}
               </form>

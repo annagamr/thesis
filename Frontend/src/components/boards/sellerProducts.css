@@ -1,16 +1,28 @@
-.products-page{
+.products-page {
   min-height: calc(100vh-60px);
   display: flex;
   flex-direction: column;
   background-color: #eaeef2;
+  height: 85.5vh;
+
 }
-.my-products{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 50px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+
+.my-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#no-product {
+  top: 20rem;
+  position: absolute;
+  letter-spacing: 2px;
+  text-align: center;
+  width: 90vw;
+  line-height: 40px;
 }
 
 .myCard {
@@ -28,11 +40,10 @@
   cursor: pointer;
 }
 
-.card-image
-{
- width: 200px;
- height: 200px;
- padding: 5px;
+.card-image {
+  width: 200px;
+  height: 200px;
+  padding: 5px;
 }
 
 .card-image img {
@@ -42,39 +53,39 @@
 }
 
 .card-title {
-    position:absolute;
-    margin-top: 12.5rem;
-    text-align: center;
-    z-index: 2;
-    width:100%;
-    font-size: 22px;
-    font-weight: bold;
+  position: absolute;
+  margin-top: 12.5rem;
+  text-align: center;
+  z-index: 2;
+  width: 100%;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .card-uploaded {
-  position:absolute;
+  position: absolute;
   margin-top: 15rem;
   text-align: center;
   z-index: 2;
-  width:100%;
+  width: 100%;
   font-size: 18px;
   font-weight: bold;
 }
 
-.card-price{
-    position:absolute;
-    margin-top: 17.5rem;
-    text-align: center;
-    z-index: 2;
-    width:100%;
-    font-size: 18px;
-    font-weight: bold;
+.card-price {
+  position: absolute;
+  margin-top: 17.5rem;
+  text-align: center;
+  z-index: 2;
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.seller-h2{
-    width:100%;
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-    padding-top: 50px;
+.seller-h2 {
+  width: 100%;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 50px;
 }

@@ -95,6 +95,14 @@
     margin-bottom: 0.5rem;
   }
 
+  #image-id{
+    width: 250px;
+    height: 300px;
+  }
+
+  #add-more-prod{
+    margin-top: 5.5rem;
+  }
 .error {
     color: red;
     font-size: 0.9rem;
