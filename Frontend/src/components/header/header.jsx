@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BsCart4 } from "react-icons/bs";
 import { RxPerson } from "react-icons/rx";
 import { MdQuestionAnswer } from "react-icons/md";
@@ -8,13 +8,14 @@ import { IconContext } from "react-icons";
 import Badge from "@mui/material/Badge";
 import "./header.css";
 import cartService from "../../services/cart.service";
+import { CartContext } from "../cart/CartContext";
 
 const Header = () => {
   const [showSellerBoard, setShowSellerBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [showUserBoard, setShowUserBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
-  const [totalItems, setTotalItems] = useState(0);
+  const { totalItems, setTotalItems } = useContext(CartContext);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -24,20 +25,22 @@ const Header = () => {
       setShowUserBoard(user.roles.includes("ROLE_USER"));
       setShowSellerBoard(user.roles.includes("ROLE_SELLER"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-
-      if (user.roles[0] === "ROLE_USER") {
-        const fetchCartProducts = async () => {
-          try {
-            const response = await cartService.getCart(user.id);
-            setTotalItems(response.numberOfItems);
-          } catch (error) {
-            console.log(error);
-          }
-        };
-        fetchCartProducts();
-      }
     }
-  }, [totalItems]);
+  }, []);
+
+  useEffect(() => {
+    if (currentUser && currentUser.roles.includes("ROLE_USER")) {
+      const fetchCartProducts = async () => {
+        try {
+          const response = await cartService.getCart(currentUser.id);
+          setTotalItems(response.numberOfItems);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchCartProducts();
+    }
+  }, [currentUser, setTotalItems]);
 
   const logOut = () => {
     localStorage.removeItem("user");
@@ -97,7 +100,11 @@ const Header = () => {
         ) : !showAdminBoard ? (
           <li>
             <Link to="/cart" className="icon" data-testid="cart-icon">
-              <Badge data-testid="cart-badge" badgeContent={totalItems} color="success">
+              <Badge
+                data-testid="cart-badge"
+                badgeContent={totalItems}
+                color="success"
+              >
                 <IconContext.Provider
                   value={{
                     color: "white",
@@ -127,7 +134,12 @@ const Header = () => {
               <Link to="/profile">My Profile</Link>
             </li>{" "}
             <li>
-              <a href="/signin" onClick={logOut} className="icon" data-testid="logout-icon">
+              <a
+                href="/signin"
+                onClick={logOut}
+                className="icon"
+                data-testid="logout-icon"
+              >
                 <IconContext.Provider
                   value={{
                     color: "white",

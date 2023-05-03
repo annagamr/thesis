@@ -46,8 +46,6 @@ exports.getCart = async (req, res) => {
   }
 };
 
-
-
 exports.addToCart = async (req, res) => {
   try {
     if (!req.userId) {
@@ -59,7 +57,7 @@ exports.addToCart = async (req, res) => {
       return res.status(404).json({ message: "Product not found." });
     }
 
-    let myCart = await cart.findOne({ user: req.userId }).populate("items.product").exec();
+    let myCart = await cart.findOne({ user: req.userId });
 
     if (!myCart) {
       myCart = new cart({
@@ -74,6 +72,7 @@ exports.addToCart = async (req, res) => {
       if (index === -1) {
         myCart.items.push({ product: req.params.id });
       }
+      // If the item is already in the cart, do nothing
     }
 
     await myCart.save();
@@ -99,8 +98,8 @@ exports.removeFromCart = async (req, res) => {
     if (!userCart) {
       return res.status(404).send({ message: "Cart not found" });
     }
-   console.log(userCart.items)
-   console.log(userCart.items[0].product)
+    console.log(userCart.items)
+    console.log(userCart.items[0].product)
     // Check if the item exists in the user's cart
     const itemIndex = userCart.items.findIndex((item) => item.product.toString() === itemId);
 

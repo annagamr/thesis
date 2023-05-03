@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./cart.css";
 import cartService from "../../services/cart.service";
 import { loadStripe } from "@stripe/stripe-js";
 import productService from "../../services/product.service";
+import { CartContext } from "./CartContext";
 
 const Cart = () => {
   const [deliveryMethod, setDeliveryMethod] = useState("shipping");
@@ -12,6 +13,7 @@ const Cart = () => {
   const [pickupLocations, setPickupLocations] = useState([]);
   const [pickupOption, setPickupOption] = useState("single");
   const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
+  const { totalItems, setTotalItems } = useContext(CartContext);
 
   const stripePromise = loadStripe(
     "pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7qnCLLlhtn9iQ9Tn0va2gE0Y5K1YtA6OV5C6TipZhlzN11eVGChz00gbfcz1bj"
@@ -105,9 +107,7 @@ const Cart = () => {
     JSON.parse(localStorage.getItem("user")) ? cartItems : guestCartItems
   ).filter((item) => item !== null);
 
-
   const handleProceedToPayment = async () => {
-
     setIsPaymentProcessing(true);
 
     const user = JSON.parse(localStorage.getItem("user"));
@@ -170,6 +170,8 @@ const Cart = () => {
         localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
         setGuestCartItems(guestCartItems.filter((item) => item.id !== itemId));
       }
+      // Update the total items count in the context
+      setTotalItems(totalItems - 1);
     } catch (error) {
       console.error("Error removing item from cart:", error);
     }
@@ -263,37 +265,41 @@ const Cart = () => {
             </div>
           )}
           <div className="proceed">
-          <button onClick={handleProceedToPayment} disabled={isPaymentProcessing}>
-  Proceed to payment
-</button>          </div>
+            <button
+              onClick={handleProceedToPayment}
+              disabled={isPaymentProcessing}
+            >
+              Proceed to payment
+            </button>{" "}
+          </div>
         </div>
       </div>
       <div className="order_summary">
         <h1>Order Summary</h1>
         <div className="summary_card">
-        <div className="summary_items">
-          {itemsToDisplay.map((item, index) => (
-            <div key={index} className="cart_item">
-              <div className="product_img">
-                <img
-                  src={"http://localhost:3002/" + item.image}
-                  alt="Product"
-                />{" "}
-              </div>
-              <div className="product_info">
-                <h1>{item.title}</h1>
-                <button
-                  className="close-btn"
-                  onClick={() => handleRemoveFromCart(item.id)}
-                >
-                  &times;
-                </button>
-                <div className="product_rate_info">
-                  <p>HUF {item.price}</p>
+          <div className="summary_items">
+            {itemsToDisplay.map((item, index) => (
+              <div key={index} className="cart_item">
+                <div className="product_img">
+                  <img
+                    src={"http://localhost:3002/" + item.image}
+                    alt="Product"
+                  />{" "}
+                </div>
+                <div className="product_info">
+                  <h1>{item.title}</h1>
+                  <button
+                    className="close-btn"
+                    onClick={() => handleRemoveFromCart(item.id)}
+                  >
+                    &times;
+                  </button>
+                  <div className="product_rate_info">
+                    <p>HUF {item.price}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
           </div>
           <hr />
           <div className="order_price">

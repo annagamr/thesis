@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./shop.css";
+import { CartContext } from "../cart/CartContext";
+import cartService from "../../services/cart.service";
+
 
 const Shop = (props) => {
   const [products, setProducts] = useState([]);
@@ -9,15 +12,37 @@ const Shop = (props) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const { totalItems, setTotalItems } = useContext(CartContext);
 
   useEffect(() => {
     const checkLoggedIn = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       setIsLoggedIn(!!user);
+      setUser(user);
     };
 
     checkLoggedIn();
   }, []);
+
+  const updateTotalItems = () => {
+    if (isLoggedIn) {
+      // If user is logged in, update totalItems based on the user's cart
+      const fetchCartProducts = async () => {
+        try {
+          const response = await cartService.getCart(user.id);
+          setTotalItems(response.numberOfItems);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchCartProducts();
+    } else {
+      // If user is not logged in, update totalItems based on the guestCart in localStorage
+      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+      setTotalItems(guestCart.length);
+    }
+  };
 
   const handleAddClick = async (productId) => {
     // If user is logged in
@@ -48,8 +73,7 @@ const Shop = (props) => {
       [productId]: !addedProducts[productId],
     });
 
-    // Call updateTotalItems after adding the product to the cart
-    props.updateTotalItems();
+    updateTotalItems();
   };
 
   const handleChange = (event) => {
@@ -74,7 +98,6 @@ const Shop = (props) => {
   useEffect(() => {
     fetchProducts(selectedCategory);
   }, [selectedCategory]);
-
 
   return (
     <div className="shop-page-container" data-testid="shop-page">
