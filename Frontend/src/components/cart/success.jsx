@@ -24,7 +24,7 @@ const Success = () => {
           }
         );
 
-        if (!response.ok) {
+        if (response.status !== 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
@@ -36,8 +36,7 @@ const Success = () => {
             userId: userId,
           }
         );
-
-        if (!clearCartResponse.ok) {
+        if (clearCartResponse.status !== 200) {
           throw new Error(`HTTP error! Status: ${clearCartResponse.status}`);
         }
       } catch (error) {
@@ -66,8 +65,7 @@ const Success = () => {
         {!error && (
           <p className="cart_cleared_message">Cart cleared successfully</p>
         )}
-
-        {error && <p className="error_message">{error}</p>}
+        {error && <p>{error}</p>}
       </div>
     </div>
   );

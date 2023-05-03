@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./shop.css";
 
-const Shop = () => {
+const Shop = (props) => {
   const [products, setProducts] = useState([]);
   const [addedProducts, setAddedProducts] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -47,7 +47,11 @@ const Shop = () => {
       ...addedProducts,
       [productId]: !addedProducts[productId],
     });
+
+    // Call updateTotalItems after adding the product to the cart
+    props.updateTotalItems();
   };
+
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);
   };
@@ -70,6 +74,7 @@ const Shop = () => {
   useEffect(() => {
     fetchProducts(selectedCategory);
   }, [selectedCategory]);
+
 
   return (
     <div className="shop-page-container" data-testid="shop-page">

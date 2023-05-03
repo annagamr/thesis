@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
-const MapComponent = ({ street, city, zipCode }) => {
+const MapComponent = ({ street, city, zipCode, isDataAvailable }) => {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
   const markerRef = useRef(null);
@@ -37,7 +37,9 @@ const MapComponent = ({ street, city, zipCode }) => {
               '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           }).addTo(initialMap);
 
-          const initialMarker = L.marker([lat, lon], { icon: customIcon }).addTo(initialMap);
+          const initialMarker = L.marker([lat, lon], {
+            icon: customIcon,
+          }).addTo(initialMap);
 
           mapInstance.current = initialMap;
           markerRef.current = initialMarker;
@@ -51,8 +53,10 @@ const MapComponent = ({ street, city, zipCode }) => {
     if (mapRef.current) {
       fetchLocationAndRenderMap();
     }
-  }, [street, city, zipCode, customIcon]);
-
+  }, [street, city, zipCode, customIcon, mapRef.current]);
+  if (!isDataAvailable) {
+    return null;
+  }
   return <div ref={mapRef} style={{ height: "450px", width: "100%" }} />;
 };
 

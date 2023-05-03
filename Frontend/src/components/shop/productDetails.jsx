@@ -26,10 +26,12 @@ const ProductDetails = (props) => {
   return (
     <div className="product-details-container">
       <div className="product-image-details">
-        <img
-          src={"http://localhost:3002/" + product.image}
-          alt={product.title}
-        />
+        {product.image && (
+          <img
+            src={"http://localhost:3002/" + product.image}
+            alt={product.title}
+          />
+        )}
       </div>
       <div className="product-description">
         <h2>{product.title}</h2>
@@ -43,6 +45,9 @@ const ProductDetails = (props) => {
           street={product.street}
           city={product.city}
           zipCode={product.zipCode}
+          isDataAvailable={
+            !!(product.street && product.city && product.zipCode)
+          }
         />
       </div>
     </div>
