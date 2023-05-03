@@ -211,12 +211,12 @@ const BoardAdmin = () => {
             <h3>
               Number of Users: {userCount}
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              Number of Shops: {filteredShops.length}
+              Number of Shops: {filteredShops?.length}
             </h3>
             <div className="lists">
               <div>
                 <ol className="users-list">
-                  {filteredUsers.map((user) => (
+                  {filteredUsers?.map((user) => (
                     <React.Fragment key={user.username}>
                       <li>
                         {user.username}{" "}
@@ -243,7 +243,7 @@ const BoardAdmin = () => {
               </div>
               <div>
                 <ol className="shops-list">
-                  {filteredShops.map((shop) => (
+                  {filteredShops?.map((shop) => (
                     <React.Fragment key={shop.username}>
                       <li>
                         {shop.username}{" "}
@@ -276,7 +276,7 @@ const BoardAdmin = () => {
               <h3>Number of Products: {productCount}</h3>
               <div className="products-listed">
                 <ol className="products-list">
-                  {filteredProducts.map((product) => (
+                  {filteredProducts?.map((product) => (
                     <React.Fragment key={product.id}>
                       <li>
                         <button
@@ -307,7 +307,7 @@ const BoardAdmin = () => {
               <h3>Number of Blogs: {blogCount}</h3>
               <div className="blogs-listed">
                 <ol className="blogs-list">
-                  {filteredBlogs.map((blogs) => (
+                  {filteredBlogs?.map((blogs) => (
                     <React.Fragment key={blogs.id}>
                       <li>
                         {blogs.title}
