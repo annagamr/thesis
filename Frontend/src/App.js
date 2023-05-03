@@ -29,6 +29,8 @@ function App() {
     <div className="App" >
       <Router>
         <Header data-testid="header" />
+        <div className="app-content">
+
         <Routes>
           <Route path="/" element={<About data-testid="about" />} />
           <Route path="/shop" element={<Shop />} />
@@ -57,6 +59,7 @@ function App() {
 
 
         </Routes>
+        </div>
         <Footer data-testid="footer" />
 
       </Router>

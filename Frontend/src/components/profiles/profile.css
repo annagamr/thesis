@@ -127,14 +127,17 @@
     background: white;
     box-shadow: 0 4px 30px rgb(150 161 216 / 66%);
     backdrop-filter: blur(9.2px);
+    text-align: center;
+
 }
 
 .faq-title {
     background-color: #e8464c;
     transform: rotate(-90deg);
     width: 720px;
+    height: 7rem;
     text-align: center;
-    font-size: 100px;
+    font-size: 70px;
     font-family: 'Cormorant', serif;
     position: absolute;
     top: 447px;
@@ -142,4 +145,5 @@
     color: rgb(255, 255, 255);
     letter-spacing: 35px;
     border-radius: 5px;
+    padding-top: 25px;
 }

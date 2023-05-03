@@ -24,6 +24,7 @@
     height: 100%;
     display: flex;
     transition: 1s ease;
+    
 }
 
 .slide {
@@ -277,34 +278,35 @@
 
 .how-to {
     border-radius: 20px;
-
+    font-size: 20px;
     position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 195rem;
+    margin-top: 192rem;
     margin-left: 23rem;
     width: 60%;
     background-color: rgb(246, 239, 230);
 }
 
 .how-image {
-
     width: 55%;
 }
 
 .how-image img {
-    width: 70%;
+    width: 80%;
     height: auto;
+    margin-left: -115px;
 }
 
 .list-container {
     width: 50%;
-    margin-right: 50px;
+    margin-right: 70px;
     height: 35rem;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 73px;
+    margin-top: 33px;
 }
 
 .list-container h2 {

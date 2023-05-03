@@ -6,7 +6,7 @@
     background-color: #f9f9f6;
     padding: 5rem 3rem;
     border-radius: 10px;
-    min-height: calc(100vh-60px);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -157,8 +157,8 @@
     background-color: rgb(234, 234, 229);
 }
 
-#no-blogs {
-    top: 10rem;
+#no-blogs-shop {
+    top: 25rem;
     position:absolute;
     letter-spacing: 2px;
     text-align: center;

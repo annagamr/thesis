@@ -267,26 +267,26 @@ const Blog = ({ user }) => {
       <div className="categories">
         <div className="topic-item">
           Skin Care
-          <br /> ({skin})
+           ({skin})
         </div>
         <div className="topic-item">
           Make up
-          <br /> ({makeUp})
+           ({makeUp})
         </div>
         <div className="topic-item">
-          Health & Beauty <br /> ({health})
+          Health & Beauty ({health})
         </div>
         <div className="topic-item">
-          Product Recommendation <br /> ({recommendation})
+          Recommendations  ({recommendation})
         </div>
         <div className="topic-item">
-          Hair & Hair Products <br /> ({hair})
+          Hair & Hair Products ({hair})
         </div>
         <div className="topic-item">
-          Sun & Tanning <br /> ({sun})
+          Sun & Tanning  ({sun})
         </div>
         <div className="topic-item">
-          Perfumes <br /> ({perfume})
+          Perfumes  ({perfume})
         </div>
       </div>
 

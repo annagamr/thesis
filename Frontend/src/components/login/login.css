@@ -7,22 +7,19 @@
     align-items: center;
 }
 .login-container{
-    height: 70%;
-    width: 30%;
+    height: 75%;
+    width: 25%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: white;
-    padding: 20px;
+    padding: 25px;
     border-radius: 20px;
 }
 .title{
     font-family: 'Times New Roman', Times, serif;
-    margin-top: -50px;
     font-size: 35px;
-    cursor: pointer;
-
 }
 .item-password,.item-username {
     padding-bottom: 20px;
@@ -35,7 +32,7 @@
 
 input {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 18px;
+    font-size: 15px;
     cursor: pointer;
 }
 .error {
@@ -51,5 +48,6 @@ input {
     color: blue;
     bottom: 1rem;
     left: 5px;
+    font-size: 20px;
 } 
 

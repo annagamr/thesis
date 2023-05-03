@@ -126,7 +126,7 @@ const Shop = () => {
             </Link>
           ))
         ) : (
-          <h2 id="no-blogs">
+          <h2 id="no-blogs-shop">
             No Products to Display! <br />
             Check Back Soon!
           </h2>

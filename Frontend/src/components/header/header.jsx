@@ -124,7 +124,7 @@ const Header = () => {
         {currentUser ? (
           <div>
             <li>
-              <Link to="/profile">Prof</Link>
+              <Link to="/profile">My Profile</Link>
             </li>{" "}
             <li>
               <a href="/signin" onClick={logOut} className="icon" data-testid="logout-icon">

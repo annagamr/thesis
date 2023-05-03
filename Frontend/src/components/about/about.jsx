@@ -209,11 +209,6 @@ const About = () => {
               Create an account with an e-commerce platform of your choice by
               providing basic information such as name, email, and password.
             </p>
-            <li>Customize your shop</li>
-            <p>
-              Choose a name and theme for your shop, and upload a logo and cover
-              photo. Set up payment and shipping options.
-            </p>
             <li>Add Products</li>
             <p>
               Add product details such as name, description, price, and images.
