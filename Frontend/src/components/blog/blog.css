@@ -2,7 +2,7 @@
     width: 100%;
     max-width: 130rem;
     margin: 0 auto;
-    margin-top: 3rem;
+    /* margin-top: 3rem; */
     background: #7f7fd5;
     background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
     min-height: 100vh;
@@ -26,6 +26,7 @@
     text-align: center;
     letter-spacing: 5px;
     margin-bottom: 15px;
+    color: #3b55f5ed;
 }
 
 .item-title,
@@ -63,10 +64,10 @@
 .add-post button {
     display: block;
     margin: 0 auto;
-    background-color: #bf6b63;
+    background-color: #223de1;
     color: #fff;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: normal !important;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -82,16 +83,16 @@
     font-size: 40px;
     text-align: center;
     letter-spacing: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 35px;
 }
 
 .if-success button {
     display: block;
     margin: 0px auto;
-    background-color: #bf6b63;
+    background-color: #223de1;
     color: #fff;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: normal !important;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;

@@ -21,13 +21,14 @@
 }
 
 .title h2 {
-    font-family: 'Dancing Script', cursive;
+    font-family: Gelica, Georgia, system-ui, cursive;
     font-size: 50px;
     text-align: center;
-    letter-spacing: 5px;
-
+    letter-spacing: 6px;
 }
-
+.item-button {
+    margin-top: 10px;
+}
 .title h3 {
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;

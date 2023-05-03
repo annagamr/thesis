@@ -263,7 +263,7 @@ const AddProduct = () => {
     <div>
       {userRole === "non-seller" && (
         <div className="container">
-          <header className="jumbotron">
+          <header className="jumbotron" data-testid="header-add">
             <h3>{access}</h3>
           </header>
         </div>
@@ -274,7 +274,7 @@ const AddProduct = () => {
             {/* form */}
             <div className="add-product-page">
               <form onSubmit={handleProduct} encType="multipart/form-data">
-                {!successful && <h2 id="header-add">Add New Product</h2>}
+                {!successful && <h2>Add New Product</h2>}
                 {!successful && (
                   <div>
                     <div className="item-image">
@@ -291,6 +291,7 @@ const AddProduct = () => {
                     <div className="item-title">
                       <label htmlFor="title">Title</label>
                       <input
+                        id="title"
                         type="text"
                         style={{ width: "30rem" }}
                         maxLength={25}
@@ -305,6 +306,7 @@ const AddProduct = () => {
                     <div className="item-description">
                       <label htmlFor="description">Description</label>
                       <textarea
+                        id="description"
                         rows="5"
                         style={{ width: "30rem" }}
                         name="description"
@@ -321,6 +323,7 @@ const AddProduct = () => {
                     <div className="item-category">
                       <label htmlFor="category">Category</label>
                       <select
+                        id="category"
                         name="category"
                         style={{ width: "30rem" }}
                         value={category}
@@ -343,6 +346,7 @@ const AddProduct = () => {
                     <div className="item-price">
                       <label htmlFor="price">Price</label>
                       <input
+                        id="price"
                         type="number"
                         style={{ width: "30rem" }}
                         maxLength={40}
@@ -358,6 +362,7 @@ const AddProduct = () => {
                         Address (Street name, House No./Apt No.):
                       </label>
                       <input
+                        id="street"
                         type="text"
                         style={{ width: "30rem" }}
                         maxLength={40}
@@ -371,7 +376,7 @@ const AddProduct = () => {
 
                     <div className="item-city">
                       <label htmlFor="city">City: </label>
-                      <select name="city" id="">
+                      <select name="city" id="city">
                         <option value="">Budapest</option>
                       </select>
                     </div>
@@ -379,6 +384,7 @@ const AddProduct = () => {
                     <div className="item-zip">
                       <label htmlFor="zipCode">Zip Code: </label>
                       <input
+                        id="zipCode"
                         type="text"
                         style={{ width: "30rem" }}
                         maxLength={40}
@@ -393,6 +399,7 @@ const AddProduct = () => {
                     <div className="item-contact">
                       <label htmlFor="contactNumber">Phone Number: </label>
                       <input
+                        id="contactNumber"
                         type="text"
                         style={{ width: "30rem" }}
                         maxLength={40}
@@ -405,26 +412,44 @@ const AddProduct = () => {
                     {error.contact && <p className="error">{error.contact}</p>}
 
                     <div className="add-post">
-                      <button>Add Product</button>
+                      <button
+                        role="button"
+                        aria-label="Add Product"
+                        data-testid="submit-button"
+                      >
+                        Add Product
+                      </button>{" "}
                     </div>
                   </div>
                 )}
                 {successful && (
                   <div>
                     <div className="product-details">
-                      <h2>{message}</h2>
+                      <h2 data-testid="success-message">{message}</h2>
                       <div className="added-details">
-                        <h3 style={{ marginTop: "50px", marginBottom:"-40px" }}>Product Details:</h3>
-                        <p style={{ marginTop: "70px"}}>Image:</p>
+                        <h3
+                          style={{ marginTop: "50px", marginBottom: "-40px" }}
+                        >
+                          Product Details:
+                        </h3>
+                        <p style={{ marginTop: "70px" }}>Image:</p>
                         <img
                           id="image-id"
                           src={URL.createObjectURL(prodImageFile)}
                         />
 
-                        <p style={{ marginTop: "20px", marginBottom:"-40px" }}><b>Title:</b> {title}</p>
-                        <p style={{ marginTop: "70px" }}>Description: {description}</p>
-                        <p style={{ marginTop: "70px", marginBottom:"-40px" }}><b>Category:</b> {category}</p>
-                        <p style={{ marginTop: "70px", marginBottom:"-40px" }}><b>Price:</b> {price} HUF</p>
+                        <p style={{ marginTop: "20px", marginBottom: "-40px" }}>
+                          <b>Title:</b> {title}
+                        </p>
+                        <p style={{ marginTop: "70px" }}>
+                          Description: {description}
+                        </p>
+                        <p style={{ marginTop: "70px", marginBottom: "-40px" }}>
+                          <b>Category:</b> {category}
+                        </p>
+                        <p style={{ marginTop: "70px", marginBottom: "-40px" }}>
+                          <b>Price:</b> {price} HUF
+                        </p>
                       </div>
                     </div>
                     <button id="add-more-prod" onClick={resetForm}>

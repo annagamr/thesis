@@ -109,7 +109,7 @@ const Login = (props) => {
     <div className="sign-in">
       <div className="login-container">
         <div className="title">
-          <h2>Sign In</h2>
+          <h2>SIGN IN</h2>
         </div>
         <form onSubmit={handleLogin}>
           <div className="item-username">
