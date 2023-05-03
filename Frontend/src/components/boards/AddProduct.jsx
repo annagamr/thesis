@@ -268,7 +268,7 @@ const AddProduct = () => {
           </header>
         </div>
       )}
-      {userRole != "non-seller" && (
+      {userRole !== "non-seller" && (
         <div className="main-container">
           <div className="product-container">
             {/* form */}
@@ -436,6 +436,7 @@ const AddProduct = () => {
                         <img
                           id="image-id"
                           src={URL.createObjectURL(prodImageFile)}
+                          alt=""
                         />
 
                         <p style={{ marginTop: "20px", marginBottom: "-40px" }}>

@@ -198,7 +198,7 @@ const BoardAdmin = () => {
           </header>
         </div>
       )}
-      {userRole != "non-admin" && (
+      {userRole !== "non-admin" && (
         <div className="mainContainer">
           <MessageModal
             show={showModal}

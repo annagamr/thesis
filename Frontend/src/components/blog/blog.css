@@ -79,17 +79,20 @@
 }
 
 .if-success h2 {
-    font-family: 'Dancing Script', cursive;
+    font-family: Gelica, Georgia, system-ui, cursive;
     font-size: 40px;
     text-align: center;
     letter-spacing: 5px;
     margin-bottom: 35px;
+    color: #51519b !important;
+    margin-top: 45px !important;
+    font-style: italic;
 }
 
 .if-success button {
     display: block;
     margin: 0px auto;
-    background-color: #223de1;
+    background-color: #51519b;
     color: #fff;
     font-size: 18px;
     font-weight: normal !important;

@@ -20,7 +20,7 @@ export async function signin(username, password) {
     console.error(error);
     return {
       success: false,
-      error: "Unsuccessful Login Attempt! Double check your credentials!",
+      error: "Unsuccessful Login Attempt!",
     };
   }
 }

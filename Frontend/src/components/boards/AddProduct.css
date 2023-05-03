@@ -105,8 +105,9 @@
   }
 .error {
     color: red;
-    font-size: 0.9rem;
-    margin-top: 0.2rem;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    letter-spacing: 1px;
   }
 
 /* Media Queries for Responsiveness */
