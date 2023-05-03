@@ -4,6 +4,7 @@ import "./sellerProducts.css";
 
 const SellerProducts = () => {
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -12,7 +13,7 @@ const SellerProducts = () => {
         const response = await productService.getSellerProducts(user.id);
         setProducts(response.data);
       } catch (error) {
-        console.log(error);
+        setError(error.message);
       }
     };
     fetchProducts();
@@ -21,10 +22,11 @@ const SellerProducts = () => {
   return (
     <div className="products-page">
       <h2 className="seller-h2">My Products:</h2>
+      {error && <p className="error-message">{error}</p>}
       <div className="my-products">
         {products.length > 0 ? (
           products.map((product) => (
-            <div className="myCard" key={product.id}>
+            <div className="myCard" data-testid="product-card" key={product.id}>
               <div className="card-image">
                 <img src={"http://localhost:3002/" + product.image} alt="" />
               </div>
