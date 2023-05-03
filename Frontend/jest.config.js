@@ -17,7 +17,5 @@ module.exports = {
         "node_modules/(?!(axios)/)"
       ],
       setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"]
-
-      
 }
 

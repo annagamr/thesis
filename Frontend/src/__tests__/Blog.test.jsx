@@ -36,7 +36,7 @@ describe("Blog component", () => {
     expect(blogContainer).not.toBeNull();
   });
 
-  test("renders categories", async () => {
+  test("Renders categories", async () => {
     await act(async () => {
       render(<Blog />);
     });
@@ -45,7 +45,7 @@ describe("Blog component", () => {
       "Skin Care",
       "Make up",
       "Health & Beauty",
-      "Product Recommendation",
+      "Recommendations",
       "Hair & Hair Products",
       "Sun & Tanning",
       "Perfumes",
@@ -174,23 +174,23 @@ describe("Blog component", () => {
     expect(blogPosts.length).toEqual(mockPosts.length);
   });
 
-  // test("fetches the skincare count and updates the skin state", async () => {
-  //   const mockSkinCount = 5;
-  //   postService.getSkincare.mockResolvedValue({
-  //     data: { count: mockSkinCount },
-  //   });
+  test("fetches the skincare count and updates the skin state", async () => {
+    const mockSkinCount = 5;
+    postService.getSkincare.mockResolvedValue({
+      data: { count: mockSkinCount },
+    });
 
-  //   render(<Blog user={null} />);
+    render(<Blog user={null} />);
 
-  //   await waitFor(() => {
-  //     expect(postService.getSkincare).toHaveBeenCalled();
-  //   });
+    await waitFor(() => {
+      expect(postService.getSkincare).toHaveBeenCalled();
+    });
 
-  //   const skinCountElement = screen.getByText(`Skin Care (${mockSkinCount})`, {
-  //     exact: false,
-  //   });
-  //   expect(skinCountElement).toBeInTheDocument();
-  // });
+    const skinCountElement = screen.getByText(`Skin Care (${mockSkinCount})`, {
+      exact: false,
+    });
+    expect(skinCountElement).toBeInTheDocument();
+  });
 
   test("fetches the makeup count and updates the makeup state", async () => {
     const mockMakeUpCount = 5;

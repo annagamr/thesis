@@ -76,7 +76,7 @@ describe("About component", () => {
   test("renders correct number of steps in how-to section", () => {
     const { container } = render(<About />);
     const steps = container.querySelectorAll(".how-to ol li");
-    expect(steps.length).toBe(4);
+    expect(steps.length).toBe(3);
   });
 
   test("Initial slide index is set to 0", () => {

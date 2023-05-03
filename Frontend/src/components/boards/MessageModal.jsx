@@ -6,7 +6,7 @@ const MessageModal = ({ show, message, type, onClose }) => {
     <>
       {show && (
         <div className="message-modal">
-          <div className={`modal-content ${type}`}>
+          <div className={`modal-content ${type}`} data-testid="modal-content">
             <span className="close" onClick={onClose}>
               &times;
             </span>
