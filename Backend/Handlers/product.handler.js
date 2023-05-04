@@ -48,7 +48,7 @@ exports.addProduct = async (req, res) => {
         req.body.image = req.file.path
         const product = await create(req.body);
         const user = req.body.author;
-        console.log(user)
+        // console.log(user)
         await assignProductToSeller(user, product);
         // Send a success message to the client
         res.status(200).send({ message: "Product has Been Added Successfully!", product: product });
