@@ -99,7 +99,6 @@ exports.countPostsByTopic = async (req, res) => {
     try {
       const postId = req.params.id;
       const deletedPost = await post.findByIdAndDelete(postId);
-        console.log(deletedPost)
       if (!deletedPost) {
         return res.status(500).json({ message: 'Blog not found' });
       }
