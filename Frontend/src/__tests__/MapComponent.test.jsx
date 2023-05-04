@@ -41,13 +41,13 @@ describe("MapComponent", () => {
 
   test("1. MapComponent renders correctly with the given address", async () => {
     const { container } = render(
-      <MapComponent street="10 Downing St" city="London" zipCode="SW1A 2AA" />
+      <MapComponent street="10 Downing St" city="London" zipCode="SW1A 2AA" isDataAvailable={true} />
     );
-
+  
     await waitFor(() =>
       expect(container.querySelector("div")).toBeInTheDocument()
     );
-
+  
     expect(container.querySelector("div")).toHaveStyle({
       height: "450px",
       width: "100%",
@@ -56,7 +56,7 @@ describe("MapComponent", () => {
 
   test("2. MapComponent updates when the address changes", async () => {
     const { rerender } = render(
-      <MapComponent street="10 Downing St" city="London" zipCode="SW1A 2AA" />
+      <MapComponent street="10 Downing St" city="London" zipCode="SW1A 2AA" isDataAvailable={true}/>
     );
 
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
@@ -66,6 +66,7 @@ describe("MapComponent", () => {
         street="Buckingham Palace"
         city="London"
         zipCode="SW1A 1AA"
+        isDataAvailable={true}
       />
     );
 

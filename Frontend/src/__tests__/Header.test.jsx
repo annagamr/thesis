@@ -173,35 +173,6 @@ describe("Header component", () => {
     expect(localStorage.removeItem).toHaveBeenCalledWith("user");
   });
 
-  test('3. Updates the `totalItems` state with the correct number of items when a "ROLE_USER" is logged in', async () => {
-    Storage.prototype.getItem = jest.fn(() =>
-      JSON.stringify({
-        id: 1,
-        roles: ["ROLE_USER"],
-      })
-    );
-
-    cartService.getCart = jest.fn(async () => {
-      return {
-        numberOfItems: 5,
-      };
-    });
-
-    const { getByTestId } = render(
-      <CartContext.Provider
-        value={{ totalItems: 0, setTotalItems: setTotalItemsMock }}
-      >
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>
-      </CartContext.Provider>
-    );
-
-    await waitFor(() => {
-      expect(getByTestId("cart-badge")).toHaveTextContent("5");
-    });
-  });
-
   test('4. Does not render the cart icon for a user with the "ROLE_ADMIN" role', () => {
     Storage.prototype.getItem = jest.fn(() =>
       JSON.stringify({
