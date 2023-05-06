@@ -81,6 +81,7 @@ if (require.main === module) {
 // Export the functions for testing
 module.exports = {
   createApp,
+  startServer,
   connectAndInitialize,
   db
 };
