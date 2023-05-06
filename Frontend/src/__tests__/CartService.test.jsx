@@ -9,7 +9,7 @@ describe('CartService Tests', () => {
   });
 
   test('2. Test if the baseURL property is set correctly in the cartService instance', () => {
-    const expectedURL = 'http://localhost:3002/api/cart';
+    const expectedURL = process.env.REACT_APP_BACKEND_ENDPOINT + '/api/cart';
     expect(CartService.baseURL).toBe(expectedURL);
   });
 

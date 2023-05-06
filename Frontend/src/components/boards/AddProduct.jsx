@@ -136,7 +136,7 @@ const AddProduct = () => {
   ) {
     try {
       const response = await axios.post(
-        "http://localhost:3002/api/add-product",
+        process.env.REACT_APP_BACKEND_ENDPOINT + "/api/add-product",
         {
           prodImageFile,
           prodImageName,

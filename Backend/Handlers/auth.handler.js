@@ -115,7 +115,7 @@ exports.forgotPassword = async (req, res) => {
       to: email,
       subject: 'Password Reset Link',
       html: `<h2> Please, follow the provided Link to reset your password! </h2>
-             <h1>http://localhost:3000/resetPassword/${tokenPass}</h1>`
+             <h1>` + process.env.FRONTEND_ENDPOINT + `/resetPassword/${tokenPass}</h1>`
     }
 
     await user.updateOne({ resetLink: tokenPass });

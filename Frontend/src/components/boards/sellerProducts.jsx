@@ -28,7 +28,7 @@ const SellerProducts = () => {
           products.map((product) => (
             <div className="myCard" data-testid="product-card" key={product.id}>
               <div className="card-image">
-                <img src={"http://localhost:3002/" + product.image} alt="" />
+                <img src={process.env.REACT_APP_BACKEND_ENDPOINT + "/" + product.image} alt="" />
               </div>
               <p className="card-title">{product.title}</p>
               <p className="card-uploaded">{product.added}</p>

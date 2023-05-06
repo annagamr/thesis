@@ -29,7 +29,7 @@ describe("UserService Tests", () => {
 
     await UserService.userAccess();
 
-    expect(mockedGet).toHaveBeenCalledWith("http://localhost:3002/api/user", {
+    expect(mockedGet).toHaveBeenCalledWith(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/user", {
       headers: UserService.getAccessTokenHeaderFromLocalStorage(),
     });
   });
@@ -40,7 +40,7 @@ describe("UserService Tests", () => {
 
     await UserService.sellerAccess();
 
-    expect(mockedGet).toHaveBeenCalledWith("http://localhost:3002/api/seller", {
+    expect(mockedGet).toHaveBeenCalledWith(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/seller", {
       headers: UserService.getAccessTokenHeaderFromLocalStorage(),
     });
   });
@@ -51,7 +51,7 @@ describe("UserService Tests", () => {
 
     await UserService.adminAccess();
 
-    expect(mockedGet).toHaveBeenCalledWith("http://localhost:3002/api/admin", {
+    expect(mockedGet).toHaveBeenCalledWith(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/admin", {
       headers: UserService.getAccessTokenHeaderFromLocalStorage(),
     });
   });

@@ -50,7 +50,7 @@ const Shop = (props) => {
     if (accessToken) {
       try {
         const response = await axios.post(
-          `http://localhost:3002/api/cart/add/${productId}`,
+          process.env.REACT_APP_BACKEND_ENDPOINT + `/api/cart/add/${productId}`,
           {},
           { headers: { "x-access-token": accessToken } }
         );
@@ -83,7 +83,7 @@ const Shop = (props) => {
   const fetchProducts = async (category) => {
     try {
       const response = await axios.get(
-        `http://localhost:3002/api/products${
+        process.env.REACT_APP_BACKEND_ENDPOINT + `/api/products${
           category ? `?category=${encodeURIComponent(category)}` : ""
         }`
       );
@@ -128,7 +128,7 @@ const Shop = (props) => {
                 <div className="product-image-button-container">
                   <div className="product-image">
                     <img
-                      src={"http://localhost:3002/" + product.image}
+                      src={process.env.REACT_APP_BACKEND_ENDPOINT + "/" + product.image}
                       alt="Product"
                     />
                   </div>

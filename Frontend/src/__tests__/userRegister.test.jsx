@@ -134,7 +134,7 @@ describe("UserRegister component", () => {
     fireEvent.click(submitButton);
   
     await waitFor(() => expect(axios.post).toHaveBeenCalledTimes(1));
-    expect(axios.post).toHaveBeenCalledWith("http://localhost:3002/api/auth/signup", {
+    expect(axios.post).toHaveBeenCalledWith(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/auth/signup", {
       username: "john123",
       email: "john@example.com",
       password: "password123",

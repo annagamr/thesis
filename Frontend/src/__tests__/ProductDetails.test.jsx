@@ -62,7 +62,7 @@ describe("ProductDetails component", () => {
     const image = await screen.findByRole("img", { name: "Test Product" });
     expect(image).toHaveAttribute(
       "src",
-      "http://localhost:3002/test-image.jpg"
+      process.env.REACT_APP_BACKEND_ENDPOINT + "/test-image.jpg"
     );
   });
 });

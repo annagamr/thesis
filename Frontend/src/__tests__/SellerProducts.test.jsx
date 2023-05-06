@@ -123,7 +123,7 @@ describe("SellerProducts Component", () => {
       const imgElement = screen.getByRole("img");
       expect(imgElement).toHaveAttribute(
         "src",
-        "http://localhost:3002/image1.jpg"
+        process.env.REACT_APP_BACKEND_ENDPOINT + "/image1.jpg"
       );
     });
   });

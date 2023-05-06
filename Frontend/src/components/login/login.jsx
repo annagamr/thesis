@@ -8,7 +8,7 @@ import cartService from "../../services/cart.service";
 
 export async function signin(username, password) {
   try {
-    const response = await axios.post("http://localhost:3002/api/auth/signin", {
+    const response = await axios.post(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/auth/signin", {
       username,
       password,
     });
@@ -78,7 +78,7 @@ const Login = (props) => {
               if (!userCartItems.includes(item.product)) {
                 try {
                   await axios.post(
-                    `http://localhost:3002/api/cart/add/${item.product}`,
+                    process.env.REACT_APP_BACKEND_ENDPOINT+`/api/cart/add/${item.product}`,
                     {},
                     { headers: headers }
                   );

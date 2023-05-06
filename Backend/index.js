@@ -1,6 +1,9 @@
 const express = require("express");
+const dotenv = require('dotenv');
 const cors = require("cors");
 const db = require("./Models");
+
+dotenv.config({ path: './.env' });
 
 // Function to create the Express app
 function createApp() {
@@ -9,7 +12,7 @@ function createApp() {
 
   //Setting up Cross Original Resource Sharing options for our server and Server will allow requests from the specific origin
   var corsOptions = {
-    origin: ["http://localhost:3000", "https://checkout.stripe.com"],
+    origin: [process.env.FRONTEND_ENDPOINT, "https://checkout.stripe.com"],
   };
 
   /* Middleware setup */

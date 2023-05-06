@@ -116,7 +116,7 @@ const Cart = () => {
     } else {
       try {
         const response = await fetch(
-          "http://localhost:3002/api/create-checkout-session",
+          process.env.REACT_APP_BACKEND_ENDPOINT + "/api/create-checkout-session",
           {
             method: "POST",
             headers: {
@@ -282,7 +282,7 @@ const Cart = () => {
               <div key={index} className="cart_item">
                 <div className="product_img">
                   <img
-                    src={"http://localhost:3002/" + item.image}
+                    src={process.env.REACT_APP_BACKEND_ENDPOINT + "/" + item.image}
                     alt="Product"
                   />{" "}
                 </div>

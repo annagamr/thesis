@@ -17,7 +17,7 @@ describe("PostService Tests", () => {
     const mockedGet = axios.get.mockResolvedValueOnce(mockResponse);
 
     const actualData = await PostService.getAllPosts();
-    expect(mockedGet).toHaveBeenCalledWith("http://localhost:3002/api/posts");
+    expect(mockedGet).toHaveBeenCalledWith(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/posts");
     expect(actualData.data).toEqual(expectedData);
   });
 
@@ -30,7 +30,7 @@ describe("PostService Tests", () => {
     const mockedGet = axios.get.mockResolvedValueOnce(expectedData);
     const actualData = await PostService.getSkincare();
     expect(mockedGet).toHaveBeenCalledWith(
-      "http://localhost:3002/api/countPostsByTopic/Skincare"
+      process.env.REACT_APP_BACKEND_ENDPOINT + "/api/countPostsByTopic/Skincare"
     );
     expect(actualData).toEqual(expectedData);
   });
@@ -43,7 +43,7 @@ describe("PostService Tests", () => {
 
     const actualData = await PostService.getMakeUp();
     expect(mockedGet).toHaveBeenCalledWith(
-      "http://localhost:3002/api/countPostsByTopic/Make-up"
+      process.env.REACT_APP_BACKEND_ENDPOINT + "/api/countPostsByTopic/Make-up"
     );
     expect(actualData).toEqual(expectedData);
   });
@@ -54,7 +54,7 @@ describe("PostService Tests", () => {
 
     const actualData = await PostService.getHealth();
     expect(mockedGet).toHaveBeenCalledWith(
-      "http://localhost:3002/api/countPostsByTopic/Health"
+      process.env.REACT_APP_BACKEND_ENDPOINT + "/api/countPostsByTopic/Health"
     );
     expect(actualData).toEqual(expectedData);
   });
@@ -65,7 +65,7 @@ describe("PostService Tests", () => {
 
     const actualData = await PostService.getRec();
     expect(mockedGet).toHaveBeenCalledWith(
-      "http://localhost:3002/api/countPostsByTopic/Recommendation"
+      process.env.REACT_APP_BACKEND_ENDPOINT + "/api/countPostsByTopic/Recommendation"
     );
     expect(actualData).toEqual(expectedData);
   });
@@ -76,7 +76,7 @@ describe("PostService Tests", () => {
 
     const actualData = await PostService.getHair();
     expect(mockedGet).toHaveBeenCalledWith(
-      "http://localhost:3002/api/countPostsByTopic/Hair"
+      process.env.REACT_APP_BACKEND_ENDPOINT + "/api/countPostsByTopic/Hair"
     );
     expect(actualData).toEqual(expectedData);
   });
@@ -87,7 +87,7 @@ describe("PostService Tests", () => {
 
     const actualData = await PostService.getSun();
     expect(mockedGet).toHaveBeenCalledWith(
-      "http://localhost:3002/api/countPostsByTopic/Sun"
+      process.env.REACT_APP_BACKEND_ENDPOINT + "/api/countPostsByTopic/Sun"
     );
     expect(actualData).toEqual(expectedData);
   });
@@ -98,7 +98,7 @@ describe("PostService Tests", () => {
 
     const actualData = await PostService.getPerfumes();
     expect(mockedGet).toHaveBeenCalledWith(
-      "http://localhost:3002/api/countPostsByTopic/Perfumes"
+      process.env.REACT_APP_BACKEND_ENDPOINT + "/api/countPostsByTopic/Perfumes"
     );
     expect(actualData).toEqual(expectedData);
   });

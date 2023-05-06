@@ -12,7 +12,7 @@ const ProductDetails = (props) => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3002/api/products/${id}`
+          process.env.REACT_APP_BACKEND_ENDPOINT+`/api/products/${id}`
         );
         // console.log(response.data.product);
         setProduct(response.data.product);
@@ -28,7 +28,7 @@ const ProductDetails = (props) => {
       <div className="product-image-details">
         {product.image && (
           <img
-            src={"http://localhost:3002/" + product.image}
+            src={process.env.REACT_APP_BACKEND_ENDPOINT + "/" + product.image}
             alt={product.title}
           />
         )}

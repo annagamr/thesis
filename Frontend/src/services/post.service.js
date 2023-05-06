@@ -2,28 +2,28 @@ import axios from 'axios';
 
 class PostService {
     getAllPosts() {
-        return axios.get('http://localhost:3002/api/posts');
+        return axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + '/api/posts');
     }
     getSkincare() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/Skincare');
+        return axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + '/api/countPostsByTopic/Skincare');
     }
     getMakeUp() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/Make-up');
+        return axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + '/api/countPostsByTopic/Make-up');
     }
     getHealth() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/Health');
+        return axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + '/api/countPostsByTopic/Health');
     }
     getRec() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/Recommendation');
+        return axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + '/api/countPostsByTopic/Recommendation');
     }
     getHair() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/Hair');
+        return axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + '/api/countPostsByTopic/Hair');
     }
     getSun() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/Sun');
+        return axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + '/api/countPostsByTopic/Sun');
     }
     getPerfumes() {
-        return axios.get('http://localhost:3002/api/countPostsByTopic/Perfumes');
+        return axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + '/api/countPostsByTopic/Perfumes');
     }
 }
 

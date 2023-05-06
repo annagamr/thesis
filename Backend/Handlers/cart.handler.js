@@ -148,8 +148,8 @@ exports.checkOut = async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: 'http://localhost:3000/success?successfulPayment=true', // Add the query parameter here
-    cancel_url: `http://localhost:3000/cart`,
+    success_url: process.env.FRONTEND_ENDPOINT + '/success?successfulPayment=true', // Add the query parameter here
+    cancel_url: process.env.FRONTEND_ENDPOINT + `/cart`,
   });
 
   // Return the session ID instead of redirecting

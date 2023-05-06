@@ -4,7 +4,7 @@ import axios from "axios";
 import "./userRegister.css";
 
 function register(username, email, password, roles) {
-  return axios.post("http://localhost:3002/api/auth/signup", {
+  return axios.post(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/auth/signup", {
     username,
     email,
     password,

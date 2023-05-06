@@ -109,7 +109,7 @@ describe("Login component tests", () => {
     await waitFor(() => {
       expect(axios.post).toHaveBeenCalledTimes(1);
       expect(axios.post).toHaveBeenCalledWith(
-        "http://localhost:3002/api/auth/signin",
+        process.env.REACT_APP_BACKEND_ENDPOINT + "/api/auth/signin",
         { username: "testuser", password: "testpassword" }
       );
     });
@@ -159,11 +159,11 @@ describe("Login component tests", () => {
   
 //     await waitFor(() => {
 //       expect(axios.post).toHaveBeenCalledWith(
-//         "http://localhost:3002/api/auth/signin",
+//         process.env.REACT_APP_BACKEND_ENDPOINT + "/api/auth/signin",
 //         { username: "testuser", password: "testpassword" }
 //       );
 //       expect(axios.post).toHaveBeenCalledWith(
-//         "http://localhost:3002/api/cart/add",
+//         process.env.REACT_APP_BACKEND_ENDPOINT + "/api/cart/add",
 //         [{ product: "product1" }],
 //         { headers: { "x-access-token": "testtoken" } }
 //       );

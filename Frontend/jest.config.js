@@ -1,9 +1,5 @@
 module.exports = {
-    // collectCoverage: true,
-    // collectCoverageFrom: ['src/**/*.{js,jsx}'],
-    // coverageDirectory: 'coverage',
     testEnvironment: 'jsdom',
-
     transform: {
         "^.+\\.(js|jsx|mjs|cjs)$": "babel-jest",
       },
@@ -16,6 +12,8 @@ module.exports = {
       transformIgnorePatterns: [
         "node_modules/(?!(axios)/)"
       ],
-      setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"]
+      setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
+      setupFiles: ["<rootDir>/src/setEnvVars.js"],
+
 }
 

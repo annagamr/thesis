@@ -18,7 +18,7 @@ import axios from 'axios';
 
 class CartService {
   constructor() {
-    this.baseURL = 'http://localhost:3002/api/cart';
+    this.baseURL = process.env.REACT_APP_BACKEND_ENDPOINT + '/api/cart';
   }
 
   async getCart(author) {

@@ -58,7 +58,7 @@ const BoardAdmin = () => {
     const fetchUserCount = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3002/api/user-count"
+          process.env.REACT_APP_BACKEND_ENDPOINT + "/api/user-count"
         );
         setUserCount(response.data.count);
         setUsers(response.data.users);
@@ -72,7 +72,7 @@ const BoardAdmin = () => {
     const fetchShopCount = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3002/api/shops-count"
+          process.env.REACT_APP_BACKEND_ENDPOINT + "/api/shops-count"
         );
         setshopCount(response.data.count);
         setShops(response.data.shops);
@@ -86,7 +86,7 @@ const BoardAdmin = () => {
 
     const fetchProductCount = async () => {
       try {
-        const response = await axios.get("http://localhost:3002/api/products");
+        const response = await axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/products");
         setproductCount(response.data.count);
         setProductss(response.data.products);
       } catch (error) {
@@ -99,7 +99,7 @@ const BoardAdmin = () => {
 
     const fetchPostsCount = async () => {
       try {
-        const response = await axios.get("http://localhost:3002/api/posts");
+        const response = await axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/posts");
         setblogCount(response.data.count);
         setBlogs(response.data.allPosts);
       } catch (error) {
@@ -140,7 +140,7 @@ const BoardAdmin = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:3002/api/${apiEndpoint}/${itemId}`,
+          process.env.REACT_APP_BACKEND_ENDPOINT+`/api/${apiEndpoint}/${itemId}`,
           {
             method: "DELETE",
             headers: {

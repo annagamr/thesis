@@ -16,7 +16,7 @@ const Success = () => {
         const itemIds = cartItems.items.map((item) => item.id);
 
         const response = await axios.post(
-          "http://localhost:3002/api/order/create-order",
+          process.env.REACT_APP_BACKEND_ENDPOINT + "/api/order/create-order",
           {
             status: "successful",
             userId: userId,
@@ -31,7 +31,7 @@ const Success = () => {
         localStorage.removeItem("cartItems");
 
         const clearCartResponse = await axios.post(
-          "http://localhost:3002/api/cart/clear-cart",
+          process.env.REACT_APP_BACKEND_ENDPOINT + "/api/cart/clear-cart",
           {
             userId: userId,
           }

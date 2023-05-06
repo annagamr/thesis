@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class UserService {
   constructor() {
-    this.baseURL = 'http://localhost:3002/api';
+    this.baseURL = process.env.REACT_APP_BACKEND_ENDPOINT + '/api';
   }
 
   getAccessTokenHeaderFromLocalStorage() {

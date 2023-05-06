@@ -129,7 +129,7 @@ const Blog = ({ user }) => {
 
   function addPost(title, description, topic, author) {
     return axios
-      .post("http://localhost:3002/api/create-post", {
+      .post(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/create-post", {
         title,
         description,
         topic,

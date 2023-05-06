@@ -10,7 +10,7 @@ const Forgot = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3002/api/forgot-password",
+        process.env.REACT_APP_BACKEND_ENDPOINT + "/api/forgot-password",
         { email }
       );
       setMessage(response.data.message);

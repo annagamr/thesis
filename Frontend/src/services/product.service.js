@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class ProductService {
   getAllProducts() {
-    return axios.get('http://localhost:3002/api/products');
+    return axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + '/api/products');
 
   }
   getSellerProducts(userId) {
