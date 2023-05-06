@@ -160,4 +160,6 @@ module.exports = function (app) {
 
     //Route for checking out (Stripe)
     app.post("/api/create-checkout-session", cartController.checkOut);
+
+    app.get("/api/test", (req, res) => {res.json("Testing")})
 };
