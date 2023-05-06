@@ -45,7 +45,7 @@ exports.signup = async (req, res) => {
     await assignRolesToUser(user, roles);
 
     // Send a success message to the client
-    res.send({ message: "User registered successfully!" });
+    res.status(201).send({ message: "User registered successfully!" });
   } catch (err) {
     // If an error occurs, send a 500 error response to the client with the error message
     res.status(500).send({ message: err });
@@ -230,3 +230,6 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ message: 'Error deleting user: ' + err.message });
   }
 };
+
+exports.createUser = createUser;
+exports.assignRolesToUser = assignRolesToUser;
