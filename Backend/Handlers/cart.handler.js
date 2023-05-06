@@ -96,16 +96,26 @@ exports.removeFromCart = async (req, res) => {
     const userCart = await cart.findOne({ user: userId });
 
     if (!userCart) {
+      // console.log("Case 1: Cart not found");
       return res.status(404).send({ message: "Cart not found" });
     }
-    console.log(userCart.items)
-    console.log(userCart.items[0].product)
+
     // Check if the item exists in the user's cart
-    const itemIndex = userCart.items.findIndex((item) => item.product.toString() === itemId);
+    // const itemIndex = userCart.items.findIndex((item) => item.product.toString() === itemId);
+    const itemIndex = userCart.items.findIndex((item) => item.product.equals(itemId));
 
     if (itemIndex === -1) {
+      // console.log("Case 2: Item not found in cart");
       return res.status(404).send({ message: "Item not found in cart" });
     }
+    // console.log(userCart.items)
+    // console.log(userCart.items[0].product)
+    // Check if the item exists in the user's cart
+    // const itemIndex = userCart.items.findIndex((item) => item.product.toString() === itemId);
+
+    // if (itemIndex === -1) {
+    //   return res.status(404).send({ message: "Item not found in cart" });
+    // }
 
     // Remove the item from the cart
     userCart.items.splice(itemIndex, 1);
