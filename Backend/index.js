@@ -62,13 +62,15 @@ async function connectAndInitialize() {
 
 // Function to start the server
 async function startServer() {
-  const PORT = process.env.PORT || 3002;
   const app = createApp();
-  app.listen(PORT, () => {
-    console.log(`Express server on port: ${PORT}`);
-  });
-
-  await connectAndInitialize();
+  if (process.env.BACKEND_PORT)
+  {
+    app.listen(PORT, () => {
+      console.log(`Express server on port: ${process.env.BACKEND_PORT}`);
+    });
+    await connectAndInitialize(); //temp till hosting backend
+  }
+  // await connectAndInitialize();
 }
 
 // If this file is run directly, start the server
