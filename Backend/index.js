@@ -65,7 +65,7 @@ async function startServer() {
   const app = createApp();
   if (process.env.BACKEND_PORT)
   {
-    app.listen(PORT, () => {
+    app.listen(process.env.BACKEND_PORT, () => {
       console.log(`Express server on port: ${process.env.BACKEND_PORT}`);
     });
     await connectAndInitialize(); //temp till hosting backend
