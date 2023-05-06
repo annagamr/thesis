@@ -16,7 +16,7 @@ afterAll(async () => {
 });
 
 describe('Post model', () => {
-    test('should create a new post', async () => {
+    test('Creates a new post', async () => {
       const createdDate = new Date();
       const authorId = new mongoose.Types.ObjectId();
   
@@ -36,7 +36,7 @@ describe('Post model', () => {
       expect(savedPost.author).toEqual(authorId);
     });
 
-    test('should not create a post without required fields', async () => {
+    test('Does not create post if required fields are missing', async () => {
         const post = new Post({
           title: 'Test Post',
           // Missing other required fields

@@ -14,8 +14,7 @@ describe('checkDuplicateUsernameOrEmailAndRolesExisted', () => {
         jest.clearAllMocks();
     });
 
-
-    test('should return 400 if username already exists', async () => {
+    test('1. Returns 400 if username already exists', async () => {
         const req = httpMocks.createRequest({
             method: 'POST',
             body: {
@@ -35,7 +34,7 @@ describe('checkDuplicateUsernameOrEmailAndRolesExisted', () => {
         expect(next).not.toHaveBeenCalled();
     });
 
-    test('should return 400 if email already exists', async () => {
+    test('2. Returns 400 if email already exists', async () => {
         const req = httpMocks.createRequest({
             method: 'POST',
             body: {
@@ -54,7 +53,8 @@ describe('checkDuplicateUsernameOrEmailAndRolesExisted', () => {
         expect(res._getData()).toEqual({ message: 'Failed! Email is already in use!' });
         expect(next).not.toHaveBeenCalled();
     });
-    test('should return 400 if role does not exist', async () => {
+
+    test('3. Returns 400 if role does not exist', async () => {
         const req = httpMocks.createRequest({
             method: 'POST',
             body: {
@@ -75,7 +75,7 @@ describe('checkDuplicateUsernameOrEmailAndRolesExisted', () => {
         expect(next).not.toHaveBeenCalled();
     });
 
-    test('should call next() if validation is successful', async () => {
+    test('4. Calls next() if validation is successful', async () => {
         const req = httpMocks.createRequest({
             method: 'POST',
             body: {
@@ -88,11 +88,8 @@ describe('checkDuplicateUsernameOrEmailAndRolesExisted', () => {
         const next = jest.fn();
 
         db.user.findOne.mockResolvedValueOnce(null).mockResolvedValueOnce(null);
-
         await checkDuplicateUsernameOrEmailAndRolesExisted(req, res, next);
-
         expect(res.statusCode).toBe(200);
         expect(next).toHaveBeenCalled();
     });
-
 });

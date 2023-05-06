@@ -16,7 +16,7 @@ afterAll(async () => {
 });
 
 describe('Order model', () => {
-    test('should create a new order', async () => {
+    test('Creates a new order', async () => {
       const createdDate = new Date();
       const authorId = new mongoose.Types.ObjectId();
       const items = [

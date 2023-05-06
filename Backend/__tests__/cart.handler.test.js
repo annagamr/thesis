@@ -33,7 +33,7 @@ describe('Cart Controller', () => {
         await db.user.deleteMany({});
     });
 
-    test('getCart returns an empty cart for a new user', async () => {
+    test('1. getCart returns an empty cart for a new user', async () => {
         const mockUser = await db.user.findOne({ username: 'testUser' });
 
         const req = { params: { author: mockUser._id } };
@@ -43,12 +43,11 @@ describe('Cart Controller', () => {
         };
 
         await cartHandler.getCart(req, res);
-
         expect(res.status.calledWith(200)).toBeTruthy();
         expect(res.send.calledWith({ numberOfItems: 0, cartItems: [] })).toBeTruthy();
     });
 
-    test('addToCart adds a product to an empty cart', async () => {
+    test('2. addToCart adds a product to an empty cart', async () => {
         const mockUser = await db.user.findOne({ username: 'testUser' });
 
         const newProduct = await db.product.create({
@@ -77,13 +76,12 @@ describe('Cart Controller', () => {
 
         expect(res.status.calledWith(200)).toBeTruthy();
         expect(res.json.calledOnce).toBeTruthy();
-
         const updatedCart = await db.cart.findOne({ user: mockUser._id }).populate('items.product');
         expect(updatedCart.items.length).toBe(1);
         expect(updatedCart.items[0].product.id).toBe(newProduct.id);
     });
 
-    test('removeFromCart removes a product from the cart', async () => {
+    test('3. removeFromCart removes a product successfully', async () => {
         const mockUser = await db.user.findOne({ username: 'testUser' });
 
         const newProduct = await db.product.create({
@@ -99,7 +97,6 @@ describe('Cart Controller', () => {
             contactNumber: '555-1234'
         });
 
-        // Add the product to the cart first
         await db.cart.create({
             user: mockUser._id,
             items: [{ product: newProduct._id }],
@@ -118,7 +115,6 @@ describe('Cart Controller', () => {
 
         expect(res.status.firstCall.args[0]).toBe(200);
         expect(res.send.callCount).toBe(1);
-
         const updatedCart = await db.cart.findOne({ user: mockUser._id });
         expect(updatedCart.items.length).toBe(0);
     });

@@ -40,7 +40,7 @@ describe('Auth handler', () => {
         await mongoServer.stop();
     });
 
-    test('signup should create a new user', async () => {
+    test('1. signup should create a new user', async () => {
         const req = {
             body: {
                 username: 'testUser',
@@ -61,7 +61,7 @@ describe('Auth handler', () => {
         expect(res.send.calledOnceWith({ message: 'User registered successfully!' })).toBe(true);
     });
 
-    test('signup should assign default user role if none specified', async () => {
+    test('2. signup should assign default user role if none specified', async () => {
         const userData = {
             username: 'testUser',
             email: 'test@example.com',
@@ -78,7 +78,7 @@ describe('Auth handler', () => {
         const createdUser = await User.findOne({ email: userData.email }).populate('roles');
         expect(createdUser.roles.map(role => role.name)).toContain('user');
     });
-    test('signin should return user data and access token with valid credentials', async () => {
+    test('3. signin should return user data and access token with valid credentials', async () => {
         const userData = {
             username: 'testUser',
             email: 'test@example.com',
@@ -107,7 +107,7 @@ describe('Auth handler', () => {
         expect(sentData.accessToken).toBeTruthy();
     });
 
-    test('signin should return an error with invalid credentials', async () => {
+    test('4. signin should return an error with invalid credentials', async () => {
         const userData = {
             username: 'testUser',
             email: 'test@example.com',
@@ -133,7 +133,7 @@ describe('Auth handler', () => {
         expect(res.send.calledOnceWith({ accessToken: null, message: 'Invalid password!' })).toBe(true);
     });
 
-    test('countUsers should return the number of registered users', async () => {
+    test('5. countUsers should return the number of registered users', async () => {
         const userData = {
             username: 'testUser',
             email: 'test@example.com',
@@ -155,7 +155,7 @@ describe('Auth handler', () => {
         expect(res.json.calledOnceWith({ count: 1, users: sinon.match.array })).toBe(true);
     });
 
-    test('deleteUser should remove the user and their associated data', async () => {
+    test('6. deleteUser should remove the user and their associated data', async () => {
         const userData = {
           username: 'testUser',
           email: 'test@example.com',

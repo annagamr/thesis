@@ -17,18 +17,16 @@ afterAll(async () => {
 
 
 describe('Role model', () => {
-    test('should create a new role', async () => {
+    test('Creates a new role', async () => {
         const role = new Role({
             name: 'testRole',
         });
-
         const savedRole = await role.save();
         expect(savedRole.name).toBe('testRole');
     });
 
-    test('should not create a role without a name', async () => {
+    test('Does not create a role without a name', async () => {
         const role = new Role({});
-
         await expect(role.save()).rejects.toThrow(mongoose.Error.ValidationError);
     });
 });

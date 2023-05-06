@@ -24,7 +24,7 @@ describe("verifyToken", () => {
         jwt.verify.mockClear();
     });
 
-    test("should return a 403 error when no token is provided", async () => {
+    test("1. Returns a 403 error when no token is provided", async () => {
         const req = {
             headers: {},
         };
@@ -41,7 +41,7 @@ describe("verifyToken", () => {
         expect(next).not.toHaveBeenCalled();
     });
 
-    test("should call next() when token is valid", async () => {
+    test("2. Calls next() when token is valid", async () => {
         const req = {
             headers: {
                 "x-access-token": "valid-token",
@@ -64,7 +64,7 @@ describe("verifyToken", () => {
         expect(next).toHaveBeenCalled();
     });
 
-    test("should return a 401 error when token is invalid", async () => {
+    test("3. Returns a 401 error when token is invalid", async () => {
         const req = {
             headers: {
                 "x-access-token": "invalid-token",
@@ -154,31 +154,31 @@ async function testRoleMiddleware(middleware, roleName, shouldPass) {
 }
 
 describe("isAdmin", () => {
-    test("should call next() when user is an admin", async () => {
+    test("4. Calls next() when user is an admin", async () => {
         await testRoleMiddleware(isAdmin, "admin", true);
     });
 
-    test("should return a 403 error when user is not an admin", async () => {
+    test("4.2 Returns a 403 error when user is not an admin", async () => {
         await testRoleMiddleware(isAdmin, "user", false);
     });
 });
 
 describe("isUser", () => {
-    test("should call next() when user is a user", async () => {
+    test("5. Calls next() when user is a user", async () => {
         await testRoleMiddleware(isUser, "user", true);
     });
 
-    test("should return a 403 error when user is not a user", async () => {
+    test("5.2 Returns a 403 error when user is not a user", async () => {
         await testRoleMiddleware(isUser, "admin", false);
     });
 });
 
 describe("isSeller", () => {
-    test("should call next() when user is a seller", async () => {
+    test("6. Calls next() when user is a seller", async () => {
         await testRoleMiddleware(isSeller, "seller", true);
     });
 
-    test("should return a 403 error when user is not a seller", async () => {
+    test("6.2 Returns a 403 error when user is not a seller", async () => {
         await testRoleMiddleware(isSeller, "user", false);
     });
 });

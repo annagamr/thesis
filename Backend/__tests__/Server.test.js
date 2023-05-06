@@ -4,7 +4,7 @@ const { createApp, connectAndInitialize, db } = require("../index");
 // Test suite for the server
 describe("Server", () => {
     // Test for the root route
-    test("GET / should return a welcome message", async () => {
+    test("1. Returns a welcome message", async () => {
         const app = createApp();
         const response = await request(app).get("/");
         expect(response.statusCode).toBe(200);
@@ -12,7 +12,7 @@ describe("Server", () => {
     });
 
     // Test for the connectAndInitialize function
-    test("connectAndInitialize should connect to the database and initialize roles if needed", async () => {
+    test("2. connectAndInitialize connects to the database and initialize roles if needed", async () => {
         const originalConsoleLog = console.log;
         console.log = jest.fn();
 
@@ -37,7 +37,6 @@ describe("Server", () => {
         db.role.estimatedDocumentCount = jest.fn().mockResolvedValue(1);
 
         await connectAndInitialize();
-
         expect(console.log).toHaveBeenCalledWith("Connected to database!");
         expect(console.log).not.toHaveBeenCalledWith("Roles have been initialized!");
 

@@ -17,7 +17,7 @@ afterAll(async () => {
 });
 
 describe('User model', () => {
-  test('should create a new user', async () => {
+  test('Creates a new user', async () => {
     const role = new Role({ name: 'user' });
     const savedRole = await role.save();
 
@@ -35,7 +35,7 @@ describe('User model', () => {
     expect(savedUser.roles).toEqual(expect.arrayContaining([savedRole._id]));
   });
 
-  test('should fail if required fields are missing', async () => {
+  test('Does not create user if required fields are missing', async () => {
     const user = new User({
       email: 'test@example.com',
       password: 'testPassword',

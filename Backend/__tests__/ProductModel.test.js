@@ -16,7 +16,7 @@ afterAll(async () => {
 });
 
 describe('Product model', () => {
-    test('should create a new product', async () => {
+    test('Creates a new product', async () => {
         const addedDate = new Date();
         const authorId =new mongoose.Types.ObjectId();
 
@@ -48,7 +48,7 @@ describe('Product model', () => {
       expect(savedProduct.contactNumber).toEqual('+36205551635');
     });
 
-    test('should not create a product without required fields', async () => {
+    test('Does not create new product if required fields are missing', async () => {
         const product = new Product({
           title: 'Test Product',
           // Missing other required fields

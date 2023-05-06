@@ -30,7 +30,7 @@ describe('Product Handler', () => {
         await db.user.deleteMany({});
     });
 
-    test('addProduct should add a product to the database with the provided data', async () => {
+    test('1. addProduct adds a product to the database', async () => {
         const req = {
             body: {
                 image: 'path/to/image',
@@ -64,7 +64,7 @@ describe('Product Handler', () => {
         expect(addedProduct.title).toBe('Test Product');
     });
 
-    test('products should return an empty array when there are no products', async () => {
+    test('2. products function returns an empty array when no products are present', async () => {
         const req = {
             query: {}
         };
@@ -80,7 +80,7 @@ describe('Product Handler', () => {
         expect(res.send.calledWith({ products: [], count: 0 })).toBeTruthy();
     });
 
-    test('products should return all products with populated author field and formatted date', async () => {
+    test('3. products function returns all products present', async () => {
         await db.product.create({
             image: 'path/to/image',
             title: 'Test Product',

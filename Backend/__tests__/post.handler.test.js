@@ -30,7 +30,7 @@ describe('Post Handler', () => {
         await mongoServer.stop();
     });
 
-    test('createPost should create a new post and assign it to a user', async () => {
+    test('1. createPost creates a new post and assigns it to a user', async () => {
         const req = {
             body: {
                 title: 'Test Post',
@@ -51,7 +51,7 @@ describe('Post Handler', () => {
         expect(res.send.calledOnceWith({ message: "Post Created!", post: sinon.match.object })).toBe(true);
     });
 
-    test('posts should return all posts with populated author field and formatted date', async () => {
+    test('2. Posts function returns all the posts', async () => {
         await db.post.create({
             title: 'Test Post',
             description: 'Test description',
@@ -80,7 +80,7 @@ describe('Post Handler', () => {
         expect(post.author).toBe('testUser');
     });
 
-    test('countPostsByTopic should return the number of posts with a specified topic', async () => {
+    test('3. countPostsByTopic returns the number of posts with a specified topic', async () => {
         await db.post.create({
             title: 'Test Post',
             description: 'Test description',
@@ -101,7 +101,7 @@ describe('Post Handler', () => {
         expect(res.send.calledOnceWith({ count: 1 })).toBe(true);
     });
 
-    test('deletePost should remove the specified post', async () => {
+    test('4. deletePost removes the specified post', async () => {
         const createdPost = await db.post.create({
             title: 'Test Post',
             description: 'Test description',

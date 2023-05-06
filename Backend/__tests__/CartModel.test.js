@@ -16,7 +16,7 @@ afterAll(async () => {
 });
 
 describe('Cart model', () => {
-    test('should create a new cart', async () => {
+    test('Creates a new cart', async () => {
       const userId = new mongoose.Types.ObjectId();
       const productIds = [
         new mongoose.Types.ObjectId(),
