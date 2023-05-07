@@ -5,6 +5,8 @@ const db = require("./Models");
 
 dotenv.config({ path: './.env' });
 
+const connect_uri = 'mongodb+srv://anigamreklidze:61152592kk@aurora.dzcgren.mongodb.net/?retryWrites=true&w=majority'
+
 // Function to create the Express app
 function createApp() {
   const app = express();
@@ -39,7 +41,7 @@ function createApp() {
 // Function to connect to MongoDB and initialize roles if not already initialized
 async function connectAndInitialize() {
   try {
-    await db.mongoose.connect(`mongodb://127.0.0.1:27017/aurora_database`, {
+    await db.mongoose.connect(connect_uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
