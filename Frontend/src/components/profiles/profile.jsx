@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./profile.css";
 import * as images from "../../assets/assets";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 const Profile = () => {
   const [sellerProf, setShowSellerProfile] = useState(false);
   const [adminProf, setShowAdminProfile] = useState(false);
   const [userProf, setShowUserProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [numberOfOrders, setNumberOfOrders] = useState(0);
+
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
 
@@ -18,6 +22,24 @@ const Profile = () => {
       setShowAdminProfile(user.roles.includes("ROLE_ADMIN"));
     }
   }, []);
+
+  useEffect(() => {
+    const fetchUserOrders = async () => {
+      if (currentUser) {
+        try {
+          const userId = currentUser.id;
+          const response = await axios.get(
+            `http://localhost:3002/api/order/get-orders/${userId}`
+          );
+          setNumberOfOrders(response.data.numberOfOrders);
+        } catch (error) {
+        console.error("Error fetching user orders:", error.message);
+      }
+      }
+    };
+  
+    fetchUserOrders();
+  }, [currentUser]);
   return (
     <div
       className="profile-page"
@@ -115,7 +137,7 @@ const Profile = () => {
               </div>
               <div className="num">
                 <b>Number of Orders:</b>{" "}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {numberOfOrders}
               </div>
             </div>
             <button className="see-list">

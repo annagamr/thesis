@@ -21,7 +21,7 @@ exports.createOrder = async (req, res) => {
     });
 
     const savedOrder = await newOrder.save();
-    res.status(200).json(savedOrder); 
+    res.status(200).json(savedOrder);
   } catch (error) {
     console.log('Error creating order:', error);
     res.status(500).json({ message: 'Error creating order' });
@@ -73,7 +73,11 @@ exports.getOrders = async (req, res) => {
       };
     });
 
-    res.status(200).json({ orders: formattedOrders });
+
+    // Get the number of orders for the user
+    const numberOfOrders = formattedOrders.length;
+
+    res.status(200).json({ orders: formattedOrders, numberOfOrders: numberOfOrders });
   } catch (error) {
     res.status(500).json({ message: "Error fetching user orders" });
   }
