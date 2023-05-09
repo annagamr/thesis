@@ -34,69 +34,188 @@
   transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 15px 15px 27px #e1e1e3, -15px -15px 27px #ffffff;
   background-color: #ffffff;
-  border: 1px solid gainsboro;
-  cursor: pointer;
+  border: 1px solid rgb(174, 174, 174);
 }
 
 .card-image {
-  width: 200px;
+  display: flex;
+  width: 100%;
   height: 200px;
-  padding: 5px;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-image img {
-  width: 100%;
+  width: 80%;
   height: 100%;
-  margin: 0 15px;
 }
 
 .card-title {
   position: absolute;
-  margin-top: 12.5rem;
+  margin-top: 12.2rem;
   text-align: center;
   z-index: 2;
   width: 100%;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
 }
 
 .card-uploaded {
   position: absolute;
-  margin-top: 15rem;
+  margin-top: 14.2rem;
   text-align: center;
   z-index: 2;
   width: 100%;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  color: grey;
 }
 
 .card-price {
   position: absolute;
-  margin-top: 17.5rem;
+  margin-top: 16rem;
   text-align: center;
   z-index: 2;
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 }
 
-.seller-h2 {
-  width: 100%;
-  font-size: 30px;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 50px;
-}
 
-.mainContainerOrders{
+.mainContainerOrders {
   min-height: calc(100vh-60px);
   display: flex;
   flex-direction: column;
   background-color: #eaeef2;
-  height: 85.5vh;}
+  height: 85.5vh;
+}
 
 
+/* table */
+.products-page table {
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: normal;
+  border: none;
+  border-collapse: collapse;
+  width: 90%;
+  max-width: 100%;
+  white-space: nowrap;
+  background-color: white;
+}
+
+.products-page th,
+td {
+  text-align: center;
+  padding: 8px;
+}
+
+.products-page td {
+  border-right: 1px solid #f8f8f8;
+  font-size: 15px;
+  text-transform: uppercase;
+
+}
+
+.products-page thead th {
+  color: #ffffff;
+  background: #4FC3A1;
+  font-size: 17px;
+  letter-spacing: 1px;
+  font-weight: normal;
+  font-family: Gelica, Georgia, system-ui, cursive;
+}
 
 
+.products-page thead th:nth-child(odd) {
+  color: #ffffff;
+  background: #3a6999;
+}
+
+.products-page tr:nth-child(even) {
+  background: #f8f8f8c3;
+}
+
+.products-page tr:hover {
+  background-color: #ebe9e9;
+}
+
+.products-page .delete-product {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: 3rem;
+}
+
+.products-page .delete-product:hover {
+  background-color: #da190b;
+  text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .products-page {
+      display: block;
+      width: 100%;
+  }
+  .my-products:before{
+      content: "Scroll horizontally >";
+      display: block;
+      text-align: right;
+      font-size: 11px;
+      color: white;
+      padding: 0 0 10px;
+  }
+  .products-page thead, .products-page tbody, .products-page thead th {
+      display: block;
+  }
+  .products-page thead th:last-child{
+      border-bottom: none;
+  }
+  .products-page thead {
+      float: left;
+  }
+  .products-page tbody {
+      width: auto;
+      position: relative;
+      overflow-x: auto;
+  }
+  .products-page td, .products-page th {
+      padding: 20px .625em .625em .625em;
+      height: 60px;
+      vertical-align: middle;
+      box-sizing: border-box;
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 120px;
+      font-size: 13px;
+      text-overflow: ellipsis;
+  }
+  .products-page thead th {
+      text-align: left;
+      border-bottom: 1px solid #f7f7f9;
+  }
+  .products-page tbody tr {
+      display: table-cell;
+  }
+  .products-page tbody tr:nth-child(odd) {
+      background: none;
+  }
+  .products-page tr:nth-child(even) {
+      background: transparent;
+  }
+  .products-page tr td:nth-child(odd) {
+      background: #F8F8F8;
+      border-right: 1px solid #E6E4E4;
+  }
+  .products-page tr td:nth-child(even) {
+      border-right: 1px solid #E6E4E4;
+  }
+  .products-page tbody td {
+      display: block;
+      text-align: center;
+  }
+}

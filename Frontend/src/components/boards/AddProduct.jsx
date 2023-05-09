@@ -283,7 +283,7 @@ const AddProduct = () => {
                         id="prodImage"
                         type="file"
                         name="prodImage"
-                        accept=".jpg,.png"
+                        accept=".png"
                         onChange={updateImage}
                         required
                       />

@@ -1,10 +1,12 @@
-import React, { useEffect, useCallback, useRef, useState } from "react";
+import React, { useEffect, useCallback, useRef, useState, useContext} from "react";
 import "./cart.css";
 import axios from "axios";
+import { CartContext } from "../cart/CartContext";
 
 const Success = () => {
   const createOrderCalled = useRef(false);
   const [error, setError] = useState(null);
+  const { setTotalItems } = useContext(CartContext);
 
   const createOrder = useCallback(async () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -38,6 +40,8 @@ const Success = () => {
         );
         if (clearCartResponse.status !== 200) {
           throw new Error(`HTTP error! Status: ${clearCartResponse.status}`);
+        } else {
+          setTotalItems(0);
         }
       } catch (error) {
         setError(error.message);

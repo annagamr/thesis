@@ -40,7 +40,7 @@ const Header = () => {
       };
       fetchCartProducts();
     }
-  }, [currentUser, setTotalItems]);
+  }, [currentUser, setTotalItems, totalItems]);
 
   const logOut = () => {
     localStorage.removeItem("user");
