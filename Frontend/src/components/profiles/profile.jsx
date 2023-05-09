@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./profile.css";
 import * as images from "../../assets/assets";
 import { Link } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
+import productService from "../../services/product.service";
 
 const Profile = () => {
   const [sellerProf, setShowSellerProfile] = useState(false);
@@ -10,7 +11,7 @@ const Profile = () => {
   const [userProf, setShowUserProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [numberOfOrders, setNumberOfOrders] = useState(0);
-
+  const [numberOfProducts, setnumberOfProducts] = useState(0);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -33,18 +34,29 @@ const Profile = () => {
           );
           setNumberOfOrders(response.data.numberOfOrders);
         } catch (error) {
-        console.error("Error fetching user orders:", error.message);
-      }
+          console.error("Error fetching user orders:", error.message);
+        }
       }
     };
-  
+
     fetchUserOrders();
   }, [currentUser]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      try {
+        const response = await productService.getSellerProducts(user.id);
+        setnumberOfProducts(response.data.numberOfProducts);
+      } catch (error) {
+        console.error("Error fetching user products:", error.message);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   return (
-    <div
-      className="profile-page"
-      data-testid="profile-page"
-    >
+    <div className="profile-page" data-testid="profile-page">
       {sellerProf && (
         <div>
           <div className="profile-illustration"></div>
@@ -67,7 +79,7 @@ const Profile = () => {
               </div>
               <div className="num">
                 <b>Listed Products:</b>{" "}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {numberOfProducts}
               </div>
             </div>
             <button className="see-list">
@@ -76,7 +88,8 @@ const Profile = () => {
                 style={{ textDecoration: "none", color: "white" }}
                 to="/sellerProducts"
               >
-                Listed Products
+                Listed Products   
+                
               </Link>
             </button>
           </div>
@@ -137,7 +150,8 @@ const Profile = () => {
               </div>
               <div className="num">
                 <b>Number of Orders:</b>{" "}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {numberOfOrders}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                {numberOfOrders}
               </div>
             </div>
             <button className="see-list">

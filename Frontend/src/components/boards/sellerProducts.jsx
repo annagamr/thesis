@@ -11,7 +11,7 @@ const SellerProducts = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       try {
         const response = await productService.getSellerProducts(user.id);
-        setProducts(response.data);
+        setProducts(response.data.products);
       } catch (error) {
         setError(error.message);
       }

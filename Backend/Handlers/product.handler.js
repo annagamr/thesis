@@ -167,8 +167,10 @@ exports.productsbyAuthor = async (req, res) => {
             };
         });
 
-        // Send the formatted products array in the response
-        res.status(200).send(formattedProducts);
+        // Get the number of orders for the user
+        const numberOfProducts = formattedProducts.length;
+
+        res.status(200).json({ products: formattedProducts, numberOfProducts: numberOfProducts });
     } catch (err) {
         console.log(err)
 
