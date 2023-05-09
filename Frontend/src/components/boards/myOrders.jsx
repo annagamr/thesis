@@ -3,6 +3,7 @@ import useDeepCompareEffect from "use-deep-compare-effect";
 import UserService from "../../services/user.service";
 import axios from "axios";
 import { Card, ListGroup } from "react-bootstrap";
+import "./sellerProducts.css";
 
 const MyOrders = () => {
   const [content, setContent] = useState("");
@@ -53,21 +54,24 @@ const MyOrders = () => {
         <header className="jumbotron">
           <h3 aria-level="3">{content}</h3>
         </header>
-        <div>
+        <div className="my-products">
           {errorMessage && <p>{errorMessage}</p>}
 
           {orders.length > 0 ? (
             orders.map((order, index) => (
               <Card key={index} className="mb-3">
-                <Card.Header>
-                  Order #{index + 1} - {order.status} - {order.created}
+                <Card.Header style={{ color: "white", background: "#393b81" }}>
+                  Order #{index + 1}
                 </Card.Header>
                 <ListGroup variant="flush" role="list">
-                  {order.items.map((item) => (
-                    <ListGroup.Item role="listitem" key={item.id}>
-                      {item.title} - ${item.price}
-                    </ListGroup.Item>
-                  ))}
+                  <ListGroup.Item
+                    role="listitem"
+                    key={order.id}
+                    style={{ textTransform: "uppercase" }}
+                  >
+                    <span style={{ color: "green"}}>{order.status}</span> <br />{" "}
+                    <span>{order.created}</span>
+                  </ListGroup.Item>
                 </ListGroup>
               </Card>
             ))

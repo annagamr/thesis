@@ -89,3 +89,14 @@
   text-align: center;
   padding-top: 50px;
 }
+
+.mainContainerOrders{
+  min-height: calc(100vh-60px);
+  display: flex;
+  flex-direction: column;
+  background-color: #eaeef2;
+  height: 85.5vh;}
+
+
+
+

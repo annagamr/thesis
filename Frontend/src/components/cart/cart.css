@@ -167,7 +167,7 @@ s .single_pickup_address p {
 
 }
 
-.name_address input {
+.name_address input, .address select {
     outline: 0;
     background: #f2f2f2af;
     border-radius: 5px;

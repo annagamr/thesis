@@ -14,6 +14,16 @@ const Cart = () => {
   const [pickupOption, setPickupOption] = useState("single");
   const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
   const { totalItems, setTotalItems } = useContext(CartContext);
+  const [shippingFormValid, setShippingFormValid] = useState(false);
+  const [city, setCity] = useState("");
+
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    address: "",
+    zipCode: "",
+    city: "",
+  });
 
   const stripePromise = loadStripe(
     "pk_test_51N09ASL7vL0HlrdBRpe5TyRghU1D53BGQoYr7qnCLLlhtn9iQ9Tn0va2gE0Y5K1YtA6OV5C6TipZhlzN11eVGChz00gbfcz1bj"
@@ -116,7 +126,8 @@ const Cart = () => {
     } else {
       try {
         const response = await fetch(
-          process.env.REACT_APP_BACKEND_ENDPOINT + "/api/create-checkout-session",
+          process.env.REACT_APP_BACKEND_ENDPOINT +
+            "/api/create-checkout-session",
           {
             method: "POST",
             headers: {
@@ -177,6 +188,60 @@ const Cart = () => {
     }
   };
 
+  const handleShippingInputChange = () => {
+    const firstNameInput = document.querySelector(
+      "input[placeholder='First Name']"
+    );
+    const lastNameInput = document.querySelector(
+      "input[placeholder='Last Name']"
+    );
+    const addressInput = document.querySelector("input[placeholder='Address']");
+    const zipCodeInput = document.querySelector(
+      "input[placeholder='Zip Code']"
+    );
+    const cityInput = document.querySelector("select[name='city']");
+
+    const firstName = firstNameInput ? firstNameInput.value : "";
+    const lastName = lastNameInput ? lastNameInput.value : "";
+    const address = addressInput ? addressInput.value : "";
+    const zipCode = zipCodeInput ? zipCodeInput.value : "";
+    const city = cityInput ? cityInput.value : "";
+
+    const validCities = [
+      "Budapest",
+      "Pecs",
+      "Debrecen",
+      "Miskolc",
+      "Eger",
+      "Szeged",
+      "Gyor",
+    ];
+
+    const isZipCodeValid = /^\d+$/.test(zipCode);
+    const isCityValid = validCities.includes(city);
+
+    setErrors({
+      firstName: firstName.length > 0 ? "" : "*",
+      lastName: lastName.length > 0 ? "" : "*",
+      address: address.length > 0 ? "" : "*",
+      zipCode: isZipCodeValid ? "" : "*",
+      city: isCityValid ? "" : "*",
+    });
+
+    const isFormValid =
+      firstName.length > 0 &&
+      lastName.length > 0 &&
+      address.length > 0 &&
+      isZipCodeValid &&
+      isCityValid &&
+
+    setShippingFormValid(isFormValid);
+  };
+
+  useEffect(() => {
+    handleShippingInputChange();
+  }, [city]);
+
   return (
     <div className="cart-container">
       <div className="payment_details">
@@ -206,21 +271,60 @@ const Cart = () => {
           {deliveryMethod === "shipping" && (
             <div className="name_address">
               <div className="first_lastName">
-                <input type="text" placeholder="First Name" />
-                <input type="text" placeholder="Last Name" />
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  onChange={handleShippingInputChange}
+                />
+                <span className="error">{errors.firstName}</span>
+
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  onChange={handleShippingInputChange}
+                />
+                <span className="error">{errors.lastName}</span>
               </div>
               <div className="address">
-                <input type="text" placeholder="Address" />
-                <input type="text" placeholder="Zip Code" />
-                <input type="text" placeholder="City" />
-                <input type="text" placeholder="Country" />
+                <input
+                  type="text"
+                  placeholder="Address"
+                  onChange={handleShippingInputChange}
+                />
+                <span className="error">{errors.address}</span>
+
+                <input
+                  type="text"
+                  placeholder="Zip Code"
+                  onChange={handleShippingInputChange}
+                />
+                <span className="error">{errors.zipCode}</span>
+
+                <select
+                  value={city}
+                  onChange={(e) => {
+                    setCity(e.target.value);
+                  }}
+                  name="city"
+                  placeholder="City"
+                >
+                  <option value="">Select city</option>
+                  <option value="Budapest">Budapest</option>
+                  <option value="Pecs">Pecs</option>
+                  <option value="Debrecen">Debrecen</option>
+                  <option value="Miskolc">Miskolc</option>
+                  <option value="Eger">Eger</option>
+                  <option value="Szeged">Szeged</option>
+                  <option value="Gyor">Gyor</option>
+                </select>
+                <span className="error">{errors.city}</span>
+
               </div>
             </div>
           )}
 
           {deliveryMethod === "pickup" && (
             <div className="pickup_card">
-              {/* <h1>Pickup Options</h1> */}
               <div className="pickup_method">
                 <label>
                   <input
@@ -267,10 +371,13 @@ const Cart = () => {
           <div className="proceed">
             <button
               onClick={handleProceedToPayment}
-              disabled={isPaymentProcessing}
+              disabled={
+                (deliveryMethod === "shipping" && !shippingFormValid) ||
+                isPaymentProcessing
+              }
             >
               Proceed to payment
-            </button>{" "}
+            </button>
           </div>
         </div>
       </div>
@@ -282,7 +389,9 @@ const Cart = () => {
               <div key={index} className="cart_item">
                 <div className="product_img">
                   <img
-                    src={process.env.REACT_APP_BACKEND_ENDPOINT + "/" + item.image}
+                    src={
+                      process.env.REACT_APP_BACKEND_ENDPOINT + "/" + item.image
+                    }
                     alt="Product"
                   />{" "}
                 </div>
