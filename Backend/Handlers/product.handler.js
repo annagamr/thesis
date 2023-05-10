@@ -1,4 +1,4 @@
-const { product, user } = require("../Models");
+const { product, user, cart } = require("../Models");
 const { Types } = require('mongoose');
 const fs = require("fs");
 
@@ -181,30 +181,36 @@ exports.productsbyAuthor = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
     try {
-        const productId = req.params.id;
-        const productToDelete = await product.findById(productId);
-
-        if (!productToDelete) {
-            return res.status(500).json({ message: "Product not found" });
+      const productId = req.params.id;
+      const productToDelete = await product.findById(productId);
+  
+      if (!productToDelete) {
+        return res.status(500).json({ message: "Product not found" });
+      }
+  
+      // Delete the image file associated with the product
+      fs.unlink(productToDelete.image, (err) => {
+        if (err) {
+          console.error("Error deleting image file:", err);
+        } else {
+          console.log("Image file deleted:", productToDelete.image);
         }
-
-        // Delete the image file associated with the product
-        fs.unlink(productToDelete.image, (err) => {
-            if (err) {
-                console.error("Error deleting image file:", err);
-            } else {
-                console.log("Image file deleted:", productToDelete.image);
-            }
-        });
-
-        const deletedProduct = await product.findByIdAndDelete(productId);
-
-        res.status(200).json({ message: "Product deleted successfully" });
+      });
+  
+      const deletedProduct = await product.findByIdAndDelete(productId);
+  
+      // Remove the product from all carts
+      await cart.updateMany(
+        { "items.product": productId },
+        { $pull: { items: { product: productId } } }
+      );
+  
+      res.status(200).json({ message: "Product deleted successfully" });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Error deleting product", error });
+      console.log(error);
+      res.status(500).json({ message: "Error deleting product", error });
     }
-};
+  };
 
 exports.getProductById = async (req, res) => {
     try {
