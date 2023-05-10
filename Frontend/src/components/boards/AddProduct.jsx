@@ -440,11 +440,11 @@ const AddProduct = () => {
                     <div className="product-details">
                       <h2 data-testid="success-message">{message}</h2>
                       <div className="added-details">
-                        <h3
+                        {/* <h3
                           style={{ marginTop: "50px", marginBottom: "-40px" }}
                         >
                           Product Details:
-                        </h3>
+                        </h3> */}
                         <p style={{ marginTop: "70px" }}>Image:</p>
                         <img
                           id="image-id"
@@ -456,7 +456,7 @@ const AddProduct = () => {
                           <b>Title:</b> {title}
                         </p>
                         <p style={{ marginTop: "70px" }}>
-                          Description: {description}
+                        <b>Description:</b> {description}
                         </p>
                         <p style={{ marginTop: "70px", marginBottom: "-40px" }}>
                           <b>Category:</b> {category}

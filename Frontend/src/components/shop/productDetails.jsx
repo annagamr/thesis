@@ -34,8 +34,8 @@ const ProductDetails = (props) => {
         )}
       </div>
       <div className="product-description">
-        <h2>{product.title}</h2>
-        <p>{product.description}</p>
+        <h2 id="product-title">{product.title}</h2>
+        <p id="product-desc"> {product.description}</p>
         <span>Product by: {product.author}</span>
         <div className="product-price">
           <span>{product.price} HUF</span>

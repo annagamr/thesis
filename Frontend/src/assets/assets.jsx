@@ -16,12 +16,12 @@ import sun from "./sun-block.png";
 import order from "./order.png";
 import sell from "./start-selling.png";
 import skin from "./skin.jpg";
-import contact from "./contact-illustration.jpg"
-import profile from "./profile.png"
-import profStore from "./store.png"
-import background from "./background.jpg"
-import registerShop from "./registerShop.png"
-import registerUser from "./registerUser.png"
+import contact from "./contact-illustration.jpg";
+import profile from "./profile.png";
+import profStore from "./store.png";
+import background from "./background.jpg";
+import registerShop from "./registerShop.png";
+import registerUser from "./registerUser.png";
 
 export {
   cover1,
@@ -46,5 +46,5 @@ export {
   profStore,
   background,
   registerShop,
-  registerUser
+  registerUser,
 };

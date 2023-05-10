@@ -51,7 +51,7 @@ exports.addProduct = async (req, res) => {
         // console.log(user)
         await assignProductToSeller(user, product);
         // Send a success message to the client
-        res.status(200).send({ message: "Product has Been Added Successfully!", product: product });
+        res.status(200).send({ message: "Product Added Successfully!", product: product });
 
     } catch (err) {
         // If an error occurs, send a 500 error response to the client with the error message
@@ -192,8 +192,6 @@ exports.deleteProduct = async (req, res) => {
       fs.unlink(productToDelete.image, (err) => {
         if (err) {
           console.error("Error deleting image file:", err);
-        } else {
-          console.log("Image file deleted:", productToDelete.image);
         }
       });
   

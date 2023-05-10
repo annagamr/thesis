@@ -185,12 +185,23 @@
 }
 
 .product-description {
-    width: 57%;
+    width: 40%;
     margin-top: -24px;
+    margin-left: 100px;
+}
+#product-title {
+  max-width: 30rem;
+  word-wrap: break-word;
 }
 
+#product-desc {
+    max-width: 30rem;
+    word-wrap: break-word;
+  }
+
+
 .product-image-details img {
-    /* width: 100%; */
+    width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
