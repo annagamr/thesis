@@ -9,24 +9,24 @@ import Badge from "@mui/material/Badge";
 import "./header.css";
 import cartService from "../../services/cart.service";
 import { CartContext } from "../cart/CartContext";
+import UserContext from "../boards/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const [showSellerBoard, setShowSellerBoard] = useState(false);
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
-  const [showUserBoard, setShowUserBoard] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
   const { totalItems, setTotalItems } = useContext(CartContext);
+  const {
+    showSellerBoard,
+    setShowSellerBoard,
+    showAdminBoard,
+    setShowAdminBoard,
+    showUserBoard,
+    setShowUserBoard,
+    currentUser,
+    setCurrentUser,
+    logOut,
+  } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    if (user) {
-      setCurrentUser(user);
-      setShowUserBoard(user.roles.includes("ROLE_USER"));
-      setShowSellerBoard(user.roles.includes("ROLE_SELLER"));
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-    }
-  }, []);
 
   useEffect(() => {
     if (currentUser && currentUser.roles.includes("ROLE_USER")) {
@@ -35,20 +35,20 @@ const Header = () => {
           const response = await cartService.getCart(currentUser.id);
           setTotalItems(response.numberOfItems);
         } catch (error) {
+          // Check if the error status is 401
+        if (error.response && error.response.status === 401) {
+          // Log out the user and navigate to /signin
+          logOut();
+          navigate("/signin");
+          window.location.reload()
+        } else {
           console.log(error);
+        }
         }
       };
       fetchCartProducts();
     }
   }, [currentUser, setTotalItems, totalItems]);
-
-  const logOut = () => {
-    localStorage.removeItem("user");
-    setShowUserBoard(false);
-    setShowSellerBoard(false);
-    setShowAdminBoard(false);
-    setCurrentUser(undefined);
-  };
 
   return (
     <header className="top_header" data-testid="header">

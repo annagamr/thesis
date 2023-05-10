@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import UserService from "../../services/user.service";
 import axios from "axios";
 import { Card, ListGroup } from "react-bootstrap";
 import "./sellerProducts.css";
+import { useNavigate } from "react-router-dom";
+import UserContext from "./UserContext";
 
 const MyOrders = () => {
   const [content, setContent] = useState("");
   const [orders, setOrders] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+
+  const { logOut } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     UserService.userAccess().then(
@@ -17,22 +21,33 @@ const MyOrders = () => {
         setContent(response.data);
       },
       (error) => {
-        setContent(
+        const errorMessage =
           (error.response &&
             error.response.data &&
             error.response.data.message) ||
-            error.message ||
-            error.toString()
-        );
+          error.message ||
+          error.toString();
+
+        setContent(errorMessage);
+
+        // Check if the error status is 401
+        if (error.response && error.response.status === 401) {
+          // Log out the user and navigate to /signin
+          logOut();
+          navigate("/signin");
+          window.location.reload()
+        }
       }
     );
   }, []);
 
-  useDeepCompareEffect(() => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
     const fetchUserOrders = async () => {
-      if (currentUser) {
+      if (user) {
         try {
-          const userId = currentUser.id;
+          const userId = user.id;
           const response = await axios.get(
             `http://localhost:3002/api/order/get-orders/${userId}`
           );
@@ -46,7 +61,7 @@ const MyOrders = () => {
     };
 
     fetchUserOrders();
-  }, [currentUser]);
+  }, [user]);
 
   return (
     <div className="mainContainerOrders">
@@ -69,8 +84,8 @@ const MyOrders = () => {
                     key={order.id}
                     style={{ textTransform: "uppercase" }}
                   >
-                    <span style={{ color: "green"}}>{order.status}</span> <br />{" "}
-                    <span>{order.created}</span>
+                    <span style={{ color: "green" }}>{order.status}</span>{" "}
+                    <br /> <span>{order.created}</span>
                   </ListGroup.Item>
                 </ListGroup>
               </Card>

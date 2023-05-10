@@ -85,7 +85,7 @@ exports.signin = async (req, res) => {
       accessToken: token
     });
   } catch (err) {
-    console.log(error)
+    console.log(err)
     // If an error occurs, send a 500 error response to the client with the error message
     res.status(500).send({ message: err });
   }

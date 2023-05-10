@@ -25,8 +25,6 @@ class CartService {
     const url = `${this.baseURL}/products/${author}`;
     const headers = getAccessTokenHeaderFromLocalStorage();
     const response = await axios.post(url, {}, { headers: headers });
-    // console.log("Get cart response:", response);
-
     return response.data;
   }
 

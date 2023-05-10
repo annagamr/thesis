@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import UserService from "../../services/user.service";
 import productService from "../../services/product.service";
 import axios from "axios";
 import "./AddProduct.css";
+import { useNavigate } from "react-router-dom";
+import UserContext from "./UserContext";
 
 const AddProduct = () => {
   const [access, setAccess] = useState("");
@@ -26,6 +28,9 @@ const AddProduct = () => {
   const [successful, setSuccessful] = useState(false);
   const [userRole, setUserRole] = useState(null);
 
+  const { logOut } = useContext(UserContext);
+  const navigate = useNavigate();
+
   //x vars for product x\\
 
   const validBudapestZipCodes = [
@@ -45,7 +50,7 @@ const AddProduct = () => {
     1235, 1236, 1237, 1238, 1239,
   ];
 
-  //Only for users
+  //Only for sellers
   useEffect(() => {
     const fetchSellerAccess = async () => {
       try {
@@ -59,12 +64,20 @@ const AddProduct = () => {
           error.message ||
           error.toString();
         setAccess(errorMessage);
+
+        // Check if the error status is 401
+        if (error.response && error.response.status === 401) {
+          // Log out the user and navigate to /signin
+          logOut();
+          navigate("/signin");
+          window.location.reload();
+        }
       }
       setUserRole("non-seller");
     };
     fetchSellerAccess();
   }, []);
-  //x Only for users x\\
+  //x Only for sellers x\\
   const validateForm = () => {
     const errors = {};
 
