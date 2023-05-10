@@ -4,6 +4,7 @@ import "./sellerProducts.css";
 import UserService from "../../services/user.service";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
+import axios from "axios";
 
 const SellerProducts = () => {
   const [access, setAccess] = useState("");
@@ -56,6 +57,15 @@ const SellerProducts = () => {
     fetchProducts();
   }, []);
 
+  const onDeleteProduct = async (productId) => {
+    try {
+      await axios.delete(process.env.REACT_APP_BACKEND_ENDPOINT+`/api/product-delete/${productId}`);
+      setProducts(products.filter((product) => product.id !== productId));
+    } catch (error) {
+      setError(`Error deleting product with ID: ${productId}`);
+    }
+  };
+
   return (
     <>
       {userRole === "non-seller" && (
@@ -91,6 +101,7 @@ const SellerProducts = () => {
                         <button
                           className="delete-product"
                           data-item-id={product.id}
+                          onClick={() => onDeleteProduct(product.id)}
                         >
                           &times;
                         </button>
