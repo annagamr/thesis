@@ -8,6 +8,7 @@ var bcrypt = require("bcryptjs");
 const User = require("../Models/user.model");
 const Post = require("../Models/post.model");
 const Product = require("../Models/product.model");
+const Cart = require("../Models/cart.model");
 
 
 // Asynchronously creates a new user with the provided user data
@@ -214,15 +215,33 @@ exports.deleteUser = async (req, res) => {
       return res.status(404).json({ message: 'User not found.' });
     }
 
-    // Delete the user's posts
-    await Post.deleteMany({ author: userId });
+    // Check if the user has posts
+    const userPosts = await Post.find({ author: userId });
 
-    // Delete the user's products
-    await Product.deleteMany({ author: userId });
+    if (userPosts.length > 0) {
+      // Delete the user's posts
+      await Post.deleteMany({ author: userId });
+    }
+
+    // Check if the user has products
+    const userProducts = await Product.find({ author: userId });
+
+    if (userProducts.length > 0) {
+      // Delete the user's products
+      await Product.deleteMany({ author: userId });
+    }
+
+    // Check if the user has a cart
+    const userCart = await Cart.findOne({ user: userId });
+
+    if (userCart) {
+      // Delete the user's cart
+      await Cart.deleteOne({ user: userId });
+    }
 
     // Delete the user
     await User.findByIdAndDelete(userId);
-    res.status(200).json({ message: 'User and their posts and products deleted successfully.' });
+    res.status(200).json({ message: 'User and their posts, products, and cart (if any) deleted successfully.' });
 
   } catch (err) {
     console.log(err)

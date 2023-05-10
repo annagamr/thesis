@@ -2,6 +2,8 @@ const express = require("express");
 const dotenv = require('dotenv');
 const cors = require("cors");
 const db = require("./Models");
+const bcrypt = require('bcryptjs'); //For creating Admin and hashing password
+
 
 dotenv.config({ path: './.env' });
 
@@ -38,6 +40,24 @@ function createApp() {
   return app;
 }
 
+async function createDefaultAdmin() {
+  const adminRole = await db.role.findOne({ name: 'admin' });
+  const adminUser = await db.user.findOne({ email: 'admin@gmail.com' });
+
+  if (!adminUser) {
+    const hashedPassword = await bcrypt.hash('Admin123', 8);
+    const newAdminUser = new db.user({
+      username: 'admin',
+      email: 'admin@gmail.com',
+      password: hashedPassword,
+      roles: [adminRole._id],
+    });
+
+    await newAdminUser.save();
+  } 
+}
+
+
 // Function to connect to MongoDB and initialize roles if not already initialized
 async function connectAndInitialize() {
   try {
@@ -56,6 +76,9 @@ async function connectAndInitialize() {
       ]);
       console.log("Roles have been initialized!");
     }
+    
+    await createDefaultAdmin();
+
   } catch (error) {
     console.error("Connection error:", error.message);
     process.exit(1);
@@ -65,8 +88,7 @@ async function connectAndInitialize() {
 // Function to start the server
 async function startServer() {
   const app = createApp();
-  if (process.env.BACKEND_PORT)
-  {
+  if (process.env.BACKEND_PORT) {
     app.listen(process.env.BACKEND_PORT, () => {
       console.log(`Express server on port: ${process.env.BACKEND_PORT}`);
     });

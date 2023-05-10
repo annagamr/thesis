@@ -8,10 +8,13 @@ import cartService from "../../services/cart.service";
 
 export async function signin(username, password) {
   try {
-    const response = await axios.post(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/auth/signin", {
-      username,
-      password,
-    });
+    const response = await axios.post(
+      process.env.REACT_APP_BACKEND_ENDPOINT + "/api/auth/signin",
+      {
+        username,
+        password,
+      }
+    );
     if (response.data && response.data.accessToken) {
       localStorage.setItem("user", JSON.stringify(response.data));
     }
@@ -60,35 +63,44 @@ const Login = (props) => {
         if (result.success) {
           // Get user's cart after logging in
           const user = JSON.parse(localStorage.getItem("user"));
-          const response = await cartService.getCart(user.id);
+          console.log(user.roles)
+          // Check if the user has the "user" role
+          const hasUserRole = user.roles[0] === "ROLE_USER";
+          console.log()
+          if (hasUserRole) {
+            const response = await cartService.getCart(user.id);
 
-          // Merge guestCart with the user's cart
-          const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-          if (guestCart.length > 0) {
-            const headers = userService.getAccessTokenHeaderFromLocalStorage();
-            console.log(headers);
+            // Merge guestCart with the user's cart
+            const guestCart =
+              JSON.parse(localStorage.getItem("guestCart")) || [];
+            if (guestCart.length > 0) {
+              const headers =
+                userService.getAccessTokenHeaderFromLocalStorage();
+              console.log(headers);
 
-            // Check if cartItems exists in the response
-            const userCartItems = response.cartItems
-              ? response.cartItems.map((item) => item.id)
-              : [];
+              // Check if cartItems exists in the response
+              const userCartItems = response.cartItems
+                ? response.cartItems.map((item) => item.id)
+                : [];
 
-            for (const item of guestCart) {
-              // Check if the item is not already in the user's cart
-              if (!userCartItems.includes(item.product)) {
-                try {
-                  await axios.post(
-                    process.env.REACT_APP_BACKEND_ENDPOINT+`/api/cart/add/${item.product}`,
-                    {},
-                    { headers: headers }
-                  );
-                } catch (error) {
-                  console.log("Error adding product to cart:", error);
+              for (const item of guestCart) {
+                // Check if the item is not already in the user's cart
+                if (!userCartItems.includes(item.product)) {
+                  try {
+                    await axios.post(
+                      process.env.REACT_APP_BACKEND_ENDPOINT +
+                        `/api/cart/add/${item.product}`,
+                      {},
+                      { headers: headers }
+                    );
+                  } catch (error) {
+                    console.log("Error adding product to cart:", error);
+                  }
                 }
               }
+              // Clear guestCart from localStorage
+              localStorage.removeItem("guestCart");
             }
-            // Clear guestCart from localStorage
-            localStorage.removeItem("guestCart");
           }
 
           // Navigate to the profile page and reload the page
