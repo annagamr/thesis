@@ -22,7 +22,7 @@ export const slides = [
   },
   {
     imgSrc: images.cover3,
-    title: "Second Change for Skin: Affordable, Responsible Skincare",
+    title: "Second Chance for Skin: Affordable, Responsible Skincare",
     desc: "Here, at Aurora, we offer an affordable, environmentally responsible way to enjoy your favorite skincare brands. Browse our selection of pre-owned, safely sanitized products, and join the green beauty revolution. Our user-friendly platform allows for seamless browsing and purchasing, while our transparent practices ensure that you know exactly what you're getting. Experience the benefits of luxury skincare products at a fraction of the cost, all while making a positive impact on the environment.",
   },
   {
@@ -91,10 +91,10 @@ const About = () => {
         solutions that illuminate your beauty from within
       </div>
       <div className="reasons-why">
-        <div class="row1">
-          <div class="col-sm-4">
-            <div class="card text-center">
-              <div class="title">
+        <div className="row1">
+          <div className="col-sm-4">
+            <div className="card text-center">
+              <div className="title">
                 <IconContext.Provider
                   value={{
                     color: "white",
@@ -107,7 +107,7 @@ const About = () => {
                 <h2>Sustainable</h2>
               </div>
 
-              <div class="option">
+              <div className="option">
                 <ul>
                   <li></li>
 
@@ -122,9 +122,9 @@ const About = () => {
               </div>
             </div>
           </div>
-          <div class="col-sm-4">
-            <div class="card text-center">
-              <div class="title">
+          <div className="col-sm-4">
+            <div className="card text-center">
+              <div className="title">
                 <IconContext.Provider
                   value={{
                     color: "white",
@@ -137,7 +137,7 @@ const About = () => {
                 <h2>Affordable</h2>
               </div>
 
-              <div class="option">
+              <div className="option">
                 <ul>
                   <li></li>
                   <li>Lower Overhead Costs</li>
@@ -152,9 +152,9 @@ const About = () => {
               </Link>
             </div>
           </div>
-          <div class="col-sm-4">
-            <div class="card text-center">
-              <div class="title">
+          <div className="col-sm-4">
+            <div className="card text-center">
+              <div className="title">
                 <IconContext.Provider
                   value={{
                     color: "white",
@@ -167,7 +167,7 @@ const About = () => {
                 <h2>Accessible</h2>
               </div>
 
-              <div class="option">
+              <div className="option">
                 <ul>
                   <li></li>
                   <li>Smart Filtering</li>
