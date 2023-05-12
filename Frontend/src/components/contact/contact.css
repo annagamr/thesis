@@ -8,13 +8,15 @@
 .contact-page {
   height: 87.3vh;
   background-color: #eaeef2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main {
   position: absolute;
   background-color: rgb(255, 255, 255);
   width: 70rem;
-  margin: 5rem 27rem;
   padding: 1rem;
   box-shadow: 1px 1px 20px 0 var(--color-shadow);
   border-radius: 2rem;
@@ -104,4 +106,36 @@ form button {
 form button:hover {
   box-shadow: rgba(181, 176, 248, 0.5) 0 1px 20px;
   transition-duration: .1s;
+}
+
+
+@media (max-width: 1200px) {
+  .contact-page {
+    width: 100vw;
+  }
+  .main {
+    width: 90%;
+    border-radius: 0;
+  }
+
+  .footer_bottom {
+    width: 100vw;
+  }
+
+  .illustration img {
+    display: none;
+  }
+  .illustration{
+    display: none;
+  }
+
+  .header {
+    padding-left: 0;
+    font-size: 25px;
+    padding-bottom: 25px;
+  }
+
+  .form-container {
+    width: 100%
+  }
 }

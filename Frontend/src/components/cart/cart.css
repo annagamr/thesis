@@ -264,3 +264,53 @@ s .single_pickup_address p {
     background: #F8FAF5;
     margin: 0 auto;
 }
+
+@media (max-width: 768px) {
+    .cart-container {
+      flex-direction: column;
+      width: 100%;
+      padding: 2rem;
+      height: auto;
+    }
+  
+    .details_card {
+      width: 100%;
+      height: auto;
+      margin-bottom: 2rem;
+    }
+  
+    .name_address input, .address select {
+      margin: 10px 0;
+    }
+  
+    .first_lastName,
+    .pickup_card,
+    .address {
+      flex-direction: column;
+      margin: 10px 0;
+    }
+  
+    .delivery_method {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .delivery_method label {
+      margin-bottom: 1rem;
+    }
+  
+    .pickup_card {
+      margin-top: 1rem !important;
+    }
+  
+    .summary_card {
+      width: 100%;
+      margin-top: 2rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .details_card {
+      padding: 1rem;
+    }
+  }

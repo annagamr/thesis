@@ -374,7 +374,9 @@
     .intro-container {
         flex-direction: row;
         margin-top: 65rem;
-        width: 400%;
+        /* width: 400%; */
+        width: 100vw;
+
     }
 
     .intro-container img {
@@ -391,7 +393,7 @@
         text-align: center;
         line-height: 2.5rem;
         letter-spacing: 0.25rem;
-        width: 400%;
+        width: 100vw;
         height: 14rem;
         padding: 2rem;
         position: absolute;
@@ -414,7 +416,7 @@
     }
 
     .how-title {
-        width: 400%;
+        /* width: 400%; */
         top: 60rem;
     }
 
@@ -432,14 +434,14 @@
     }
 
     .category-boxes {
-        width: 400%;
+        /* width: 400%; */
         top: 100rem;
         padding-top: 3rem;
         border: 1px solid rgb(235, 118, 118);
     }
 
     .guide {
-        width: 400%;
+        /* width: 400%; */
         top: 140rem;
         left: 2rem;
     }

@@ -6,9 +6,10 @@
     justify-content: center;
     align-items: center;
 }
-.login-container{
+
+.login-container {
     height: 75%;
-    width: 25%;
+    width: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,16 +20,20 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
 }
-.title{
+
+.title {
     font-family: 'Times New Roman', Times, serif;
     font-size: 35px;
 }
-.item-password,.item-username {
+
+.item-password,
+.item-username {
     padding-bottom: 20px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 18px;
 }
-.item-username{
+
+.item-username {
     padding-top: 40px;
 }
 
@@ -37,17 +42,32 @@ input {
     font-size: 15px;
     cursor: pointer;
 }
+
 .error {
     color: red;
     font-family: 'Times New Roman', Times, serif;
 }
 
-#forgot-quest{
+#forgot-quest {
     position: relative;
     text-decoration: none;
     color: blue;
     bottom: 1rem;
     left: 5px;
     font-size: 20px;
-} 
+}
 
+@media (max-width: 575px) {
+    .login-container {
+        height: 60%;
+        width: 80%;
+    }
+
+    .title h2{
+        font-size:2.5rem;
+    }
+
+    .item-username {
+        padding-top: 12px;
+    }
+}
