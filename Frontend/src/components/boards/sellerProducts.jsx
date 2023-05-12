@@ -58,10 +58,21 @@ const SellerProducts = () => {
     fetchProducts();
   }, []);
 
+  function removeProductFromGuestCart(productId) {
+    const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+
+    const updatedGuestCart = guestCart.filter(
+      (item) => item.product !== productId
+    );
+
+    localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
+  }
+
   const onDeleteProduct = async (productId) => {
     try {
-      await axios.delete(process.env.REACT_APP_BACKEND_ENDPOINT+`/api/product-delete/${productId}`);
+      await axios.delete(process.env.REACT_APP_BACKEND_ENDPOINT + `/api/product-delete/${productId}`);
       setProducts(products.filter((product) => product.id !== productId));
+      removeProductFromGuestCart(productId);
     } catch (error) {
       setError(`Error deleting product with ID: ${productId}`);
     }

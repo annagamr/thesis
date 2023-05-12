@@ -86,7 +86,9 @@ const BoardAdmin = () => {
 
     const fetchProductCount = async () => {
       try {
-        const response = await axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/products");
+        const response = await axios.get(
+          process.env.REACT_APP_BACKEND_ENDPOINT + "/api/products"
+        );
         setproductCount(response.data.count);
         setProductss(response.data.products);
       } catch (error) {
@@ -99,7 +101,9 @@ const BoardAdmin = () => {
 
     const fetchPostsCount = async () => {
       try {
-        const response = await axios.get(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/posts");
+        const response = await axios.get(
+          process.env.REACT_APP_BACKEND_ENDPOINT + "/api/posts"
+        );
         setblogCount(response.data.count);
         setBlogs(response.data.allPosts);
       } catch (error) {
@@ -125,6 +129,16 @@ const BoardAdmin = () => {
     );
   }, []);
 
+  function removeProductFromGuestCart(productId) {
+    const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+
+    const updatedGuestCart = guestCart.filter(
+      (item) => item.product !== productId
+    );
+
+    localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
+  }
+
   // Unified deletion handler
   const deleteHandler = useCallback(
     async (
@@ -140,7 +154,8 @@ const BoardAdmin = () => {
 
       try {
         const response = await fetch(
-          process.env.REACT_APP_BACKEND_ENDPOINT+`/api/${apiEndpoint}/${itemId}`,
+          process.env.REACT_APP_BACKEND_ENDPOINT +
+            `/api/${apiEndpoint}/${itemId}`,
           {
             method: "DELETE",
             headers: {
@@ -159,6 +174,10 @@ const BoardAdmin = () => {
 
           if (itemType === "user" && updateRelatedItems) {
             updateRelatedItems(itemId);
+          }
+
+          if (itemType === "product") {
+            removeProductFromGuestCart(itemId);
           }
 
           if (itemType === "user") {

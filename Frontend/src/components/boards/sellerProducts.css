@@ -1,10 +1,8 @@
 .products-page {
-  min-height: calc(100vh-60px);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #eaeef2;
-  height: 85.5vh;
-
 }
 
 .my-products {

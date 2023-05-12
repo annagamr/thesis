@@ -148,21 +148,22 @@ const AddProduct = () => {
     contactNumber
   ) {
     try {
+      const formData = new FormData();
+      formData.append("prodImageFile", prodImageFile);
+      formData.append("prodImageName", prodImageName);
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("category", category);
+      formData.append("author", author);
+      formData.append("price", price);
+      formData.append("street", street);
+      formData.append("city", city);
+      formData.append("zipCode", zipCode);
+      formData.append("contactNumber", contactNumber);
+
       const response = await axios.post(
         process.env.REACT_APP_BACKEND_ENDPOINT + "/api/add-product",
-        {
-          prodImageFile,
-          prodImageName,
-          title,
-          description,
-          category,
-          author,
-          price,
-          street,
-          city,
-          zipCode,
-          contactNumber,
-        },
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -456,7 +457,7 @@ const AddProduct = () => {
                           <b>Title:</b> {title}
                         </p>
                         <p style={{ marginTop: "70px" }}>
-                        <b>Description:</b> {description}
+                          <b>Description:</b> {description}
                         </p>
                         <p style={{ marginTop: "70px", marginBottom: "-40px" }}>
                           <b>Category:</b> {category}

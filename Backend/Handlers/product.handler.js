@@ -31,25 +31,11 @@ async function create(productData) {
     return product.save();
 }
 
-async function assignProductToSeller(username, product) {
-    // Find user in the database that match the given username
-    const foundUser = await db.user.findOne({ username });
-    if (!foundUser) {
-        throw new Error(`User with username "${username}" not found`);
-    }
-    // Map the found user to their IDs and set them as the product's author
-    product.author = foundUser._id;
-    // Save the updated product to the database and return the result
-    return product.save();
-}
-
 exports.addProduct = async (req, res) => {
     try {
+        console.log("Request received:", req.body);
         req.body.image = req.file.path
         const product = await create(req.body);
-        const user = req.body.author;
-        // console.log(user)
-        await assignProductToSeller(user, product);
         // Send a success message to the client
         res.status(200).send({ message: "Product Added Successfully!", product: product });
 
@@ -59,6 +45,8 @@ exports.addProduct = async (req, res) => {
         res.status(500).send({ message: err });
     }
 };
+
+
 const formatDate = (date) => {
     const options = { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
     return new Date(date).toLocaleDateString('en-US', options);
