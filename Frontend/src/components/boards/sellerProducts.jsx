@@ -28,7 +28,7 @@ const SellerProducts = () => {
             error.response.data.message) ||
           error.message ||
           error.toString();
-        setAccess(errorMessage);
+        setAccess("No Access for Non-Seller Users!");
 
         // Check if the error status is 401
         if (error.response && error.response.status === 401) {
@@ -37,6 +37,7 @@ const SellerProducts = () => {
           navigate("/signin");
           window.location.reload();
         }
+
       }
       setUserRole("non-seller");
     };
@@ -77,7 +78,7 @@ const SellerProducts = () => {
       )}
       {userRole !== "non-seller" && (
         <div className="products-page">
-          {error && <p className="error-message">{error}</p>}
+
           <div className="my-products">
             {products.length > 0 ? (
               <table>

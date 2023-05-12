@@ -8,8 +8,6 @@ const authController = require("../Handlers/auth.handler");
 const cartController = require("../Handlers/cart.handler");
 const orderController = require("../Handlers/order.handler");
 
-
-
 const { checkDuplicateUsernameOrEmailAndRolesExisted } = require("../Middleware/validationMiddleware");
 
 const multer = require('multer')
@@ -65,12 +63,13 @@ module.exports = function (app) {
     app.get("/api/shops-count",
         authController.countShops);
 
+    /*--- ROUTES FOR PRODUCTS ---*/
+
     // Route for creating products
     app.post(
         "/api/add-product",
         upload.single('prodImageFile'),
         productController.addProduct,
-
     );
     // Route for getting products
     app.get(
@@ -89,8 +88,16 @@ module.exports = function (app) {
         productController.productImage
     );
     // Route for getting products by current author
-    app.get('/api/productsbyAuthor/:author', productController.productsbyAuthor);
+    app.get('/api/productsbyAuthor/:author',
+        productController.productsbyAuthor);
 
+    // Route for deleting products
+    app.delete(
+        "/api/product-delete/:id",
+        productController.deleteProduct
+    );
+
+    /*--- ROUTES FOR POSTS ---*/
 
     // Route for creating post
     app.post(
@@ -102,16 +109,17 @@ module.exports = function (app) {
         "/api/posts",
         postController.posts
     );
+
+    // Route for getting number of posts according to topic
+
+    app.get("/api/countPostsByTopic/:topic", postController.countPostsByTopic);
+
     // Route for deleting post
     app.delete(
         "/api/post-delete/:id",
         postController.deletePost
     );
-    // Route for deleting products
-    app.delete(
-        "/api/product-delete/:id",
-        productController.deleteProduct
-    );
+
     // Route for deleting users and shops
     app.delete(
         "/api/users-delete/:id",
@@ -127,9 +135,8 @@ module.exports = function (app) {
         "/api/reset-password",
         authController.resetPassword
     );
-    // Route for getting number of posts according to topic
 
-    app.get("/api/countPostsByTopic/:topic", postController.countPostsByTopic);
+    /*--- ROUTES FOR CART ---*/
 
     // Route adding product to cart
     app.post("/api/cart/add/:id", verifyToken, cartController.addToCart);
@@ -143,11 +150,15 @@ module.exports = function (app) {
     // Route for getting number of products in cart
     app.post("/api/cart/clear-cart", cartController.clearCart);
 
+    /*--- ROUTES FOR ORDERS ---*/
+
     // Route for creating orders
-    app.post("/api/order/create-order", orderController.createOrder);
-    
+    app.post("/api/order/create-order",
+        orderController.createOrder);
+
     // Route for getting order of specific user
-    app.get("/api/order/get-orders/:userId", orderController.getOrders);
+    app.get("/api/order/get-orders/:userId",
+        orderController.getOrders);
 
     //Route for sign up
     app.post(
@@ -161,5 +172,5 @@ module.exports = function (app) {
     //Route for checking out (Stripe)
     app.post("/api/create-checkout-session", cartController.checkOut);
 
-    app.get("/api/test", (req, res) => {res.json("Testing")})
+    app.get("/api/test", (req, res) => { res.json("Testing") })
 };

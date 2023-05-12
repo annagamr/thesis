@@ -79,6 +79,7 @@ exports.getOrders = async (req, res) => {
 
     res.status(200).json({ orders: formattedOrders, numberOfOrders: numberOfOrders });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: "Error fetching user orders" });
   }
 };

@@ -49,13 +49,14 @@ const MyOrders = () => {
         try {
           const userId = user.id;
           const response = await axios.get(
-            `http://localhost:3002/api/order/get-orders/${userId}`
+            process.env.REACT_APP_BACKEND_ENDPOINT + `/api/order/get-orders/${userId}`
           );
           //   console.log(response.data);
           setOrders(response.data.orders);
         } catch (error) {
           // console.error("Error fetching user orders:", error.message);
           setErrorMessage("There was an error fetching user orders");
+          console.log(error.status)
         }
       }
     };
