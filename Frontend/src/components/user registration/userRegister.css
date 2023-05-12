@@ -1,7 +1,7 @@
 .registration-page {
     display: flex;
     height: 87.3vh;
-    background-image: url("../../assets/formBackground.jpg");
+    background-image: url("../../assets/background.jpg");
     background-size: cover;
     padding: 0;
     justify-content: center;
@@ -15,7 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgb(255 255 255 / 87%);
     padding: 20px;
     border-radius: 20px;
 }

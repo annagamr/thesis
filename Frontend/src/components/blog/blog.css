@@ -2,7 +2,8 @@
     width: 100%;
     max-width: 130rem;
     margin: 0 auto;
-  background-color: #f2eef6;
+    background: url("../../assets/1.jpg");
+    background-size: cover;
     min-height: 100vh;
 }
 
@@ -72,7 +73,7 @@
     cursor: pointer;
 }
 
-.if-success{
+.if-success {
     padding-bottom: 20px;
 }
 
@@ -107,6 +108,7 @@
     text-align: center;
     letter-spacing: 2px;
 }
+
 @media screen and (max-width: 768px) {
     .blogPage form {
         padding: 15px;
@@ -212,7 +214,7 @@
 
 .blog-posts {
     margin-top: 80px;
-    background: rgb(255 255 255 / 70%);
+    background: rgb(255 255 255 / 90%);
     border-radius: 5px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(3.9px);
@@ -230,8 +232,8 @@
     text-transform: uppercase;
     overflow-x: auto;
     word-wrap: break-word;
-    background: hsl(0, 0%, 100%);
-    color: black;
+    background: #4ea9b7;
+    color: white;
     padding: 15px;
     text-align: center;
     letter-spacing: 3px;
@@ -243,25 +245,24 @@
     line-height: 35px;
     overflow-x: auto;
     word-wrap: break-word;
-    padding:0 18px
+    padding: 0 18px
 }
 
 .blog-topics {
     border: 1px solid rgb(208, 208, 208);
     width: 8rem;
     text-align: center;
-    padding:5px;
+    padding: 5px;
     font-size: 15px;
     margin-top: 20px;
     margin-bottom: 15px;
     margin-left: 15px;
     color: white;
-    background-color: rgb(22, 22, 84);
+    background-color: #4ea9b7;
 }
 
 
-.blog-author
-{
+.blog-author {
     font-size: 15px;
     color: #888;
     margin-left: 15px;
@@ -279,25 +280,25 @@
     max-width: 1800px;
     padding-top: 50px;
     margin: 0 auto;
-    
-  }
-  
-  .topic-item {
+
+}
+
+.topic-item {
     width: calc(12% - 10px);
     height: 3rem;
     margin-bottom: 10px;
-    background-color: rgb(35, 35, 79);
+    background-color: white;
     text-align: center;
     cursor: pointer;
     border-radius: 10px;
-    font-size: 15px;
+    font-size: 16px;
     padding-top: 10px;
-    color: white;
-  }
+    color: black;
+}
 
 @media screen and (max-width: 768px) {
     .blog-posts {
-      width: 100%;
-      max-width: none;
+        width: 100%;
+        max-width: none;
     }
-  }
+}
