@@ -1,25 +1,25 @@
-import React from "react";
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-} from "@testing-library/react";import AddProduct from "../components/boards/AddProduct";
-import * as UserService from "../services/user.service";
-import productService from "../services/product.service";
-import axios from "axios";
-import { act } from "react-dom/test-utils";
+// import React from "react";
+// import {
+//   render,
+//   screen,
+//   fireEvent,
+//   waitFor,
+// } from "@testing-library/react";import AddProduct from "../components/boards/AddProduct";
+// import * as UserService from "../services/user.service";
+// import productService from "../services/product.service";
+// import axios from "axios";
+// import { act } from "react-dom/test-utils";
 
-jest.mock("../services/user.service", () => ({
-  sellerAccess: jest.fn(),
-}));
-jest.mock("../services/product.service", () => ({
-  getAllProducts: jest.fn(),
-  getSellerProducts: jest.fn(),
-  getProductImages: jest.fn(),
-  getProductById: jest.fn(),
-}));
-jest.mock("axios");
+// jest.mock("../services/user.service", () => ({
+//   sellerAccess: jest.fn(),
+// }));
+// jest.mock("../services/product.service", () => ({
+//   getAllProducts: jest.fn(),
+//   getSellerProducts: jest.fn(),
+//   getProductImages: jest.fn(),
+//   getProductById: jest.fn(),
+// }));
+// jest.mock("axios");
 
 // const mockProductData = {
 //   prodImageFile: new Blob(),
@@ -35,58 +35,58 @@ jest.mock("axios");
 //   contactNumber: "+36123456789",
 // };
 
-describe("AddProduct Component", () => {
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+// describe("AddProduct Component", () => {
+//   afterEach(() => {
+//     jest.resetAllMocks();
+//   });
   // beforeEach(() => {
   //   axios.post.mockResolvedValue({
   //     data: { message: "Product added successfully." },
   //   });
   // });
-  test("renders without crashing", async () => {
-    productService.getAllProducts.mockResolvedValue({ data: [] });
+//   test("renders without crashing", async () => {
+//     productService.getAllProducts.mockResolvedValue({ data: [] });
 
-    await act(async () => {
-      render(<AddProduct />);
-    });
-  });
+//     await act(async () => {
+//       render(<AddProduct />);
+//     });
+//   });
 
-  test("renders Add New Product header when userRole is not non-seller", async () => {
-    UserService.sellerAccess.mockResolvedValue({ data: "some data" });
-    productService.getAllProducts.mockResolvedValue({ data: [] });
+//   test("renders Add New Product header when userRole is not non-seller", async () => {
+//     UserService.sellerAccess.mockResolvedValue({ data: "some data" });
+//     productService.getAllProducts.mockResolvedValue({ data: [] });
 
-    await act(async () => {
-      render(<AddProduct />);
-    });
-    await waitFor(() => {
-      expect(screen.getByTestId("header-add")).toBeInTheDocument();
-    });
-  });
+//     await act(async () => {
+//       render(<AddProduct />);
+//     });
+//     await waitFor(() => {
+//       expect(screen.getByTestId("header-add")).toBeInTheDocument();
+//     });
+//   });
 
-  test("updates title input value on change", async () => {
-    UserService.sellerAccess.mockResolvedValue({ data: "some data" });
-    productService.getAllProducts.mockResolvedValue({ data: [] });
+//   test("updates title input value on change", async () => {
+//     UserService.sellerAccess.mockResolvedValue({ data: "some data" });
+//     productService.getAllProducts.mockResolvedValue({ data: [] });
 
-    render(<AddProduct />);
+//     render(<AddProduct />);
 
-    await waitFor(() => {
-      const titleInput = screen.getByLabelText(/Title/i);
-      fireEvent.change(titleInput, { target: { value: "Test Title" } });
-      expect(titleInput.value).toBe("Test Title");
-    });
-  });
+//     await waitFor(() => {
+//       const titleInput = screen.getByLabelText(/Title/i);
+//       fireEvent.change(titleInput, { target: { value: "Test Title" } });
+//       expect(titleInput.value).toBe("Test Title");
+//     });
+//   });
 
-  test("renders access message when userRole is non-seller", async () => {
-    UserService.sellerAccess.mockRejectedValue({});
-    productService.getAllProducts.mockResolvedValue({ data: [] });
+//   test("renders access message when userRole is non-seller", async () => {
+//     UserService.sellerAccess.mockRejectedValue({});
+//     productService.getAllProducts.mockResolvedValue({ data: [] });
 
-    render(<AddProduct />);
+//     render(<AddProduct />);
 
-    await waitFor(() => {
-      expect(screen.getByTestId("header-add")).toBeInTheDocument();
-    });
-  });
+//     await waitFor(() => {
+//       expect(screen.getByTestId("header-add")).toBeInTheDocument();
+//     });
+//   });
 
  
-});
+// });

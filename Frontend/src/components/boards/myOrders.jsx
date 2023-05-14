@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import useDeepCompareEffect from "use-deep-compare-effect";
 import UserService from "../../services/user.service";
 import axios from "axios";
 import { Card, ListGroup } from "react-bootstrap";
@@ -56,7 +55,6 @@ const MyOrders = () => {
         } catch (error) {
           // console.error("Error fetching user orders:", error.message);
           setErrorMessage("There was an error fetching user orders");
-          console.log(error.status)
         }
       }
     };

@@ -63,10 +63,10 @@ const Login = (props) => {
         if (result.success) {
           // Get user's cart after logging in
           const user = JSON.parse(localStorage.getItem("user"));
-          console.log(user.roles)
+          // console.log(user.roles)
           // Check if the user has the "user" role
           const hasUserRole = user.roles[0] === "ROLE_USER";
-          console.log()
+          // console.log()
           if (hasUserRole) {
             const response = await cartService.getCart(user.id);
 
@@ -76,7 +76,7 @@ const Login = (props) => {
             if (guestCart.length > 0) {
               const headers =
                 userService.getAccessTokenHeaderFromLocalStorage();
-              console.log(headers);
+              // console.log(headers);
 
               // Check if cartItems exists in the response
               const userCartItems = response.cartItems

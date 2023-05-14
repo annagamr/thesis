@@ -94,7 +94,6 @@ async function startServer() {
     });
     await connectAndInitialize(); //temp till hosting backend
   }
-  // await connectAndInitialize();
 }
 
 // If this file is run directly, start the server
@@ -107,5 +106,6 @@ module.exports = {
   createApp,
   startServer,
   connectAndInitialize,
+  createDefaultAdmin,
   db
 };

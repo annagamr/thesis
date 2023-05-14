@@ -33,7 +33,6 @@ async function create(productData) {
 
 exports.addProduct = async (req, res) => {
     try {
-        console.log("Request received:", req.body);
         req.body.image = req.file.path
         const product = await create(req.body);
         // Send a success message to the client

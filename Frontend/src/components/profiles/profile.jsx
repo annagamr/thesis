@@ -45,11 +45,13 @@ const Profile = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
-      try {
-        const response = await productService.getSellerProducts(user.id);
-        setnumberOfProducts(response.data.numberOfProducts);
-      } catch (error) {
-        console.error("Error fetching user products:", error.message);
+      if (user) {
+        try {
+          const response = await productService.getSellerProducts(user.id);
+          setnumberOfProducts(response.data.numberOfProducts);
+        } catch (error) {
+          console.error("Error fetching user products:", error.message);
+        }
       }
     };
     fetchProducts();
@@ -79,7 +81,8 @@ const Profile = () => {
               </div>
               <div className="num">
                 <b>Listed Products:</b>{" "}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {numberOfProducts}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                {numberOfProducts}
               </div>
             </div>
             <button className="see-list">
@@ -88,8 +91,7 @@ const Profile = () => {
                 style={{ textDecoration: "none", color: "white" }}
                 to="/sellerProducts"
               >
-                Listed Products   
-                
+                Listed Products
               </Link>
             </button>
           </div>
