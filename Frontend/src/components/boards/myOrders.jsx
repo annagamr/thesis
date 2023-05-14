@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+import { BiLoader } from "react-icons/bi";
 import UserService from "../../services/user.service";
+import { IconContext } from "react-icons";
 import axios from "axios";
 import { Card, ListGroup } from "react-bootstrap";
 import "./sellerProducts.css";
@@ -10,6 +12,8 @@ const MyOrders = () => {
   const [content, setContent] = useState("");
   const [orders, setOrders] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const { logOut } = useContext(UserContext);
   const navigate = useNavigate();
@@ -34,7 +38,7 @@ const MyOrders = () => {
           // Log out the user and navigate to /signin
           logOut();
           navigate("/signin");
-          window.location.reload()
+          window.location.reload();
         }
       }
     );
@@ -48,19 +52,20 @@ const MyOrders = () => {
         try {
           const userId = user.id;
           const response = await axios.get(
-            process.env.REACT_APP_BACKEND_ENDPOINT + `/api/order/get-orders/${userId}`
+            process.env.REACT_APP_BACKEND_ENDPOINT +
+              `/api/order/get-orders/${userId}`
           );
-          //   console.log(response.data);
           setOrders(response.data.orders);
         } catch (error) {
-          // console.error("Error fetching user orders:", error.message);
           setErrorMessage("There was an error fetching user orders");
+        } finally {
+          setIsLoading(false);
         }
       }
     };
 
     fetchUserOrders();
-  }, [user]);
+  }, [user.id]);
 
   return (
     <div className="mainContainerOrders">
@@ -69,9 +74,13 @@ const MyOrders = () => {
           <h3 aria-level="3">{content}</h3>
         </header>
         <div className="my-products">
-          {errorMessage && <p>{errorMessage}</p>}
-
-          {orders.length > 0 ? (
+          {isLoading ? (
+          <><p>Loading...</p>
+          <BiLoader/></>
+              
+          ) : errorMessage ? (
+            <p>{errorMessage}</p>
+          ) : orders.length > 0 ? (
             orders.map((order, index) => (
               <Card key={index} className="mb-3">
                 <Card.Header style={{ color: "white", background: "#393b81" }}>
@@ -90,7 +99,7 @@ const MyOrders = () => {
               </Card>
             ))
           ) : (
-            <p>No orders found</p>
+            <h2>No orders found!</h2>
           )}
         </div>
       </div>

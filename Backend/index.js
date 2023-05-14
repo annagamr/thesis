@@ -57,6 +57,30 @@ async function createDefaultAdmin() {
   } 
 }
 
+function checkDbConnection() {
+  const state = db.mongoose.connection.readyState;
+  let stateMessage = '';
+
+  switch(state) {
+    case 0:
+      stateMessage = 'disconnected';
+      break;
+    case 1:
+      stateMessage = 'connected';
+      break;
+    case 2:
+      stateMessage = 'connecting';
+      break;
+    case 3:
+      stateMessage = 'disconnecting';
+      break;
+    default:
+      stateMessage = 'unknown state';
+      break;
+  }
+
+  console.log(`Database connection state: ${state} (${stateMessage})`);
+}
 
 // Function to connect to MongoDB and initialize roles if not already initialized
 async function connectAndInitialize() {
@@ -93,6 +117,7 @@ async function startServer() {
       console.log(`Express server on port: ${process.env.BACKEND_PORT}`);
     });
     await connectAndInitialize(); //temp till hosting backend
+    setInterval(checkDbConnection, 5000);
   }
 }
 

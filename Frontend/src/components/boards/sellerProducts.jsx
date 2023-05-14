@@ -21,7 +21,6 @@ const SellerProducts = () => {
       try {
         const response = await UserService.sellerAccess();
         setAccess(response.data);
-        setUserRole("seller");
       } catch (error) {
         const errorMessage =
           (error.response &&
