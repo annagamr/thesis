@@ -38,7 +38,7 @@ const MyOrders = () => {
         }
       }
     );
-  }, []);
+  }, [logOut, navigate]);
 
   const user = JSON.parse(localStorage.getItem("user"));
 

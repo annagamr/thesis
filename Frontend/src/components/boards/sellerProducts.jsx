@@ -42,7 +42,7 @@ const SellerProducts = () => {
       setUserRole("non-seller");
     };
     fetchSellerAccess();
-  }, []);
+  }, [logOut, navigate]);
   //x Only for sellers x\\
 
   useEffect(() => {

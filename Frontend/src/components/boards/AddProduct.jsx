@@ -64,7 +64,7 @@ const AddProduct = () => {
           error.message ||
           error.toString();
         setAccess(errorMessage);
-
+  
         // Check if the error status is 401
         if (error.response && error.response.status === 401) {
           // Log out the user and navigate to /signin
@@ -76,7 +76,7 @@ const AddProduct = () => {
       setUserRole("non-seller");
     };
     fetchSellerAccess();
-  }, []);
+  }, [logOut, navigate]);
   //x Only for sellers x\\
   const validateForm = () => {
     const errors = {};

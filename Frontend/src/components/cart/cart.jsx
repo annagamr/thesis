@@ -4,6 +4,7 @@ import cartService from "../../services/cart.service";
 import { loadStripe } from "@stripe/stripe-js";
 import productService from "../../services/product.service";
 import { CartContext } from "./CartContext";
+import MessageModal from "../boards/MessageModal";
 
 const Cart = () => {
   const [deliveryMethod, setDeliveryMethod] = useState("shipping");
@@ -16,6 +17,10 @@ const Cart = () => {
   const { totalItems, setTotalItems } = useContext(CartContext);
   const [shippingFormValid, setShippingFormValid] = useState(false);
   const [city, setCity] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalType, setModalType] = useState("");
 
   const [errors, setErrors] = useState({
     firstName: "",
@@ -122,7 +127,9 @@ const Cart = () => {
 
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-      alert("Sign up or Sign in");
+      setModalMessage("Sign up or Sign in");
+      setModalType("error");
+      setShowModal(true);
     } else {
       try {
         const response = await fetch(
@@ -233,9 +240,10 @@ const Cart = () => {
       lastName.length > 0 &&
       address.length > 0 &&
       isZipCodeValid &&
-      isCityValid &&
+      isCityValid;
 
-    setShippingFormValid(isFormValid);
+      setShippingFormValid(isFormValid);
+
   };
 
   useEffect(() => {
@@ -318,7 +326,6 @@ const Cart = () => {
                   <option value="Gyor">Gyor</option>
                 </select>
                 <span className="error">{errors.city}</span>
-
               </div>
             </div>
           )}
@@ -425,6 +432,12 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      <MessageModal
+        show={showModal}
+        message={modalMessage}
+        type={modalType}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 };
