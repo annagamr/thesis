@@ -21,6 +21,7 @@ const SellerProducts = () => {
       try {
         const response = await UserService.sellerAccess();
         setAccess(response.data);
+        setUserRole("seller");
       } catch (error) {
         const errorMessage =
           (error.response &&
@@ -37,7 +38,6 @@ const SellerProducts = () => {
           navigate("/signin");
           window.location.reload();
         }
-
       }
       setUserRole("non-seller");
     };
@@ -70,7 +70,10 @@ const SellerProducts = () => {
 
   const onDeleteProduct = async (productId) => {
     try {
-      await axios.delete(process.env.REACT_APP_BACKEND_ENDPOINT + `/api/product-delete/${productId}`);
+      await axios.delete(
+        process.env.REACT_APP_BACKEND_ENDPOINT +
+          `/api/product-delete/${productId}`
+      );
       setProducts(products.filter((product) => product.id !== productId));
       removeProductFromGuestCart(productId);
     } catch (error) {
@@ -89,7 +92,6 @@ const SellerProducts = () => {
       )}
       {userRole !== "non-seller" && (
         <div className="products-page">
-
           <div className="my-products">
             {products.length > 0 ? (
               <table>

@@ -6,7 +6,7 @@ import { act } from "react-dom/test-utils";
 
 jest.mock("axios");
 
-describe("Forgot Component - White Box Tests", () => {
+describe("Forgot Component", () => {
   test("1. Test if the component renders without crashing", () => {
     render(<Forgot />);
     const forgotComponent = screen.getByTestId("forgot-page");

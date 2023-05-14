@@ -20,7 +20,7 @@ const renderProductDetails = (id) => {
 };
 
 describe("ProductDetails component", () => {
-  test("renders product details page with correct data", async () => {
+  test("1. Renders product details page with correct data", async () => {
     const product = {
       title: "Test Product",
       description: "Test Product Description",
@@ -46,7 +46,7 @@ describe("ProductDetails component", () => {
     expect(priceElement).toBeInTheDocument();
   });
 
-  test("renders image with correct alt text", async () => {
+  test("2. Renders image with correct alt text", async () => {
     const product = {
       title: "Test Product",
       image: "test-image.jpg",

@@ -1,23 +1,15 @@
 import React from "react";
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { render, screen, waitFor, act } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import axios from "axios";
 import BoardAdmin from "../components/boards/adminBoard";
 import UserService from "../services/user.service";
 import { cleanup } from "@testing-library/react";
 
-
 jest.mock("axios");
 jest.mock("../services/user.service");
 
-// Black-box tests
-describe("BoardAdmin Component - Black-box tests", () => {
+describe("BoardAdmin Component ", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     UserService.adminAccess.mockResolvedValueOnce({ data: "Admin Board" });
@@ -29,13 +21,13 @@ describe("BoardAdmin Component - Black-box tests", () => {
   afterEach(() => {
     cleanup();
   });
-  test("renders BoardAdmin component without crashing", async () => {
+  test("1. Renders BoardAdmin component without crashing", async () => {
     await act(async () => {
       render(<BoardAdmin />);
     });
   });
 
-  test("renders the admin header on successful admin access", async () => {
+  test("2. Renders the admin header on successful admin access", async () => {
     render(<BoardAdmin />);
 
     await waitFor(() => {
@@ -43,13 +35,11 @@ describe("BoardAdmin Component - Black-box tests", () => {
     });
   });
 
-  test("renders products and blogs headers", async () => {
+  test("3. Renders products and blogs headers", async () => {
     render(<BoardAdmin />);
     await waitFor(() => {
       expect(screen.getByText("PRODUCTS")).toBeInTheDocument();
       expect(screen.getByText("BLOGS")).toBeInTheDocument();
     });
   });
-  
-  
 });

@@ -5,12 +5,10 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import Login, { signin } from "../components/login/login";
+import Login from "../components/login/login";
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
 import { act } from "react-dom/test-utils";
-import * as cartService from "../services/cart.service";
-import userService from "../services/user.service";
 
 jest.mock("axios");
 jest.mock("../services/user.service");
@@ -140,35 +138,4 @@ describe("Login component tests", () => {
     });
   });
 
-//   test("10. Test if the guest cart is merged with the user's cart after successful login", async () => {
-//     const { container } = render(
-//       <Router>
-//         <Login />
-//       </Router>
-//     );
-  
-//     const usernameInput = screen.getByLabelText("Username");
-//     const passwordInput = screen.getByLabelText("Password");
-//     const loginButton = screen.getByText("Login");
-  
-//     await act(async () => {
-//       fireEvent.change(usernameInput, { target: { value: "testuser" } });
-//       fireEvent.change(passwordInput, { target: { value: "testpassword" } });
-//       fireEvent.click(loginButton);
-//     });
-  
-//     await waitFor(() => {
-//       expect(axios.post).toHaveBeenCalledWith(
-//         process.env.REACT_APP_BACKEND_ENDPOINT + "/api/auth/signin",
-//         { username: "testuser", password: "testpassword" }
-//       );
-//       expect(axios.post).toHaveBeenCalledWith(
-//         process.env.REACT_APP_BACKEND_ENDPOINT + "/api/cart/add",
-//         [{ product: "product1" }],
-//         { headers: { "x-access-token": "testtoken" } }
-//       );
-//     });
-  
-//     expect(localStorage.getItem("guestCart")).toBeNull();
-//   });
 });

@@ -1,173 +1,104 @@
-// import React from "react";
-// import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-// import SellerProducts from "../components/boards/sellerProducts";
-// import * as UserService from "../services/user.service";
-// import productService from "../services/product.service";
-// import axios from "axios";
-// import { act } from "react-dom/test-utils";
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import SellerProducts from "../components/boards/sellerProducts";
+import * as UserService from "../services/user.service";
+import productService from "../services/product.service";
+import axios from "axios";
+import { act } from "react-dom/test-utils";
+import UserContext from "../components/boards/UserContext";
+import { BrowserRouter } from "react-router-dom";
 
-// jest.mock("axios");
-// jest.mock("../services/product.service", () => ({
-//   getSellerProducts: jest.fn(),
-// }));
-// const localStorageMock = (function () {
-//   let store = {};
+const defaultUserContext = {
+  showSellerBoard: false,
+  setShowSellerBoard: jest.fn(),
+  showAdminBoard: false,
+  setShowAdminBoard: jest.fn(),
+  showUserBoard: false,
+  setShowUserBoard: jest.fn(),
+  currentUser: null,
+  setCurrentUser: jest.fn(),
+  logOut: jest.fn(),
+};
 
-//   return {
-//     getItem: function (key) {
-//       return store[key] || null;
-//     },
-//     setItem: function (key, value) {
-//       store[key] = value.toString();
-//     },
-//     clear: function () {
-//       store = {};
-//     },
-//   };
-// })();
+jest.mock("axios");
 
-// Object.defineProperty(window, "localStorage", { value: localStorageMock });
+jest.mock("../services/product.service", () => ({
+  getSellerProducts: jest.fn(),
+}));
 
-// describe("SellerProducts Component", () => {
-//   beforeEach(() => {
-//     const user = {
-//       id: "1",
-//       username: "test-user",
-//       email: "test@example.com",
-//       roles: ["ROLE_USER"],
-//     };
+jest.mock("../services/user.service", () => ({
+    sellerAccess: jest.fn(),
+}));
+const localStorageMock = (function () {
+  let store = {};
 
-//     localStorage.setItem("user", JSON.stringify(user));
-//   });
+  return {
+    getItem: function (key) {
+      return store[key] || null;
+    },
+    setItem: function (key, value) {
+      store[key] = value.toString();
+    },
+    clear: function () {
+      store = {};
+    },
+  };
+})();
 
-//   test("renders without crashing", async () => {
-//     productService.getSellerProducts.mockResolvedValue({
-//       data: [],
-//     });
+Object.defineProperty(window, "localStorage", { value: localStorageMock });
 
-//     await act(async () => {
-//       render(<SellerProducts />);
-//     });
-//     await waitFor(() => {});
-//   });
+describe("SellerProducts Component", () => {
+  beforeEach(() => {
+    const user = {
+      id: "1",
+      username: "test-user",
+      email: "test@example.com",
+      roles: ["ROLE_USER"],
+    };
 
-//   test("renders My Products header", async () => {
-//     productService.getSellerProducts.mockResolvedValue({
-//       data: [],
-//     });
+    localStorage.setItem("user", JSON.stringify(user));
+  });
 
-//     await act(async () => {
-//       render(<SellerProducts />);
-//     });
-//     expect(screen.getByText("My Products:")).toBeInTheDocument();
-//   });
+  test("1. Renders without crashing", async () => {
+    // Mock the sellerAccess call to return a successful response
+    UserService.sellerAccess = jest
+      .fn()
+      .mockResolvedValue({ data: "No Access for Non-Seller Users!" });
 
-//   test("renders No products to display message when there are no products", async () => {
-//     productService.getSellerProducts.mockResolvedValue({ data: [] });
+    productService.getSellerProducts.mockResolvedValue({
+      data: [],
+    });
 
-//     render(<SellerProducts />);
+    await act(async () => {
+      render(
+        <UserContext.Provider value={defaultUserContext}>
+          <BrowserRouter>
+            <SellerProducts />
+          </BrowserRouter>
+        </UserContext.Provider>
+      );
+    });
+    await waitFor(() => {});
+  });
 
-//     await waitFor(() => {
-//       expect(screen.getByText("No products to display!")).toBeInTheDocument();
-//     });
-//   });
+  test("2. Renders No products to display message when there are no products", async () => {
+    // Mock the sellerAccess call to return a successful response
+    UserService.sellerAccess = jest
+      .fn()
+      .mockResolvedValue({ data: "Access granted" });
 
-//   test("fetches and renders products correctly", async () => {
-//     const mockProducts = [
-//       {
-//         id: 1,
-//         title: "Product 1",
-//         image: "image1.jpg",
-//         added: "2023-05-03",
-//         price: 1000,
-//       },
-//       {
-//         id: 2,
-//         title: "Product 2",
-//         image: "image2.jpg",
-//         added: "2023-05-03",
-//         price: 2000,
-//       },
-//     ];
+    productService.getSellerProducts.mockResolvedValue({ data: [] });
 
-//     productService.getSellerProducts.mockResolvedValue({ data: mockProducts });
+    render(
+      <UserContext.Provider value={defaultUserContext}>
+        <BrowserRouter>
+          <SellerProducts />
+        </BrowserRouter>
+      </UserContext.Provider>
+    );
 
-//     render(<SellerProducts />);
-
-//     await waitFor(() => {
-//       mockProducts.forEach((product) => {
-//         expect(screen.getByText(product.title)).toBeInTheDocument();
-//         expect(
-//           screen.getByText(`Price: ${product.price} HUF`)
-//         ).toBeInTheDocument();
-//       });
-//     });
-//   });
-
-//   test("renders product images with correct src attribute", async () => {
-//     const mockProducts = [
-//       {
-//         id: 1,
-//         title: "Product 1",
-//         image: "image1.jpg",
-//         added: "2023-05-03",
-//         price: 1000,
-//       },
-//     ];
-
-//     productService.getSellerProducts.mockResolvedValue({ data: mockProducts });
-
-//     render(<SellerProducts />);
-
-//     await waitFor(() => {
-//       const imgElement = screen.getByRole("img");
-//       expect(imgElement).toHaveAttribute(
-//         "src",
-//         process.env.REACT_APP_BACKEND_ENDPOINT + "/image1.jpg"
-//       );
-//     });
-//   });
-
-//   test("renders the correct number of product cards", async () => {
-//     const mockProducts = [
-//       {
-//         id: 1,
-//         title: "Product 1",
-//         image: "image1.jpg",
-//         added: "2023-05-03",
-//         price: 1000,
-//       },
-//       {
-//         id: 2,
-//         title: "Product 2",
-//         image: "image2.jpg",
-//         added: "2023-05-03",
-//         price: 2000,
-//       },
-//     ];
-
-//     productService.getSellerProducts.mockResolvedValue({ data: mockProducts });
-
-//     render(<SellerProducts />);
-
-//     await waitFor(() => {
-//       const productCards = screen.getAllByTestId("product-card");
-//       expect(productCards.length).toBe(mockProducts.length);
-//     });
-//   });
-  
-//   test("displays error message when fetching products fails", async () => {
-//     // Mock the error
-//     productService.getSellerProducts.mockImplementation(() => {
-//       throw new Error("An error occurred while fetching products");
-//     });
-
-//     await act(async () => {
-//       render(<SellerProducts />);
-//     });
-
-//     expect(
-//       screen.getByText("An error occurred while fetching products")
-//     ).toBeInTheDocument();
-//   });
-// });
+    await waitFor(() => {
+      expect(screen.getByText("No products to display!")).toBeInTheDocument();
+    });
+  });
+});

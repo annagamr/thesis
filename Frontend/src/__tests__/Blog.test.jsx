@@ -8,7 +8,9 @@ import { act } from "react-dom/test-utils";
 
 jest.mock("../services/post.service");
 jest.mock('axios')
+
 describe("Blog component", () => {
+
   beforeEach(() => {
     postService.getAllPosts = jest
       .fn()
@@ -27,7 +29,7 @@ describe("Blog component", () => {
     jest.clearAllMocks();
   });
 
-  test("Renders the Blog component without error", async () => {
+  test("1. Renders the Blog component without error", async () => {
     await act(async () => {
       render(<Blog />);
     });
@@ -36,7 +38,7 @@ describe("Blog component", () => {
     expect(blogContainer).not.toBeNull();
   });
 
-  test("Renders categories", async () => {
+  test("2. Renders categories", async () => {
     await act(async () => {
       render(<Blog />);
     });
@@ -56,7 +58,7 @@ describe("Blog component", () => {
     });
   });
 
-  test("renders blog posts", async () => {
+  test("3. Renders blog posts", async () => {
     const mockPosts = [
       {
         id: "1",
@@ -79,7 +81,8 @@ describe("Blog component", () => {
     const postTitle = await screen.findByText("Test Post 1");
     expect(postTitle).toBeInTheDocument();
   });
-  test("renders create post form for admin or seller", async () => {
+
+  test("4. Renders create post form for admin or seller", async () => {
     await act(async () => {
       render(<Blog user={{ roles: ["ROLE_SELLER"] }} />);
     });
@@ -87,7 +90,7 @@ describe("Blog component", () => {
     expect(createPostTitle).toBeInTheDocument();
   });
 
-  test("submits create post form", async () => {
+  test("5. Submits create post form", async () => {
     // Mock the axios.post function to return a fake post object
     axios.post.mockResolvedValue({
       data: {
@@ -125,7 +128,8 @@ describe("Blog component", () => {
     // Reset the mock after the test is done
     axios.post.mockReset();
   });
-  test("does not render the create post form for users without 'ROLE_SELLER' or 'ROLE_ADMIN'", async () => {
+
+  test("6. Does not render the create post form for users without 'ROLE_SELLER' or 'ROLE_ADMIN'", async () => {
     await act(async () => {
       render(<Blog user={{ roles: ["ROLE_USER"] }} />);
     });
@@ -134,7 +138,7 @@ describe("Blog component", () => {
     expect(createPostForm).toBeNull();
   });
 
-  test("renders the correct number of posts", async () => {
+  test("7. Renders the correct number of posts", async () => {
     const mockPosts = [
       {
         id: "1",
@@ -174,7 +178,7 @@ describe("Blog component", () => {
     expect(blogPosts.length).toEqual(mockPosts.length);
   });
 
-  test("fetches the skincare count and updates the skin state", async () => {
+  test("8. Fetches the skincare count and updates the skin state", async () => {
     const mockSkinCount = 5;
     postService.getSkincare.mockResolvedValue({
       data: { count: mockSkinCount },
@@ -192,7 +196,7 @@ describe("Blog component", () => {
     expect(skinCountElement).toBeInTheDocument();
   });
 
-  test("fetches the makeup count and updates the makeup state", async () => {
+  test("9. Fetches the makeup count and updates the makeup state", async () => {
     const mockMakeUpCount = 5;
     postService.getMakeUp.mockResolvedValue({
       data: { count: mockMakeUpCount },
@@ -210,7 +214,7 @@ describe("Blog component", () => {
     expect(skinCountElement).toBeInTheDocument();
   });
 
-  test("handles errors when fetching skincare count", async () => {
+  test("10. Handles errors when fetching skincare count", async () => {
     const errorMessage =
       "An error occurred while fetching skincare posts number.";
     postService.getSkincare.mockRejectedValue(
@@ -227,7 +231,7 @@ describe("Blog component", () => {
     expect(errorElement).toBeInTheDocument();
   });
 
-  test("handles errors when fetching makeup count", async () => {
+  test("11. Handles errors when fetching makeup count", async () => {
     const errorMessage =
       "An error occurred while fetching make up posts number.";
     postService.getMakeUp.mockRejectedValue(
@@ -244,7 +248,7 @@ describe("Blog component", () => {
     expect(errorElement).toBeInTheDocument();
   });
 
-  test("handles errors when fetching health count", async () => {
+  test("12. Handles errors when fetching health count", async () => {
     const errorMessage =
       "An error occurred while fetching health posts number.";
     postService.getHealth.mockRejectedValue(
@@ -261,7 +265,7 @@ describe("Blog component", () => {
     expect(errorElement).toBeInTheDocument();
   });
 
-  test("handles errors when fetching recommendation count", async () => {
+  test("13. Handles errors when fetching recommendation count", async () => {
     const errorMessage =
       "An error occurred while fetching recommendation posts number.";
     postService.getRec.mockRejectedValue(
@@ -278,7 +282,7 @@ describe("Blog component", () => {
     expect(errorElement).toBeInTheDocument();
   });
 
-  test("handles errors when fetching sun count", async () => {
+  test("14. Handles errors when fetching sun count", async () => {
     const errorMessage = "An error occurred while fetching sun posts number.";
     postService.getSun.mockRejectedValue(new Error("Error fetching sun count"));
 
