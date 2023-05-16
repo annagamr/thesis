@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { BiLoader } from "react-icons/bi";
 import UserService from "../../services/user.service";
-import { IconContext } from "react-icons";
 import axios from "axios";
 import { Card, ListGroup } from "react-bootstrap";
 import "./sellerProducts.css";
@@ -9,45 +8,47 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 
 const MyOrders = () => {
-  const [content, setContent] = useState("");
   const [orders, setOrders] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [userRole, setUserRole] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
   const { logOut } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   UserService.userAccess().then(
-  //     (response) => {
-  //       setContent(response.data);
-  //     },
-  //     (error) => {
-  //       const errorMessage =
-  //         (error.response &&
-  //           error.response.data &&
-  //           error.response.data.message) ||
-  //         error.message ||
-  //         error.toString();
-
-  //       setContent(errorMessage);
-
-  //       // Check if the error status is 401
-  //       if (error.response && error.response.status === 401) {
-  //         // Log out the user and navigate to /signin
-  //         logOut();
-  //         navigate("/signin");
-  //         window.location.reload();
-  //       }
-  //     }
-  //   );
-  // }, [logOut, navigate]);
-
-  const user = JSON.parse(localStorage.getItem("user"));
+  //Accessing page with different roles
+  useEffect(() => {
+    console.log("here");
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+    if (currentUser) {
+      const userId = currentUser.id;
+      console.log(userId);
+      UserService.userAccess(userId)
+        .then((response) => {
+          console.log(response);
+          setUserRole("customer");
+        })
+        .catch((err) => {
+          if (err.response) {
+            if (err.response.status === 401) {
+              logOut();
+              navigate("/signin");
+              window.location.reload();
+            } else if (err.response.status === 403) {
+              setUserRole("non-customer");
+              console.log("Not a customer");
+            }
+          }
+        });
+    }
+    setUserRole("non-customer");
+  }, []);
 
   useEffect(() => {
     const fetchUserOrders = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+
       if (user) {
         try {
           const userId = user.id;
@@ -65,43 +66,50 @@ const MyOrders = () => {
     };
 
     fetchUserOrders();
-  }, [user.id]);
+  }, []);
 
   return (
     <div className="mainContainerOrders">
       <div className="containerJ">
-        <header className="jumbotron">
-          <h3 aria-level="3">{content}</h3>
-        </header>
-        <div className="my-products">
-          {isLoading ? (
-          <><p>Loading...</p>
-          <BiLoader/></>
-              
-          ) : errorMessage ? (
-            <p>{errorMessage}</p>
-          ) : orders.length > 0 ? (
-            orders.map((order, index) => (
-              <Card key={index} className="mb-3">
-                <Card.Header style={{ color: "white", background: "#393b81" }}>
-                  Order #{index + 1}
-                </Card.Header>
-                <ListGroup variant="flush" role="list">
-                  <ListGroup.Item
-                    role="listitem"
-                    key={order.id}
-                    style={{ textTransform: "uppercase" }}
+        {userRole === "non-customer" && (
+          <header className="jumbotron">
+            <h3 aria-level="3">No Access for Shops and Admins!</h3>
+          </header>
+        )}
+        {userRole === "customer" && (
+          <div className="my-products">
+            {isLoading ? (
+              <>
+                <p>Loading...</p>
+                <BiLoader />
+              </>
+            ) : errorMessage ? (
+              <p>{errorMessage}</p>
+            ) : orders.length > 0 ? (
+              orders.map((order, index) => (
+                <Card key={index} className="mb-3">
+                  <Card.Header
+                    style={{ color: "white", background: "#393b81" }}
                   >
-                    <span style={{ color: "green" }}>{order.status}</span>{" "}
-                    <br /> <span>{order.created}</span>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
-            ))
-          ) : (
-            <h2>No orders found!</h2>
-          )}
-        </div>
+                    Order #{index + 1}
+                  </Card.Header>
+                  <ListGroup variant="flush" role="list">
+                    <ListGroup.Item
+                      role="listitem"
+                      key={order.id}
+                      style={{ textTransform: "uppercase" }}
+                    >
+                      <span style={{ color: "green" }}>{order.status}</span>{" "}
+                      <br /> <span>{order.created}</span>
+                    </ListGroup.Item>
+                  </ListGroup>
+                </Card>
+              ))
+            ) : (
+              <h2>No orders found!</h2>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

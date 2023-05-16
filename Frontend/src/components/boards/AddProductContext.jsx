@@ -52,7 +52,7 @@ export const AddProductProvider = (props) => {
   ];
 
   useEffect(() => {
-    console.log("jere")
+    console.log("here")
     const currentUser = JSON.parse(localStorage.getItem("user"));
     if (currentUser) {
       const userId = currentUser.id;

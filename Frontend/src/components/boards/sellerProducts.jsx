@@ -9,56 +9,13 @@ import { ProductsContext } from "./ProductContext";
 import axios from "axios";
 
 const SellerProducts = () => {
-  const [access, setAccess] = useState("");
-  const [userRole, setUserRole] = useState(null);
 
-  const { products, setProducts } = useContext(ProductsContext);
+  const { products, setProducts, userRole } = useContext(ProductsContext);
   const [error, setError] = useState(null);
 
   const { logOut } = useContext(UserContext);
   const navigate = useNavigate();
-  //Only for sellers
-  // useEffect(() => {
-  //   const fetchSellerAccess = async () => {
-  //     try {
-  //       const response = await UserService.sellerAccess();
-  //       setAccess(response.data);
-  //       setUserRole("seller");
 
-  //     } catch (error) {
-  //       const errorMessage =
-  //         (error.response &&
-  //           error.response.data &&
-  //           error.response.data.message) ||
-  //         error.message ||
-  //         error.toString();
-  //       setAccess("No Access for Non-Seller Users!");
-  //       setUserRole("non-seller");
-
-  //       // Check if the error status is 401
-  //       if (error.response && error.response.status === 401) {
-  //         // Log out the user and navigate to /signin
-  //         logOut();
-  //         navigate("/signin");
-  //         window.location.reload();
-  //       }
-  //     }
-  //   };
-  //   fetchSellerAccess();
-  // }, [navigate]);
-  //x Only for sellers x\\
-
-  // useEffect(() => {
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //   productService
-  //     .getSellerProducts(user.id)
-  //     .then((response) => {
-  //       setProducts(response.data.products);
-  //     })
-  //     .catch((error) => {
-  //       setError(error.message);
-  //     });
-  // }, []);
 
   function removeProductFromGuestCart(productId) {
     const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
@@ -108,14 +65,14 @@ const SellerProducts = () => {
 
   return (
     <>
-      {/* {userRole === "non-seller" && (
+      {userRole === "non-seller" && (
         <div className="container">
           <header className="jumbotron" data-testid="header-add">
-            <h3>{access}</h3>
+            <h3>No Access for Non-Seller Users!</h3>
           </header>
         </div>
-      )} */}
-      {/* {userRole !== "non-seller" && ( */}
+      )}
+      {userRole === "seller" && (
       <div className="products-page">
         <div className="my-products">
           {products.length > 0 ? (
@@ -154,7 +111,7 @@ const SellerProducts = () => {
           )}
         </div>
       </div>
-      {/* )} */}
+      )}
     </>
   );
 };

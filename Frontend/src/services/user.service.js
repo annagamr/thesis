@@ -49,6 +49,19 @@ class UserService {
     return response.data;
   }
 
+  async userAccess(userId) {
+    const url = `${this.baseURL}/user`;
+
+    const headers = {
+      ...this.getAccessTokenHeaderFromLocalStorage(),
+      'User-Id': userId,
+    };
+
+    const response = await axios.get(url, { headers: headers });
+
+    return response.data;
+  }
+
 }
 
 const userService = new UserService();

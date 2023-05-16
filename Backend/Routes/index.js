@@ -1,7 +1,7 @@
 const { verifyToken } = require("../Middleware/authMiddleware");
 const { isAdmin } = require("../Middleware/authMiddleware");
 const { isSeller } = require("../Middleware/authMiddleware");
-// const { isUser } = require("../Middleware/authMiddleware");
+const { isUser } = require("../Middleware/authMiddleware");
 const productController = require("../Handlers/product.handler");
 const postController = require("../Handlers/post.handler");
 const authController = require("../Handlers/auth.handler");
@@ -44,7 +44,7 @@ module.exports = function (app) {
     });
 
     // Route for authenticated users
-    app.get("/api/user", [verifyToken]);
+    app.get("/api/user", [verifyToken, isUser]);
 
     // Route for authenticated sellers
     app.get("/api/seller", [verifyToken, isSeller]);

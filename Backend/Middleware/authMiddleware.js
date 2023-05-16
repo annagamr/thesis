@@ -83,10 +83,38 @@ const isSeller = async (req, res, next) => {
   }
 };
 
+const isUser = async (req, res, next) => {
+  const userId = req.headers['user-id'];
+  console.log(userId)
+  if (!userId) {
+    return res.status(400).send({ message: "User ID was not provided" });
+  }
+
+  try {
+    const user = await User.findById(userId).populate("roles");
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    const isUser = user.roles.some((role) => role.name === "user");
+
+    if (isUser) {
+      return res.status(200).send({ message: "User is a customer" });
+    } else {
+      return res.status(403).send({ message: "Access not granted for non-customer users" });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: "Server error" });
+  }
+};
+
 
 const authJwt = {
   verifyToken,
   isAdmin,
-  isSeller
+  isSeller,
+  isUser
 };
 module.exports = authJwt;
