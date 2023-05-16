@@ -25,6 +25,8 @@ import BoardAdmin from "./components/boards/adminBoard";
 import Success from "./components/cart/success"
 import { CartContext } from "./components/cart/CartContext";
 import UserContext from "./components/boards/UserContext";
+import { ProductsProvider } from './components/boards/ProductContext';
+import { ProfileProvider } from './components/profiles/ProfileContext';
 
 
 
@@ -88,8 +90,8 @@ function App() {
                 <Route path="/signin" element={<Login />} />
                 <Route path="/forgotPassword" element={<Forgot />} />
                 <Route path="/resetPassword/:token" element={<Reset />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/sellerProducts" element={<SellerProducts />} />
+                <Route path="/profile" element={<ProfileProvider><Profile /></ProfileProvider>} />
+                <Route path="/sellerProducts" element={<ProductsProvider><SellerProducts /></ProductsProvider>} />
                 <Route path="/product/:id" element={<ProductDetails />} />
                 <Route path="/success" element={<Success />} />
 

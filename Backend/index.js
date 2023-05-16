@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs'); //For creating Admin and hashing password
 
 dotenv.config({ path: './.env' });
 
-const connect_uri = 'mongodb+srv://anigamreklidze:61152592kk@aurora.dzcgren.mongodb.net/?retryWrites=true&w=majority'
+const connect_uri = 'mongodb://127.0.0.1:27017/Aurora';
 
 // Function to create the Express app
 function createApp() {
@@ -57,30 +57,30 @@ async function createDefaultAdmin() {
   } 
 }
 
-function checkDbConnection() {
-  const state = db.mongoose.connection.readyState;
-  let stateMessage = '';
+// function checkDbConnection() {
+//   const state = db.mongoose.connection.readyState;
+//   let stateMessage = '';
 
-  switch(state) {
-    case 0:
-      stateMessage = 'disconnected';
-      break;
-    case 1:
-      stateMessage = 'connected';
-      break;
-    case 2:
-      stateMessage = 'connecting';
-      break;
-    case 3:
-      stateMessage = 'disconnecting';
-      break;
-    default:
-      stateMessage = 'unknown state';
-      break;
-  }
+//   switch(state) {
+//     case 0:
+//       stateMessage = 'disconnected';
+//       break;
+//     case 1:
+//       stateMessage = 'connected';
+//       break;
+//     case 2:
+//       stateMessage = 'connecting';
+//       break;
+//     case 3:
+//       stateMessage = 'disconnecting';
+//       break;
+//     default:
+//       stateMessage = 'unknown state';
+//       break;
+//   }
 
-  console.log(`Database connection state: ${state} (${stateMessage})`);
-}
+//   console.log(`Database connection state: ${state} (${stateMessage})`);
+// }
 
 // Function to connect to MongoDB and initialize roles if not already initialized
 async function connectAndInitialize() {
@@ -117,7 +117,7 @@ async function startServer() {
       console.log(`Express server on port: ${process.env.BACKEND_PORT}`);
     });
     await connectAndInitialize(); //temp till hosting backend
-    setInterval(checkDbConnection, 5000);
+    // setInterval(checkDbConnection, 5000);
   }
 }
 

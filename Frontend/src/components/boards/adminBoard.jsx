@@ -39,6 +39,7 @@ const BoardAdmin = () => {
     UserService.adminAccess().then(
       (response) => {
         setContent(response.data);
+        console.log("fadfa")
         setUserRole("admin");
       },
       (error) => {

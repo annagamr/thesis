@@ -12,7 +12,7 @@ root.render(
     <CartProvider>
       <App />
     </CartProvider>
-  </React.StrictMode>
+ </React.StrictMode>
 );
 
 reportWebVitals();

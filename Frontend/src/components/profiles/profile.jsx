@@ -1,65 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./profile.css";
 import * as images from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import axios from "axios";
 import productService from "../../services/product.service";
+import { ProfileContext } from './ProfileContext';
+import UserContext from '../boards/UserContext';
+
+
 
 const Profile = () => {
-  const [sellerProf, setShowSellerProfile] = useState(false);
-  const [adminProf, setShowAdminProfile] = useState(false);
-  const [userProf, setShowUserProfile] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
-  const [numberOfOrders, setNumberOfOrders] = useState(0);
-  const [numberOfProducts, setnumberOfProducts] = useState(0);
+  const { showSellerBoard, showAdminBoard, showUserBoard, currentUser } = useContext(UserContext);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    if (user) {
-      setCurrentUser(user);
-      setShowUserProfile(user.roles.includes("ROLE_USER"));
-      setShowSellerProfile(user.roles.includes("ROLE_SELLER"));
-      setShowAdminProfile(user.roles.includes("ROLE_ADMIN"));
-    }
-  }, []);
-
-  useEffect(() => {
-    const fetchUserOrders = async () => {
-      if (currentUser) {
-        try {
-          const userId = currentUser.id;
-          const response = await axios.get(
-            `http://localhost:3002/api/order/get-orders/${userId}`
-          );
-          setNumberOfOrders(response.data.numberOfOrders);
-        } catch (error) {
-          console.error("Error fetching user orders:", error.message);
-        }
-      }
-    };
-
-    fetchUserOrders();
-  }, [currentUser]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        try {
-          const response = await productService.getSellerProducts(user.id);
-          setnumberOfProducts(response.data.numberOfProducts);
-        } catch (error) {
-          console.error("Error fetching user products:", error.message);
-        }
-      }
-    };
-    fetchProducts();
-  }, []);
+  // const [numberOfOrders, setNumberOfOrders] = useState(0);
+  // const [numberOfProducts, setnumberOfProducts] = useState(0);
+  const {
+    numberOfOrders,
+    numberOfProducts
+  } = useContext(ProfileContext);
 
   return (
     <div className="profile-page" data-testid="profile-page">
-      {sellerProf && (
+      {showSellerBoard && (
         <div>
           <div className="profile-illustration"></div>
           <div className="profile-card">
@@ -130,7 +92,7 @@ const Profile = () => {
         </div>
       )}
 
-      {userProf && (
+      {showUserBoard && (
         <div>
           <div className="profile-illustration"></div>
           <div className="profile-card">
@@ -200,7 +162,7 @@ const Profile = () => {
           <div className="faq-title">FAQ</div>
         </div>
       )}
-      {adminProf && (
+      {showAdminBoard && (
         <div>
           <div className="profile-illustration"></div>
           <div className="profile-card">
