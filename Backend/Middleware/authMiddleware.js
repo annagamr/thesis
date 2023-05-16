@@ -2,79 +2,84 @@ const jwt = require("jsonwebtoken");
 const secret = "my-secret-key"
 
 const db = require("../Models");
-const User = db.user;
-const Role = db.role;
+const User = require("../Models/user.model");
+const Role = require("../Models/role.model");
 
 const verifyToken = async (req, res, next) => {
   const token = req.headers["x-access-token"];
+
   if (!token) {
-    return res.status(403).json({ error: "Token was not provided" });
+    return res.status(403).send({ message: "Token was not provided" });
   }
 
   try {
-    const decoded = await jwt.verify(token, secret);
+    const decoded = jwt.verify(token, secret);
     req.userId = decoded.id;
+    console.log("Token is valid!")
     next();
   } catch (err) {
+    if (err instanceof jwt.TokenExpiredError) {
+      return res.status(401).send({ message: "Token expired!" });
+    }
+    if (err instanceof jwt.JsonWebTokenError) {
+      return res.status(401).send({ message: "Token is invalid!" });
+    }
     console.error("Could not verify token:", err);
-    return res.status(401).json({ error: "Token is invalid!" });
+    return res.status(500).send({ message: "Could not verify token" });
   }
 };
 
 const isAdmin = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.userId);
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    }
-
-    const roles = await Role.find({ _id: { $in: user.roles } });
-    if (!roles.some(role => role.name === "admin")) {
-      return res.status(403).send({ message: "Access denied for non-admin users!" });
-    }
-
-    next();
-  } catch (err) {
-    console.error("isAdmin error:", err);
-    return res.status(500).send({ message: "Server side error" });
+  const userId = req.headers['user-id'];
+  console.log(userId)
+  if (!userId) {
+    return res.status(400).send({ message: "User ID was not provided" });
   }
-};
 
-const isUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.userId);
+    const user = await User.findById(userId).populate("roles");
+
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
 
-    const roles = await Role.find({ _id: { $in: user.roles } });
-    if (!roles.some(role => role.name === "user")) {
-      return res.status(403).send({ message: "Access denied for non-customer users!" });
-    }
+    const isAdmin = user.roles.some((role) => role.name === "admin");
 
-    next();
+    if (isAdmin) {
+      return res.status(200).send({ message: "User is an admin" });
+    } else {
+      return res.status(403).send({ message: "Access not granted for non-admin users" });
+    }
   } catch (err) {
-    console.error("isUser error:", err);
-    return res.status(500).send({ message: "Server side error" });
+    console.error(err);
+    return res.status(500).send({ message: "Server error" });
   }
 };
 
 const isSeller = async (req, res, next) => {
+  const userId = req.headers['user-id'];
+  console.log(userId)
+  if (!userId) {
+    return res.status(400).send({ message: "User ID was not provided" });
+  }
+
   try {
-    const user = await User.findById(req.userId);
+    const user = await User.findById(userId).populate("roles");
+
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
 
-    const roles = await Role.find({ _id: { $in: user.roles } });
-    if (!roles.some(role => role.name === "seller")) {
-      return res.status(403).send({ message: "Access denied for non-seller users!" });
-    }
+    const isSeller = user.roles.some((role) => role.name === "seller");
 
-    next();
+    if (isSeller) {
+      return res.status(200).send({ message: "User is a seller" });
+    } else {
+      return res.status(403).send({ message: "Access not granted for non-seller users" });
+    }
   } catch (err) {
-    console.error("isSeller error:", err);
-    return res.status(500).send({ message: "Server side error" });
+    console.error(err);
+    return res.status(500).send({ message: "Server error" });
   }
 };
 
@@ -82,7 +87,6 @@ const isSeller = async (req, res, next) => {
 const authJwt = {
   verifyToken,
   isAdmin,
-  isSeller,
-  isUser
+  isSeller
 };
 module.exports = authJwt;

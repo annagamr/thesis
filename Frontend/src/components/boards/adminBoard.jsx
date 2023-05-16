@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import UserService from "../../services/user.service";
 import MessageModal from "./MessageModal";
 import "./allStyles.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import UserContext from "./UserContext";
 
 const BoardAdmin = () => {
   const [content, setContent] = useState("");
@@ -21,6 +23,9 @@ const BoardAdmin = () => {
   const [filteredShops, setFilteredShops] = useState([]);
   const [userRole, setUserRole] = useState(null);
 
+  const { logOut } = useContext(UserContext);
+  const navigate = useNavigate();
+
   // Modal controllers
   const [modalMessage, setModalMessage] = useState("");
   const [modalType, setModalType] = useState("");
@@ -35,24 +40,66 @@ const BoardAdmin = () => {
     }
   };
 
+  // const currentUser = JSON.parse(localStorage.getItem("user"));
+  // useEffect(() => {
+  //   if (currentUser && currentUser.roles[0] === "ROLE_ADMIN") {
+  //     UserService.adminAccess().then(
+  //       (response) => {
+  //         setContent(response.data);
+  //         setUserRole("admin");
+  //       },
+  //       (error) => {
+  //         if (
+  //           error.response &&
+  //           error.response.status === 401 &&
+  //           error.response.data &&
+  //           error.response.data.message === "Token expired!"
+  //         ) {
+  //           console.log(error.response.data.message);
+  //           logOut();
+  //           navigate("/signin");
+  //           window.location.reload();
+  //         } else {
+  //           setContent(
+  //             (error.response &&
+  //               error.response.data &&
+  //               error.response.data.message) ||
+  //               error.message ||
+  //               error.toString()
+  //           );
+  //           console.log(error.response.data.message);
+  //         }
+  //       }
+  //     );
+  //   } else {
+  //     setUserRole("non-admin");
+  //   }
+  // });
+
   useEffect(() => {
-    UserService.adminAccess().then(
-      (response) => {
-        setContent(response.data);
-        console.log("fadfa")
-        setUserRole("admin");
-      },
-      (error) => {
-        setContent(
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-            error.message ||
-            error.toString()
-        );
-        setUserRole("non-admin");
-      }
-    );
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+
+    if (currentUser) {
+      const userId = currentUser.id;
+      console.log(userId);
+      UserService.adminAccess(userId)
+        .then((response) => {
+          console.log(response);
+          setUserRole("admin");
+        })
+        .catch((err) => {
+          if (err.response) {
+            if (err.response.status === 401) {
+              logOut();
+              navigate("/signin");
+              window.location.reload();
+            } else if (err.response.status === 403) {
+              console.log("Not an admin");
+            }
+          }
+          setUserRole("non-admin");
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -153,6 +200,9 @@ const BoardAdmin = () => {
       event.stopPropagation();
       const itemId = event.target.getAttribute("data-item-id");
 
+      const user=JSON.parse(localStorage.getItem("user"))
+      const token = user.accessToken;
+      console.log("my token "+ token)
       try {
         const response = await fetch(
           process.env.REACT_APP_BACKEND_ENDPOINT +
@@ -161,6 +211,7 @@ const BoardAdmin = () => {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
+              "x-access-token": token 
             },
           }
         );
@@ -187,7 +238,11 @@ const BoardAdmin = () => {
             }, 1000);
           }
         } else {
-          setModalMessage(`Error: ${result.message}`);
+          if (response.status === 401) {
+            setModalMessage("SESSION EXPIRED. Please log in again.");
+          } else {
+            setModalMessage(`Error: ${result.message}`);
+          }
           setModalType("error");
           setShowModal(true);
         }
@@ -211,14 +266,14 @@ const BoardAdmin = () => {
 
   return (
     <div>
-      {userRole === "non-admin" && (
+      {userRole !== "admin" && (
         <div className="container">
           <header className="jumbotron">
-            <h3>{content}</h3>
+            <h3>No Access for Non-Admin Users!</h3>
           </header>
         </div>
       )}
-      {userRole !== "non-admin" && (
+      {userRole === "admin" && (
         <div className="mainContainer">
           <MessageModal
             show={showModal}

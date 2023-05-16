@@ -18,31 +18,31 @@ const MyOrders = () => {
   const { logOut } = useContext(UserContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    UserService.userAccess().then(
-      (response) => {
-        setContent(response.data);
-      },
-      (error) => {
-        const errorMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+  // useEffect(() => {
+  //   UserService.userAccess().then(
+  //     (response) => {
+  //       setContent(response.data);
+  //     },
+  //     (error) => {
+  //       const errorMessage =
+  //         (error.response &&
+  //           error.response.data &&
+  //           error.response.data.message) ||
+  //         error.message ||
+  //         error.toString();
 
-        setContent(errorMessage);
+  //       setContent(errorMessage);
 
-        // Check if the error status is 401
-        if (error.response && error.response.status === 401) {
-          // Log out the user and navigate to /signin
-          logOut();
-          navigate("/signin");
-          window.location.reload();
-        }
-      }
-    );
-  }, [logOut, navigate]);
+  //       // Check if the error status is 401
+  //       if (error.response && error.response.status === 401) {
+  //         // Log out the user and navigate to /signin
+  //         logOut();
+  //         navigate("/signin");
+  //         window.location.reload();
+  //       }
+  //     }
+  //   );
+  // }, [logOut, navigate]);
 
   const user = JSON.parse(localStorage.getItem("user"));
 

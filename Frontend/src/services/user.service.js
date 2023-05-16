@@ -22,23 +22,33 @@ class UserService {
     }
   }
 
-  async userAccess() {
-    const url = `${this.baseURL}/user`;
-    const response = await axios.get(url, { headers: this.getAccessTokenHeaderFromLocalStorage() });
-    return response.data;
-  }
 
-  async sellerAccess() {
-    const url = `${this.baseURL}/seller`;
-    const response = await axios.get(url, { headers: this.getAccessTokenHeaderFromLocalStorage() });
-    return response.data;
-  }
-
-  async adminAccess() {
+  async adminAccess(userId) {
     const url = `${this.baseURL}/admin`;
-    const response = await axios.get(url, { headers: this.getAccessTokenHeaderFromLocalStorage() });
+
+    const headers = {
+      ...this.getAccessTokenHeaderFromLocalStorage(),
+      'User-Id': userId,
+    };
+
+    const response = await axios.get(url, { headers: headers });
+
     return response.data;
   }
+  
+  async sellerAccess(userId) {
+    const url = `${this.baseURL}/seller`;
+
+    const headers = {
+      ...this.getAccessTokenHeaderFromLocalStorage(),
+      'User-Id': userId,
+    };
+
+    const response = await axios.get(url, { headers: headers });
+
+    return response.data;
+  }
+
 }
 
 const userService = new UserService();

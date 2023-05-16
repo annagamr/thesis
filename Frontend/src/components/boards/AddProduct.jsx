@@ -30,21 +30,22 @@ const AddProduct = () => {
     description,
     title,
     error,
+    userRole
   } = useContext(AddProductContext);
-  //Only for sellers
 
-  //x Only for sellers x\\
 
   return (
     <div>
-      {/* {userRole === "non-seller" && ( */}
-      {/* <div className="container">
+      {userRole === "non-seller" && (
+        
+      <div className="container">
+
           <header className="jumbotron" data-testid="header-add">
-            <h3>{access}</h3>
+            <h3>No Access for Non-Seller Users</h3>
           </header>
-        </div> */}
-      {/* )} */}
-      {/* {userRole !== "non-seller" && ( */}
+        </div>
+      )}
+      {userRole === "seller" && (
       <div className="main-container">
         <div className="product-container">
           <div className="add-product-page">
@@ -230,7 +231,7 @@ const AddProduct = () => {
           </div>
         </div>
       </div>
-      {/* )} */}
+      )}
     </div>
   );
 };

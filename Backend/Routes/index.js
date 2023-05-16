@@ -1,7 +1,7 @@
 const { verifyToken } = require("../Middleware/authMiddleware");
 const { isAdmin } = require("../Middleware/authMiddleware");
 const { isSeller } = require("../Middleware/authMiddleware");
-const { isUser } = require("../Middleware/authMiddleware");
+// const { isUser } = require("../Middleware/authMiddleware");
 const productController = require("../Handlers/product.handler");
 const postController = require("../Handlers/post.handler");
 const authController = require("../Handlers/auth.handler");
@@ -31,9 +31,7 @@ const upload = multer({
     },
     storage: storage
 });
-function success(req, res) {
-    res.status(201);
-}
+
 
 module.exports = function (app) {
     // Set headers to allow specified HTTP request headers
@@ -46,17 +44,18 @@ module.exports = function (app) {
     });
 
     // Route for authenticated users
-    app.get("/api/user", [verifyToken, isUser], success);
+    app.get("/api/user", [verifyToken]);
 
     // Route for authenticated sellers
-    app.get("/api/seller", [verifyToken, isSeller], success);
+    app.get("/api/seller", [verifyToken, isSeller]);
 
     // Route for authenticated admins
-    app.get("/api/admin", [verifyToken, isAdmin], success);
+    app.get("/api/admin", [verifyToken, isAdmin]);
 
 
     // Route for getting count of users
     app.get("/api/user-count",
+    
         authController.countUsers);
 
     // Route for getting count of shops
@@ -94,7 +93,8 @@ module.exports = function (app) {
     // Route for deleting products
     app.delete(
         "/api/product-delete/:id",
-        productController.deleteProduct
+        [verifyToken,
+        productController.deleteProduct]
     );
 
     /*--- ROUTES FOR POSTS ---*/
@@ -102,7 +102,8 @@ module.exports = function (app) {
     // Route for creating post
     app.post(
         "/api/create-post",
-        postController.createPost
+        [verifyToken,
+        postController.createPost]
     );
     // Route for getting posts
     app.get(
@@ -117,13 +118,15 @@ module.exports = function (app) {
     // Route for deleting post
     app.delete(
         "/api/post-delete/:id",
-        postController.deletePost
+        [verifyToken,
+        postController.deletePost]
     );
 
     // Route for deleting users and shops
     app.delete(
         "/api/users-delete/:id",
-        authController.deleteUser
+        [verifyToken,
+        authController.deleteUser]
     );
     // Route for reseting password 
     app.post(

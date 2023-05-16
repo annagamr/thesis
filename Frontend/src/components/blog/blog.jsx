@@ -128,20 +128,48 @@ const Blog = ({ user }) => {
   }, []);
 
   function addPost(title, description, topic, author) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user.accessToken;
     return axios
-      .post(process.env.REACT_APP_BACKEND_ENDPOINT + "/api/create-post", {
-        title,
-        description,
-        topic,
-        author,
-      })
+      .post(
+        process.env.REACT_APP_BACKEND_ENDPOINT + "/api/create-post",
+        {
+          title,
+          description,
+          topic,
+          author,
+        },
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
+      )
       .then((response) => {
         // update the state to include the new post
         setPosts([...posts, response.data.post]);
         return response;
       })
       .catch((error) => {
-        console.error("Error adding post: ", error);
+        if (error.response) {
+          // If status code is 401, check the message
+          if (error.response.status === 401) {
+            if (error.response.data.message === "Token expired!") {
+              // Handle token expiration...
+              alert("Token expired. Please log in again.");
+            } else {
+              // Handle other 401 errors...
+              alert("Unauthorized. Check your permissions.");
+            }
+          }
+        } else if (error.request) {
+          // The request was made but no response was received
+          setError(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          setError("Error", error.message);
+        }
+        setError("Error adding post! ", error);
         throw error;
       });
   }

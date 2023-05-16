@@ -69,17 +69,42 @@ const SellerProducts = () => {
   }
 
   const onDeleteProduct = async (productId) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user.accessToken;
     try {
       await axios.delete(
         process.env.REACT_APP_BACKEND_ENDPOINT +
-          `/api/product-delete/${productId}`
+          `/api/product-delete/${productId}`,
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
       );
       setProducts(products.filter((product) => product.id !== productId));
       removeProductFromGuestCart(productId);
     } catch (error) {
-      console.error(`Error deleting product with ID: ${productId}`);
+      if (error.response) {
+        // If status code is 401, check the message
+        if (error.response.status === 401) {
+          if (error.response.data.message === "Token expired!") {
+            // Handle token expiration...
+            alert("Token expired. Please log in again.");
+            logOut();
+            navigate("/signin");
+          } else {
+            // Handle other 401 errors...
+            alert("Unauthorized. Check your permissions.");
+          }
+        }
+      } else {
+        // The request was made but no response was received or
+        // something happened in setting up the request that triggered an Error
+        console.error("Error deleting product: ", error.message);
+      }
     }
   };
+  
 
   return (
     <>

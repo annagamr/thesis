@@ -27,10 +27,10 @@ export const AddProductProvider = (props) => {
   const [price, setPrice] = useState(0);
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
-  const [userRole, setUserRole] = useState(null);
+  const [userRole, setUserRole] = useState("");
 
   const { logOut } = useContext(UserContext);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   //x vars for product x\\
 
@@ -50,6 +50,35 @@ export const AddProductProvider = (props) => {
     1213, 1214, 1215, 1221, 1222, 1223, 1224, 1225, 1231, 1232, 1233, 1234,
     1235, 1236, 1237, 1238, 1239,
   ];
+
+  useEffect(() => {
+    console.log("jere")
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+    if (currentUser) {
+      const userId = currentUser.id;
+      console.log(userId);
+      UserService.sellerAccess(userId)
+        .then((response) => {
+          console.log(response);
+          setUserRole("seller");
+        })
+        .catch((err) => {
+          if (err.response) {
+            if (err.response.status === 401) {
+              logOut();
+              navigate("/signin");
+              window.location.reload();
+            } else if (err.response.status === 403) {
+              setUserRole("non-seller");
+              console.log("Not a seller");
+            }
+          }
+        });
+    }
+    setUserRole("non-seller");
+
+    console.log(userRole)
+  }, []);
 
   const validateForm = () => {
     const errors = {};
@@ -88,6 +117,7 @@ export const AddProductProvider = (props) => {
 
     return errors;
   };
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -277,7 +307,7 @@ export const AddProductProvider = (props) => {
         title,
         products,
         access,
-        error
+        error,
       }}
     >
       {props.children}
