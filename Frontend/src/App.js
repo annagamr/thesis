@@ -1,8 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// require('dotenv').config();
-
 
 import Header from './components/header/header'
 import Footer from './components/footer/footer'
@@ -23,11 +21,12 @@ import SellerProduct from "./components/boards/AddProduct";
 import SellerProducts from './components/boards/sellerProducts';
 import BoardAdmin from "./components/boards/adminBoard";
 import Success from "./components/cart/success"
+
 import { CartContext } from "./components/cart/CartContext";
 import UserContext from "./components/boards/UserContext";
 import { ProductsProvider } from './components/boards/ProductContext';
 import { ProfileProvider } from './components/profiles/ProfileContext';
-
+import { AddProductProvider } from './components/boards/AddProductContext';
 
 
 function App() {
@@ -95,14 +94,12 @@ function App() {
                 <Route path="/product/:id" element={<ProductDetails />} />
                 <Route path="/success" element={<Success />} />
 
-
-
                 {/* orders page for users only */}
                 <Route path="/myOrders" element={<MyOrders />} />
                 {/* board page for admins only */}
                 <Route path="/adminBoard" element={<BoardAdmin />} />
                 {/* add product page for sellers only */}
-                <Route path="/addProduct" element={<SellerProduct />} />
+                <Route path="/addProduct" element={<AddProductProvider><SellerProduct /></AddProductProvider>} />
 
 
               </Routes>
