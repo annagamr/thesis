@@ -55,7 +55,6 @@ module.exports = function (app) {
 
     // Route for getting count of users
     app.get("/api/user-count",
-    
         authController.countUsers);
 
     // Route for getting count of shops
@@ -67,6 +66,7 @@ module.exports = function (app) {
     // Route for creating products
     app.post(
         "/api/add-product",
+        verifyToken,
         upload.single('prodImageFile'),
         productController.addProduct,
     );

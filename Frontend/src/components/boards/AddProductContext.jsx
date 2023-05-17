@@ -164,12 +164,16 @@ export const AddProductProvider = (props) => {
       formData.append("zipCode", zipCode);
       formData.append("contactNumber", contactNumber);
 
+      const user=JSON.parse(localStorage.getItem('user'));
+      const token = user.accessToken;
+      console.log(token)
       const response = await axios.post(
         process.env.REACT_APP_BACKEND_ENDPOINT + "/api/add-product",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            "x-access-token" : token
           },
         }
       );
@@ -177,6 +181,15 @@ export const AddProductProvider = (props) => {
       return response;
     } catch (error) {
       console.error("Error adding product: ", error);
+      if (error.response) {
+        if (error.response.status === 401) {
+          if (error.response.data.message === "Token expired!") {
+            alert("Token expired");
+          } else if (error.response.data.message === "Token is invalid") {
+            alert("Token is invalid");
+          }
+        }
+      }
       throw error;
     }
   };
