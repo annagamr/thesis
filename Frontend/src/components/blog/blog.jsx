@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./blog.css";
 import postService from "../../services/post.service";
+import UserContext from "../boards/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export const reloadPage = () => {
   window.location.reload();
@@ -27,6 +29,9 @@ const Blog = ({ user }) => {
   const [author, setAuthor] = useState(undefined);
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
+
+  const { logOut } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = user || JSON.parse(localStorage.getItem("user"));
@@ -157,9 +162,17 @@ const Blog = ({ user }) => {
             if (error.response.data.message === "Token expired!") {
               // Handle token expiration...
               alert("Token expired. Please log in again.");
+              logOut();
+              navigate("/signin");
+              window.location.reload();
+
             } else {
               // Handle other 401 errors...
               alert("Unauthorized. Check your permissions.");
+              logOut();
+              navigate("/signin");
+              window.location.reload();
+
             }
           }
         } else if (error.request) {

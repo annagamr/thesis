@@ -40,42 +40,6 @@ const BoardAdmin = () => {
     }
   };
 
-  // const currentUser = JSON.parse(localStorage.getItem("user"));
-  // useEffect(() => {
-  //   if (currentUser && currentUser.roles[0] === "ROLE_ADMIN") {
-  //     UserService.adminAccess().then(
-  //       (response) => {
-  //         setContent(response.data);
-  //         setUserRole("admin");
-  //       },
-  //       (error) => {
-  //         if (
-  //           error.response &&
-  //           error.response.status === 401 &&
-  //           error.response.data &&
-  //           error.response.data.message === "Token expired!"
-  //         ) {
-  //           console.log(error.response.data.message);
-  //           logOut();
-  //           navigate("/signin");
-  //           window.location.reload();
-  //         } else {
-  //           setContent(
-  //             (error.response &&
-  //               error.response.data &&
-  //               error.response.data.message) ||
-  //               error.message ||
-  //               error.toString()
-  //           );
-  //           console.log(error.response.data.message);
-  //         }
-  //       }
-  //     );
-  //   } else {
-  //     setUserRole("non-admin");
-  //   }
-  // });
-
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("user"));
 

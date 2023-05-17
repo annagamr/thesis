@@ -12,7 +12,7 @@ const Success = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const userId = user ? user.id : null;
     const cartItems = JSON.parse(localStorage.getItem("cartItems"));
-
+    const token = user.accessToken;
     if (user && cartItems && Array.isArray(cartItems.items)) {
       try {
         const itemIds = cartItems.items.map((item) => item.id);
@@ -23,6 +23,11 @@ const Success = () => {
             status: "successful",
             userId: userId,
             items: itemIds,
+          },
+          {
+            headers: {
+              "x-access-token": token,
+            },
           }
         );
 

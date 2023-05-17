@@ -48,23 +48,46 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchUserOrders = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
-
+      const token = user.accessToken
       if (user) {
         try {
           const userId = user.id;
           const response = await axios.get(
             process.env.REACT_APP_BACKEND_ENDPOINT +
-              `/api/order/get-orders/${userId}`
+              `/api/order/get-orders/${userId}`,
+            {
+              headers: {
+                "x-access-token": token,
+              },
+            }
           );
           setOrders(response.data.orders);
         } catch (error) {
-          setErrorMessage("There was an error fetching user orders");
+          console.error("Error fetching user orders: ", error);
+          if (error.response) {
+            if (error.response.status === 401) {
+              if (error.response.data.message === "Token expired!") {
+                alert("Token expired");
+                logOut();
+                navigate("/signin");
+                window.location.reload();
+
+              } else if (error.response.data.message === "Token is invalid") {
+                alert("Token is invalid");
+                logOut();
+                navigate("/signin");
+                window.location.reload();
+              }
+            }
+          } else {
+            setErrorMessage("There was an error fetching user orders");
+          }
         } finally {
           setIsLoading(false);
         }
       }
     };
-
+  
     fetchUserOrders();
   }, []);
 

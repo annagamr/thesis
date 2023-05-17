@@ -94,7 +94,7 @@ module.exports = function (app) {
     app.delete(
         "/api/product-delete/:id",
         [verifyToken,
-        productController.deleteProduct]
+            productController.deleteProduct]
     );
 
     /*--- ROUTES FOR POSTS ---*/
@@ -103,7 +103,7 @@ module.exports = function (app) {
     app.post(
         "/api/create-post",
         [verifyToken,
-        postController.createPost]
+            postController.createPost]
     );
     // Route for getting posts
     app.get(
@@ -119,14 +119,14 @@ module.exports = function (app) {
     app.delete(
         "/api/post-delete/:id",
         [verifyToken,
-        postController.deletePost]
+            postController.deletePost]
     );
 
     // Route for deleting users and shops
     app.delete(
         "/api/users-delete/:id",
         [verifyToken,
-        authController.deleteUser]
+            authController.deleteUser]
     );
     // Route for reseting password 
     app.post(
@@ -157,11 +157,13 @@ module.exports = function (app) {
 
     // Route for creating orders
     app.post("/api/order/create-order",
-        orderController.createOrder);
+        [verifyToken,
+            orderController.createOrder]);
 
     // Route for getting order of specific user
     app.get("/api/order/get-orders/:userId",
-        orderController.getOrders);
+        [verifyToken,
+            orderController.getOrders]);
 
     //Route for sign up
     app.post(

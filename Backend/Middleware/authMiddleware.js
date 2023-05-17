@@ -15,7 +15,7 @@ const verifyToken = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, secret);
     req.userId = decoded.id;
-    console.log("Token is valid!")
+    // console.log("Token is valid!")
     next();
   } catch (err) {
     if (err instanceof jwt.TokenExpiredError) {

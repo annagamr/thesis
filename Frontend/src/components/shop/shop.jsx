@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./shop.css";
 import { CartContext } from "../cart/CartContext";
+import UserContext from "../boards/UserContext";
+import { useNavigate } from "react-router-dom";
 import cartService from "../../services/cart.service";
-
 
 const Shop = (props) => {
   const [products, setProducts] = useState([]);
@@ -14,6 +15,8 @@ const Shop = (props) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const { totalItems, setTotalItems } = useContext(CartContext);
+  const { logOut } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkLoggedIn = () => {
@@ -57,6 +60,23 @@ const Shop = (props) => {
         console.log("Added product to cart:", response.data);
       } catch (error) {
         console.log("Error adding product to cart:", error);
+        if (error.response) {
+          if (error.response.status === 401) {
+            if (error.response.data.message === "Token expired!") {
+              alert("Token expired");
+              logOut();
+              navigate("/signin");
+              window.location.reload();
+
+            } else if (error.response.data.message === "Token is invalid") {
+              alert("Token is invalid");
+              logOut();
+              navigate("/signin");
+              window.location.reload();
+
+            }
+          }
+        }
       }
     } else {
       // If user is not logged in, store the items in guestCart in localStorage
@@ -75,7 +95,6 @@ const Shop = (props) => {
 
     updateTotalItems();
   };
-
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);
   };
@@ -83,9 +102,10 @@ const Shop = (props) => {
   const fetchProducts = async (category) => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_BACKEND_ENDPOINT + `/api/products${
-          category ? `?category=${encodeURIComponent(category)}` : ""
-        }`
+        process.env.REACT_APP_BACKEND_ENDPOINT +
+          `/api/products${
+            category ? `?category=${encodeURIComponent(category)}` : ""
+          }`
       );
       setProducts(response.data.products);
     } catch (error) {
@@ -128,7 +148,11 @@ const Shop = (props) => {
                 <div className="product-image-button-container">
                   <div className="product-image">
                     <img
-                      src={process.env.REACT_APP_BACKEND_ENDPOINT + "/" + product.image}
+                      src={
+                        process.env.REACT_APP_BACKEND_ENDPOINT +
+                        "/" +
+                        product.image
+                      }
                       alt="Product"
                     />
                   </div>

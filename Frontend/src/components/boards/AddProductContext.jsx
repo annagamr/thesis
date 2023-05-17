@@ -185,8 +185,12 @@ export const AddProductProvider = (props) => {
         if (error.response.status === 401) {
           if (error.response.data.message === "Token expired!") {
             alert("Token expired");
+            logOut();
+            navigate("/signin");
           } else if (error.response.data.message === "Token is invalid") {
             alert("Token is invalid");
+            logOut();
+            navigate("/signin");
           }
         }
       }
