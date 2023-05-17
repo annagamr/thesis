@@ -31,7 +31,7 @@ const verifyToken = async (req, res, next) => {
 
 const isAdmin = async (req, res, next) => {
   const userId = req.headers['user-id'];
-  console.log(userId)
+  // console.log(userId)
   if (!userId) {
     return res.status(400).send({ message: "User ID was not provided" });
   }
@@ -58,7 +58,7 @@ const isAdmin = async (req, res, next) => {
 
 const isSeller = async (req, res, next) => {
   const userId = req.headers['user-id'];
-  console.log(userId)
+  // console.log(userId)
   if (!userId) {
     return res.status(400).send({ message: "User ID was not provided" });
   }
@@ -85,7 +85,7 @@ const isSeller = async (req, res, next) => {
 
 const isUser = async (req, res, next) => {
   const userId = req.headers['user-id'];
-  console.log(userId)
+  // console.log(userId)
   if (!userId) {
     return res.status(400).send({ message: "User ID was not provided" });
   }

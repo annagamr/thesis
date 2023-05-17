@@ -72,7 +72,7 @@ exports.signin = async (req, res) => {
     }
 
     // Create a JSON web token for the user with a 24 hour expiration time
-    const token = jwt.sign({ id: user.id }, secret, { expiresIn: 15 });
+    const token = jwt.sign({ id: user.id }, secret, { expiresIn: 86400 });
 
     // Map the user's roles to an array of authorities
     const authorities = user.roles.map(role => `ROLE_${role.name.toUpperCase()}`);
