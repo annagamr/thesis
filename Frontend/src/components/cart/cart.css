@@ -169,7 +169,8 @@ s .single_pickup_address p {
 
 }
 
-.name_address input, .address select {
+.name_address input,
+.address select {
     outline: 0;
     background: #f2f2f2af;
     border-radius: 5px;
@@ -220,29 +221,31 @@ s .single_pickup_address p {
 }
 
 /* //success */
-.success_page{
+.success_page {
     text-align: center;
     padding: 40px 0;
     background: #EBF0F5;
-
+    height: 85.4vh;
 }
+
 .success_page h1 {
-    color: #88B04B;
-    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    color: #5cdf83;
+    font-family: Gelica, Georgia, system-ui, cursive;
     font-weight: 900;
     font-size: 40px;
     margin-bottom: 10px;
+    margin-top: 50px;
 }
 
 .success_page p {
     color: #404F5E;
-    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-family: Gelica, Georgia, system-ui, cursive;
     font-size: 20px;
-    margin: 0;
+    margin-top: 50px;
 }
 
 .success_page i {
-    color: #9ABC66;
+    color: #5cdf83;
     font-size: 100px;
     line-height: 200px;
     margin-left: -15px;
@@ -255,6 +258,7 @@ s .single_pickup_address p {
     box-shadow: 0 2px 3px #C8D0D8;
     display: inline-block;
     margin: 0 auto;
+    height: 44rem;
 }
 
 .check_div {
@@ -267,50 +271,51 @@ s .single_pickup_address p {
 
 @media (max-width: 768px) {
     .cart-container {
-      flex-direction: column;
-      width: 100%;
-      padding: 2rem;
-      height: auto;
+        flex-direction: column;
+        width: 100%;
+        padding: 2rem;
+        height: auto;
     }
-  
+
     .details_card {
-      width: 100%;
-      height: auto;
-      margin-bottom: 2rem;
+        width: 100%;
+        height: auto;
+        margin-bottom: 2rem;
     }
-  
-    .name_address input, .address select {
-      margin: 10px 0;
+
+    .name_address input,
+    .address select {
+        margin: 10px 0;
     }
-  
+
     .first_lastName,
     .pickup_card,
     .address {
-      flex-direction: column;
-      margin: 10px 0;
+        flex-direction: column;
+        margin: 10px 0;
     }
-  
+
     .delivery_method {
-      flex-direction: column;
-      align-items: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
     }
-  
+
     .delivery_method label {
-      margin-bottom: 1rem;
+        margin-bottom: 1rem;
     }
-  
+
     .pickup_card {
-      margin-top: 1rem !important;
+        margin-top: 1rem !important;
     }
-  
+
     .summary_card {
-      width: 100%;
-      margin-top: 2rem;
+        width: 100%;
+        margin-top: 2rem;
     }
-  }
-  
-  @media (max-width: 576px) {
+}
+
+@media (max-width: 576px) {
     .details_card {
-      padding: 1rem;
+        padding: 1rem;
     }
-  }
+}

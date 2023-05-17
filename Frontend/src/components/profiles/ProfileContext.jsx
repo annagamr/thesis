@@ -14,10 +14,12 @@ export const ProfileProvider = ({ children }) => {
       if (user) {
         try {
           const userId = user.id;
-          if (user.roles[0] === "user") {
+          // console.log(user.roles[0])
+          if (user.roles[0] === "ROLE_USER") {
             const responseOrders = await axios.get(
               `http://localhost:3002/api/order/get-orders/${userId}`
             );
+            // console.log(responseOrders.data)
             setNumberOfOrders(responseOrders.data.numberOfOrders);
           }
 

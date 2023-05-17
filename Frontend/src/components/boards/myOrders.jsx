@@ -70,10 +70,10 @@ const MyOrders = () => {
 
   return (
     <div className="mainContainerOrders">
-      <div className="containerJ">
+      <div className="container">
         {userRole === "non-customer" && (
           <header className="jumbotron">
-            <h3 aria-level="3">No Access for Shops and Admins!</h3>
+            <h3 aria-level="3">No Access!</h3>
           </header>
         )}
         {userRole === "customer" && (

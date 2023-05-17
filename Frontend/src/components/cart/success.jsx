@@ -67,7 +67,7 @@ const Success = () => {
         <h1>Successful Payment!</h1>
         <p>We received your order!</p>
         {!error && (
-          <p className="cart_cleared_message">Cart cleared successfully</p>
+          <p className="cart_cleared_message">Cart cleared successfully!</p>
         )}
         {error && <p>{error}</p>}
       </div>
