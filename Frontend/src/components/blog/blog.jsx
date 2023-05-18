@@ -51,7 +51,7 @@ const Blog = ({ user }) => {
         setError("An error occurred while fetching posts.");
         console.log(error);
       });
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     postService
@@ -164,7 +164,6 @@ const Blog = ({ user }) => {
               logOut();
               navigate("/signin");
               window.location.reload();
-
             } else {
               // Handle other 401 errors...
               alert("Unauthorized. Check your permissions.");
@@ -240,6 +239,7 @@ const Blog = ({ user }) => {
                     <input
                       data-testid="Title"
                       type="text"
+                      id="title"
                       style={{ width: "30rem" }}
                       maxLength={40}
                       name="title"
@@ -251,6 +251,7 @@ const Blog = ({ user }) => {
                   <div className="item-description">
                     <label htmlFor="description">Description</label>
                     <textarea
+                      id="description"
                       data-testid="Description"
                       rows="15"
                       style={{ width: "50rem" }}
@@ -267,6 +268,7 @@ const Blog = ({ user }) => {
                     <label htmlFor="topic">Topic</label>
 
                     <select
+                      id="topic"
                       data-testid="Topic"
                       name="topic"
                       style={{ width: "30rem" }}
@@ -304,33 +306,17 @@ const Blog = ({ user }) => {
         )}{" "}
       </div>
       <div className="categories">
-        <div className="topic-item">
-          Skin Care
-           ({skin})
-        </div>
-        <div className="topic-item">
-          Make up
-           ({makeUp})
-        </div>
-        <div className="topic-item">
-          Health & Beauty ({health})
-        </div>
-        <div className="topic-item">
-          Recommendations  ({recommendation})
-        </div>
-        <div className="topic-item">
-          Hair & Hair Products ({hair})
-        </div>
-        <div className="topic-item">
-          Sun & Tanning  ({sun})
-        </div>
-        <div className="topic-item">
-          Perfumes  ({perfume})
-        </div>
+        <div className="topic-item">Skin Care ({skin})</div>
+        <div className="topic-item">Make up ({makeUp})</div>
+        <div className="topic-item">Health & Beauty ({health})</div>
+        <div className="topic-item">Recommendations ({recommendation})</div>
+        <div className="topic-item">Hair & Hair Products ({hair})</div>
+        <div className="topic-item">Sun & Tanning ({sun})</div>
+        <div className="topic-item">Perfumes ({perfume})</div>
       </div>
 
       <div className="blog-posts-container" data-testid="blog-posts-container">
-        {posts.length === 0 && !(adminProf || sellerProf)? (
+        {posts.length === 0 && !(adminProf || sellerProf) ? (
           <h2 id="no-blogs">No Blogs to Show</h2>
         ) : (
           posts.map((post) => (

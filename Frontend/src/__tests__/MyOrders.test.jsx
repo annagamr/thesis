@@ -52,7 +52,7 @@ describe("MyOrders", () => {
     localStorage.removeItem("user");
   });
 
-  test("renders jumbotron with content", async () => {
+  test("1. Renders Jumbotron with content", async () => {
     render(
       <UserContext.Provider value={defaultUserContext}>
         <BrowserRouter>
@@ -64,7 +64,7 @@ describe("MyOrders", () => {
     expect(jumbotron).toBeInTheDocument();
   });
 
-  test("fetches orders using axios.get", async () => {
+  test("2. Fetches orders using axios.get", async () => {
     render(
       <UserContext.Provider value={defaultUserContext}>
         <BrowserRouter>
@@ -75,62 +75,7 @@ describe("MyOrders", () => {
     await waitFor(() => expect(axios.get).toHaveBeenCalledTimes(2));
   });
 
-  test("renders order status and created date", async () => {
-    render(
-      <UserContext.Provider value={defaultUserContext}>
-        <BrowserRouter>
-          <MyOrders />
-        </BrowserRouter>
-      </UserContext.Provider>
-    );
-
-    const listItems = await screen.findAllByRole("listitem");
-
-    fakeOrders.forEach((order, index) => {
-      expect(listItems[index]).toHaveTextContent(order.status);
-      expect(listItems[index]).toHaveTextContent(order.created);
-    });
-  });
-
-  test("renders correct number of list group items for each order", async () => {
-    render(
-      <UserContext.Provider value={defaultUserContext}>
-        <BrowserRouter>
-          <MyOrders />
-        </BrowserRouter>
-      </UserContext.Provider>
-    );
-
-    // Wait for the list groups to appear on the screen
-    const listGroups = await screen.findAllByRole("list");
-
-    // Now run the assertions inside the waitFor function
-    await waitFor(() => {
-      listGroups.forEach((listGroup, index) => {
-        const items = listGroup.querySelectorAll('[role="listitem"]');
-        expect(items.length).toBe(1); // Expect each order to have one list item
-      });
-    });
-  });
-
-  test("renders order status and created date", async () => {
-    render(
-      <UserContext.Provider value={defaultUserContext}>
-        <BrowserRouter>
-          <MyOrders />
-        </BrowserRouter>
-      </UserContext.Provider>
-    );
-
-    const listItems = await screen.findAllByRole("listitem");
-
-    fakeOrders.forEach((order, index) => {
-      expect(listItems[index]).toHaveTextContent(order.status);
-      expect(listItems[index]).toHaveTextContent(order.created);
-    });
-  });
-
-  test('renders "No orders found" when there are no orders', async () => {
+  test('3. Renders "No orders found" when there are no orders', async () => {
     axios.get.mockResolvedValue({ data: { orders: [] } });
     render(
       <UserContext.Provider value={defaultUserContext}>

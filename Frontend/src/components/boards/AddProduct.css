@@ -42,7 +42,7 @@
     margin-bottom: 2rem;
   }
   
-  .item-category select {
+  .item-category select, .item-city select{
     display: block;
     padding: 1.2rem;
     border: 1px solid rgb(159, 169, 206);
@@ -89,7 +89,7 @@
   .item-title label,
   .item-description label,
   .item-category label,
-  .item-price label {
+  .item-price label, .item-street label, .item-city label, .item-zip label, .item-contact label {
     display: block;
     font-weight: bold;
     margin-bottom: 0.5rem;

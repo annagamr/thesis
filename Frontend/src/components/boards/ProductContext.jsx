@@ -39,6 +39,7 @@ export const ProductsProvider = ({ children }) => {
         });
     }
     setUserRole("non-seller");
+    // eslint-disable-next-line
   }, []);
 
 

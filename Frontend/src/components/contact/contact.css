@@ -61,7 +61,11 @@
   height: 25rem;
   width: 45%;
 }
-
+.success-message {
+  font-size: 18px;
+  margin-top: -25px;
+  margin-left: 100px;
+}
 form {
   width: 100%;
   max-width: 25rem;

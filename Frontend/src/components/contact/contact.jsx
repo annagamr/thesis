@@ -54,44 +54,48 @@ const ContactPage = () => {
           </div>
 
           <div className="form-container">
-          {!isSubmitted && (  <form onSubmit={sendMessage}>
-              <label htmlFor="full_name">Name: *</label>
-              <input
-                type="text"
-                name="full_name"
-                placeholder="John Doe"
-                value={toSend.full_name}
-                onChange={update}
-                required
-              />
-              <label htmlFor="message">Message: *</label>
-              <textarea
-                rows="7"
-                cols="50"
-                name="message"
-                placeholder="Describe your issue/Question"
-                value={toSend.message}
-                onChange={update}
-                required
-              />
-              <label htmlFor="email">Email: *</label>
-              <input
-                type="text"
-                name="email"
-                placeholder="john.doe@gmail.com"
-                value={toSend.email}
-                onChange={update}
-                required
-              />{" "}
-              <button type="submit">Submit</button>
-            </form>)}
+            {!isSubmitted && (
+              <form onSubmit={sendMessage}>
+                <label htmlFor="full_name">Name: *</label>
+                <input
+                  id="full_name"
+                  type="text"
+                  name="full_name"
+                  placeholder="John Doe"
+                  value={toSend.full_name}
+                  onChange={update}
+                  required
+                />
+                <label htmlFor="message">Message: *</label>
+                <textarea
+                  id="message"
+                  rows="7"
+                  cols="50"
+                  name="message"
+                  placeholder="Describe your issue/Question"
+                  value={toSend.message}
+                  onChange={update}
+                  required
+                />
+                <label htmlFor="email">Email: *</label>
+                <input
+                  id="email"
+                  type="text"
+                  name="email"
+                  placeholder="john.doe@gmail.com"
+                  value={toSend.email}
+                  onChange={update}
+                  required
+                />{" "}
+                <button type="submit">Submit</button>
+              </form>
+            )}
             {isSubmitted && (
               <div className="success-message" data-testid="success">
                 Submitted successfully! We will get back to you soon.
               </div>
-            )} 
+            )}
           </div>
-         
         </div>
       </div>
     </div>

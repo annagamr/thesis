@@ -8,7 +8,6 @@ import UserService from "../../services/user.service";
 export const AddProductContext = createContext();
 
 export const AddProductProvider = (props) => {
-  const [access, setAccess] = useState("");
   const [error, setError] = useState({});
 
   // vars for product
@@ -52,14 +51,14 @@ export const AddProductProvider = (props) => {
   ];
 
   useEffect(() => {
-    console.log("here")
+    // console.log("here")
     const currentUser = JSON.parse(localStorage.getItem("user"));
     if (currentUser) {
       const userId = currentUser.id;
-      console.log(userId);
+      // console.log(userId);
       UserService.sellerAccess(userId)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           setUserRole("seller");
         })
         .catch((err) => {
@@ -77,7 +76,7 @@ export const AddProductProvider = (props) => {
     }
     setUserRole("non-seller");
 
-    console.log(userRole)
+    // eslint-disable-next-line
   }, []);
 
   const validateForm = () => {
@@ -323,7 +322,6 @@ export const AddProductProvider = (props) => {
         description,
         title,
         products,
-        access,
         error,
       }}
     >

@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 
 const BoardAdmin = () => {
-  const [content, setContent] = useState("");
   const [userCount, setUserCount] = useState(null);
   const [users, setUsers] = useState([]);
+  // eslint-disable-next-line
   const [shopCount, setshopCount] = useState(null);
   const [shops, setShops] = useState([]);
   const [productCount, setproductCount] = useState(null);
@@ -45,10 +45,8 @@ const BoardAdmin = () => {
 
     if (currentUser) {
       const userId = currentUser.id;
-      // console.log(userId);
       UserService.adminAccess(userId)
         .then((response) => {
-          // console.log(response);
           setUserRole("admin");
         })
         .catch((err) => {
@@ -58,12 +56,14 @@ const BoardAdmin = () => {
               navigate("/signin");
               window.location.reload();
             } else if (err.response.status === 403) {
-              console.log("Not an admin");
+              console.log("Not an admin")
+              setUserRole("non-admin");
             }
           }
           setUserRole("non-admin");
         });
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

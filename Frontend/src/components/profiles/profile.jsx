@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import "./profile.css";
 import * as images from "../../assets/assets";
 import { Link} from "react-router-dom";
-import axios from "axios";
-import productService from "../../services/product.service";
 import { ProfileContext } from './ProfileContext';
 import UserContext from '../boards/UserContext';
 

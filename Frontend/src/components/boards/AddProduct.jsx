@@ -128,7 +128,7 @@ const AddProduct = () => {
                   {error.price && <p className="error">{error.price}</p>}
                   <div className="item-street">
                     <label htmlFor="street">
-                      Address (Street name, House No./Apt No.):
+                      Address (House/Apt No. , Street name):
                     </label>
                     <input
                       id="street"
@@ -182,7 +182,6 @@ const AddProduct = () => {
 
                   <div className="add-post">
                     <button
-                      role="button"
                       aria-label="Add Product"
                       data-testid="submit-button"
                     >

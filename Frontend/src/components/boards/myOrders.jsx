@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { BiLoader } from "react-icons/bi";
 import UserService from "../../services/user.service";
 import axios from "axios";
-import { Card, ListGroup } from "react-bootstrap";
 import "./sellerProducts.css";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
@@ -48,7 +47,7 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchUserOrders = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
-      const token = user.accessToken
+      const token = user.accessToken;
       if (user) {
         try {
           const userId = user.id;
@@ -71,7 +70,6 @@ const MyOrders = () => {
                 logOut();
                 navigate("/signin");
                 window.location.reload();
-
               } else if (error.response.data.message === "Token is invalid") {
                 alert("Token is invalid");
                 logOut();
@@ -87,19 +85,19 @@ const MyOrders = () => {
         }
       }
     };
-  
+
     fetchUserOrders();
   }, []);
 
   return (
-    <div className="mainContainerOrders">
-      <div className="container">
-        {userRole === "non-customer" && (
-          <header className="jumbotron">
-            <h3 aria-level="3">No Access!</h3>
-          </header>
-        )}
-        {userRole === "customer" && (
+    <>
+      {userRole === "non-customer" && (
+        <header className="jumbotron">
+          <h3 aria-level="3">No Access!</h3>
+        </header>
+      )}
+      {userRole === "customer" && (
+        <div className="products-page">
           <div className="my-products">
             {isLoading ? (
               <>
@@ -109,32 +107,35 @@ const MyOrders = () => {
             ) : errorMessage ? (
               <p>{errorMessage}</p>
             ) : orders.length > 0 ? (
-              orders.map((order, index) => (
-                <Card key={index} className="mb-3">
-                  <Card.Header
-                    style={{ color: "white", background: "#393b81" }}
-                  >
-                    Order #{index + 1}
-                  </Card.Header>
-                  <ListGroup variant="flush" role="list">
-                    <ListGroup.Item
-                      role="listitem"
-                      key={order.id}
-                      style={{ textTransform: "uppercase" }}
-                    >
-                      <span style={{ color: "green" }}>{order.status}</span>{" "}
-                      <br /> <span>{order.created}</span>
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Card>
-              ))
+              <table>
+                <thead>
+                  <tr>
+                    <th>Order #</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td
+                        style={{ color: "green", textTransform: "uppercase" }}
+                      >
+                        {order.status}
+                      </td>
+                      <td>{order.created}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             ) : (
               <h2>No orders found!</h2>
             )}
           </div>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 
