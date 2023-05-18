@@ -15,14 +15,14 @@ export const ProductsProvider = ({ children }) => {
 
   //Accessing page with different roles
   useEffect(() => {
-    console.log("here");
+    // console.log("here");
     const currentUser = JSON.parse(localStorage.getItem("user"));
     if (currentUser) {
       const userId = currentUser.id;
-      console.log(userId);
+      // console.log(userId);
       UserService.sellerAccess(userId)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           setUserRole("seller");
         })
         .catch((err) => {
@@ -33,7 +33,7 @@ export const ProductsProvider = ({ children }) => {
               window.location.reload();
             } else if (err.response.status === 403) {
               setUserRole("non-seller");
-              console.log("Not a seller");
+              // console.log("Not a seller");
             }
           }
         });

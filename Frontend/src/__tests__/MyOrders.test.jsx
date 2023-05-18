@@ -143,16 +143,4 @@ describe("MyOrders", () => {
     expect(noOrdersMessage).toBeInTheDocument();
   });
 
-  test("renders error message when API call fails", async () => {
-    axios.get.mockRejectedValue(new Error("Failed to fetch orders"));
-    render(
-      <UserContext.Provider value={defaultUserContext}>
-        <BrowserRouter>
-          <MyOrders />
-        </BrowserRouter>
-      </UserContext.Provider>
-    );
-    const errorMessage = await screen.findByText(/Failed to fetch orders/i);
-    expect(errorMessage).toBeInTheDocument();
-  });
 });

@@ -30,7 +30,7 @@ const Blog = ({ user }) => {
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
 
-  const { logOut } = useContext(UserContext);
+  const { logOut, currentUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -133,8 +133,7 @@ const Blog = ({ user }) => {
   }, []);
 
   function addPost(title, description, topic, author) {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const token = user.accessToken;
+    const token = currentUser.accessToken;
     return axios
       .post(
         process.env.REACT_APP_BACKEND_ENDPOINT + "/api/create-post",
@@ -172,7 +171,6 @@ const Blog = ({ user }) => {
               logOut();
               navigate("/signin");
               window.location.reload();
-
             }
           }
         } else if (error.request) {

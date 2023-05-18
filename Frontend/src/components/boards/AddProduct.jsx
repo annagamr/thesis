@@ -1,10 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import UserService from "../../services/user.service";
-import productService from "../../services/product.service";
-import axios from "axios";
+import React, {useContext} from "react";
 import "./AddProduct.css";
-import { useNavigate } from "react-router-dom";
-import UserContext from "./UserContext";
 import { AddProductContext } from "./AddProductContext";
 
 const AddProduct = () => {
@@ -40,7 +35,7 @@ const AddProduct = () => {
         
       <div className="container">
 
-          <header className="jumbotron" data-testid="header-add">
+          <header className="jumbotron" data-testid="header-access">
             <h3>No Access for Non-Seller Users</h3>
           </header>
         </div>
@@ -48,7 +43,7 @@ const AddProduct = () => {
       {userRole === "seller" && (
       <div className="main-container">
         <div className="product-container">
-          <div className="add-product-page">
+          <div className="add-product-page" data-testid="header-add"> 
             <form onSubmit={handleProduct} encType="multipart/form-data">
               {!successful && <h2>Add New Product</h2>}
               {!successful && (

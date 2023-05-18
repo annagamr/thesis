@@ -19,14 +19,14 @@ const MyOrders = () => {
 
   //Accessing page with different roles
   useEffect(() => {
-    console.log("here");
+    // console.log("here");
     const currentUser = JSON.parse(localStorage.getItem("user"));
     if (currentUser) {
       const userId = currentUser.id;
-      console.log(userId);
+      // console.log(userId);
       UserService.userAccess(userId)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           setUserRole("customer");
         })
         .catch((err) => {
@@ -37,7 +37,7 @@ const MyOrders = () => {
               window.location.reload();
             } else if (err.response.status === 403) {
               setUserRole("non-customer");
-              console.log("Not a customer");
+              // console.log("Not a customer");
             }
           }
         });

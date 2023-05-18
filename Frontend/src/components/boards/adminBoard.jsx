@@ -45,10 +45,10 @@ const BoardAdmin = () => {
 
     if (currentUser) {
       const userId = currentUser.id;
-      console.log(userId);
+      // console.log(userId);
       UserService.adminAccess(userId)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           setUserRole("admin");
         })
         .catch((err) => {

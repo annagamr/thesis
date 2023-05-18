@@ -7,13 +7,9 @@ import productService from "../../services/product.service";
 import { ProfileContext } from './ProfileContext';
 import UserContext from '../boards/UserContext';
 
-
-
 const Profile = () => {
   const { showSellerBoard, showAdminBoard, showUserBoard, currentUser } = useContext(UserContext);
 
-  // const [numberOfOrders, setNumberOfOrders] = useState(0);
-  // const [numberOfProducts, setnumberOfProducts] = useState(0);
   const {
     numberOfOrders,
     numberOfProducts

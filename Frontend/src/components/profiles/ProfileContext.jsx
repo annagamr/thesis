@@ -1,8 +1,8 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import productService from "../../services/product.service";
 import { useNavigate } from "react-router-dom";
-import UserContext from "./UserContext";
+import UserContext from "../boards/UserContext";
 export const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {

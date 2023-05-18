@@ -76,7 +76,7 @@ describe("Success Component", () => {
       );
     });
 
-    const successMessage = await screen.findByText("Cart cleared successfully");
+    const successMessage = await screen.findByText("Cart cleared successfully!");
     expect(successMessage).toBeInTheDocument();
 
     expect(localStorage.getItem("cartItems")).toBeNull();

@@ -5,8 +5,21 @@ import Shop from "../components/shop/shop";
 import { BrowserRouter } from "react-router-dom";
 import { act } from "react-dom/test-utils";
 import { CartContext } from "../components/cart/CartContext";
+import UserContext from "../components/boards/UserContext";
 
 jest.mock("axios");
+
+const defaultUserContext = {
+  showSellerBoard: false,
+  setShowSellerBoard: jest.fn(),
+  showAdminBoard: false,
+  setShowAdminBoard: jest.fn(),
+  showUserBoard: false,
+  setShowUserBoard: jest.fn(),
+  currentUser: null,
+  setCurrentUser: jest.fn(),
+  logOut: jest.fn(),
+};
 
 describe("Shop component", () => {
   beforeEach(async () => {
@@ -40,13 +53,15 @@ describe("Shop component", () => {
 
     await act(async () => {
       render(
-        <CartContext.Provider
-          value={{ totalItems: 0, setTotalItems: () => {} }}
-        >
-          <BrowserRouter>
-            <Shop />
-          </BrowserRouter>
-        </CartContext.Provider>
+        <UserContext.Provider value={defaultUserContext}>
+          <CartContext.Provider
+            value={{ totalItems: 0, setTotalItems: () => {} }}
+          >
+            <BrowserRouter>
+              <Shop />
+            </BrowserRouter>
+          </CartContext.Provider>
+        </UserContext.Provider>
       );
     });
   });
@@ -56,24 +71,24 @@ describe("Shop component", () => {
     expect(profilePage).toBeInTheDocument();
   });
 
-    test("2. Category dropdown is rendered and can be changed", async () => {
-      const category = screen.getByTestId("category");
+  test("2. Category dropdown is rendered and can be changed", async () => {
+    const category = screen.getByTestId("category");
 
-      await act(async () => {
-        fireEvent.change(category, { target: { value: "skin care" } });
-      });
-
-      expect(screen.getByText("Skin Care")).toBeInTheDocument();
+    await act(async () => {
+      fireEvent.change(category, { target: { value: "skin care" } });
     });
 
-    test("3. Product grid is rendered", () => {
-      expect(screen.getByTestId("product-grid")).toBeInTheDocument();
-    });
+    expect(screen.getByText("Skin Care")).toBeInTheDocument();
+  });
 
-    test("4. Add to cart button changes to Added after clicking it", async () => {
-      const addToCartButtons = screen.getAllByRole("button");
+  test("3. Product grid is rendered", () => {
+    expect(screen.getByTestId("product-grid")).toBeInTheDocument();
+  });
 
-      fireEvent.click(addToCartButtons[0]);
-      await waitFor(() => expect(screen.getByText(/Added/i)).toBeInTheDocument());
-    });
+  test("4. Add to cart button changes to Added after clicking it", async () => {
+    const addToCartButtons = screen.getAllByRole("button");
+
+    fireEvent.click(addToCartButtons[0]);
+    await waitFor(() => expect(screen.getByText(/Added/i)).toBeInTheDocument());
+  });
 });
