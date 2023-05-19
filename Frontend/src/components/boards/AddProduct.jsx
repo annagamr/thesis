@@ -81,7 +81,7 @@ const AddProduct = () => {
                       rows="5"
                       style={{ width: "30rem" }}
                       name="description"
-                      maxLength={150}
+                      maxLength={300}
                       value={description}
                       onChange={updateDescription}
                       required

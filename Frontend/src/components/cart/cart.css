@@ -2,7 +2,6 @@
     width: 1600px;
     margin: auto;
     padding: 8.5rem 5rem;
-    max-height: auto;
     height: 87.3vh;
     display: flex;
     justify-content: space-evenly;
@@ -122,7 +121,6 @@
     padding: 20px;
     border-radius: 5px;
     font-size: 15px;
-    max-height: auto;
     overflow-y: scroll;
     height: 150px;
 }

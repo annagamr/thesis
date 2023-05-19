@@ -90,6 +90,16 @@ export const AddProductProvider = (props) => {
       errors.description = "Description is required";
     }
 
+    //check the length of description.
+    const minLength = 20;
+    const maxLength = 300;
+    if (
+      description &&
+      (description.length < minLength || description.length > maxLength)
+    ) {
+      errors.description = `Description must be between ${minLength} and ${maxLength} characters long.`;
+    }
+
     if (!category) {
       errors.category = "Category is required";
     }
@@ -116,7 +126,6 @@ export const AddProductProvider = (props) => {
 
     return errors;
   };
-
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -163,16 +172,16 @@ export const AddProductProvider = (props) => {
       formData.append("zipCode", zipCode);
       formData.append("contactNumber", contactNumber);
 
-      const user=JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(localStorage.getItem("user"));
       const token = user.accessToken;
-      console.log(token)
+      console.log(token);
       const response = await axios.post(
         process.env.REACT_APP_BACKEND_ENDPOINT + "/api/add-product",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "x-access-token" : token
+            "x-access-token": token,
           },
         }
       );
