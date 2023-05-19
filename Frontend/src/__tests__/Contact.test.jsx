@@ -8,6 +8,7 @@ jest.mock("emailjs-com", () => ({
 }));
 
 describe("ContactPage component", () => {
+  
   test("1. Component renders without crashing", () => {
     const { container } = render(<ContactPage />);
     expect(container.firstChild).toBeInTheDocument();
@@ -27,12 +28,14 @@ describe("ContactPage component", () => {
     expect(emailInput.value).toBe("");
     expect(messageInput.value).toBe("");
   });
+
   test("3. Submit button exists and is initially enabled", () => {
     const { getByText } = render(<ContactPage />);
     const submitButton = getByText("Submit");
     expect(submitButton).toBeInTheDocument();
     expect(submitButton).toBeEnabled();
   });
+
   test("4. Success message is not shown initially", () => {
     const { queryByText } = render(<ContactPage />);
     const successMessage = queryByText(
@@ -40,6 +43,7 @@ describe("ContactPage component", () => {
     );
     expect(successMessage).not.toBeInTheDocument();
   });
+
   test("5. Success message appears after the form is submitted", async () => {
     const { getByText, getByPlaceholderText, findByText } = render(
       <ContactPage />
@@ -60,6 +64,4 @@ describe("ContactPage component", () => {
     expect(successMessage).toBeInTheDocument();
     expect(send).toHaveBeenCalled();
   });
-
-  
 });

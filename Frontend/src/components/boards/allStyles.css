@@ -278,5 +278,6 @@
   .blogs {
     flex-basis: auto;
     height: auto;
+    flex-wrap: wrap;
   }
 }

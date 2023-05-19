@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const sinon = require('sinon');
 
 const Post = require('../Models/post.model');
-const User = require('../Models/user.model');
 const db = require('../Models');
 
 let mongoServer;

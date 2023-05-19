@@ -3,8 +3,6 @@ const db = require("../Models");
 const { verifyToken, isAdmin, isUser, isSeller } = require("../Middleware/authMiddleware");
 const { Types: { ObjectId } } = require("mongoose");
 const User = require('../Models/user.model');
-const Role = require('../Models/role.model');
-
 
 // Mock User and Role models
 db.user = {

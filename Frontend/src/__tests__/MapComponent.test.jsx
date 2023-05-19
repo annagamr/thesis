@@ -1,9 +1,7 @@
 import React from "react";
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import MapComponent from "../components/shop/mapComponent";
-import L from "leaflet";
-
 
 // Mock the Leaflet library
 jest.mock("leaflet", () => ({

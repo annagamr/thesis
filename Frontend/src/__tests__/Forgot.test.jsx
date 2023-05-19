@@ -29,36 +29,36 @@ describe("Forgot Component", () => {
     const mockedPost = jest.spyOn(axios, "post").mockResolvedValueOnce({
       data: { message: "Password reset link sent successfully" },
     });
-  
+
     render(<Forgot />);
     const emailInput = screen.getByLabelText("Enter Email:");
     const resetButton = screen.getByRole("button", { name: /reset password/i });
-  
+
     await act(async () => {
       fireEvent.change(emailInput, { target: { value: "test@example.com" } });
       fireEvent.click(resetButton);
     });
-  
+
     expect(mockedPost).toHaveBeenCalledTimes(1);
   });
 
-    test("5. Test if the message is displayed when the form is submitted successfully", async () => {
-      jest.spyOn(axios, "post").mockResolvedValueOnce({
-        data: { message: "Password reset link sent successfully" },
-      });
+  test("5. Test if the message is displayed when the form is submitted successfully", async () => {
+    jest.spyOn(axios, "post").mockResolvedValueOnce({
+      data: { message: "Password reset link sent successfully" },
+    });
 
-      render(<Forgot />);
-      const emailInput = screen.getByLabelText("Enter Email:");
-      const resetButton = screen.getByRole("button", { name: /reset password/i });
-      
-      await act(async () => {
+    render(<Forgot />);
+    const emailInput = screen.getByLabelText("Enter Email:");
+    const resetButton = screen.getByRole("button", { name: /reset password/i });
+
+    await act(async () => {
       fireEvent.change(emailInput, { target: { value: "test@example.com" } });
       fireEvent.click(resetButton);
     });
 
-      const successMessage = await screen.findByText(
-        "Password reset link sent successfully"
-      );
-      expect(successMessage).toBeInTheDocument();
-    });
+    const successMessage = await screen.findByText(
+      "Password reset link sent successfully"
+    );
+    expect(successMessage).toBeInTheDocument();
+  });
 });

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import AddProduct from "../components/boards/AddProduct";
 import * as UserService from "../services/user.service";
 import productService from "../services/product.service";

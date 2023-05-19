@@ -6,6 +6,7 @@ import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 import UserContext from "../components/boards/UserContext";
 import { ProfileContext } from "../components/profiles/ProfileContext";
+
 // Mock localStorage
 const localStorageMock = (function () {
   let store = {};
@@ -42,7 +43,6 @@ const defaultProfileContext = {
 };
 
 describe("Profile component", () => {
-  // Black-box tests
   test("1. Renders the Profile component without error", async () => {
     await act(async () => {
       render(
@@ -61,7 +61,7 @@ describe("Profile component", () => {
 
   test("2. Displays the seller profile if user has the ROLE_SELLER", async () => {
     const user = {
-      id: 1, // add id if it's necessary
+      id: 1, 
       username: "seller",
       email: "seller@example.com",
       roles: ["ROLE_SELLER"],
@@ -89,7 +89,7 @@ describe("Profile component", () => {
 
   test("3. Displays the user profile if user has the ROLE_USER", async () => {
     const user = {
-      id: 1, // add id if it's necessary
+      id: 1,
       username: "user",
       email: "user@example.com",
       roles: ["ROLE_USER"],
@@ -117,7 +117,7 @@ describe("Profile component", () => {
 
   test("4. Displays the admin profile if user has the ROLE_ADMIN", async () => {
     const user = {
-      id: 1, // add id if it's necessary
+      id: 1, 
       username: "admin",
       email: "admin@example.com",
       roles: ["ROLE_ADMIN"],
@@ -145,7 +145,7 @@ describe("Profile component", () => {
 
   test("5. Does not display any profiles if the user has no roles", async () => {
     const user = {
-      id: 1, // add id if it's necessary
+      id: 1, 
       username: "noRole",
       email: "noRole@example.com",
       roles: [],

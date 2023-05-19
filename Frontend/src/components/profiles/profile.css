@@ -146,3 +146,22 @@
     letter-spacing: 35px;
     border-radius: 5px;
 }
+
+@media (max-width: 768px) {
+    .faq-title {
+        display: none;
+    }
+
+    .faq-container {
+        display: none;
+    }
+   
+    .profile-card {
+        margin: 4rem 3rem !important;
+        height: 75vh;
+    }
+
+    .profile-page {
+        width: 100vw;
+    }
+}

@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import Footer from '../components/footer/footer';
 import '@testing-library/jest-dom/extend-expect';
 
-
 describe('Footer component', () => {
+  
   test('Renders footer with company name and year', () => {
     render(<Footer />);
     const companyName = screen.getByText(/aurora inc./i);

@@ -4,7 +4,7 @@ import Header from "../components/header/header";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { CartContext } from "../components/cart/CartContext";
-import  UserContext  from "../components/boards/UserContext";
+import UserContext from "../components/boards/UserContext";
 
 const defaultUserContext = {
   showSellerBoard: false,
@@ -146,8 +146,9 @@ describe("Header component", () => {
     expect(screen.getByText(/blog/i)).toBeInTheDocument();
     expect(screen.getByTestId("header")).toBeInTheDocument();
   });
-  // white box tests
-  test(" Renders the logo correctly", () => {
+ 
+
+  test("6. Renders the logo correctly", () => {
     render(
       <UserContext.Provider value={defaultUserContext}>
         <CartContext.Provider

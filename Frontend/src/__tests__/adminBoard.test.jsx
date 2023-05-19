@@ -25,7 +25,6 @@ const defaultUserContext = {
 jest.mock("axios");
 
 describe("BoardAdmin Component ", () => {
- 
   beforeEach(() => {
     jest.clearAllMocks();
     UserService.adminAccess.mockResolvedValue({ data: "admin" });
@@ -46,14 +45,13 @@ describe("BoardAdmin Component ", () => {
 
   test("1. Renders BoardAdmin component without crashing", async () => {
     await act(async () => {
-      render(  <UserContext.Provider value={defaultUserContext}>
-        <BrowserRouter>
-      
-          <BoardAdmin />
-        
-        </BrowserRouter>
-      </UserContext.Provider>
-        );
+      render(
+        <UserContext.Provider value={defaultUserContext}>
+          <BrowserRouter>
+            <BoardAdmin />
+          </BrowserRouter>
+        </UserContext.Provider>
+      );
     });
   });
 
@@ -82,12 +80,11 @@ describe("BoardAdmin Component ", () => {
         </BrowserRouter>
       </UserContext.Provider>
     );
-  
+
     // Wait for the promises to resolve and the component state to update
     await waitFor(() => {
       expect(screen.getByText("PRODUCTS")).toBeInTheDocument();
       expect(screen.getByText("BLOGS")).toBeInTheDocument();
     });
   });
-  
 });
