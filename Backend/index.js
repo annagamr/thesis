@@ -40,12 +40,20 @@ function createApp() {
   return app;
 }
 
+// Asynchronously creates a default admin user
 async function createDefaultAdmin() {
+  // Find the 'admin' role in the database
   const adminRole = await db.role.findOne({ name: 'admin' });
+
+  // Find the 'admin' user in the database
   const adminUser = await db.user.findOne({ email: 'admin@gmail.com' });
 
+  // If the 'admin' user does not exist, create a new 'admin' user
   if (!adminUser) {
+    // Hash the password 'Admin123' using bcrypt
     const hashedPassword = await bcrypt.hash('Admin123', 8);
+
+    // Define the new 'admin' user
     const newAdminUser = new db.user({
       username: 'admin',
       email: 'admin@gmail.com',
@@ -53,34 +61,10 @@ async function createDefaultAdmin() {
       roles: [adminRole._id],
     });
 
+    // Save the new 'admin' user in the database
     await newAdminUser.save();
-  } 
+  }
 }
-
-// function checkDbConnection() {
-//   const state = db.mongoose.connection.readyState;
-//   let stateMessage = '';
-
-//   switch(state) {
-//     case 0:
-//       stateMessage = 'disconnected';
-//       break;
-//     case 1:
-//       stateMessage = 'connected';
-//       break;
-//     case 2:
-//       stateMessage = 'connecting';
-//       break;
-//     case 3:
-//       stateMessage = 'disconnecting';
-//       break;
-//     default:
-//       stateMessage = 'unknown state';
-//       break;
-//   }
-
-//   console.log(`Database connection state: ${state} (${stateMessage})`);
-// }
 
 // Function to connect to MongoDB and initialize roles if not already initialized
 async function connectAndInitialize() {
@@ -100,7 +84,7 @@ async function connectAndInitialize() {
       ]);
       console.log("Roles have been initialized!");
     }
-    
+
     await createDefaultAdmin();
 
   } catch (error) {
@@ -117,7 +101,6 @@ async function startServer() {
       console.log(`Express server on port: ${process.env.BACKEND_PORT}`);
     });
     await connectAndInitialize(); //temp till hosting backend
-    // setInterval(checkDbConnection, 5000);
   }
 }
 

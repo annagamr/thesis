@@ -26,12 +26,10 @@ exports.getCart = async (req, res) => {
         id: item.product.id,
         title: item.product.title,
         image: sanitizedPath,
-
         description: item.product.description,
         category: item.product.category,
         author: item.product.author.username,
         price: item.product.price,
-
         street: item.product.street,
         city: item.product.city,
         zipCode: item.product.zipCode,
@@ -101,21 +99,12 @@ exports.removeFromCart = async (req, res) => {
     }
 
     // Check if the item exists in the user's cart
-    // const itemIndex = userCart.items.findIndex((item) => item.product.toString() === itemId);
     const itemIndex = userCart.items.findIndex((item) => item.product.equals(itemId));
 
     if (itemIndex === -1) {
       // console.log("Case 2: Item not found in cart");
       return res.status(404).send({ message: "Item not found in cart" });
     }
-    // console.log(userCart.items)
-    // console.log(userCart.items[0].product)
-    // Check if the item exists in the user's cart
-    // const itemIndex = userCart.items.findIndex((item) => item.product.toString() === itemId);
-
-    // if (itemIndex === -1) {
-    //   return res.status(404).send({ message: "Item not found in cart" });
-    // }
 
     // Remove the item from the cart
     userCart.items.splice(itemIndex, 1);
@@ -148,7 +137,7 @@ exports.checkOut = async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: process.env.FRONTEND_ENDPOINT + '/success?successfulPayment=true', // Add the query parameter here
+    success_url: process.env.FRONTEND_ENDPOINT + '/success?successfulPayment=true', 
     cancel_url: process.env.FRONTEND_ENDPOINT + `/cart`,
   });
 
@@ -166,7 +155,7 @@ exports.clearCart = async (req, res) => {
       {
         $set: {
           items: [],
-          __v: 0, // Set __v to 0
+          __v: 0, 
         },
       },
       { new: true }

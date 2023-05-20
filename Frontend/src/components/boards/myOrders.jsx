@@ -47,8 +47,8 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchUserOrders = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
-      const token = user.accessToken;
       if (user) {
+        const token = user.accessToken;
         try {
           const userId = user.id;
           const response = await axios.get(

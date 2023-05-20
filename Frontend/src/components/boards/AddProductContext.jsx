@@ -104,8 +104,8 @@ export const AddProductProvider = (props) => {
       errors.category = "Category is required";
     }
 
-    if (!price || price <= 0) {
-      errors.price = "Price must be a positive number";
+    if (!price || price <= 500) {
+      errors.price = "Price must be more than 500 HUF";
     }
 
     // Validation for street
@@ -118,12 +118,10 @@ export const AddProductProvider = (props) => {
       errors.zipCode = "Invalid zip code for Budapest";
     }
     // Validation for contact number
-    const phoneNumberPattern = /^\+36\d{9}$/;
+    const phoneNumberPattern = /^\+36\d{0,9}$/;
     if (!contactNumber || !phoneNumberPattern.test(contactNumber.trim())) {
-      errors.contact =
-        "Phone number must start with +36 and have 9 more digits";
+      errors.contact = "Phone number must start with +36 and have at most 9 more digits";
     }
-
     return errors;
   };
 

@@ -10,25 +10,37 @@ const orderController = require("../Handlers/order.handler");
 
 const { checkDuplicateUsernameOrEmailAndRolesExisted } = require("../Middleware/validationMiddleware");
 
+
+
+// Require the 'multer' middleware for handling multipart/form-data, which is primarily used for uploading files
 const multer = require('multer')
 
+// Set up disk storage with multer. This determines where and under what name the uploaded files are saved.
 const storage = multer.diskStorage({
+    // Set the destination for storing the uploaded files to the 'public' directory
     destination: function (req, file, cb) {
         cb(null, './public')
     },
+    // Set the filename for the uploaded files to be the current date in milliseconds plus '.png'
     filename: function (req, file, cb) {
         cb(null, Date.now() + '.png')
     }
 })
+
+// Initialize multer with file filtering and storage options
 const upload = multer({
+    // Define a file filter function. This function will be called for each uploaded file.
     fileFilter: (req, file, cb) => {
+        // Allow uploading of only PNG, JPG, and JPEG files. Reject all other file types.
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
             cb(null, true);
         } else {
             cb(null, false);
+            // Throw an error if a file of a different format is uploaded
             return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
         }
     },
+    // Use the storage options defined earlier
     storage: storage
 });
 
@@ -176,6 +188,4 @@ module.exports = function (app) {
 
     //Route for checking out (Stripe)
     app.post("/api/create-checkout-session", cartController.checkOut);
-
-    app.get("/api/test", (req, res) => { res.json("Testing") })
 };
