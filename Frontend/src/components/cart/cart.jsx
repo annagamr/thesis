@@ -11,6 +11,7 @@ const Cart = () => {
   const [deliveryFee, setDeliveryFee] = useState(450);
   const [cartItems, setCartItems] = useState([]);
   const [guestCartItems, setGuestCartItems] = useState([]);
+  // eslint-disable-next-line
   const [pickupLocations, setPickupLocations] = useState([]);
   const [pickupOption, setPickupOption] = useState("single");
   const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
@@ -71,6 +72,7 @@ const Cart = () => {
         itemsToDisplay.map((item) => ({ id: item.id, address: "" }))
       );
     });
+    // eslint-disable-next-line
   }, []);
 
   const handleDeliveryMethodChange = (event) => {
@@ -85,17 +87,6 @@ const Cart = () => {
 
   const handlePickupOptionChange = (event) => {
     setPickupOption(event.target.value);
-  };
-
-  const handlePickupAddressChange = (itemId, address) => {
-    setPickupLocations(
-      pickupLocations.map((item) => {
-        if (item.id === itemId) {
-          return { ...item, address };
-        }
-        return item;
-      })
-    );
   };
 
   const getGuestOrderSummaryPrice = () => {
@@ -162,6 +153,7 @@ const Cart = () => {
 
         // Use Stripe.js to redirect the user to the Checkout page
         const stripe = await stripePromise;
+        // eslint-disable-next-line
         const { error } = await stripe.redirectToCheckout({
           sessionId: data.sessionId,
         });
