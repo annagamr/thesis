@@ -379,6 +379,8 @@ const Cart = () => {
             <button
               onClick={handleProceedToPayment}
               disabled={
+                (getOrderSummaryPrice() + deliveryFee) === 0 ||
+                (getOrderSummaryPrice() + deliveryFee) === deliveryFee ||
                 (deliveryMethod === "shipping" && !shippingFormValid) ||
                 isPaymentProcessing
               }
