@@ -147,9 +147,7 @@ const About = () => {
                   <li>Efficient Logistics!</li>
                 </ul>
               </div>
-              <Link id="order-now-button" to="/shop">
-                Order Now{" "}
-              </Link>
+              <Link to="/shop">Shop Now!</Link>
             </div>
           </div>
           <div className="col-sm-4">

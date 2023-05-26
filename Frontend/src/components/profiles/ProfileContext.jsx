@@ -15,9 +15,10 @@ export const ProfileProvider = ({ children }) => {
   useEffect(() => {
     const fetchDetails = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
-      const token = user.accessToken;
       if (user) {
         try {
+          const token = user.accessToken;
+
           const userId = user.id;
           if (user.roles[0] === "ROLE_USER") {
             const responseOrders = await axios.get(
@@ -58,6 +59,7 @@ export const ProfileProvider = ({ children }) => {
     };
 
     fetchDetails();
+    // eslint-disable-next-line
   }, []);
 
   return (

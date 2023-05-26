@@ -133,55 +133,57 @@ const Blog = ({ user }) => {
   }, []);
 
   function addPost(title, description, topic, author) {
-    const token = currentUser.accessToken;
-    return axios
-      .post(
-        process.env.REACT_APP_BACKEND_ENDPOINT + "/api/create-post",
-        {
-          title,
-          description,
-          topic,
-          author,
-        },
-        {
-          headers: {
-            "x-access-token": token,
+    if (currentUser) {
+      const token = currentUser.accessToken;
+      return axios
+        .post(
+          process.env.REACT_APP_BACKEND_ENDPOINT + "/api/create-post",
+          {
+            title,
+            description,
+            topic,
+            author,
           },
-        }
-      )
-      .then((response) => {
-        // update the state to include the new post
-        setPosts([...posts, response.data.post]);
-        return response;
-      })
-      .catch((error) => {
-        if (error.response) {
-          // If status code is 401, check the message
-          if (error.response.status === 401) {
-            if (error.response.data.message === "Token expired!") {
-              // Handle token expiration...
-              alert("Token expired. Please log in again.");
-              logOut();
-              navigate("/signin");
-              window.location.reload();
-            } else {
-              // Handle other 401 errors...
-              alert("Unauthorized. Check your permissions.");
-              logOut();
-              navigate("/signin");
-              window.location.reload();
-            }
+          {
+            headers: {
+              "x-access-token": token,
+            },
           }
-        } else if (error.request) {
-          // The request was made but no response was received
-          setError(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          setError("Error", error.message);
-        }
-        setError("Error adding post! ", error);
-        throw error;
-      });
+        )
+        .then((response) => {
+          // update the state to include the new post
+          setPosts([...posts, response.data.post]);
+          return response;
+        })
+        .catch((error) => {
+          if (error.response) {
+            // If status code is 401, check the message
+            if (error.response.status === 401) {
+              if (error.response.data.message === "Token expired!") {
+                // Handle token expiration...
+                alert("Token expired. Please log in again.");
+                logOut();
+                navigate("/signin");
+                window.location.reload();
+              } else {
+                // Handle other 401 errors...
+                alert("Unauthorized. Check your permissions.");
+                logOut();
+                navigate("/signin");
+                window.location.reload();
+              }
+            }
+          } else if (error.request) {
+            // The request was made but no response was received
+            setError(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            setError("Error", error.message);
+          }
+          setError("Error adding post! ", error);
+          throw error;
+        });
+    }
   }
 
   function updateTitle(e) {

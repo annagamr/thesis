@@ -12,9 +12,9 @@ const Success = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const userId = user ? user.id : null;
     const cartItems = JSON.parse(localStorage.getItem("cartItems"));
-    const token = user.accessToken;
     if (user && cartItems && Array.isArray(cartItems.items)) {
       try {
+        const token = user.accessToken;
         const itemIds = cartItems.items.map((item) => item.id);
 
         const response = await axios.post(
@@ -54,6 +54,7 @@ const Success = () => {
     } else {
       setError("Error: invalid cartItems");
     }
+      // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

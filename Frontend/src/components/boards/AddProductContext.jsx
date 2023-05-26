@@ -104,8 +104,8 @@ export const AddProductProvider = (props) => {
       errors.category = "Category is required";
     }
 
-    if (!price || price <= 500) {
-      errors.price = "Price must be more than 500 HUF";
+    if (!price || price <= 500 || price>10000) {
+      errors.price = "Price must be between 500 and 10000 HUF";
     }
 
     // Validation for street

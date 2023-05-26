@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { BsCart4 } from "react-icons/bs";
 import { RxPerson } from "react-icons/rx";
 import { MdQuestionAnswer } from "react-icons/md";
-import { AiOutlineLogin, AiOutlineLogout, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineLogin, AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import Badge from "@mui/material/Badge";
@@ -16,13 +16,8 @@ const Header = () => {
   const { totalItems, setTotalItems } = useContext(CartContext);
   const {
     showSellerBoard,
-    setShowSellerBoard,
     showAdminBoard,
-    setShowAdminBoard,
-    showUserBoard,
-    setShowUserBoard,
     currentUser,
-    setCurrentUser,
     logOut,
   } = useContext(UserContext);
   const navigate = useNavigate();
@@ -48,6 +43,7 @@ const Header = () => {
       };
       fetchCartProducts();
     }
+    // eslint-disable-next-line
   }, [currentUser, setTotalItems, totalItems]);
 
   return (
@@ -147,7 +143,7 @@ const Header = () => {
                     verticalAlign: "middle",
                   }}
                 >
-                  <AiOutlineLogout />
+                  <AiOutlineLogin />
                 </IconContext.Provider>
               </a>
             </li>

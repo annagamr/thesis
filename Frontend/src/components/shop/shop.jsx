@@ -14,8 +14,9 @@ const Shop = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  // eslint-disable-next-line
   const { totalItems, setTotalItems } = useContext(CartContext);
-  const { logOut } = useContext(UserContext);
+  const { showSellerBoard, showAdminBoard, logOut } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -67,13 +68,11 @@ const Shop = (props) => {
               logOut();
               navigate("/signin");
               window.location.reload();
-
             } else if (error.response.data.message === "Token is invalid") {
               alert("Token is invalid");
               logOut();
               navigate("/signin");
               window.location.reload();
-
             }
           }
         }
@@ -120,72 +119,86 @@ const Shop = (props) => {
   }, [selectedCategory]);
 
   return (
-    <div className="shop-page-container" data-testid="shop-page">
-      <div className="category-select">
-        <h2>{selectedCategory || "Shop"}</h2>
-        <select name="category" onChange={handleChange} data-testid="category">
-          <option value="">Shop</option>
-          <option value="skin care">Skin Care</option>
-          <option value="body care">Body Care</option>
-          <option value="sun care">Sun Care</option>
-          <option value="hair care">Hair Care</option>
-          <option value="make up">Make Up</option>
-          <option value="perfume">Perfume</option>
-        </select>
-      </div>
-      <div
-        className="ProductGrid grid-cols-12 has-column-gap gap-y-6 sm:gap-y-12"
-        data-testid="product-grid"
-      >
-        {products.length > 0 ? (
-          products.map((product) => (
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              key={product.id}
-              to={`/product/${product.id}`}
+    <div>
+      {showSellerBoard || showAdminBoard ? (
+        <div className="container">
+          <header className="jumbotron" data-testid="header-access">
+            <h3>No Access for Shops and Admins</h3>
+          </header>
+        </div>
+      ) : loading ? (
+        <div className="container">Loading...</div>
+      ) : (
+        <div className="shop-page-container" data-testid="shop-page">
+          <div className="category-select">
+            <h2>{selectedCategory || "Shop"}</h2>
+            <select
+              name="category"
+              onChange={handleChange}
+              data-testid="category"
             >
-              <div className="LayoutCard" key={product.id}>
-                <div className="product-image-button-container">
-                  <div className="product-image">
-                    <img
-                      src={
-                        process.env.REACT_APP_BACKEND_ENDPOINT +
-                        "/" +
-                        product.image
-                      }
-                      alt="Product"
-                    />
+              <option value="">Shop</option>
+              <option value="skin care">Skin Care</option>
+              <option value="body care">Body Care</option>
+              <option value="sun care">Sun Care</option>
+              <option value="hair care">Hair Care</option>
+              <option value="make up">Make Up</option>
+              <option value="perfume">Perfume</option>
+            </select>
+          </div>
+          <div
+            className="ProductGrid grid-cols-12 has-column-gap gap-y-6 sm:gap-y-12"
+            data-testid="product-grid"
+          >
+            {products.length > 0 ? (
+              products.map((product) => (
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  key={product.id}
+                  to={`/product/${product.id}`}
+                >
+                  <div className="LayoutCard" key={product.id}>
+                    <div className="product-image-button-container">
+                      <div className="product-image">
+                        <img
+                          src={
+                            process.env.REACT_APP_BACKEND_ENDPOINT +
+                            "/" +
+                            product.image
+                          }
+                          alt="Product"
+                        />
+                      </div>
+                      <button
+                        className="add-tocart"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleAddClick(product.id);
+                        }}
+                      >
+                        {addedProducts[product.id] ? "Added" : "Add"}{" "}
+                        <span className="add-tocart-symbol">
+                          {addedProducts[product.id] ? "✓" : "+"}
+                        </span>
+                      </button>
+                    </div>
+                    <div className="details">
+                      <p className="product-title">{product.title}</p>
+                      <p className="product-price">{product.price} HUF</p>
+                    </div>
                   </div>
-
-                  <button
-                    className="add-tocart"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleAddClick(product.id);
-                    }}
-                  >
-                    {addedProducts[product.id] ? "Added" : "Add"}{" "}
-                    <span className="add-tocart-symbol">
-                      {addedProducts[product.id] ? "✓" : "+"}
-                    </span>
-                  </button>
-                </div>
-                <div className="details">
-                  <p className="product-title">{product.title}</p>
-                  <p className="product-price">{product.price} HUF</p>
-                </div>
-              </div>
-            </Link>
-          ))
-        ) : (
-          <h2 id="no-blogs-shop">
-            No Products to Display! <br />
-            Check Back Soon!
-          </h2>
-        )}
-      </div>
+                </Link>
+              ))
+            ) : (
+              <h2 id="no-blogs-shop">
+                No Products to Display! <br />
+                Check Back Soon!
+              </h2>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-
 export default Shop;
