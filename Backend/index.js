@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs'); //For creating Admin and hashing password
 
 dotenv.config({ path: './.env' });
 
-const connect_uri = "mongodb+srv://anigamreklidze:61152592kK@aurora.rtk8oml.mongodb.net/?retryWrites=true&w=majority";
+const connect_uri = process.env.MONGO_URI;
 
 // Function to create the Express app
 function createApp() {

@@ -34,12 +34,12 @@ const Blog = ({ user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // const storedUser = user || JSON.parse(localStorage.getItem("user"));
+    const storedUser = user || JSON.parse(localStorage.getItem("user"));
 
-    if (currentUser ) {
-      setAuthor(currentUser.username);
-      setShowSellerProfile(currentUser.roles.includes("ROLE_SELLER"));
-      setShowAdminProfile(currentUser.roles.includes("ROLE_ADMIN"));
+    if (storedUser ) {
+      setAuthor(storedUser.username);
+      setShowSellerProfile(storedUser.roles.includes("ROLE_SELLER"));
+      setShowAdminProfile(storedUser.roles.includes("ROLE_ADMIN"));
     }
 
     postService
@@ -51,7 +51,7 @@ const Blog = ({ user }) => {
         setError("An error occurred while fetching posts.");
         console.log(error);
       });
-  }, [currentUser]);
+  }, [user]);
 
   useEffect(() => {
     postService
