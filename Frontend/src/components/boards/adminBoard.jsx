@@ -166,7 +166,7 @@ const BoardAdmin = () => {
 
       const user=JSON.parse(localStorage.getItem("user"))
       const token = user.accessToken;
-      console.log("my token "+ token)
+      // console.log("my token "+ token)
       try {
         const response = await fetch(
           process.env.REACT_APP_BACKEND_ENDPOINT +

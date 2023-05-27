@@ -195,7 +195,7 @@ const AddProduct = () => {
                   <div className="product-details">
                     <h2 data-testid="success-message">{message}</h2>
                     <div className="added-details">
-                      <p style={{ marginTop: "70px" }}>Image:</p>
+                      <p style={{ marginTop: "50px" }}><b>Image:</b></p>
                       <img
                         id="image-id"
                         src={URL.createObjectURL(prodImageFile)}

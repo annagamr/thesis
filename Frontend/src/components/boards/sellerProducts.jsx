@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import productService from "../../services/product.service";
+import React, { useContext } from "react";
 import "./sellerProducts.css";
-import UserService from "../../services/user.service";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 import { ProductsContext } from "./ProductContext";
@@ -11,8 +9,6 @@ import axios from "axios";
 const SellerProducts = () => {
 
   const { products, setProducts, userRole } = useContext(ProductsContext);
-  const [error, setError] = useState(null);
-
   const { logOut } = useContext(UserContext);
   const navigate = useNavigate();
 

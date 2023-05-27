@@ -42,6 +42,7 @@ const MyOrders = () => {
         });
     }
     setUserRole("non-customer");
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -87,6 +88,7 @@ const MyOrders = () => {
     };
 
     fetchUserOrders();
+    // eslint-disable-next-line
   }, []);
 
   return (

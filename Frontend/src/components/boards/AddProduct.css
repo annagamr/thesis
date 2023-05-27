@@ -3,11 +3,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #ebeaf2;
 }
 
 .product-container {
     width: 100%;
-    background-color: #ebeaf2;
     padding: 1rem;
     box-sizing: border-box;
     display: flex;
@@ -15,6 +15,9 @@
     align-items: center;
 }
 
+.product-details h2{
+  width: 30rem;
+}
 .add-product-page {
     display: flex;
     align-items: center;

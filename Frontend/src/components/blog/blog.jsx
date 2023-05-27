@@ -34,12 +34,12 @@ const Blog = ({ user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = user || JSON.parse(localStorage.getItem("user"));
+    // const storedUser = user || JSON.parse(localStorage.getItem("user"));
 
-    if (storedUser) {
-      setAuthor(storedUser.username);
-      setShowSellerProfile(storedUser.roles.includes("ROLE_SELLER"));
-      setShowAdminProfile(storedUser.roles.includes("ROLE_ADMIN"));
+    if (currentUser ) {
+      setAuthor(currentUser.username);
+      setShowSellerProfile(currentUser.roles.includes("ROLE_SELLER"));
+      setShowAdminProfile(currentUser.roles.includes("ROLE_ADMIN"));
     }
 
     postService
@@ -51,7 +51,7 @@ const Blog = ({ user }) => {
         setError("An error occurred while fetching posts.");
         console.log(error);
       });
-  }, [user]);
+  }, [currentUser]);
 
   useEffect(() => {
     postService
@@ -152,7 +152,7 @@ const Blog = ({ user }) => {
         )
         .then((response) => {
           // update the state to include the new post
-          setPosts([...posts, response.data.post]);
+          setPosts([...posts, {...response.data.post, author: author}]);
           return response;
         })
         .catch((error) => {

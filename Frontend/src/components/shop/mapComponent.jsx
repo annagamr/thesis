@@ -53,6 +53,7 @@ const MapComponent = ({ street, city, zipCode, isDataAvailable }) => {
     if (mapRef.current) {
       fetchLocationAndRenderMap();
     }
+    // eslint-disable-next-line
   }, [street, city, zipCode, customIcon, mapRef.current]);
   if (!isDataAvailable) {
     return null;

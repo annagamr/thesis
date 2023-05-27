@@ -172,7 +172,6 @@ export const AddProductProvider = (props) => {
 
       const user = JSON.parse(localStorage.getItem("user"));
       const token = user.accessToken;
-      console.log(token);
       const response = await axios.post(
         process.env.REACT_APP_BACKEND_ENDPOINT + "/api/add-product",
         formData,

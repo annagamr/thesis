@@ -53,14 +53,13 @@ const Shop = (props) => {
     const accessToken = JSON.parse(localStorage.getItem("user"))?.accessToken;
     if (accessToken) {
       try {
+        // eslint-disable-next-line
         const response = await axios.post(
           process.env.REACT_APP_BACKEND_ENDPOINT + `/api/cart/add/${productId}`,
           {},
           { headers: { "x-access-token": accessToken } }
         );
-        console.log("Added product to cart:", response.data);
       } catch (error) {
-        console.log("Error adding product to cart:", error);
         if (error.response) {
           if (error.response.status === 401) {
             if (error.response.data.message === "Token expired!") {
