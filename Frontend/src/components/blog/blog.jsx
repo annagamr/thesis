@@ -258,8 +258,8 @@ const Blog = ({ user }) => {
                       rows="15"
                       style={{ width: "50rem" }}
                       name="description"
-                      minLength={800}
-                      maxLength={1000}
+                      minLength={300}
+                      maxLength={800}
                       value={description}
                       onChange={updateDescription}
                       required

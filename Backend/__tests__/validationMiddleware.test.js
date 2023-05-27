@@ -30,7 +30,7 @@ describe('checkDuplicateUsernameOrEmailAndRolesExisted', () => {
         await checkDuplicateUsernameOrEmailAndRolesExisted(req, res, next);
 
         expect(res.statusCode).toBe(400);
-        expect(res._getData()).toEqual({ message: 'Failed! Username is already in use!' });
+        expect(res._getData()).toEqual({ message: 'Username is already in use!' });
         expect(next).not.toHaveBeenCalled();
     });
 
@@ -50,7 +50,7 @@ describe('checkDuplicateUsernameOrEmailAndRolesExisted', () => {
         await checkDuplicateUsernameOrEmailAndRolesExisted(req, res, next);
 
         expect(res.statusCode).toBe(400);
-        expect(res._getData()).toEqual({ message: 'Failed! Email is already in use!' });
+        expect(res._getData()).toEqual({ message: 'Email is already in use!' });
         expect(next).not.toHaveBeenCalled();
     });
 
